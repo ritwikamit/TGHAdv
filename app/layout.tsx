@@ -108,6 +108,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         url: baseUrl,
         logo: `${baseUrl}/TGHLogo.png`,
         image: [
+          `${baseUrl}/og-preview-brand-v4.jpg`,
           `${baseUrl}/og-resort-preview.jpg`,
           `${baseUrl}/og-resort-aerial.jpg`,
           `${baseUrl}/og-resort-courtyard.jpg`,
@@ -141,6 +142,36 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         telephone: '+91-9234052600',
         email: STUDIO_INFO.email,
         hasMap: STUDIO_INFO.mapsUrl,
+        priceRange: '₹₹₹',
+        currenciesAccepted: 'INR',
+        openingHours: 'Mo-Su 00:00-23:59',
+        amenityFeature: [
+          {
+            '@type': 'LocationFeatureSpecification',
+            name: 'Grand Wedding Lawns',
+            value: true,
+          },
+          {
+            '@type': 'LocationFeatureSpecification',
+            name: 'Air Conditioned Banquet Halls',
+            value: true,
+          },
+          {
+            '@type': 'LocationFeatureSpecification',
+            name: '150+ Vehicle Valet Parking',
+            value: true,
+          },
+          {
+            '@type': 'LocationFeatureSpecification',
+            name: 'Bridal & Family Suites',
+            value: true,
+          },
+          {
+            '@type': 'LocationFeatureSpecification',
+            name: '24/7 Concierge & Security',
+            value: true,
+          },
+        ],
         contactPoint: {
           '@type': 'ContactPoint',
           telephone: '+91-9234052600',

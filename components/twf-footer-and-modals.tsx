@@ -420,11 +420,14 @@ export function TwfFooterAndModals({
             <div className="inline-flex items-center gap-1.5 text-[#f7f6f1]/85 shrink-0">
               <span className="leading-none">Designed and Developed by</span>
               <a
-                href="https://accustomlabs.com"
+                href={`https://wa.me/917766833773?text=${encodeURIComponent(
+                  'Hi ACCustomLabs, I visited The Green Heritage Resort website and would like to enquire about your web design and development services.'
+                )}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center hover:opacity-100 opacity-95 transition-opacity"
-                title="ACCUstomLabs"
+                title="Chat with ACCustomLabs on WhatsApp (+91 77668 33773)"
+                aria-label="Contact ACCustomLabs on WhatsApp"
               >
                 <img
                   src="/ac-custom-labs.png"

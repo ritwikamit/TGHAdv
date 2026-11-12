@@ -739,7 +739,7 @@ const RAW_GALLERY_FILES: {
   aspect: 'landscape' | 'portrait';
 }[] = [
     {
-      file: 'Landscape/DSC_4664.JPG',
+      file: 'Landscape/DSC_4664.webp',
       title: 'Grand Heritage Architecture at Dusk',
       couple: 'Resort Facade & Lawns',
       category: 'weddings',
@@ -748,7 +748,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_4669.JPG',
+      file: 'Landscape/DSC_4669.webp',
       title: 'Illuminated Evening Celebration Grounds',
       couple: 'Outdoor Wedding Lawns',
       category: 'weddings',
@@ -757,7 +757,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_4686.JPG',
+      file: 'Landscape/DSC_4686.webp',
       title: 'Carved Portico & Grand Walkway',
       couple: 'Bridal & Baraat Entry',
       category: 'pre-wedding',
@@ -766,7 +766,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_4690.JPG',
+      file: 'Landscape/DSC_4690.webp',
       title: 'Courtyard Gathering & Fairy Lights',
       couple: 'Twilight Celebrations',
       category: 'candid',
@@ -775,7 +775,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_4692.JPG',
+      file: 'Landscape/DSC_4692.webp',
       title: 'Open-Sky Mandap & Reception View',
       couple: 'Baraat & Varmala',
       category: 'weddings',
@@ -784,7 +784,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_4694.JPG',
+      file: 'Landscape/DSC_4694.webp',
       title: 'Chandelier Ballroom & Indoor Seating',
       couple: 'Grand Banquet Hall',
       category: 'weddings',
@@ -793,7 +793,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_4695.JPG',
+      file: 'Landscape/DSC_4695.webp',
       title: 'Reception Stage & Floral Canopy',
       couple: 'Evening Reception',
       category: 'weddings',
@@ -802,7 +802,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_4698.JPG',
+      file: 'Landscape/DSC_4698.webp',
       title: 'Lit Courtyard Arches for Family Welcomes',
       couple: 'Family Hospitality',
       category: 'candid',
@@ -811,7 +811,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_4795.JPG',
+      file: 'Landscape/DSC_4795.webp',
       title: 'Poolside Deck for Morning Haldi Rituals',
       couple: 'Poolside & Courtyard',
       category: 'pre-wedding',
@@ -820,7 +820,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_4930.JPG',
+      file: 'Landscape/DSC_4930.webp',
       title: 'Morning Sunshine Over the Green Lawns',
       couple: 'Resort Gardens',
       category: 'pre-wedding',
@@ -829,7 +829,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_4960.JPG',
+      file: 'Landscape/DSC_4960.webp',
       title: 'Quiet Pathways & Garden Lounge',
       couple: 'Outstation Family Rest',
       category: 'portraits',
@@ -838,7 +838,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_4991.JPG',
+      file: 'Landscape/DSC_4991.webp',
       title: 'Serene Resort Cottages & Suites Wing',
       couple: 'Guest Accommodation',
       category: 'portraits',
@@ -847,7 +847,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_5069.JPG',
+      file: 'Landscape/DSC_5069.webp',
       title: 'Haldi & Marigold Seating Area',
       couple: 'Pre-Wedding Mornings',
       category: 'pre-wedding',
@@ -856,7 +856,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_5150.JPG',
+      file: 'Landscape/DSC_5150.webp',
       title: 'Warm Bridal Prep & Dressing Suite',
       couple: 'Bridal Suite',
       category: 'portraits',
@@ -865,7 +865,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_5159.JPG',
+      file: 'Landscape/DSC_5159.webp',
       title: 'Evening Sangeet & Celebration Hall',
       couple: 'Sangeet Evenings',
       category: 'weddings',
@@ -874,7 +874,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_5280.JPG',
+      file: 'Landscape/DSC_5280.webp',
       title: 'Ceremonial Entrance Gateway',
       couple: 'Baraat Welcome Gate',
       category: 'weddings',
@@ -883,7 +883,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_5282.JPG',
+      file: 'Landscape/DSC_5282.webp',
       title: 'Celebration Dining & Buffet Lawns',
       couple: 'Wedding Feast Lawns',
       category: 'candid',
@@ -892,7 +892,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_5286.JPG',
+      file: 'Landscape/DSC_5286.webp',
       title: 'Warm Lamp Glow Across the Verandah',
       couple: 'Heritage Verandah',
       category: 'portraits',
@@ -901,7 +901,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_5287.JPG',
+      file: 'Landscape/DSC_5287.webp',
       title: 'Mehendi Circle & Shaded Seating',
       couple: 'Mehendi Afternoons',
       category: 'pre-wedding',
@@ -910,7 +910,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_5288.JPG',
+      file: 'Landscape/DSC_5288.webp',
       title: 'Sunset Shadows on Carved Pillars',
       couple: 'Couple Portraits',
       category: 'portraits',
@@ -919,7 +919,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_5298.JPG',
+      file: 'Landscape/DSC_5298.webp',
       title: 'Starlit Baraat Walk & Floral Aisle',
       couple: 'Grand Varmala Aisle',
       category: 'weddings',
@@ -928,7 +928,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_5387.JPG',
+      file: 'Landscape/DSC_5387.webp',
       title: 'Indoor Banquet Chandelier Glamour',
       couple: 'All-Season Hall',
       category: 'weddings',
@@ -937,7 +937,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_5393.JPG',
+      file: 'Landscape/DSC_5393.webp',
       title: 'Elders & Relatives Gathering Lounge',
       couple: 'Family Conversations',
       category: 'candid',
@@ -946,7 +946,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_5448.JPG',
+      file: 'Landscape/DSC_5448.webp',
       title: 'Panoramic View of Banquet & Grounds',
       couple: 'Full Wedding Campus',
       category: 'weddings',
@@ -955,7 +955,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_5452.JPG',
+      file: 'Landscape/DSC_5452.webp',
       title: 'Festive Evening Lighting Across the Resort',
       couple: 'Night Illuminations',
       category: 'weddings',
@@ -964,7 +964,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_5655.JPG',
+      file: 'Landscape/DSC_5655.webp',
       title: 'Pre-Wedding Portrait Backdrop',
       couple: 'Pre-Wedding Shoots',
       category: 'pre-wedding',
@@ -973,7 +973,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/DSC_5679.JPG',
+      file: 'Landscape/DSC_5679.webp',
       title: 'Turquoise Pool Reflections at Noon',
       couple: 'Poolside Tranquility',
       category: 'pre-wedding',
@@ -982,7 +982,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/_DSC5974.JPG',
+      file: 'Landscape/_DSC5974.webp',
       title: 'Quiet Sanctuary Suites for Families',
       couple: 'Guest Accommodation',
       category: 'portraits',
@@ -991,7 +991,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/_DSC5976.JPG',
+      file: 'Landscape/_DSC5976.webp',
       title: 'Soft Morning Breeze by the Lawns',
       couple: 'Daytime Hospitality',
       category: 'candid',
@@ -1000,7 +1000,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/_DSC5977.JPG',
+      file: 'Landscape/_DSC5977.webp',
       title: 'Intimate Mandap & Ritual Seating',
       couple: 'Sacred Pheras Space',
       category: 'weddings',
@@ -1009,7 +1009,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/_DSC5984.JPG',
+      file: 'Landscape/_DSC5984.webp',
       title: 'Royal Reception Backdrop & Stage',
       couple: 'Formal Reception',
       category: 'weddings',
@@ -1018,7 +1018,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/_DSC6137.JPG',
+      file: 'Landscape/_DSC6137.webp',
       title: 'Warm Farewell Glow in the Courtyard',
       couple: 'Vidaai & Departure',
       category: 'candid',
@@ -1027,7 +1027,7 @@ const RAW_GALLERY_FILES: {
       aspect: 'landscape',
     },
     {
-      file: 'Landscape/_DSC6140.JPG',
+      file: 'Landscape/_DSC6140.webp',
       title: 'Golden Heritage Walls Under Night Sky',
       couple: 'The Green Heritage',
       category: 'portraits',
@@ -1080,22 +1080,22 @@ export const GALLERY_PHOTOS: PhotoFrame[] = RAW_GALLERY_FILES.map((item, idx) =>
 // SIGNATURE / SPACES & GROUNDS FRAMES — PORTRAIT COLLECTION (/TGHPhotos/Portrait/)
 // ============================================================================
 const RAW_SIGNATURE_FILES = [
-  'Portrait/DSC_4665.JPG',
-  'Portrait/DSC_4687.JPG',
-  'Portrait/DSC_4872.JPG',
-  'Portrait/DSC_4877.JPG',
-  'Portrait/DSC_4879.JPG',
-  'Portrait/DSC_5290.JPG',
-  'Portrait/DSC_5663.JPG',
-  'Portrait/DSC_5667.JPG',
-  'Portrait/DSC_5678.JPG',
-  'Portrait/_DSC5985.JPG',
-  'Portrait/_DSC6036.JPG',
-  'Portrait/_DSC6043.JPG',
-  'Portrait/_DSC6133.JPG',
-  'Portrait/_DSC6457.JPG',
-  'Portrait/_DSC6460.JPG',
-  'Portrait/_DSC6465.JPG',
+  'Portrait/DSC_4665.webp',
+  'Portrait/DSC_4687.webp',
+  'Portrait/DSC_4872.webp',
+  'Portrait/DSC_4877.webp',
+  'Portrait/DSC_4879.webp',
+  'Portrait/DSC_5290.webp',
+  'Portrait/DSC_5663.webp',
+  'Portrait/DSC_5667.webp',
+  'Portrait/DSC_5678.webp',
+  'Portrait/_DSC5985.webp',
+  'Portrait/_DSC6036.webp',
+  'Portrait/_DSC6043.webp',
+  'Portrait/_DSC6133.webp',
+  'Portrait/_DSC6457.webp',
+  'Portrait/_DSC6460.webp',
+  'Portrait/_DSC6465.webp',
 ];
 
 const SIGNATURE_TITLES = [
@@ -1267,8 +1267,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
     lightingNotes:
       'Confirm stage placement, chandelier warmth and indoor decor rules directly.',
     acousticNotes: 'Review DJ, folk music and live band sound timings with us.',
-    imageUrl: '/TGHPhotos/Landscape/DSC_5387.JPG',
-    secondaryImageUrl: '/TGHPhotos/Portrait/_DSC5985.JPG',
+    imageUrl: '/TGHPhotos/Landscape/DSC_5387.webp',
+    secondaryImageUrl: '/TGHPhotos/Portrait/_DSC5985.webp',
     dateSeason: 'All-Season Weddings',
   },
   {
@@ -1281,8 +1281,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
       'Wide green lawns in front of our heritage facade welcome grand baraat entries, floral mandap setups and open-air buffet dining under Muzaffarpur skies.',
     lightingNotes: 'Ask about facade illumination, fairy lights and backup power.',
     acousticNotes: 'Confirm outdoor dhol and music curfew hours when holding dates.',
-    imageUrl: '/TGHPhotos/Landscape/DSC_4669.JPG',
-    secondaryImageUrl: '/TGHPhotos/Portrait/DSC_4687.JPG',
+    imageUrl: '/TGHPhotos/Landscape/DSC_4669.webp',
+    secondaryImageUrl: '/TGHPhotos/Portrait/DSC_4687.webp',
     dateSeason: 'Evening & Winter Favoured',
   },
   {
@@ -1296,8 +1296,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
     lightingNotes:
       'Check current suite availability and wedding-block tariffs on +91 92340 52600.',
     acousticNotes: 'Ask about check-in flexibility and ID rules for outstation guests.',
-    imageUrl: '/TGHPhotos/Landscape/DSC_4991.JPG',
-    secondaryImageUrl: '/TGHPhotos/Portrait/DSC_5663.JPG',
+    imageUrl: '/TGHPhotos/Landscape/DSC_4991.webp',
+    secondaryImageUrl: '/TGHPhotos/Portrait/DSC_5663.webp',
     dateSeason: 'Confirm Room Counts Early',
   },
   {
@@ -1310,8 +1310,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
       'Easy road access off Gobarsahi–Sakri Road helps travelling wedding buses and family cars arrive together. Confirm designated parking allocation for large baraats ahead of time.',
     lightingNotes: 'Grand arched gateway ready for floral and chattar welcomes.',
     acousticNotes: 'Call +91 92340 52600 for route landmarks for travelling guests.',
-    imageUrl: '/TGHPhotos/Landscape/DSC_5280.JPG',
-    secondaryImageUrl: '/TGHPhotos/Portrait/DSC_5290.JPG',
+    imageUrl: '/TGHPhotos/Landscape/DSC_5280.webp',
+    secondaryImageUrl: '/TGHPhotos/Portrait/DSC_5290.webp',
     dateSeason: 'Verify Event Parking',
   },
   {
@@ -1324,8 +1324,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
       'Turquoise water right beside the courtyard brings bright reflection and fresh breeze to daytime haldi circles, mehendi seating and pre-wedding shoots. Confirm pool schedule before decorating.',
     lightingNotes: 'Check daytime decor rules and poolside safety hours directly.',
     acousticNotes: 'Availability may vary with private event schedules.',
-    imageUrl: '/TGHPhotos/Landscape/DSC_4795.JPG',
-    secondaryImageUrl: '/TGHPhotos/Portrait/DSC_5667.JPG',
+    imageUrl: '/TGHPhotos/Landscape/DSC_4795.webp',
+    secondaryImageUrl: '/TGHPhotos/Portrait/DSC_5667.webp',
     dateSeason: 'Confirm Pool Access',
   },
   {
@@ -1339,8 +1339,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
     lightingNotes:
       'Verify Wi-Fi reach across rooms and hall areas with our team.',
     acousticNotes: 'Written menu, vendor and deposit terms shared directly on enquiry.',
-    imageUrl: '/TGHPhotos/Landscape/DSC_5282.JPG',
-    secondaryImageUrl: '/TGHPhotos/Portrait/_DSC6036.JPG',
+    imageUrl: '/TGHPhotos/Landscape/DSC_5282.webp',
+    secondaryImageUrl: '/TGHPhotos/Portrait/_DSC6036.webp',
     dateSeason: 'Ask Team Directly',
   },
 ];
@@ -1365,7 +1365,7 @@ export const MAP_LOCATIONS: MapLocationPin[] = [
     zoom: 17,
     description:
       'Located along Gobarsahi–Sakri Road in Bakarpur (Mauza Bakarpur, Dariyapur Kafen), Muzaffarpur 844127. Call +91 92340 52600 to plan a family venue tour.',
-    imageUrl: '/TGHPhotos/Landscape/DSC_4664.JPG',
+    imageUrl: '/TGHPhotos/Landscape/DSC_4664.webp',
     filmId: 'f-reel-1',
   },
 ];
@@ -1381,7 +1381,7 @@ export const GRATITUDE_NOTES: GratitudeNote[] = [
     author: 'Haldi, Mehendi & Courtyard Mornings',
     role: 'Poolside & Portico Lawns',
     location: 'Bakarpur, Muzaffarpur',
-    imageUrl: '/TGHPhotos/Portrait/DSC_4877.JPG',
+    imageUrl: '/TGHPhotos/Portrait/DSC_4877.webp',
   },
   {
     id: 'g2',
@@ -1390,7 +1390,7 @@ export const GRATITUDE_NOTES: GratitudeNote[] = [
     author: 'Keeping Two Families Comfortable',
     role: 'Bridal Suites & Family Stays · +91 92340 52600',
     location: 'Confirm Room Blocks Early',
-    imageUrl: '/TGHPhotos/Portrait/DSC_5663.JPG',
+    imageUrl: '/TGHPhotos/Portrait/DSC_5663.webp',
   },
   {
     id: 'g3',
@@ -1399,7 +1399,7 @@ export const GRATITUDE_NOTES: GratitudeNote[] = [
     author: 'Baraat, Varmala & Pheras',
     role: 'Open Lawns & Chandelier Hall',
     location: 'Gobarsahi–Sakri Road, Bihar',
-    imageUrl: '/TGHPhotos/Landscape/DSC_4692.JPG',
+    imageUrl: '/TGHPhotos/Landscape/DSC_4692.webp',
   },
   {
     id: 'g4',
@@ -1408,7 +1408,7 @@ export const GRATITUDE_NOTES: GratitudeNote[] = [
     author: 'Walk the Lawns Before You Decide',
     role: 'Direct Site Walkthroughs',
     location: 'Call or WhatsApp +91 92340 52600',
-    imageUrl: '/TGHPhotos/Landscape/DSC_4664.JPG',
+    imageUrl: '/TGHPhotos/Landscape/DSC_4664.webp',
   },
   {
     id: 'g5',
@@ -1417,7 +1417,7 @@ export const GRATITUDE_NOTES: GratitudeNote[] = [
     author: 'Honest Wedding Conversations',
     role: 'Transparent Booking Process',
     location: 'The Green Heritage Resort and Banquet',
-    imageUrl: '/TGHPhotos/Landscape/DSC_5448.JPG',
+    imageUrl: '/TGHPhotos/Landscape/DSC_5448.webp',
   },
 ];
 
@@ -1435,8 +1435,8 @@ export const STORY_SCENES: StoryScene[] = [
     narrative:
       'Weddings here begin unhurriedly in bright morning air, with yellow marigold strings by the pool and aunts gathering on woven mats before anyone checks the clock.',
     highlightStat: 'Poolside & Courtyard Haldi',
-    imageUrl: '/TGHPhotos/Landscape/DSC_4795.JPG',
-    secondaryImageUrl: '/TGHPhotos/Portrait/DSC_4877.JPG',
+    imageUrl: '/TGHPhotos/Landscape/DSC_4795.webp',
+    secondaryImageUrl: '/TGHPhotos/Portrait/DSC_4877.webp',
   },
   {
     sceneNumber: 'PART 02',
@@ -1448,8 +1448,8 @@ export const STORY_SCENES: StoryScene[] = [
     narrative:
       'By late afternoon, strands of warm bulbs glow across the portico arches while dark henna takes shape and friends rehearse their sangeet steps nearby.',
     highlightStat: 'Courtyard & Portico',
-    imageUrl: '/TGHPhotos/Landscape/DSC_4686.JPG',
-    secondaryImageUrl: '/TGHPhotos/Portrait/_DSC6457.JPG',
+    imageUrl: '/TGHPhotos/Landscape/DSC_4686.webp',
+    secondaryImageUrl: '/TGHPhotos/Portrait/_DSC6457.webp',
   },
   {
     sceneNumber: 'PART 03',
@@ -1461,8 +1461,8 @@ export const STORY_SCENES: StoryScene[] = [
     narrative:
       'From the carved upper jharokha overlooking the gate to the open lawn aisle flanked by golden fans, every baraat welcome gets space to breathe.',
     highlightStat: 'Baraat & Varmala Aisle',
-    imageUrl: '/TGHPhotos/Landscape/DSC_5280.JPG',
-    secondaryImageUrl: '/TGHPhotos/Portrait/DSC_4665.JPG',
+    imageUrl: '/TGHPhotos/Landscape/DSC_5280.webp',
+    secondaryImageUrl: '/TGHPhotos/Portrait/DSC_4665.webp',
   },
   {
     sceneNumber: 'PART 04',
@@ -1474,8 +1474,8 @@ export const STORY_SCENES: StoryScene[] = [
     narrative:
       'Outstation relatives rest easily when suites and cottages sit steps away from the mandap. Call +91 92340 52600 to check room availability for your dates.',
     highlightStat: 'Bridal & Guest Rooms',
-    imageUrl: '/TGHPhotos/Landscape/DSC_4991.JPG',
-    secondaryImageUrl: '/TGHPhotos/Portrait/DSC_5663.JPG',
+    imageUrl: '/TGHPhotos/Landscape/DSC_4991.webp',
+    secondaryImageUrl: '/TGHPhotos/Portrait/DSC_5663.webp',
   },
   {
     sceneNumber: 'PART 05',
@@ -1487,8 +1487,8 @@ export const STORY_SCENES: StoryScene[] = [
     narrative:
       'Situated along Gobarsahi–Sakri Road in Bakarpur (Dariyapur Kafen), Muzaffarpur 844127. Open Google Maps for directions or call +91 92340 52600 ahead of arrival.',
     highlightStat: 'Pin: 26.06385, 85.3504979',
-    imageUrl: '/TGHPhotos/Landscape/DSC_5448.JPG',
-    secondaryImageUrl: '/TGHPhotos/Portrait/_DSC6460.JPG',
+    imageUrl: '/TGHPhotos/Landscape/DSC_5448.webp',
+    secondaryImageUrl: '/TGHPhotos/Portrait/_DSC6460.webp',
   },
   {
     sceneNumber: 'PART 06',
@@ -1500,8 +1500,8 @@ export const STORY_SCENES: StoryScene[] = [
     narrative:
       'Once you share your preferred marriage dates and approximate guest count online or via WhatsApp, our team checks calendar availability and shares rates and policies clearly.',
     highlightStat: 'Request First · Confirm Directly',
-    imageUrl: '/TGHPhotos/Landscape/DSC_5387.JPG',
-    secondaryImageUrl: '/TGHPhotos/Portrait/_DSC6465.JPG',
+    imageUrl: '/TGHPhotos/Landscape/DSC_5387.webp',
+    secondaryImageUrl: '/TGHPhotos/Portrait/_DSC6465.webp',
   },
 ];
 

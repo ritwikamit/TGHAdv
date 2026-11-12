@@ -285,8 +285,8 @@ export function TwfRealisticGlobe({
 
       const Globe = GlobeModule.default;
       const isCompact = window.innerWidth < 640;
-      const width = container.clientWidth || (isCompact ? 300 : 460);
-      const height = container.clientHeight || (isCompact ? 300 : 460);
+      const width = container.clientWidth || (isCompact ? 360 : 460);
+      const height = container.clientHeight || (isCompact ? 360 : 460);
 
       container.innerHTML = '';
 
@@ -321,10 +321,10 @@ export function TwfRealisticGlobe({
           anchor.style.height = '0px';
           anchor.style.pointerEvents = 'auto';
           anchor.style.cursor = 'pointer';
-          anchor.title = 'The Green Heritage Resort & Banquet — Click to zoom into Google Map';
+          anchor.title = 'The Green Heritage Resort & Banquet — Tap to open Live Map';
 
           anchor.innerHTML = `
-            <div style="
+            <div role="button" tabindex="0" aria-label="The Green Heritage Resort & Banquet — Tap to open Live Map" style="
               position: absolute;
               left: 0;
               bottom: 0;
@@ -337,11 +337,17 @@ export function TwfRealisticGlobe({
               background: transparent;
               border: none;
               box-shadow: none;
+              padding: 14px 18px;
+              cursor: pointer;
+              touch-action: manipulation;
+              -webkit-tap-highlight-color: transparent;
+              user-select: none;
             ">
               <div style="
                 text-shadow: 0 2px 10px rgba(0, 0, 0, 0.98), 0 0 4px rgba(0, 0, 0, 0.95);
                 margin-bottom: 3px;
                 line-height: 1.15;
+                pointer-events: none;
               ">
                 <div style="
                   font-family: Georgia, serif;
@@ -362,17 +368,39 @@ export function TwfRealisticGlobe({
                   ${RESORT_COORDS.subtitle}
                 </div>
               </div>
-              <svg width="26" height="32" viewBox="0 0 24 30" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block; filter: drop-shadow(0 3px 8px rgba(0,0,0,0.9));">
-                <path d="M12 1C6.2 1 1.5 5.7 1.5 11.5C1.5 19.2 12 29 12 29C12 29 22.5 19.2 22.5 11.5C22.5 5.7 17.8 1 12 1Z" fill="#e52421" stroke="#ffffff" stroke-width="1.5"/>
+              <svg width="28" height="34" viewBox="0 0 24 30" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block; filter: drop-shadow(0 3px 8px rgba(0,0,0,0.9)); pointer-events: none;">
+                <path d="M12 1C6.2 1 1.5 5.7 1.5 11.5C1.5 19.2 12 29 12 29C12 29 22.5 19.2 22.5 11.5C22.5 5.7 17.8 1 12 1Z" fill="#e52421" stroke="#ffffff" stroke-width="1.6"/>
                 <circle cx="12" cy="11.2" r="3.4" fill="#ffffff"/>
               </svg>
             </div>
           `;
 
-          anchor.onclick = (e) => {
-            e.stopPropagation();
+          const triggerMap = (e?: Event) => {
+            if (e) {
+              e.stopPropagation();
+              if (e.cancelable && e.type === 'touchend') {
+                e.preventDefault();
+              }
+            }
             handleZoomToMap();
           };
+
+          anchor.onclick = triggerMap;
+          anchor.onpointerup = triggerMap;
+          anchor.ontouchend = triggerMap;
+
+          const innerTarget = anchor.firstElementChild as HTMLElement | null;
+          if (innerTarget) {
+            innerTarget.onclick = triggerMap;
+            innerTarget.onpointerup = triggerMap;
+            innerTarget.ontouchend = triggerMap;
+            innerTarget.onkeydown = (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                triggerMap(e);
+              }
+            };
+          }
 
           return anchor;
         });
@@ -412,7 +440,7 @@ export function TwfRealisticGlobe({
       }
 
       // Focus camera cleanly over Bakarpur, Muzaffarpur with comfortable framing on smartphones
-      const initialAltitude = window.innerWidth < 640 ? 2.15 : 1.65;
+      const initialAltitude = window.innerWidth < 640 ? 1.80 : 1.65;
       world.pointOfView(
         {
           lat: RESORT_COORDS.lat,
@@ -430,12 +458,12 @@ export function TwfRealisticGlobe({
         controls.dampingFactor = 0.075;
         controls.enableZoom = true;
         controls.enablePan = false;
-        controls.zoomSpeed = 1.25;
+        controls.zoomSpeed = 1.35;
         controls.minDistance = 122;
         controls.maxDistance = 440;
         controls.touches = {
           ONE: THREE.TOUCH.ROTATE,
-          TWO: THREE.TOUCH.DOLLY_ROTATE,
+          TWO: THREE.TOUCH.DOLLY_PAN,
         };
 
         resumeRotateFnRef.current = () => {
@@ -457,15 +485,15 @@ export function TwfRealisticGlobe({
 
           const dist = cam.position.length();
 
-          // Keep crisp 3D globe interactive across pinch zoom (145 -> 440); dive into Google Map only at ultra-close pinch (<145)
-          if (dist >= 145) {
+          // Keep crisp 3D globe interactive across pinch zoom (138 -> 440); dive into Google Map only at close pinch (<138)
+          if (dist >= 138) {
             if (currentEaseRef.current > 0) {
               applyZoomTransitionVisuals(0);
             }
             return;
           }
 
-          const rawT = Math.max(0, Math.min(1, (145 - dist) / (145 - 124)));
+          const rawT = Math.max(0, Math.min(1, (138 - dist) / (138 - 123)));
           const ease = rawT * rawT * (3 - 2 * rawT);
 
           if (rawT > 0.05) {
@@ -475,9 +503,9 @@ export function TwfRealisticGlobe({
 
           applyZoomTransitionVisuals(ease);
 
-          if (rawT >= 0.92) {
+          if (rawT >= 0.88) {
             controls.autoRotate = false;
-            animateTransition(ease, 1, 260, () => {
+            animateTransition(ease, 1, 240, () => {
               isMapLockedRef.current = true;
               setIsMapActive(true);
               if (mapWrapperRef.current) {
@@ -593,7 +621,7 @@ export function TwfRealisticGlobe({
     }
 
     if (!worldInstanceRef.current) return;
-    const alt = window.innerWidth < 640 ? 2.15 : 1.65;
+    const alt = window.innerWidth < 640 ? 1.80 : 1.65;
     worldInstanceRef.current.pointOfView(
       {
         lat: RESORT_COORDS.lat,
@@ -629,7 +657,7 @@ export function TwfRealisticGlobe({
       className="relative w-full min-w-0 flex flex-col items-center justify-center select-none"
     >
       {/* Centered 3D Globe Stage sized proportionally so entire globe + halo + pin fits on smartphones */}
-      <div className="relative w-full max-w-[300px] sm:max-w-[440px] lg:max-w-[500px] aspect-square mx-auto flex items-center justify-center">
+      <div className="relative w-full max-w-[340px] xs:max-w-[370px] sm:max-w-[440px] lg:max-w-[500px] aspect-square mx-auto flex items-center justify-center">
         {/* Subtle loading ring while WebGL initializes */}
         {!shouldInitGlobe && (
           <div
@@ -641,6 +669,7 @@ export function TwfRealisticGlobe({
         {/* 3D Globe Layer */}
         <div
           ref={globeVizRef}
+          style={{ touchAction: 'none' }}
           className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing will-change-transform [&>div]:mx-auto"
         />
 

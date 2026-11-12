@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const routeImages: Record<string, string[]> = {
     home: [
+      `${baseUrl}/og-preview-brand-v4.jpg`,
       `${baseUrl}/og-resort-preview.jpg`,
       `${baseUrl}/og-resort-aerial.jpg`,
       `${baseUrl}/og-resort-courtyard.jpg`,
