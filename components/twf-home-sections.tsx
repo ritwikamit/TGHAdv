@@ -10,15 +10,6 @@ import {
   VolumeX,
   ArrowUpRight,
   MapPin,
-  Navigation,
-  Phone,
-  MessageCircle,
-  Clock,
-  Car,
-  ShieldCheck,
-  Sparkles,
-  Copy,
-  Check,
 } from 'lucide-react';
 
 const TwfRealisticGlobe = dynamic(
@@ -360,19 +351,6 @@ export function TwfHomeSections({
   }, []);
 
   const [gratitudeIndex, setGratitudeIndex] = useState(0);
-  const [hasCopiedCoords, setHasCopiedCoords] = useState(false);
-
-  const handleCopyCoords = () => {
-    if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard
-        .writeText('26.06385, 85.35050')
-        .then(() => {
-          setHasCopiedCoords(true);
-          setTimeout(() => setHasCopiedCoords(false), 2200);
-        })
-        .catch(() => {});
-    }
-  };
 
   const scrollRow = (
     ref: React.RefObject<HTMLDivElement | null>,
@@ -902,167 +880,60 @@ export function TwfHomeSections({
       </section>
 
       {/* =====================================================================
-          SECTION 3: DESTINATION, CONNECTIVITY & 3D GLOBE / LIVE MAP (SXO Optimized)
+          SECTION 3: MINIMAL MAP SECTION (Location + 3D Globe -> Live Google Map)
          ===================================================================== */}
-      <section className="px-1 sm:px-2" id="resort-location-map">
-        <div className="relative rounded-[24px] sm:rounded-[32px] bg-[#061208] text-[#f7f6f1] border border-[#f0b400]/25 shadow-2xl p-5 sm:p-8 lg:p-12 overflow-hidden">
-          {/* Subtle Ambient Radial Glow */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -top-40 -left-40 w-96 h-96 rounded-full bg-[#14531e]/20 blur-3xl"
-          />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -bottom-40 -right-40 w-96 h-96 rounded-full bg-[#f0b400]/10 blur-3xl"
-          />
-
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-center">
-            {/* Left Column: Rich Destination & Transit Guide (SXO Optimized) */}
+      <section className="px-1 sm:px-2">
+        <div className="relative rounded-[22px] sm:rounded-[28px] bg-[#061208] text-[#f7f6f1] border border-[#f0b400]/25 shadow-2xl p-4 sm:p-10 lg:p-12 overflow-hidden">
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-center">
+            {/* Left Column: Minimal Essential Location Info & Primary Actions */}
             <div className="lg:col-span-5 space-y-6">
               <div>
                 <span
                   className="text-xl sm:text-2xl text-[#f0b400] block leading-snug"
                   style={{ fontFamily: 'var(--font-script)' }}
                 >
-                  Sacred Grounds &amp; Effortless Arrival
+                  Find Us
                 </span>
                 <h2
-                  className="text-3xl sm:text-4xl lg:text-5xl text-[#f7f6f1] lowercase font-normal mt-1 leading-[1.08]"
+                  className="text-3xl sm:text-4xl lg:text-5xl text-[#f7f6f1] lowercase font-normal mt-1"
                   style={{ fontFamily: 'var(--font-display)' }}
                 >
-                  destination &amp; connectivity guide
+                  the green heritage resort
                 </h2>
-                <p className="mt-3 text-xs sm:text-sm text-[#f7f6f1]/75 font-light leading-relaxed">
-                  Nestled in the serene greens of Bakarpur along the Gobarsahi–Sakri corridor, The Green Heritage combines peaceful seclusion away from city bustle with rapid 4-lane highway accessibility for destination weddings and grand celebrations.
-                </p>
               </div>
 
-              {/* Exact Location & GPS Coordinates Badge */}
-              <div className="p-3.5 sm:p-4 rounded-[18px] bg-[#0a1a0d]/90 border border-[#f0b400]/25 space-y-2.5">
-                <div className="flex items-start gap-2.5">
-                  <MapPin className="w-4 h-4 text-[#e52421] shrink-0 mt-0.5" />
-                  <div className="text-xs sm:text-sm text-[#f7f6f1]/90">
-                    <p className="font-medium text-[#f7f6f1]">The Green Heritage Resort &amp; Banquet</p>
-                    <p className="text-[#f7f6f1]/75 text-xs font-light mt-0.5">
-                      Bakarpur, Gobarsahi–Sakri Road, Muzaffarpur, Bihar 844127
-                    </p>
-                  </div>
-                </div>
-
-                <div className="pt-2 border-t border-white/10 flex flex-wrap items-center justify-between gap-2 text-[11px]">
-                  <div className="inline-flex items-center gap-1.5 text-[#f0b400] font-mono">
-                    <Sparkles className="w-3 h-3 text-[#f0b400]" />
-                    <span>GPS: 26.06385° N, 85.35050° E</span>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={handleCopyCoords}
-                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/20 text-[#f7f6f1] text-[10px] uppercase tracking-wider font-medium transition-colors cursor-pointer"
-                    title="Copy GPS coordinates"
+              <div className="space-y-2.5 text-sm text-[#f7f6f1]/80 font-light border-l-2 border-[#f0b400]/50 pl-4">
+                <p>Bakarpur, Gobarsahi–Sakri Road, Muzaffarpur, Bihar 844127</p>
+                <p>
+                  <a
+                    href={STUDIO_INFO.phonePrimaryUrl}
+                    className="text-[#f7f6f1] hover:text-[#f0b400] transition-colors font-medium"
                   >
-                    {hasCopiedCoords ? (
-                      <>
-                        <Check className="w-3 h-3 text-emerald-400" />
-                        <span className="text-emerald-400">Copied</span>
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="w-3 h-3 text-[#f0b400]" />
-                        <span>Copy Coords</span>
-                      </>
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              {/* 4 Transit & Distance Metrics Cards */}
-              <div className="space-y-2">
-                <p className="text-[11px] uppercase tracking-widest text-[#f0b400] font-semibold flex items-center gap-1.5">
-                  <Clock className="w-3 h-3" />
-                  <span>Key Transit Times &amp; Proximity</span>
+                    {STUDIO_INFO.phoneNumber}
+                  </a>
                 </p>
-                <div className="grid grid-cols-2 gap-2 sm:gap-2.5">
-                  <div className="p-3 rounded-[14px] bg-white/[0.04] border border-white/10 hover:border-[#f0b400]/40 transition-colors">
-                    <p className="text-[10px] text-white/60 uppercase tracking-wider">Railway Station</p>
-                    <p className="text-sm font-semibold text-[#f7f6f1] mt-0.5">~15–20 Mins</p>
-                    <p className="text-[11px] text-[#f0b400]/90">7.8 km · Muzaffarpur Jn.</p>
-                  </div>
-
-                  <div className="p-3 rounded-[14px] bg-white/[0.04] border border-white/10 hover:border-[#f0b400]/40 transition-colors">
-                    <p className="text-[10px] text-white/60 uppercase tracking-wider">Patna Airport (PAT)</p>
-                    <p className="text-sm font-semibold text-[#f7f6f1] mt-0.5">~1 Hr 45 Mins</p>
-                    <p className="text-[11px] text-[#f0b400]/90">72 km via NH-22 Corridor</p>
-                  </div>
-
-                  <div className="p-3 rounded-[14px] bg-white/[0.04] border border-white/10 hover:border-[#f0b400]/40 transition-colors">
-                    <p className="text-[10px] text-white/60 uppercase tracking-wider">Highway Gateway</p>
-                    <p className="text-sm font-semibold text-[#f7f6f1] mt-0.5">~5–8 Mins</p>
-                    <p className="text-[11px] text-[#f0b400]/90">2.4 km · Gobarsahi Chowk</p>
-                  </div>
-
-                  <div className="p-3 rounded-[14px] bg-white/[0.04] border border-white/10 hover:border-[#f0b400]/40 transition-colors">
-                    <p className="text-[10px] text-white/60 uppercase tracking-wider">Darbhanga Airport</p>
-                    <p className="text-sm font-semibold text-[#f7f6f1] mt-0.5">~1 Hr 25 Mins</p>
-                    <p className="text-[11px] text-[#f0b400]/90">68 km via NH-27 / NH-57</p>
-                  </div>
-                </div>
               </div>
 
-              {/* Arrival & Venue Logistical Features */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-[11px] text-white/80">
-                <div className="flex items-center gap-1.5 p-2 rounded-xl bg-white/[0.03] border border-white/5">
-                  <Car className="w-3.5 h-3.5 text-[#f0b400] shrink-0" />
-                  <span>150+ Valet Parking</span>
-                </div>
-                <div className="flex items-center gap-1.5 p-2 rounded-xl bg-white/[0.03] border border-white/5">
-                  <Navigation className="w-3.5 h-3.5 text-[#f0b400] shrink-0" />
-                  <span>Baraat &amp; Bus Gate</span>
-                </div>
-                <div className="flex items-center gap-1.5 p-2 rounded-xl bg-white/[0.03] border border-white/5">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#f0b400] shrink-0" />
-                  <span>24/7 Gate Concierge</span>
-                </div>
-              </div>
-
-              {/* High-Intent SXO Action Buttons */}
-              <div className="flex flex-wrap items-center gap-2.5 pt-2">
+              <div className="flex flex-wrap items-center gap-3 pt-1">
                 <a
                   href={STUDIO_INFO.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-2.5 px-4 sm:px-5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] border border-[#f0b400]/50 active:scale-95 text-white text-[11px] uppercase tracking-[0.14em] font-medium inline-flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-md"
+                  className="py-2.5 px-5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] border border-[#f0b400]/50 active:scale-95 text-white text-[11px] uppercase tracking-[0.14em] font-medium inline-flex items-center justify-center gap-1.5 transition-all cursor-pointer"
                 >
-                  <Navigation className="w-3.5 h-3.5 text-[#f0b400]" />
+                  <MapPin className="w-3.5 h-3.5 text-[#e52421]" />
                   <span>Get Directions</span>
-                </a>
-
-                <a
-                  href={STUDIO_INFO.whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="py-2.5 px-4 rounded-full bg-emerald-900/40 hover:bg-emerald-800/60 border border-emerald-500/40 active:scale-95 text-emerald-200 hover:text-white text-[11px] uppercase tracking-[0.12em] font-medium inline-flex items-center justify-center gap-1.5 transition-all cursor-pointer"
-                >
-                  <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>WhatsApp Concierge</span>
-                </a>
-
-                <a
-                  href={STUDIO_INFO.phonePrimaryUrl}
-                  className="py-2.5 px-4 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 active:scale-95 text-white text-[11px] uppercase tracking-[0.12em] font-medium inline-flex items-center justify-center gap-1.5 transition-all cursor-pointer"
-                >
-                  <Phone className="w-3.5 h-3.5 text-[#f0b400]" />
-                  <span>Call Reception</span>
                 </a>
 
                 {onOpenQuickEnquire && (
                   <button
                     type="button"
                     onClick={() =>
-                      onOpenQuickEnquire('Resort & Venue Walkthrough')
+                      onOpenQuickEnquire('Stay or Event Enquiry')
                     }
-                    className="py-2.5 px-4 rounded-full bg-[#f0b400]/15 hover:bg-[#f0b400] hover:text-[#061208] border border-[#f0b400]/50 active:scale-95 text-[#f0b400] text-[11px] uppercase tracking-[0.12em] font-medium transition-colors cursor-pointer"
+                    className="py-2.5 px-5 rounded-full bg-white/10 hover:bg-[#f0b400] hover:text-[#061208] border border-white/20 text-white text-[11px] uppercase tracking-[0.14em] font-medium transition-colors cursor-pointer"
                   >
-                    Schedule Walkthrough
+                    Enquire Now
                   </button>
                 )}
               </div>

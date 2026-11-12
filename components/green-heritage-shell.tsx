@@ -59,28 +59,10 @@ export function GreenHeritageResortApp({
     return () => window.removeEventListener('popstate', onPopState);
   }, []);
 
-  // Silky quartic ease-out scroll-to-top helper on menu navigation
+  // Smooth scroll to top on navigation
   const smoothScrollToTop = useCallback(() => {
     if (typeof window === 'undefined') return;
-    const startY = window.scrollY || document.documentElement.scrollTop || 0;
-    if (startY <= 4) {
-      window.scrollTo(0, 0);
-      return;
-    }
-    const duration = Math.min(480, Math.max(240, startY * 0.14));
-    const startTime = performance.now();
-
-    const step = (now: number) => {
-      const elapsed = now - startTime;
-      const t = Math.min(1, elapsed / duration);
-      const easeOut = 1 - Math.pow(1 - t, 4);
-      window.scrollTo(0, startY * (1 - easeOut));
-      if (t < 1) {
-        window.requestAnimationFrame(step);
-      }
-    };
-
-    window.requestAnimationFrame(step);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
   const handleNavigate = (page: PageId) => {
@@ -157,12 +139,12 @@ export function GreenHeritageResortApp({
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={activePage}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{
-                  duration: 0.18,
-                  ease: [0.22, 1, 0.36, 1],
+                  duration: 0.15,
+                  ease: 'easeOut',
                 }}
                 className="w-full"
               >

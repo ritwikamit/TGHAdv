@@ -447,8 +447,8 @@ export function TwfSidebar({
                     handleNavClick(item.id);
                   }}
                   className={`relative z-10 w-full h-[38px] flex flex-row items-center justify-between px-2.5 lg:px-3.5 rounded-l-[16px] sm:rounded-l-[18px] transition-colors duration-200 cursor-pointer ${isActive
-                      ? 'text-[#0f1f12] font-semibold'
-                      : 'text-white/90 hover:text-white hover:bg-white/[0.06]'
+                    ? 'text-[#0f1f12] font-semibold'
+                    : 'text-white/90 hover:text-white hover:bg-white/[0.06]'
                     }`}
                 >
                   <span className="flex flex-row items-center gap-2 lg:gap-2.5 min-w-0">

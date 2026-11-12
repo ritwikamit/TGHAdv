@@ -21,12 +21,9 @@ export function TwfRealisticGlobe({
 }: TwfRealisticGlobeProps) {
   const stageRef = useRef<HTMLDivElement | null>(null);
   const globeVizRef = useRef<HTMLDivElement | null>(null);
-  const zoomFeatherOverlayRef = useRef<HTMLDivElement | null>(null);
   const mapWrapperRef = useRef<HTMLDivElement | null>(null);
+  const isTransitioningRef = useRef(false);
   const isMapLockedRef = useRef(false);
-  const isAnimatingTransitionRef = useRef(false);
-  const currentEaseRef = useRef(0);
-  const transitionRafRef = useRef<number | null>(null);
   const resumeRotateFnRef = useRef<(() => void) | null>(null);
 
   const [shouldPreloadMap, setShouldPreloadMap] = useState(false);
@@ -84,128 +81,12 @@ export function TwfRealisticGlobe({
     };
   }, []);
 
-  const cancelActiveTransition = useCallback(() => {
-    if (transitionRafRef.current !== null) {
-      cancelAnimationFrame(transitionRafRef.current);
-      transitionRafRef.current = null;
-    }
-    isAnimatingTransitionRef.current = false;
-  }, []);
-
-  const applyZoomTransitionVisuals = useCallback((rawEase: number) => {
-    const ease = Math.max(0, Math.min(1, rawEase));
-    currentEaseRef.current = ease;
-
-    const vizEl = globeVizRef.current;
-    const featherEl = zoomFeatherOverlayRef.current;
-    const mapEl = mapWrapperRef.current;
-
-    if (vizEl) {
-      // Pure GPU opacity + scale3d (avoids per-frame CSS mask-image rasterization lag)
-      const globeOpacity = Math.max(0, 1 - Math.pow(ease, 1.05) * 1.08);
-      const globeScale = 1 + ease * 0.24;
-      vizEl.style.opacity = globeOpacity.toFixed(3);
-      vizEl.style.transform = `scale3d(${globeScale.toFixed(4)}, ${globeScale.toFixed(4)}, 1)`;
-      vizEl.style.visibility = globeOpacity <= 0.004 ? 'hidden' : 'visible';
-    }
-
-    if (featherEl) {
-      // Peak dark-emerald vignette mid-transition to blend globe dive into live map cleanly
-      const midGlow = Math.sin(ease * Math.PI) * 0.52 + ease * 0.35;
-      featherEl.style.opacity = Math.min(0.88, midGlow).toFixed(3);
-    }
-
-    if (mapEl) {
-      const mapOpacity = Math.max(0, Math.min(1, (ease - 0.12) / 0.88));
-      const mapScale = 0.90 + ease * 0.10;
-      mapEl.style.opacity = mapOpacity.toFixed(3);
-      mapEl.style.transform = `scale3d(${mapScale.toFixed(4)}, ${mapScale.toFixed(4)}, 1)`;
-      mapEl.style.visibility = mapOpacity <= 0.004 ? 'hidden' : 'visible';
-    }
-  }, []);
-
-  const animateTransition = useCallback(
-    (
-      fromEase: number,
-      toEase: number,
-      durationMs: number,
-      onComplete?: () => void
-    ) => {
-      cancelActiveTransition();
-      isAnimatingTransitionRef.current = true;
-      const startTime = performance.now();
-
-      const tick = (now: number) => {
-        const linear = Math.min(1, (now - startTime) / durationMs);
-        const eased =
-          linear < 0.5
-            ? 4 * linear * linear * linear
-            : 1 - Math.pow(-2 * linear + 2, 3) / 2;
-
-        const current = fromEase + (toEase - fromEase) * eased;
-        applyZoomTransitionVisuals(current);
-
-        if (linear < 1) {
-          transitionRafRef.current = requestAnimationFrame(tick);
-        } else {
-          transitionRafRef.current = null;
-          isAnimatingTransitionRef.current = false;
-          applyZoomTransitionVisuals(toEase);
-          onComplete?.();
-        }
-      };
-
-      transitionRafRef.current = requestAnimationFrame(tick);
-    },
-    [applyZoomTransitionVisuals, cancelActiveTransition]
-  );
-
   const handleZoomToMap = useCallback(() => {
+    if (isTransitioningRef.current) return;
+    isTransitioningRef.current = true;
+    isMapLockedRef.current = true;
     setShouldPreloadMap(true);
-    cancelActiveTransition();
-    isMapLockedRef.current = false;
-
-    const world = worldInstanceRef.current;
-    if (!world) {
-      applyZoomTransitionVisuals(1);
-      isMapLockedRef.current = true;
-      setIsMapActive(true);
-      if (mapWrapperRef.current) {
-        mapWrapperRef.current.style.pointerEvents = 'auto';
-      }
-      return;
-    }
-
-    const controls = world.controls();
-    if (controls) {
-      controls.autoRotate = false;
-    }
-
-    world.pointOfView(
-      {
-        lat: RESORT_COORDS.lat,
-        lng: RESORT_COORDS.lng,
-        altitude: 0.18,
-      },
-      760
-    );
-
-    animateTransition(currentEaseRef.current, 1, 740, () => {
-      isMapLockedRef.current = true;
-      setIsMapActive(true);
-      if (mapWrapperRef.current) {
-        mapWrapperRef.current.style.pointerEvents = 'auto';
-      }
-    });
-  }, [animateTransition, applyZoomTransitionVisuals, cancelActiveTransition]);
-
-  const handleBackToGlobe = useCallback(() => {
-    cancelActiveTransition();
-    isMapLockedRef.current = false;
-
-    if (mapWrapperRef.current) {
-      mapWrapperRef.current.style.pointerEvents = 'none';
-    }
+    setIsMapActive(true);
 
     const world = worldInstanceRef.current;
     if (world) {
@@ -213,49 +94,49 @@ export function TwfRealisticGlobe({
       if (controls) {
         controls.autoRotate = false;
       }
-
-      // Position camera close over Bakarpur underneath the dissolving map, then pull back in one fluid sweep
       world.pointOfView(
         {
           lat: RESORT_COORDS.lat,
           lng: RESORT_COORDS.lng,
-          altitude: 0.24,
+          altitude: 0.16,
         },
-        0
-      );
-
-      world.pointOfView(
-        {
-          lat: RESORT_COORDS.lat,
-          lng: RESORT_COORDS.lng,
-          altitude: 1.55,
-        },
-        820
+        650
       );
     }
 
-    const startEase =
-      currentEaseRef.current > 0.02 ? currentEaseRef.current : isMapActive ? 1 : 0;
+    window.setTimeout(() => {
+      isTransitioningRef.current = false;
+    }, 650);
+  }, []);
 
-    if (startEase <= 0.005) {
-      applyZoomTransitionVisuals(0);
-      setIsMapActive(false);
-      resumeRotateFnRef.current?.();
-      return;
-    }
+  const handleBackToGlobe = useCallback(() => {
+    if (isTransitioningRef.current) return;
+    isTransitioningRef.current = true;
+    isMapLockedRef.current = false;
+    setIsMapActive(false);
 
-    animateTransition(startEase, 0, 760, () => {
-      setIsMapActive(false);
-      if (!isMapLockedRef.current && !isAnimatingTransitionRef.current) {
-        resumeRotateFnRef.current?.();
+    const world = worldInstanceRef.current;
+    if (world) {
+      const controls = world.controls();
+      if (controls) {
+        controls.autoRotate = false;
       }
-    });
-  }, [
-    animateTransition,
-    applyZoomTransitionVisuals,
-    cancelActiveTransition,
-    isMapActive,
-  ]);
+      const initialAlt = window.innerWidth < 640 ? 1.85 : 1.65;
+      world.pointOfView(
+        {
+          lat: RESORT_COORDS.lat,
+          lng: RESORT_COORDS.lng,
+          altitude: initialAlt,
+        },
+        700
+      );
+    }
+
+    window.setTimeout(() => {
+      isTransitioningRef.current = false;
+      resumeRotateFnRef.current?.();
+    }, 750);
+  }, []);
 
   useEffect(() => {
     if (!isMapActive) return;
@@ -375,7 +256,11 @@ export function TwfRealisticGlobe({
             </div>
           `;
 
+          let lastTrigger = 0;
           const triggerMap = (e?: Event) => {
+            const now = Date.now();
+            if (now - lastTrigger < 500) return;
+            lastTrigger = now;
             if (e) {
               e.stopPropagation();
               if (e.cancelable && e.type === 'touchend') {
@@ -440,7 +325,7 @@ export function TwfRealisticGlobe({
       }
 
       // Focus camera cleanly over Bakarpur, Muzaffarpur with comfortable framing on smartphones
-      const initialAltitude = window.innerWidth < 640 ? 1.80 : 1.65;
+      const initialAltitude = window.innerWidth < 640 ? 1.85 : 1.65;
       world.pointOfView(
         {
           lat: RESORT_COORDS.lat,
@@ -455,68 +340,39 @@ export function TwfRealisticGlobe({
         controls.autoRotate = true;
         controls.autoRotateSpeed = 0.5;
         controls.enableDamping = true;
-        controls.dampingFactor = 0.075;
+        controls.dampingFactor = 0.08;
         controls.enableZoom = true;
         controls.enablePan = false;
-        controls.zoomSpeed = 1.35;
+        controls.zoomSpeed = 1.25;
         controls.minDistance = 122;
-        controls.maxDistance = 440;
+        controls.maxDistance = 420;
         controls.touches = {
           ONE: THREE.TOUCH.ROTATE,
           TWO: THREE.TOUCH.DOLLY_PAN,
         };
 
         resumeRotateFnRef.current = () => {
-          if (!isMapLockedRef.current && !isAnimatingTransitionRef.current) {
+          if (!isMapLockedRef.current && !isTransitioningRef.current) {
             controls.autoRotate = true;
             controls.autoRotateSpeed = 0.5;
           }
         };
 
-        const handleZoomChange = () => {
-          const vizEl = globeVizRef.current;
-          if (!vizEl) return;
+        const handleControlsChange = () => {
+          if (isTransitioningRef.current || isMapLockedRef.current) {
+            return;
+          }
           const cam = world.camera();
           if (!cam) return;
-
-          if (isAnimatingTransitionRef.current || isMapLockedRef.current) {
-            return;
-          }
-
           const dist = cam.position.length();
 
-          // Keep crisp 3D globe interactive across pinch zoom (138 -> 440); dive into Google Map only at close pinch (<138)
-          if (dist >= 138) {
-            if (currentEaseRef.current > 0) {
-              applyZoomTransitionVisuals(0);
-            }
-            return;
-          }
-
-          const rawT = Math.max(0, Math.min(1, (138 - dist) / (138 - 123)));
-          const ease = rawT * rawT * (3 - 2 * rawT);
-
-          if (rawT > 0.05) {
-            setShouldPreloadMap(true);
-            controls.autoRotate = false;
-          }
-
-          applyZoomTransitionVisuals(ease);
-
-          if (rawT >= 0.88) {
-            controls.autoRotate = false;
-            animateTransition(ease, 1, 240, () => {
-              isMapLockedRef.current = true;
-              setIsMapActive(true);
-              if (mapWrapperRef.current) {
-                mapWrapperRef.current.style.pointerEvents = 'auto';
-              }
-            });
+          // Smoothly glide into Google Map when pinching all the way in to Bakarpur
+          if (dist <= 126) {
+            handleZoomToMap();
           }
         };
 
-        handleZoomChange();
-        controls.addEventListener('change', handleZoomChange);
+        controls.addEventListener('change', handleControlsChange);
 
         controls.addEventListener('start', () => {
           controls.autoRotate = false;
@@ -526,11 +382,7 @@ export function TwfRealisticGlobe({
         controls.addEventListener('end', () => {
           if (resumeAutoRotateTimer) clearTimeout(resumeAutoRotateTimer);
           resumeAutoRotateTimer = setTimeout(() => {
-            if (
-              !isMapLockedRef.current &&
-              !isAnimatingTransitionRef.current &&
-              currentEaseRef.current <= 0.02
-            ) {
+            if (!isMapLockedRef.current && !isTransitioningRef.current) {
               controls.autoRotate = true;
               controls.autoRotateSpeed = 0.55;
             }
@@ -592,7 +444,6 @@ export function TwfRealisticGlobe({
 
     return () => {
       isCancelled = true;
-      cancelActiveTransition();
       if (warmupPauseTimer !== null) clearTimeout(warmupPauseTimer);
       if (resumeAutoRotateTimer) clearTimeout(resumeAutoRotateTimer);
       if (resizeObserver) resizeObserver.disconnect();
@@ -606,29 +457,23 @@ export function TwfRealisticGlobe({
         worldInstanceRef.current = null;
       }
     };
-  }, [
-    animateTransition,
-    applyZoomTransitionVisuals,
-    cancelActiveTransition,
-    handleZoomToMap,
-    shouldInitGlobe,
-  ]);
+  }, [handleZoomToMap, shouldInitGlobe]);
 
   const handleFocusResort = useCallback(() => {
-    if (isMapActive || currentEaseRef.current > 0.02) {
+    if (isMapActive) {
       handleBackToGlobe();
       return;
     }
 
     if (!worldInstanceRef.current) return;
-    const alt = window.innerWidth < 640 ? 1.80 : 1.65;
+    const alt = window.innerWidth < 640 ? 1.85 : 1.65;
     worldInstanceRef.current.pointOfView(
       {
         lat: RESORT_COORDS.lat,
         lng: RESORT_COORDS.lng,
         altitude: alt,
       },
-      900
+      800
     );
   }, [handleBackToGlobe, isMapActive]);
 
@@ -657,7 +502,7 @@ export function TwfRealisticGlobe({
       className="relative w-full min-w-0 flex flex-col items-center justify-center select-none"
     >
       {/* Centered 3D Globe Stage sized proportionally so entire globe + halo + pin fits on smartphones */}
-      <div className="relative w-full max-w-[340px] xs:max-w-[370px] sm:max-w-[440px] lg:max-w-[500px] aspect-square mx-auto flex items-center justify-center">
+      <div className="relative w-full max-w-[320px] xs:max-w-[360px] sm:max-w-[440px] lg:max-w-[500px] aspect-square mx-auto flex items-center justify-center">
         {/* Subtle loading ring while WebGL initializes */}
         {!shouldInitGlobe && (
           <div
@@ -670,31 +515,17 @@ export function TwfRealisticGlobe({
         <div
           ref={globeVizRef}
           style={{ touchAction: 'none' }}
-          className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing will-change-transform [&>div]:mx-auto"
+          className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing [&>div]:mx-auto"
         />
 
-        {/* Soft Circular Dark Emerald Ambient Edge Feather Matching #061208 Section */}
-        <div
-          ref={zoomFeatherOverlayRef}
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 opacity-0"
-          style={{
-            background:
-              'radial-gradient(closest-side at 50% 50%, rgba(6,18,8,0) 45%, rgba(6,18,8,0.45) 68%, rgba(6,18,8,0.84) 86%, rgba(6,18,8,1) 99%)',
-          }}
-        />
-
-        {/* Actual Live Google Map Card — Smoothly Crossfades & Scales To/From 3D Globe on GPU */}
+        {/* Actual Live Google Map Card — Smoothly Crossfades & Scales on GPU */}
         <div
           ref={mapWrapperRef}
-          className={`absolute inset-1.5 sm:inset-2.5 z-20 overflow-hidden rounded-[24px] bg-[#061208] border border-[#f0b400]/35 ring-1 ring-[#f0b400]/25 shadow-[0_28px_70px_rgba(0,0,0,0.65)] will-change-transform ${
-            isMapActive ? 'pointer-events-auto' : 'pointer-events-none'
+          className={`absolute inset-0 z-20 overflow-hidden rounded-[24px] bg-[#061208] border border-[#f0b400]/35 ring-1 ring-[#f0b400]/25 shadow-[0_28px_70px_rgba(0,0,0,0.65)] transition-all duration-500 ease-out ${
+            isMapActive
+              ? 'opacity-100 scale-100 pointer-events-auto visible'
+              : 'opacity-0 scale-95 pointer-events-none invisible'
           }`}
-          style={{
-            opacity: isMapActive ? 1 : 0,
-            transform: isMapActive ? 'scale3d(1, 1, 1)' : 'scale3d(0.90, 0.90, 1)',
-            visibility: isMapActive ? 'visible' : 'hidden',
-          }}
         >
           {shouldPreloadMap && (
             <iframe

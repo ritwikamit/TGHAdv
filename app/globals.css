@@ -16,6 +16,7 @@
 
 /* Hide browser default scrollbars cleanly, keep horizontal layout locked, and preserve Chrome mobile pull-to-refresh */
 html {
+  scroll-behavior: smooth;
   overscroll-behavior-y: auto;
   scroll-padding-top: 16px;
   overflow-x: clip;
