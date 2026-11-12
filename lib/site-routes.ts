@@ -1,3 +1,5 @@
+import type { Metadata } from 'next';
+
 export type PageId =
   | 'home'
   | 'films'
@@ -7,11 +9,38 @@ export type PageId =
   | 'contact'
   | 'faqs';
 
+const resolvedVercelHost =
+  process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL;
+
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ||
-  (process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
+  (resolvedVercelHost
+    ? `https://${resolvedVercelHost}`
     : 'https://thegreenheritageresort.in');
+
+export const DEFAULT_OG_IMAGES = [
+  {
+    url: '/og-resort-preview.jpg',
+    width: 1200,
+    height: 630,
+    type: 'image/jpeg',
+    alt: 'The Green Heritage Resort and Banquet — Aerial Resort View, Illuminated Courtyard & Wedding Stage in Bakarpur, Muzaffarpur',
+  },
+  {
+    url: '/og-resort-aerial.jpg',
+    width: 1200,
+    height: 630,
+    type: 'image/jpeg',
+    alt: 'Illuminated aerial campus view of The Green Heritage Resort and Banquet, Muzaffarpur',
+  },
+  {
+    url: '/og-resort-courtyard.jpg',
+    width: 1200,
+    height: 630,
+    type: 'image/jpeg',
+    alt: 'Heritage facade and courtyard celebrations at The Green Heritage Resort and Banquet, Muzaffarpur',
+  },
+];
 
 export interface PageRouteMeta {
   id: PageId;
@@ -102,6 +131,32 @@ export const PAGE_ROUTES: Record<PageId, PageRouteMeta> = {
     priority: 0.9,
   },
 };
+
+export function buildPageMetadata(pageId: PageId): Metadata {
+  const routeMeta = PAGE_ROUTES[pageId];
+  return {
+    title: routeMeta.title,
+    description: routeMeta.description,
+    alternates: {
+      canonical: routeMeta.path,
+    },
+    openGraph: {
+      title: routeMeta.title,
+      description: routeMeta.description,
+      url: routeMeta.path,
+      siteName: 'The Green Heritage Resort and Banquet',
+      locale: 'en_IN',
+      type: 'website',
+      images: DEFAULT_OG_IMAGES,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: routeMeta.title,
+      description: routeMeta.description,
+      images: [DEFAULT_OG_IMAGES[0]],
+    },
+  };
+}
 
 export function getPageIdFromPath(pathname: string): PageId {
   const clean = pathname.replace(/\/+$/, '') || '/';

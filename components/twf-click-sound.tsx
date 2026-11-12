@@ -21,6 +21,19 @@ export function TwfClickSound() {
     let audioCtx: AudioContext | null = null;
     let lastPlayedAt = 0;
 
+    const isSoundEnabled = () => {
+      try {
+        const raw = localStorage.getItem('tgh_resort_cookie_consent_v1');
+        if (!raw) return true;
+        if (raw === 'essential') return false;
+        if (raw === 'all') return true;
+        const parsed = JSON.parse(raw) as { mediaAndAudio?: boolean };
+        return parsed.mediaAndAudio !== false;
+      } catch {
+        return true;
+      }
+    };
+
     const getAudioContext = (): AudioContext | null => {
       if (typeof window === 'undefined') return null;
       const AudioContextCtor =
@@ -72,6 +85,7 @@ export function TwfClickSound() {
 
     const handlePointerDown = (event: PointerEvent) => {
       if (event.button !== 0 && event.pointerType === 'mouse') return;
+      if (!isSoundEnabled()) return;
       const target = event.target as HTMLElement | null;
       if (!target) return;
 

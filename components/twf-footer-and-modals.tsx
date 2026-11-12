@@ -29,6 +29,12 @@ import {
 } from '@/lib/masoom-data';
 import { PageId } from './twf-sidebar';
 import { WhatsAppMinimalIcon, FacebookMinimalIcon } from './twf-icons';
+import {
+  readCookieConsent,
+  saveCookieConsent,
+  COOKIE_EVENT_UPDATE,
+  CookieConsentState,
+} from './twf-cookie-banner';
 
 interface TwfFooterAndModalsProps {
   onNavigate: (page: PageId) => void;
@@ -68,12 +74,24 @@ export function TwfFooterAndModals({
   const [photoZoom, setPhotoZoom] = useState(1);
   const [termsModalOpen, setTermsModalOpen] = useState(false);
   const [cookieModalOpen, setCookieModalOpen] = useState(false);
+  const [cookieState, setCookieState] = useState<CookieConsentState | null>(null);
+  const [cookieSavedNotice, setCookieSavedNotice] = useState(false);
 
   const isCookieOpen = cookieModalOpen || Boolean(cookiePolicyOpen);
   const handleCloseCookieModal = () => {
     setCookieModalOpen(false);
+    setCookieSavedNotice(false);
     onCloseCookiePolicy?.();
   };
+
+  useEffect(() => {
+    const syncConsent = () => {
+      setCookieState(readCookieConsent());
+    };
+    syncConsent();
+    window.addEventListener(COOKIE_EVENT_UPDATE, syncConsent);
+    return () => window.removeEventListener(COOKIE_EVENT_UPDATE, syncConsent);
+  }, [isCookieOpen]);
 
   const [enquireForm, setEnquireForm] = useState({
     guestName: '',
@@ -1144,19 +1162,80 @@ export function TwfFooterAndModals({
                   When you click external links to Google Maps, WhatsApp, Instagram, Facebook, Tripadvisor or Justdial, those third-party platforms operate under their own privacy policies.
                 </p>
               </div>
+              <div className="space-y-2.5 pt-2 border-t border-[#14531e]/15">
+                <div className="flex items-center justify-between gap-2">
+                  <h4 className="text-sm font-semibold text-[#0f1f12]">
+                    Manage Storage &amp; Audio Preferences
+                  </h4>
+                  <span className="text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#14531e]/10 text-[#14531e] font-medium">
+                    {cookieState?.level === 'essential'
+                      ? 'Essential Only'
+                      : cookieState?.level === 'custom'
+                        ? 'Custom'
+                        : cookieState?.level === 'all'
+                          ? 'All Enabled'
+                          : 'Not Set'}
+                  </span>
+                </div>
+
+                <label className="flex items-center justify-between gap-3 p-3 rounded-xl bg-[#f7f6f1] border border-[#14531e]/15 cursor-pointer">
+                  <div>
+                    <span className="text-xs font-semibold text-[#0f1f12] block">
+                      Interactive Click Audio &amp; Media Preferences
+                    </span>
+                    <span className="text-[11px] text-[#0f1f12]/65 block">
+                      Controls subtle button click feedback and saved display preferences.
+                    </span>
+                  </div>
+                  <input
+                    type="checkbox"
+                    checked={cookieState?.mediaAndAudio ?? true}
+                    onChange={(e) => {
+                      const enabled = e.target.checked;
+                      const updated = saveCookieConsent(
+                        enabled ? 'all' : 'essential',
+                        enabled,
+                        enabled
+                      );
+                      setCookieState(updated);
+                      setCookieSavedNotice(true);
+                    }}
+                    className="w-4 h-4 accent-[#14531e] cursor-pointer shrink-0"
+                  />
+                </label>
+
+                {cookieSavedNotice && (
+                  <p className="text-[11px] text-[#14531e] font-medium">
+                    Preferences updated and saved cleanly.
+                  </p>
+                )}
+              </div>
             </div>
 
-            <div className="shrink-0 p-4 sm:p-5 border-t border-[#14531e]/15 bg-[#f7f6f1] flex items-center justify-between gap-2">
+            <div className="shrink-0 p-4 sm:p-5 border-t border-[#14531e]/15 bg-[#f7f6f1] flex flex-wrap items-center justify-between gap-2">
               <span className="text-[11px] text-[#0f1f12]/55">
                 The Green Heritage Resort and Banquet · Muzaffarpur
               </span>
-              <button
-                type="button"
-                onClick={handleCloseCookieModal}
-                className="px-5 py-2 rounded-full bg-[#14531e] hover:bg-[#0c3a14] text-white text-xs uppercase tracking-wider font-medium transition-colors cursor-pointer"
-              >
-                Got It
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const updated = saveCookieConsent('all', true, true);
+                    setCookieState(updated);
+                    setCookieSavedNotice(true);
+                  }}
+                  className="px-4 py-2 rounded-full bg-white hover:bg-[#14531e]/10 border border-[#14531e]/25 text-[#0f1f12] text-[11px] uppercase tracking-wider font-medium transition-colors cursor-pointer"
+                >
+                  Accept All
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCloseCookieModal}
+                  className="px-5 py-2 rounded-full bg-[#14531e] hover:bg-[#0c3a14] text-white text-xs uppercase tracking-wider font-medium transition-colors cursor-pointer"
+                >
+                  Done
+                </button>
+              </div>
             </div>
           </div>
         </div>

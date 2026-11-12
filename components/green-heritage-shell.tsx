@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState, useCallback, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { motion, AnimatePresence, MotionConfig } from 'motion/react';
 import { TwfSidebar, PageId } from '@/components/twf-sidebar';
 import { TwfHeroSlider } from '@/components/twf-hero-slider';
 import { TwfHomeSections } from '@/components/twf-home-sections';
-import { TwfInnerPages } from '@/components/twf-inner-pages';
 import { TwfFooterAndModals } from '@/components/twf-footer-and-modals';
 import { TwfLoadingScreen } from '@/components/twf-loading-screen';
 import { TwfCookieBanner } from '@/components/twf-cookie-banner';
@@ -13,6 +13,17 @@ import { TwfScrollProgress } from '@/components/twf-scroll-progress';
 import { TwfMobileDock } from '@/components/twf-mobile-dock';
 import { CinemaFilm, PhotoFrame } from '@/lib/masoom-data';
 import { PAGE_ROUTES, getPageIdFromPath } from '@/lib/site-routes';
+
+const TwfInnerPages = dynamic(
+  () => import('@/components/twf-inner-pages').then((mod) => mod.TwfInnerPages),
+  {
+    loading: () => (
+      <div className="p-6 sm:p-10 min-h-[60vh] flex items-center justify-center">
+        <div className="w-8 h-8 rounded-full border-2 border-[#f0b400]/30 border-t-[#14531e] animate-spin" />
+      </div>
+    ),
+  }
+);
 
 interface GreenHeritageResortAppProps {
   initialPage?: PageId;
@@ -124,7 +135,6 @@ export function GreenHeritageResortApp({
           activePage={activePage}
           onNavigate={handleNavigate}
           onOpenQuickEnquire={handleOpenQuickEnquire}
-          onOpenMobileMenu={() => setMobileMenuOpen(true)}
         />
 
         {/* LEFT SIDEBAR MENU */}
@@ -142,7 +152,7 @@ export function GreenHeritageResortApp({
         />
 
         {/* RIGHT FLOATING SHEET */}
-        <div className="ml-1.5 sm:ml-[196px] lg:ml-[232px] mr-1.5 sm:mr-2.5 lg:mr-3 my-1.5 sm:my-2.5 lg:my-3 pb-[calc(74px+env(safe-area-inset-bottom))] sm:pb-0 transition-all duration-300">
+        <div className="ml-1.5 sm:ml-[196px] lg:ml-[232px] mr-1.5 sm:mr-2.5 lg:mr-3 my-1.5 sm:my-2.5 lg:my-3 pb-[calc(78px+env(safe-area-inset-bottom))] sm:pb-0 transition-[margin] duration-200 ease-out">
           <main className="bg-[#f7f6f1] text-[#0f1f12] rounded-[18px] sm:rounded-[24px] min-h-[calc(100vh-12px)] sm:min-h-[calc(100vh-20px)] lg:min-h-[calc(100vh-24px)] overflow-hidden shadow-2xl flex flex-col justify-between">
             <AnimatePresence mode="wait" initial={false}>
               <motion.div

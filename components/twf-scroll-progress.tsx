@@ -73,7 +73,7 @@ export function TwfScrollProgress() {
 
   return (
     <div
-      className={`fixed bottom-[calc(78px+env(safe-area-inset-bottom))] right-3 sm:bottom-8 sm:right-8 z-40 transition-all duration-300 ${
+      className={`fixed bottom-[calc(82px+env(safe-area-inset-bottom))] right-3 sm:bottom-8 sm:right-8 z-40 transition-all duration-300 ${
         visible
           ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
           : 'opacity-0 translate-y-4 scale-90 pointer-events-none'

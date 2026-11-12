@@ -14,16 +14,17 @@
   font-family: var(--font-display), Georgia, serif;
 }
 
-/* Hide browser default scrollbars cleanly & keep horizontal layout locked */
+/* Hide browser default scrollbars cleanly, keep horizontal layout locked, and preserve Chrome mobile pull-to-refresh */
 html {
-  overscroll-behavior-y: none;
+  overscroll-behavior-y: auto;
   scroll-padding-top: 16px;
   overflow-x: clip;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
+  overscroll-behavior-y: auto;
   overflow-x: clip;
-  -webkit-overflow-scrolling: touch;
 }
 
 html,
@@ -207,6 +208,20 @@ body,
   display: inline-block;
   animation: loading-dot-wave 1.15s ease-in-out infinite;
   animation-delay: 0.4s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-left,
+  .animate-marquee-right,
+  .animate-float-up,
+  .animate-float-down,
+  .animate-squares-up,
+  .animate-squares-down,
+  .animate-sprocket-left,
+  .animate-sprocket-right,
+  .trail-border-spinner {
+    animation: none !important;
+  }
 }
 
 

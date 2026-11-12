@@ -4,11 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Home,
-  Images,
   Trees,
   Calendar,
-  MapPin,
-  Menu,
   Phone,
   PhoneCall,
   Mail,
@@ -24,18 +21,16 @@ interface TwfMobileDockProps {
   activePage: PageId;
   onNavigate: (page: PageId) => void;
   onOpenQuickEnquire: (service?: string) => void;
-  onOpenMobileMenu: () => void;
 }
 
 export function TwfMobileDock({
   activePage,
   onNavigate,
   onOpenQuickEnquire,
-  onOpenMobileMenu,
 }: TwfMobileDockProps) {
   const [callMenuOpen, setCallMenuOpen] = useState(false);
 
-  // Close Quick Call Menu when user navigates or presses Escape
+  // Close Quick Call Menu on Escape key
   useEffect(() => {
     if (!callMenuOpen) return;
     const onKeyDown = (e: KeyboardEvent) => {
@@ -56,7 +51,6 @@ export function TwfMobileDock({
     icon: React.ComponentType<{ className?: string }>;
   }[] = [
     { id: 'home', label: 'Home', icon: Home },
-    { id: 'films', label: 'Gallery', icon: Images },
     { id: 'about', label: 'Venue', icon: Trees },
   ];
 
@@ -69,30 +63,30 @@ export function TwfMobileDock({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.16 }}
             onClick={() => setCallMenuOpen(false)}
             aria-hidden="true"
-            className="fixed inset-0 z-30 bg-black/50 backdrop-blur-[2px]"
+            className="fixed inset-0 z-30 bg-black/55 backdrop-blur-[2px]"
           />
         )}
       </AnimatePresence>
 
-      {/* Floating Bottom Container (Two Flanking Cylinders + Center Circular Call Orb) */}
+      {/* Floating Bottom Container (Two Aesthetic Flanking Cylinders + Centered Circular Call Icon) */}
       <nav
         aria-label="Smartphone quick navigation bar"
-        className="fixed inset-x-0 bottom-[max(10px,env(safe-area-inset-bottom))] z-40 px-2 flex flex-col items-center pointer-events-none select-none"
+        className="fixed inset-x-0 bottom-[max(10px,env(safe-area-inset-bottom))] z-40 px-3 flex flex-col items-center pointer-events-none select-none"
       >
-        {/* QUICK CALL POPOVER MENU (Appears cleanly above center circular icon) */}
+        {/* QUICK CALL POPOVER MENU (Opens above centered circular Call button) */}
         <AnimatePresence>
           {callMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, y: 14, scale: 0.94 }}
+              initial={{ opacity: 0, y: 12, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 10, scale: 0.94 }}
-              transition={{ type: 'spring', stiffness: 420, damping: 32 }}
+              exit={{ opacity: 0, y: 8, scale: 0.95 }}
+              transition={{ type: 'spring', stiffness: 440, damping: 32 }}
               role="dialog"
               aria-label="Quick Call and Contact Menu"
-              className="pointer-events-auto mb-3 w-[min(calc(100vw-20px),340px)] rounded-[24px] bg-[#07160a]/96 backdrop-blur-2xl border border-[#f0b400]/35 shadow-[0_24px_60px_rgba(0,0,0,0.78)] p-3.5 text-[#f7f6f1] space-y-2.5"
+              className="pointer-events-auto mb-3 w-[min(calc(100vw-24px),340px)] rounded-[24px] bg-[#07160a]/96 backdrop-blur-md border border-[#f0b400]/40 shadow-[0_24px_56px_rgba(0,0,0,0.78)] p-3.5 text-[#f7f6f1] space-y-2.5"
             >
               {/* Popover Header */}
               <div className="flex items-center justify-between gap-2 px-1 pb-2 border-b border-white/10">
@@ -122,7 +116,7 @@ export function TwfMobileDock({
               <a
                 href={STUDIO_INFO.phonePrimaryUrl}
                 onClick={() => setCallMenuOpen(false)}
-                className="flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-2xl bg-[#14531e] hover:bg-[#1b6d28] border border-[#f0b400]/45 shadow-lg shadow-[#14531e]/35 transition-all active:scale-[0.98]"
+                className="flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-2xl bg-[#14531e] hover:bg-[#1b6d28] border border-[#f0b400]/45 shadow-lg shadow-[#14531e]/35 transition-transform active:scale-[0.98]"
               >
                 <div className="flex items-center gap-3 min-w-0">
                   <span className="w-9 h-9 rounded-full bg-[#f0b400] text-[#061208] flex items-center justify-center shrink-0">
@@ -210,10 +204,10 @@ export function TwfMobileDock({
           )}
         </AnimatePresence>
 
-        {/* SPLIT CYLINDRICAL DOCK + CENTERED CIRCULAR CALL ICON */}
-        <div className="w-full max-w-[390px] flex items-center justify-center gap-1.5 sm:gap-2">
-          {/* LEFT CYLINDER: Quick Navigation Pages */}
-          <div className="pointer-events-auto flex-1 min-w-0 h-[54px] rounded-full bg-[#061208]/95 backdrop-blur-md border border-[#f0b400]/30 shadow-[0_10px_24px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.12)] px-1.5 grid grid-cols-3 items-center">
+        {/* SYMMETRIC SPLIT-CYLINDER DOCK: [Home · Venue]  (Call)  [WhatsApp · Contact] */}
+        <div className="w-full max-w-[356px] flex items-center justify-center gap-2">
+          {/* LEFT CYLINDER: Home + Venue */}
+          <div className="pointer-events-auto flex-1 min-w-0 h-[52px] rounded-full bg-gradient-to-b from-[#0b1f0f]/95 to-[#061208]/98 backdrop-blur-md border border-[#f0b400]/35 shadow-[0_12px_26px_rgba(0,0,0,0.48),inset_0_1px_0_rgba(255,255,255,0.14)] px-1.5 grid grid-cols-2 gap-1 items-center">
             {leftItems.map((item) => {
               const Icon = item.icon;
               const isActive = activePage === item.id;
@@ -223,18 +217,18 @@ export function TwfMobileDock({
                   type="button"
                   onClick={() => handleNav(item.id)}
                   aria-label={item.label}
-                  className={`h-[42px] rounded-full flex flex-col items-center justify-center gap-0.5 transition-all cursor-pointer active:scale-95 ${
+                  className={`h-[40px] rounded-full flex flex-col items-center justify-center gap-0.5 transition-all duration-150 cursor-pointer active:scale-95 ${
                     isActive
-                      ? 'bg-[#14531e] text-[#f0b400] shadow-inner border border-[#f0b400]/40'
+                      ? 'bg-[#14531e] text-[#f0b400] border border-[#f0b400]/45 shadow-[0_2px_10px_rgba(20,83,30,0.6)]'
                       : 'text-white/85 hover:text-white hover:bg-white/[0.06]'
                   }`}
                 >
                   <Icon
-                    className={`w-[17px] h-[17px] ${
-                      isActive ? 'text-[#f0b400]' : 'text-white'
+                    className={`w-[16px] h-[16px] ${
+                      isActive ? 'text-[#f0b400]' : 'text-white/95'
                     }`}
                   />
-                  <span className="text-[8.5px] font-medium tracking-tight leading-none">
+                  <span className="text-[9px] font-medium tracking-wide leading-none">
                     {item.label}
                   </span>
                 </button>
@@ -242,79 +236,67 @@ export function TwfMobileDock({
             })}
           </div>
 
-          {/* CENTER CIRCULAR QUICK CALL ORB */}
-          <div className="pointer-events-auto relative shrink-0 -my-1">
-            {/* Crisp Metallic Gold & Forest Border Ring (GPU-light, zero continuous repaint) */}
-            <div className="relative p-[2px] rounded-full bg-gradient-to-tr from-[#b57f00] via-[#f8cf46] to-[#14531e] shadow-[0_8px_22px_rgba(0,0,0,0.55),0_0_16px_rgba(240,180,0,0.28)]">
+          {/* CENTER FLOATING CIRCULAR CALL BUTTON */}
+          <div className="pointer-events-auto relative shrink-0 -my-1.5">
+            <div className="relative p-[2.5px] rounded-full bg-gradient-to-tr from-[#a77300] via-[#fae06b] to-[#1b6d28] shadow-[0_10px_24px_rgba(0,0,0,0.6),0_0_18px_rgba(240,180,0,0.3)]">
               <button
                 type="button"
                 onClick={() => setCallMenuOpen((prev) => !prev)}
                 aria-expanded={callMenuOpen}
                 aria-label="Open quick call menu"
-                className={`relative z-10 w-[54px] h-[54px] rounded-full flex flex-col items-center justify-center transition-transform duration-150 cursor-pointer active:scale-90 ${
+                className={`relative z-10 w-[56px] h-[56px] rounded-full flex flex-col items-center justify-center gap-0.5 transition-transform duration-150 cursor-pointer active:scale-90 ${
                   callMenuOpen
                     ? 'bg-[#f0b400] text-[#061208]'
-                    : 'bg-gradient-to-br from-[#1b6d28] via-[#14531e] to-[#081d0c] text-[#f0b400]'
+                    : 'bg-gradient-to-br from-[#1d752b] via-[#14531e] to-[#081d0c] text-[#f0b400]'
                 }`}
               >
                 {callMenuOpen ? (
                   <X className="w-5 h-5" />
                 ) : (
-                  <PhoneCall className="w-5 h-5" />
+                  <>
+                    <PhoneCall className="w-[18px] h-[18px]" />
+                    <span className="text-[8px] uppercase tracking-[0.12em] font-semibold leading-none text-white/95">
+                      Call
+                    </span>
+                  </>
                 )}
               </button>
             </div>
           </div>
 
-          {/* RIGHT CYLINDER: Quick Actions & Full Menu Drawer */}
-          <div className="pointer-events-auto flex-1 min-w-0 h-[54px] rounded-full bg-[#061208]/95 backdrop-blur-md border border-[#f0b400]/30 shadow-[0_10px_24px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.12)] px-1.5 grid grid-cols-3 items-center">
-            <button
-              type="button"
-              onClick={() => {
-                setCallMenuOpen(false);
-                onOpenQuickEnquire();
-              }}
-              aria-label="Quick Enquire"
-              className="h-[42px] rounded-full flex flex-col items-center justify-center gap-0.5 text-white/90 hover:text-[#f0b400] hover:bg-white/[0.06] transition-all cursor-pointer active:scale-95"
+          {/* RIGHT CYLINDER: WhatsApp + Contact */}
+          <div className="pointer-events-auto flex-1 min-w-0 h-[52px] rounded-full bg-gradient-to-b from-[#0b1f0f]/95 to-[#061208]/98 backdrop-blur-md border border-[#f0b400]/35 shadow-[0_12px_26px_rgba(0,0,0,0.48),inset_0_1px_0_rgba(255,255,255,0.14)] px-1.5 grid grid-cols-2 gap-1 items-center">
+            <a
+              href={STUDIO_INFO.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setCallMenuOpen(false)}
+              aria-label="Chat on WhatsApp"
+              className="h-[40px] rounded-full flex flex-col items-center justify-center gap-0.5 text-white/90 hover:text-[#f0b400] hover:bg-white/[0.06] transition-all duration-150 cursor-pointer active:scale-95"
             >
-              <Calendar className="w-[17px] h-[17px] text-[#f0b400]" />
-              <span className="text-[8.5px] font-medium tracking-tight leading-none">
-                Enquire
+              <WhatsAppMinimalIcon className="w-[16px] h-[16px] text-[#f0b400]" />
+              <span className="text-[9px] font-medium tracking-wide leading-none">
+                WhatsApp
               </span>
-            </button>
+            </a>
 
             <button
               type="button"
               onClick={() => handleNav('contact')}
-              aria-label="Contact and Directions"
-              className={`h-[42px] rounded-full flex flex-col items-center justify-center gap-0.5 transition-all cursor-pointer active:scale-95 ${
+              aria-label="Contact & Visit"
+              className={`h-[40px] rounded-full flex flex-col items-center justify-center gap-0.5 transition-all duration-150 cursor-pointer active:scale-95 ${
                 activePage === 'contact'
-                  ? 'bg-[#14531e] text-[#f0b400] shadow-inner border border-[#f0b400]/40'
+                  ? 'bg-[#14531e] text-[#f0b400] border border-[#f0b400]/45 shadow-[0_2px_10px_rgba(20,83,30,0.6)]'
                   : 'text-white/85 hover:text-white hover:bg-white/[0.06]'
               }`}
             >
-              <MapPin
-                className={`w-[17px] h-[17px] ${
-                  activePage === 'contact' ? 'text-[#f0b400]' : 'text-white'
+              <Mail
+                className={`w-[16px] h-[16px] ${
+                  activePage === 'contact' ? 'text-[#f0b400]' : 'text-white/95'
                 }`}
               />
-              <span className="text-[8.5px] font-medium tracking-tight leading-none">
-                Visit
-              </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setCallMenuOpen(false);
-                onOpenMobileMenu();
-              }}
-              aria-label="Open full navigation menu"
-              className="h-[42px] rounded-full flex flex-col items-center justify-center gap-0.5 text-white/85 hover:text-white hover:bg-white/[0.06] transition-all cursor-pointer active:scale-95"
-            >
-              <Menu className="w-[17px] h-[17px] text-white" />
-              <span className="text-[8.5px] font-medium tracking-tight leading-none">
-                Menu
+              <span className="text-[9px] font-medium tracking-wide leading-none">
+                Contact
               </span>
             </button>
           </div>
@@ -323,4 +305,3 @@ export function TwfMobileDock({
     </div>
   );
 }
-

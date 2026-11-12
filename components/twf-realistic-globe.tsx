@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useCallback, useState } from 'react';
 import * as THREE from 'three';
-import { Navigation, Globe2 } from 'lucide-react';
+import { Navigation, Globe2, Plus, Minus } from 'lucide-react';
 import { STUDIO_INFO } from '@/lib/masoom-data';
 
 interface TwfRealisticGlobeProps {
@@ -30,28 +30,32 @@ export function TwfRealisticGlobe({
   const resumeRotateFnRef = useRef<(() => void) | null>(null);
 
   const [shouldPreloadMap, setShouldPreloadMap] = useState(false);
+  const [shouldInitGlobe, setShouldInitGlobe] = useState(false);
   const [isMapActive, setIsMapActive] = useState(false);
 
   const worldInstanceRef = useRef<{
     width: (w: number) => { height: (h: number) => void };
     pointOfView: (
-      pov: { lat: number; lng: number; altitude: number },
+      pov: { lat?: number; lng?: number; altitude?: number },
       ms?: number
-    ) => void;
+    ) => { lat: number; lng: number; altitude: number };
     controls: () => {
       autoRotate: boolean;
       autoRotateSpeed: number;
       enableDamping: boolean;
       dampingFactor: number;
       enableZoom: boolean;
+      enablePan: boolean;
+      zoomSpeed: number;
       minDistance: number;
       maxDistance: number;
+      touches?: { ONE?: THREE.TOUCH | null; TWO?: THREE.TOUCH | null };
     } | null;
     camera: () => THREE.Camera | null;
     _destructor?: () => void;
   } | null>(null);
 
-  // Preload Google Map softly when the globe section approaches the viewport
+  // Lazy-initialize WebGL 3D Globe & Google Map only as this section approaches viewport (keeps mobile TTI super fast)
   useEffect(() => {
     const stageEl = stageRef.current;
     if (!stageEl) return;
@@ -59,11 +63,12 @@ export function TwfRealisticGlobe({
     const preloadObserver = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {
+          setShouldInitGlobe(true);
           setShouldPreloadMap(true);
           preloadObserver.disconnect();
         }
       },
-      { rootMargin: '320px 0px' }
+      { rootMargin: '420px 0px' }
     );
 
     preloadObserver.observe(stageEl);
@@ -255,6 +260,7 @@ export function TwfRealisticGlobe({
   }, [handleBackToGlobe, isMapActive]);
 
   useEffect(() => {
+    if (!shouldInitGlobe) return;
     const container = globeVizRef.current;
     if (!container) return;
 
@@ -268,8 +274,9 @@ export function TwfRealisticGlobe({
       if (isCancelled || !container) return;
 
       const Globe = GlobeModule.default;
-      const width = container.clientWidth || 460;
-      const height = container.clientHeight || 460;
+      const isCompact = window.innerWidth < 640;
+      const width = container.clientWidth || (isCompact ? 300 : 460);
+      const height = container.clientHeight || (isCompact ? 300 : 460);
 
       container.innerHTML = '';
 
@@ -361,9 +368,17 @@ export function TwfRealisticGlobe({
         });
 
       const renderer = world.renderer?.();
-      if (renderer && typeof renderer.setPixelRatio === 'function') {
-        const maxRatio = window.innerWidth < 640 ? 1.25 : 1.6;
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxRatio));
+      if (renderer) {
+        if (typeof renderer.setPixelRatio === 'function') {
+          const maxRatio = window.innerWidth < 640 ? 1.35 : 1.6;
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxRatio));
+        }
+        // Required on mobile Chrome/Safari so two-thumb pinch zooms the 3D globe smoothly instead of the viewport
+        if (renderer.domElement) {
+          renderer.domElement.style.touchAction = 'none';
+          renderer.domElement.style.display = 'block';
+          renderer.domElement.style.margin = '0 auto';
+        }
       }
 
       const globeMaterial = world.globeMaterial() as THREE.MeshPhongMaterial;
@@ -386,12 +401,13 @@ export function TwfRealisticGlobe({
         directionalLight.position.set(1, 1, 1);
       }
 
-      // Focus camera cleanly over Bakarpur, Muzaffarpur (Bihar)
+      // Focus camera cleanly over Bakarpur, Muzaffarpur with comfortable framing on smartphones
+      const initialAltitude = window.innerWidth < 640 ? 2.15 : 1.65;
       world.pointOfView(
         {
           lat: RESORT_COORDS.lat,
           lng: RESORT_COORDS.lng,
-          altitude: 1.55,
+          altitude: initialAltitude,
         },
         0
       );
@@ -399,17 +415,23 @@ export function TwfRealisticGlobe({
       const controls = world.controls();
       if (controls) {
         controls.autoRotate = true;
-        controls.autoRotateSpeed = 0.55;
+        controls.autoRotateSpeed = 0.5;
         controls.enableDamping = true;
-        controls.dampingFactor = 0.07;
+        controls.dampingFactor = 0.075;
         controls.enableZoom = true;
-        controls.minDistance = 114;
-        controls.maxDistance = 380;
+        controls.enablePan = false;
+        controls.zoomSpeed = 1.25;
+        controls.minDistance = 122;
+        controls.maxDistance = 440;
+        controls.touches = {
+          ONE: THREE.TOUCH.ROTATE,
+          TWO: THREE.TOUCH.DOLLY_ROTATE,
+        };
 
         resumeRotateFnRef.current = () => {
           if (!isMapLockedRef.current && !isAnimatingTransitionRef.current) {
             controls.autoRotate = true;
-            controls.autoRotateSpeed = 0.55;
+            controls.autoRotateSpeed = 0.5;
           }
         };
 
@@ -425,16 +447,15 @@ export function TwfRealisticGlobe({
 
           const dist = cam.position.length();
 
-          // Beyond threshold: full crisp 3D globe
-          if (dist >= 216) {
+          // Keep crisp 3D globe interactive across pinch zoom (145 -> 440); dive into Google Map only at ultra-close pinch (<145)
+          if (dist >= 145) {
             if (currentEaseRef.current > 0) {
               applyZoomTransitionVisuals(0);
             }
             return;
           }
 
-          // Smooth dive-in cross-fade from 3D globe directly into actual Google Map
-          const rawT = Math.max(0, Math.min(1, (216 - dist) / (216 - 130)));
+          const rawT = Math.max(0, Math.min(1, (145 - dist) / (145 - 124)));
           const ease = rawT * rawT * (3 - 2 * rawT);
 
           if (rawT > 0.05) {
@@ -444,9 +465,9 @@ export function TwfRealisticGlobe({
 
           applyZoomTransitionVisuals(ease);
 
-          if (rawT >= 0.88) {
+          if (rawT >= 0.92) {
             controls.autoRotate = false;
-            animateTransition(ease, 1, 280, () => {
+            animateTransition(ease, 1, 260, () => {
               isMapLockedRef.current = true;
               setIsMapActive(true);
               if (mapWrapperRef.current) {
@@ -534,6 +555,7 @@ export function TwfRealisticGlobe({
     applyZoomTransitionVisuals,
     cancelActiveTransition,
     handleZoomToMap,
+    shouldInitGlobe,
   ]);
 
   const handleFocusResort = useCallback(() => {
@@ -543,27 +565,55 @@ export function TwfRealisticGlobe({
     }
 
     if (!worldInstanceRef.current) return;
+    const alt = window.innerWidth < 640 ? 2.15 : 1.65;
     worldInstanceRef.current.pointOfView(
       {
         lat: RESORT_COORDS.lat,
         lng: RESORT_COORDS.lng,
-        altitude: 1.55,
+        altitude: alt,
       },
-      1000
+      900
     );
   }, [handleBackToGlobe, isMapActive]);
+
+  const handleStepZoom = useCallback((direction: 'in' | 'out') => {
+    const world = worldInstanceRef.current;
+    if (!world || isMapActive) return;
+    const pov = world.pointOfView({});
+    const currentAlt = typeof pov?.altitude === 'number' ? pov.altitude : 1.85;
+    const nextAlt =
+      direction === 'in'
+        ? Math.max(0.55, currentAlt - 0.45)
+        : Math.min(3.2, currentAlt + 0.45);
+    world.pointOfView(
+      {
+        lat: pov?.lat ?? RESORT_COORDS.lat,
+        lng: pov?.lng ?? RESORT_COORDS.lng,
+        altitude: nextAlt,
+      },
+      420
+    );
+  }, [isMapActive]);
 
   return (
     <div
       ref={stageRef}
-      className="relative w-full flex flex-col items-center justify-center select-none"
+      className="relative w-full min-w-0 flex flex-col items-center justify-center select-none"
     >
-      {/* Box-less 3D Globe Stage with Smooth Bidirectional Zoom Transition to/from Live Google Map */}
-      <div className="relative w-full aspect-square max-w-[380px] sm:max-w-[460px] lg:max-w-[520px] mx-auto flex items-center justify-center">
+      {/* Centered 3D Globe Stage sized proportionally so entire globe + halo + pin fits on smartphones */}
+      <div className="relative w-full max-w-[300px] sm:max-w-[440px] lg:max-w-[500px] aspect-square mx-auto flex items-center justify-center">
+        {/* Subtle loading ring while WebGL initializes */}
+        {!shouldInitGlobe && (
+          <div
+            aria-hidden="true"
+            className="w-[78%] h-[78%] rounded-full border border-[#f0b400]/20 bg-radial from-[#14531e]/25 via-[#061208] to-[#061208] animate-pulse"
+          />
+        )}
+
         {/* 3D Globe Layer */}
         <div
           ref={globeVizRef}
-          className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing will-change-transform"
+          className="w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing will-change-transform [&>div]:mx-auto"
         />
 
         {/* Soft Circular Dark Emerald Ambient Edge Feather Matching #061208 Section */}
@@ -621,7 +671,7 @@ export function TwfRealisticGlobe({
         </div>
       </div>
 
-      {/* Minimal Toggle Controls Below Globe */}
+      {/* Minimal Toggle & Zoom Controls Below Globe */}
       <div className="mt-3 flex flex-wrap items-center justify-center gap-2 relative z-10">
         {isMapActive ? (
           <button
@@ -634,15 +684,37 @@ export function TwfRealisticGlobe({
             <span>3D Globe</span>
           </button>
         ) : (
-          <button
-            type="button"
-            onClick={handleZoomToMap}
-            aria-label="Smoothly zoom into Google Map of The Green Heritage Resort"
-            className="px-4 py-1.5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] text-white border border-[#f0b400]/45 text-[10px] tracking-wider uppercase font-medium inline-flex items-center gap-1.5 transition-colors cursor-pointer"
-          >
-            <Navigation className="w-3 h-3 text-[#f0b400]" />
-            <span>Live Map</span>
-          </button>
+          <>
+            <button
+              type="button"
+              onClick={handleZoomToMap}
+              aria-label="Smoothly zoom into Google Map of The Green Heritage Resort"
+              className="px-4 py-1.5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] text-white border border-[#f0b400]/45 text-[10px] tracking-wider uppercase font-medium inline-flex items-center gap-1.5 transition-colors cursor-pointer"
+            >
+              <Navigation className="w-3 h-3 text-[#f0b400]" />
+              <span>Live Map</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleStepZoom('in')}
+              aria-label="Zoom in 3D globe"
+              title="Zoom in"
+              className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 text-[#f7f6f1] border border-white/15 inline-flex items-center justify-center transition-colors cursor-pointer"
+            >
+              <Plus className="w-3.5 h-3.5" />
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleStepZoom('out')}
+              aria-label="Zoom out 3D globe"
+              title="Zoom out"
+              className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 text-[#f7f6f1] border border-white/15 inline-flex items-center justify-center transition-colors cursor-pointer"
+            >
+              <Minus className="w-3.5 h-3.5" />
+            </button>
+          </>
         )}
 
         <button
@@ -654,6 +726,12 @@ export function TwfRealisticGlobe({
           Center Pin
         </button>
       </div>
+
+      {!isMapActive && (
+        <p className="mt-2 text-[10px] text-white/55 tracking-wide text-center">
+          Pinch with thumbs to zoom · Drag to rotate
+        </p>
+      )}
     </div>
   );
 }

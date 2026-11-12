@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import {
   ChevronLeft,
   ChevronRight,
@@ -10,7 +11,18 @@ import {
   ArrowUpRight,
   MapPin,
 } from 'lucide-react';
-import { TwfRealisticGlobe } from './twf-realistic-globe';
+
+const TwfRealisticGlobe = dynamic(
+  () => import('./twf-realistic-globe').then((mod) => mod.TwfRealisticGlobe),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full max-w-[300px] sm:max-w-[440px] lg:max-w-[500px] aspect-square mx-auto flex items-center justify-center">
+        <div className="w-[76%] h-[76%] rounded-full border border-[#f0b400]/20 bg-[#0b1f0f] animate-pulse" />
+      </div>
+    ),
+  }
+);
 import {
   INSTAGRAM_REELS,
   GALLERY_PHOTOS,
@@ -855,7 +867,7 @@ export function TwfHomeSections({
           SECTION 3: MINIMAL MAP SECTION (Location + 3D Globe -> Live Google Map)
          ===================================================================== */}
       <section className="px-1 sm:px-2">
-        <div className="relative rounded-[22px] sm:rounded-[28px] bg-[#061208] text-[#f7f6f1] border border-[#f0b400]/25 shadow-2xl p-5 sm:p-10 lg:p-12 overflow-hidden">
+        <div className="relative rounded-[22px] sm:rounded-[28px] bg-[#061208] text-[#f7f6f1] border border-[#f0b400]/25 shadow-2xl p-4 sm:p-10 lg:p-12 overflow-hidden">
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-center">
             {/* Left Column: Minimal Essential Location Info & Primary Actions */}
             <div className="lg:col-span-5 space-y-6">
@@ -912,7 +924,7 @@ export function TwfHomeSections({
             </div>
 
             {/* Right Column: Interactive 3D Globe -> Smooth Live Google Map */}
-            <div className="lg:col-span-7 flex items-center justify-center">
+            <div className="lg:col-span-7 w-full min-w-0 flex items-center justify-center">
               <TwfRealisticGlobe onOpenQuickEnquire={onOpenQuickEnquire} />
             </div>
           </div>

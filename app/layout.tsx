@@ -3,7 +3,7 @@ import { Cormorant_Garamond, Plus_Jakarta_Sans, Great_Vibes } from 'next/font/go
 import { TwfClickSound } from '@/components/twf-click-sound';
 import { TwfEmailHandler } from '@/components/twf-email-handler';
 import { FAQ_ITEMS, STUDIO_INFO } from '@/lib/masoom-data';
-import { SITE_URL } from '@/lib/site-routes';
+import { DEFAULT_OG_IMAGES, SITE_URL } from '@/lib/site-routes';
 import './globals.css';
 
 const cormorant = Cormorant_Garamond({
@@ -84,43 +84,14 @@ export const metadata: Metadata = {
     siteName: 'The Green Heritage Resort and Banquet',
     locale: 'en_IN',
     type: 'website',
-    images: [
-      {
-        url: '/og-resort-preview.jpg',
-        width: 1200,
-        height: 630,
-        type: 'image/jpeg',
-        alt: 'The Green Heritage Resort and Banquet — Aerial Resort View, Illuminated Courtyard & Wedding Stage in Bakarpur, Muzaffarpur',
-      },
-      {
-        url: '/og-resort-aerial.jpg',
-        width: 1200,
-        height: 630,
-        type: 'image/jpeg',
-        alt: 'Illuminated aerial campus view of The Green Heritage Resort and Banquet, Muzaffarpur',
-      },
-      {
-        url: '/og-resort-courtyard.jpg',
-        width: 1200,
-        height: 630,
-        type: 'image/jpeg',
-        alt: 'Heritage facade and courtyard celebrations at The Green Heritage Resort and Banquet, Muzaffarpur',
-      },
-    ],
+    images: DEFAULT_OG_IMAGES,
   },
   twitter: {
     card: 'summary_large_image',
     title: 'The Green Heritage Resort and Banquet | Wedding Venue in Muzaffarpur',
     description:
       'Open wedding lawns, chandeliered banquet halls and bridal suites in Bakarpur, Gobarsahi–Sakri Road, Muzaffarpur 844127. Call +91 92340 52600.',
-    images: [
-      {
-        url: '/og-resort-preview.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'The Green Heritage Resort and Banquet — Wedding Resort & Courtyard Lawns in Muzaffarpur',
-      },
-    ],
+    images: [DEFAULT_OG_IMAGES[0]],
   },
 };
 
