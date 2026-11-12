@@ -159,3 +159,4 @@ See [`.env.example`](.env.example). Optional site URL override for canonical/sit
 - **Email**: `ajay888277@gmail.com`
 
 Additional planning and launch documentation is available in [`The_Green_Heritage_Resort_Documentation/`](The_Green_Heritage_Resort_Documentation/README.md).
+
