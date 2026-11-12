@@ -55,24 +55,33 @@ export function TwfRealisticGlobe({
     _destructor?: () => void;
   } | null>(null);
 
-  // Lazy-initialize WebGL 3D Globe & Google Map only as this section approaches viewport (keeps mobile TTI super fast)
+  // Initialize WebGL 3D Globe immediately after hydration (so it is pre-built during the splash screen),
+  // while keeping Google Maps iframe lazy until approaching viewport.
   useEffect(() => {
+    const initTimer = window.setTimeout(() => {
+      setShouldInitGlobe(true);
+    }, 30);
+
     const stageEl = stageRef.current;
-    if (!stageEl) return;
+    if (!stageEl) {
+      return () => window.clearTimeout(initTimer);
+    }
 
     const preloadObserver = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {
-          setShouldInitGlobe(true);
           setShouldPreloadMap(true);
           preloadObserver.disconnect();
         }
       },
-      { rootMargin: '420px 0px' }
+      { rootMargin: '650px 0px' }
     );
 
     preloadObserver.observe(stageEl);
-    return () => preloadObserver.disconnect();
+    return () => {
+      window.clearTimeout(initTimer);
+      preloadObserver.disconnect();
+    };
   }, []);
 
   const cancelActiveTransition = useCallback(() => {
@@ -268,6 +277,7 @@ export function TwfRealisticGlobe({
     let resizeObserver: ResizeObserver | null = null;
     let visibilityObserver: IntersectionObserver | null = null;
     let resumeAutoRotateTimer: NodeJS.Timeout | null = null;
+    let warmupPauseTimer: number | null = null;
 
     const initGlobe = async () => {
       const GlobeModule = await import('globe.gl');
@@ -281,7 +291,7 @@ export function TwfRealisticGlobe({
       container.innerHTML = '';
 
       const world = new Globe(container, {
-        animateIn: true,
+        animateIn: false,
         rendererConfig: {
           antialias: true,
           alpha: true,
@@ -501,6 +511,23 @@ export function TwfRealisticGlobe({
       }
 
       worldInstanceRef.current = world;
+      let canPauseOffscreen = false;
+      warmupPauseTimer = window.setTimeout(() => {
+        canPauseOffscreen = true;
+        window.dispatchEvent(new CustomEvent('tgh:globe-ready'));
+        if (stageRef.current) {
+          const rect = stageRef.current.getBoundingClientRect();
+          const inRange =
+            rect.bottom >= -260 &&
+            rect.top <= (window.innerHeight || 800) + 260;
+          if (!inRange) {
+            const w = worldInstanceRef.current as unknown as {
+              pauseAnimation?: () => void;
+            } | null;
+            w?.pauseAnimation?.();
+          }
+        }
+      }, 220);
 
       resizeObserver = new ResizeObserver((entries) => {
         for (const entry of entries) {
@@ -523,12 +550,12 @@ export function TwfRealisticGlobe({
             if (entry.isIntersecting) {
               setShouldPreloadMap(true);
               w.resumeAnimation?.();
-            } else {
+            } else if (canPauseOffscreen) {
               w.pauseAnimation?.();
             }
           });
         },
-        { rootMargin: '80px 0px' }
+        { rootMargin: '260px 0px' }
       );
       visibilityObserver.observe(container);
     };
@@ -538,6 +565,7 @@ export function TwfRealisticGlobe({
     return () => {
       isCancelled = true;
       cancelActiveTransition();
+      if (warmupPauseTimer !== null) clearTimeout(warmupPauseTimer);
       if (resumeAutoRotateTimer) clearTimeout(resumeAutoRotateTimer);
       if (resizeObserver) resizeObserver.disconnect();
       if (visibilityObserver) visibilityObserver.disconnect();

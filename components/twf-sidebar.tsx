@@ -50,14 +50,14 @@ const NAV_ITEMS: {
   label: string;
   icon: React.ComponentType<{ className?: string }>;
 }[] = [
-  { id: 'home', label: 'Home', icon: Home },
-  { id: 'films', label: 'Wedding Films', icon: Images },
-  { id: 'about', label: 'The Venue', icon: Trees },
-  { id: 'commissions', label: 'Celebrations', icon: Calendar },
-  { id: 'installations', label: 'Spaces & Halls', icon: Building2 },
-  { id: 'faqs', label: 'FAQs & Guide', icon: HelpCircle },
-  { id: 'contact', label: 'Contact & Visit', icon: Mail },
-];
+    { id: 'home', label: 'Home', icon: Home },
+    { id: 'films', label: 'Wedding Films', icon: Images },
+    { id: 'about', label: 'The Venue', icon: Trees },
+    { id: 'commissions', label: 'Celebrations', icon: Calendar },
+    { id: 'installations', label: 'Spaces & Halls', icon: Building2 },
+    { id: 'faqs', label: 'FAQs & Guide', icon: HelpCircle },
+    { id: 'contact', label: 'Contact & Visit', icon: Mail },
+  ];
 
 export function TwfSidebar({
   activePage,
@@ -85,34 +85,34 @@ export function TwfSidebar({
   // Search Results across Clips, Gallery Photos & Stay/Event Services
   const matchingFilms = cleanQuery
     ? [...HEADER_HERO_FILMS, ...CINEMA_FILMS]
-        .filter(
-          (f, idx, arr) =>
-            arr.findIndex((x) => x.id === f.id) === idx &&
-            (f.couple.toLowerCase().includes(cleanQuery) ||
-              f.location.toLowerCase().includes(cleanQuery) ||
-              f.title.toLowerCase().includes(cleanQuery) ||
-              f.synopsis.toLowerCase().includes(cleanQuery))
-        )
-        .slice(0, 3)
+      .filter(
+        (f, idx, arr) =>
+          arr.findIndex((x) => x.id === f.id) === idx &&
+          (f.couple.toLowerCase().includes(cleanQuery) ||
+            f.location.toLowerCase().includes(cleanQuery) ||
+            f.title.toLowerCase().includes(cleanQuery) ||
+            f.synopsis.toLowerCase().includes(cleanQuery))
+      )
+      .slice(0, 3)
     : [];
 
   const matchingPhotos = cleanQuery
     ? GALLERY_PHOTOS.filter(
-        (p) =>
-          p.couple.toLowerCase().includes(cleanQuery) ||
-          p.title.toLowerCase().includes(cleanQuery) ||
-          p.categoryLabel.toLowerCase().includes(cleanQuery) ||
-          p.location.toLowerCase().includes(cleanQuery)
-      ).slice(0, 3)
+      (p) =>
+        p.couple.toLowerCase().includes(cleanQuery) ||
+        p.title.toLowerCase().includes(cleanQuery) ||
+        p.categoryLabel.toLowerCase().includes(cleanQuery) ||
+        p.location.toLowerCase().includes(cleanQuery)
+    ).slice(0, 3)
     : [];
 
   const matchingServices = cleanQuery
     ? COMMISSION_SERVICES.filter(
-        (s) =>
-          s.title.toLowerCase().includes(cleanQuery) ||
-          s.tagline.toLowerCase().includes(cleanQuery) ||
-          s.description.toLowerCase().includes(cleanQuery)
-      ).slice(0, 2)
+      (s) =>
+        s.title.toLowerCase().includes(cleanQuery) ||
+        s.tagline.toLowerCase().includes(cleanQuery) ||
+        s.description.toLowerCase().includes(cleanQuery)
+    ).slice(0, 2)
     : [];
 
   const hasResults =
@@ -168,9 +168,8 @@ export function TwfSidebar({
           - Permanently docked on Tablet (sm:w-[172px]) & Desktop (lg:w-[214px])
          =================================================================== */}
       <aside
-        className={`fixed top-0 left-0 bottom-0 h-[100dvh] w-[236px] sm:w-[196px] lg:w-[232px] bg-[#061208] text-white z-50 sm:z-40 flex flex-col justify-between py-3 sm:py-3.5 lg:py-4 select-none transition-transform duration-300 ease-out shadow-2xl sm:shadow-none border-r border-[#f0b400]/15 sm:border-r-0 ${
-          mobileOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'
-        }`}
+        className={`fixed top-0 left-0 bottom-0 h-[100dvh] w-[258px] sm:w-[196px] lg:w-[232px] bg-[#061208] text-white z-50 sm:z-40 flex flex-col justify-between py-3 sm:py-3.5 lg:py-4 select-none transition-transform duration-300 ease-out shadow-2xl sm:shadow-none border-r border-[#f0b400]/15 sm:border-r-0 ${mobileOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'
+          }`}
       >
         {/* TOP: TRANSPARENT LOGO ONLY (No Texts, No Background) + MOBILE COLLAPSE BTN + SEARCH */}
         <div className="px-3 sm:px-3 lg:px-3.5 shrink-0 flex flex-col items-stretch">
@@ -184,7 +183,7 @@ export function TwfSidebar({
               <img
                 src="/TGHLogo.png"
                 alt="The Green Heritage Resort and Banquet"
-                className="w-28 sm:w-28 lg:w-36 h-auto aspect-[3/2] object-contain drop-shadow-[0_0_16px_rgba(247,246,241,0.45)]"
+                className="w-44 sm:w-28 lg:w-36 h-auto aspect-[3/2] object-contain drop-shadow-[0_0_16px_rgba(247,246,241,0.45)]"
                 referrerPolicy="no-referrer"
               />
             </button>
@@ -442,17 +441,15 @@ export function TwfSidebar({
                     e.preventDefault();
                     handleNavClick(item.id);
                   }}
-                  className={`relative z-10 w-full h-[38px] flex flex-row items-center justify-between px-2.5 lg:px-3.5 rounded-l-[16px] sm:rounded-l-[18px] transition-colors duration-200 cursor-pointer ${
-                    isActive
+                  className={`relative z-10 w-full h-[38px] flex flex-row items-center justify-between px-2.5 lg:px-3.5 rounded-l-[16px] sm:rounded-l-[18px] transition-colors duration-200 cursor-pointer ${isActive
                       ? 'text-[#0f1f12] font-semibold'
                       : 'text-white/90 hover:text-white hover:bg-white/[0.06]'
-                  }`}
+                    }`}
                 >
                   <span className="flex flex-row items-center gap-2 lg:gap-2.5 min-w-0">
                     <Icon
-                      className={`w-4 h-4 shrink-0 transition-transform duration-300 ${
-                        isActive ? 'text-[#14531e] scale-105' : 'text-white'
-                      }`}
+                      className={`w-4 h-4 shrink-0 transition-transform duration-300 ${isActive ? 'text-[#14531e] scale-105' : 'text-white'
+                        }`}
                     />
                     <span className="text-[12px] sm:text-[11.5px] lg:text-[12.5px] tracking-[0.015em] leading-snug py-0.5 whitespace-nowrap">
                       {item.label}

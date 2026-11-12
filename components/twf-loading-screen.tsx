@@ -2,10 +2,18 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 
-const SESSION_LOADED_KEY = 'tgh_resort_intro_seen_v1';
+const MIN_SPLASH_MS = 2000;
+const MAX_WAIT_MS = 6500;
+const CRITICAL_PRELOAD_IMAGES = [
+  '/TGHLogo.png',
+  '/reels/posters/DSG3HcWEcov.jpg',
+  '/globe/earth-blue-marble.jpg',
+  '/globe/earth-topology.png',
+  '/globe/earth-water.png',
+];
 
 export function TwfLoadingScreen() {
-  const [progress, setProgress] = useState(25);
+  const [progress, setProgress] = useState(14);
   const [statusLabel, setStatusLabel] = useState('Preparing Sanctuary');
   const [isLoading, setIsLoading] = useState(true);
   const [shouldRender, setShouldRender] = useState(true);
@@ -14,11 +22,6 @@ export function TwfLoadingScreen() {
     setProgress(100);
     setStatusLabel('Ready');
     setIsLoading(false);
-    try {
-      sessionStorage.setItem(SESSION_LOADED_KEY, '1');
-    } catch {
-      // noop
-    }
   }, []);
 
   useEffect(() => {
@@ -29,77 +32,120 @@ export function TwfLoadingScreen() {
   }, [isLoading]);
 
   useEffect(() => {
-    let seenBefore = false;
-    try {
-      seenBefore = sessionStorage.getItem(SESSION_LOADED_KEY) === '1';
-    } catch {
-      seenBefore = false;
-    }
-
-    // Subsequent navigations/reloads in the same session dismiss super fast
-    if (seenBefore) {
-      const initQuick = window.setTimeout(() => {
-        setProgress(90);
-        setStatusLabel('Welcome Back');
-      }, 0);
-      const quickTimer = window.setTimeout(dismissLoader, 240);
-      return () => {
-        window.clearTimeout(initQuick);
-        window.clearTimeout(quickTimer);
-      };
-    }
-
     let cancelled = false;
-    let maxCapTimer: number | null = null;
+    const startTime = performance.now();
+    let docComplete = typeof document !== 'undefined' && document.readyState === 'complete';
+    let fontsReady = false;
+    let mediaReady = false;
+    let globeReady = false;
     let finishTimer: number | null = null;
 
-    const completeWhenReady = () => {
+    const tryFinish = () => {
       if (cancelled) return;
-      setProgress(100);
-      setStatusLabel('Welcome to The Green Heritage');
-      finishTimer = window.setTimeout(() => {
-        if (!cancelled) dismissLoader();
-      }, 220);
+      const elapsed = performance.now() - startTime;
+      const allLoaded = docComplete && fontsReady && mediaReady && globeReady;
+      if (elapsed >= MIN_SPLASH_MS && allLoaded) {
+        setProgress(100);
+        setStatusLabel('Welcome to The Green Heritage');
+        finishTimer = window.setTimeout(() => {
+          if (!cancelled) dismissLoader();
+        }, 160);
+      } else if (elapsed < MIN_SPLASH_MS && allLoaded) {
+        const remaining = Math.ceil(MIN_SPLASH_MS - elapsed);
+        if (finishTimer !== null) window.clearTimeout(finishTimer);
+        finishTimer = window.setTimeout(tryFinish, remaining + 10);
+      }
     };
 
-    // Track real document + font readiness on initial arrival
-    const stepTimer = window.setTimeout(() => {
-      if (!cancelled) {
-        setProgress((prev) => Math.max(prev, 62));
-        setStatusLabel('Loading Resort Media');
-      }
-    }, 180);
+    const onWindowLoad = () => {
+      docComplete = true;
+      tryFinish();
+    };
 
-    const fontsPromise =
-      typeof document !== 'undefined' && document.fonts?.ready
-        ? document.fonts.ready.catch(() => undefined)
-        : Promise.resolve();
+    if (!docComplete && typeof window !== 'undefined') {
+      window.addEventListener('load', onWindowLoad, { once: true });
+    }
 
-    const docReadyPromise = new Promise<void>((resolve) => {
-      if (typeof document === 'undefined' || document.readyState !== 'loading') {
-        resolve();
-        return;
-      }
-      const onDomReady = () => {
-        document.removeEventListener('DOMContentLoaded', onDomReady);
-        resolve();
-      };
-      document.addEventListener('DOMContentLoaded', onDomReady);
+    const onGlobeReady = () => {
+      globeReady = true;
+      tryFinish();
+    };
+    if (typeof window !== 'undefined') {
+      window.addEventListener('tgh:globe-ready', onGlobeReady, { once: true });
+    }
+
+    // Warm fonts, globe bundle, globe textures, and hero poster during the >= 2s splash
+    if (typeof document !== 'undefined' && document.fonts?.ready) {
+      document.fonts.ready
+        .catch(() => undefined)
+        .finally(() => {
+          fontsReady = true;
+          tryFinish();
+        });
+    } else {
+      fontsReady = true;
+    }
+
+    import('globe.gl').catch(() => undefined);
+
+    Promise.all(
+      CRITICAL_PRELOAD_IMAGES.map(
+        (src) =>
+          new Promise<void>((resolve) => {
+            const img = new window.Image();
+            img.onload = () => resolve();
+            img.onerror = () => resolve();
+            img.src = src;
+          })
+      )
+    ).then(() => {
+      mediaReady = true;
+      tryFinish();
     });
 
-    Promise.all([fontsPromise, docReadyPromise]).then(() => {
+    // Fallback in case globe WebGL is unsupported or a third-party resource stalls
+    const globeGraceTimer = window.setTimeout(() => {
+      globeReady = true;
+      tryFinish();
+    }, 3200);
+
+    const maxCapTimer = window.setTimeout(() => {
+      docComplete = true;
+      fontsReady = true;
+      mediaReady = true;
+      globeReady = true;
+      tryFinish();
+    }, MAX_WAIT_MS);
+
+    // Smooth real-time progress bar tracking elapsed time + asset milestones
+    const ticker = window.setInterval(() => {
       if (cancelled) return;
-      setProgress((prev) => Math.max(prev, 88));
-      completeWhenReady();
-    });
-
-    // Safety cap ensures slow networks never stall the user behind the splash screen
-    maxCapTimer = window.setTimeout(completeWhenReady, 850);
+      const elapsedRatio = Math.min(1, (performance.now() - startTime) / MIN_SPLASH_MS);
+      const milestoneBonus =
+        (docComplete ? 10 : 0) +
+        (fontsReady ? 5 : 0) +
+        (mediaReady ? 12 : 0) +
+        (globeReady ? 10 : 0);
+      const computed = Math.min(97, Math.round(14 + elapsedRatio * 46 + milestoneBonus));
+      setProgress((prev) => Math.max(prev, computed));
+      if (elapsedRatio < 0.45) {
+        setStatusLabel('Preparing Sanctuary');
+      } else if (!mediaReady || !globeReady) {
+        setStatusLabel('Loading Visuals & Globe');
+      } else {
+        setStatusLabel('Almost Ready');
+      }
+    }, 90);
 
     return () => {
       cancelled = true;
-      window.clearTimeout(stepTimer);
-      if (maxCapTimer !== null) window.clearTimeout(maxCapTimer);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('load', onWindowLoad);
+        window.removeEventListener('tgh:globe-ready', onGlobeReady);
+      }
+      window.clearInterval(ticker);
+      window.clearTimeout(globeGraceTimer);
+      window.clearTimeout(maxCapTimer);
       if (finishTimer !== null) window.clearTimeout(finishTimer);
     };
   }, [dismissLoader]);

@@ -116,6 +116,12 @@ export function TwfHeroSlider({
           key={currentSlide.id}
           ref={fgVideoRef}
           src={activeVideoSrc}
+          poster={
+            currentSlide.thumbnailUrl ||
+            (currentSlide.reelCode
+              ? `/reels/posters/${currentSlide.reelCode}.jpg`
+              : undefined)
+          }
           autoPlay
           loop
           muted
