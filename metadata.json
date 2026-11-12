@@ -1,0 +1,8 @@
+{
+  "name": "The Green Heritage Resort and Banquet | Muzaffarpur, Bihar",
+  "description": "Contact The Green Heritage Resort and Banquet in the Bakarpur area of Muzaffarpur, Bihar, for current stay information, event arrangements and directions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

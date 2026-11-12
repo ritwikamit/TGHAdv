@@ -1,0 +1,212 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: var(--font-display), Georgia, serif;
+  --font-sans: var(--font-sans), system-ui, -apple-system, sans-serif;
+  --font-script: var(--font-script), cursive;
+}
+
+.font-script {
+  font-family: var(--font-script), cursive;
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+/* Hide browser default scrollbars cleanly & keep horizontal layout locked */
+html {
+  overscroll-behavior-y: none;
+  scroll-padding-top: 16px;
+  overflow-x: clip;
+}
+
+body {
+  overflow-x: clip;
+  -webkit-overflow-scrolling: touch;
+}
+
+html,
+body,
+* {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+@keyframes marquee-left {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes float-up {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, -50%, 0);
+  }
+}
+
+@keyframes float-down {
+  0% {
+    transform: translate3d(0, -50%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-marquee-left {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  backface-visibility: hidden;
+  animation: marquee-left 52s linear infinite;
+}
+
+.animate-marquee-left:hover {
+  animation-play-state: paused;
+}
+
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  backface-visibility: hidden;
+  animation: marquee-right 58s linear infinite;
+}
+
+.animate-marquee-right:hover {
+  animation-play-state: paused;
+}
+
+.animate-float-up {
+  will-change: transform;
+  animation: float-up 34s linear infinite;
+}
+
+.animate-float-down {
+  will-change: transform;
+  animation: float-down 38s linear infinite;
+}
+
+.animate-squares-up {
+  display: flex;
+  flex-direction: column;
+  height: max-content;
+  will-change: transform;
+  animation: float-up 22s linear infinite;
+}
+
+.animate-squares-down {
+  display: flex;
+  flex-direction: column;
+  height: max-content;
+  will-change: transform;
+  animation: float-down 22s linear infinite;
+}
+
+.animate-sprocket-left {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-left 24s linear infinite;
+}
+
+.animate-sprocket-right {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-right 24s linear infinite;
+}
+
+/* Slow-Moving Heritage Gold & Forest Green Trail Border for Sidebar Enquiry Box */
+@keyframes trail-spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.trail-border-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 260%;
+  height: 260%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 55deg,
+    rgba(240, 180, 0, 0.16) 95deg,
+    rgba(240, 180, 0, 0.56) 135deg,
+    #f0b400 168deg,
+    rgba(240, 180, 0, 0.45) 178deg,
+    transparent 186deg,
+    transparent 235deg,
+    rgba(24, 96, 0, 0.28) 275deg,
+    rgba(240, 180, 0, 0.52) 315deg,
+    #f0b400 348deg,
+    rgba(240, 180, 0, 0.45) 358deg,
+    transparent 360deg
+  );
+  will-change: transform;
+  animation: trail-spin 9s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes loading-dot-wave {
+  0%,
+  75%,
+  100% {
+    opacity: 0.22;
+    transform: translateY(0px) scale(0.85);
+    color: rgba(247, 246, 241, 0.55);
+  }
+  35% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.2);
+    color: #f0b400;
+  }
+}
+
+.animate-loading-dot-1 {
+  display: inline-block;
+  animation: loading-dot-wave 1.15s ease-in-out infinite;
+  animation-delay: 0s;
+}
+
+.animate-loading-dot-2 {
+  display: inline-block;
+  animation: loading-dot-wave 1.15s ease-in-out infinite;
+  animation-delay: 0.2s;
+}
+
+.animate-loading-dot-3 {
+  display: inline-block;
+  animation: loading-dot-wave 1.15s ease-in-out infinite;
+  animation-delay: 0.4s;
+}
+
+
