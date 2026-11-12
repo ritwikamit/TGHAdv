@@ -140,7 +140,6 @@ export function TwfLoadingScreen() {
             loading="eager"
             decoding="sync"
             className="w-48 sm:w-64 md:w-[300px] h-auto aspect-[3/2] object-contain drop-shadow-[0_0_20px_rgba(247,246,241,0.42)]"
-            referrerPolicy="no-referrer"
           />
         </div>
 

@@ -346,6 +346,12 @@ export function TwfInnerPages({
             decoding="async"
             fetchPriority="high"
             className="pointer-events-none absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.84] contrast-[1.06] transition-transform duration-700"
+            onError={(e) => {
+              const target = e.currentTarget;
+              if (target.src.endsWith('.webp')) {
+                target.src = target.src.replace(/\.webp$/i, '.jpg');
+              }
+            }}
           />
           <div
             className="pointer-events-none absolute inset-0"
@@ -556,10 +562,14 @@ export function TwfInnerPages({
                   <img
                     src={photo.imageUrl}
                     alt={photo.title}
-                    loading="lazy"
                     decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (target.src.endsWith('.webp')) {
+                        target.src = target.src.replace(/\.webp$/i, '.jpg');
+                      }
+                    }}
                   />
                   <div
                     className="pointer-events-none absolute inset-x-0 bottom-0 h-20"
@@ -612,14 +622,18 @@ export function TwfInnerPages({
                   <img
                     src={frame.imageUrl}
                     alt={frame.title}
-                    loading="lazy"
                     decoding="async"
                     className={`w-full h-full group-hover:scale-105 transition-transform duration-700 ${
                       frame.aspect === 'landscape'
                         ? 'object-contain bg-[#061208]'
                         : 'object-cover'
                     }`}
-                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (target.src.endsWith('.webp')) {
+                        target.src = target.src.replace(/\.webp$/i, '.jpg');
+                      }
+                    }}
                   />
                   <div
                     className="pointer-events-none absolute inset-x-0 bottom-0 h-20"
@@ -670,6 +684,12 @@ export function TwfInnerPages({
             decoding="async"
             fetchPriority="high"
             className="pointer-events-none absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.86] contrast-[1.06] transition-transform duration-700"
+            onError={(e) => {
+              const target = e.currentTarget;
+              if (target.src.endsWith('.webp')) {
+                target.src = target.src.replace(/\.webp$/i, '.jpg');
+              }
+            }}
           />
           <div
             className="pointer-events-none absolute inset-0"
@@ -856,9 +876,14 @@ export function TwfInnerPages({
                     <img
                       src="/TGHPhotos/founder.webp"
                       alt="Director of The Green Heritage Resort and Banquet"
-                      loading="lazy"
                       decoding="async"
                       className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-500"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (target.src.endsWith('.webp')) {
+                          target.src = target.src.replace(/\.webp$/i, '.jpg');
+                        }
+                      }}
                     />
                   </div>
                   <div className="pt-2.5 pb-0.5 text-center">
@@ -947,6 +972,12 @@ export function TwfInnerPages({
                       loading="lazy"
                       decoding="async"
                       className="w-full h-full object-cover object-[50%_15%] group-hover:scale-[1.03] transition-transform duration-500"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (target.src.endsWith('.webp')) {
+                          target.src = target.src.replace(/\.webp$/i, '.jpg');
+                        }
+                      }}
                     />
                   </div>
                   <div className="pt-2.5 pb-0.5 text-center">
@@ -1039,7 +1070,12 @@ export function TwfInnerPages({
                         loading="lazy"
                         decoding="async"
                         className="w-full h-full object-cover object-[center_18%] group-hover:scale-105 transition-transform duration-700"
-                        referrerPolicy="no-referrer"
+                        onError={(e) => {
+                          const target = e.currentTarget;
+                          if (target.src.endsWith('.webp')) {
+                            target.src = target.src.replace(/\.webp$/i, '.jpg');
+                          }
+                        }}
                       />
                       <div
                         className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
@@ -1087,6 +1123,12 @@ export function TwfInnerPages({
             decoding="async"
             fetchPriority="high"
             className="pointer-events-none absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.84] contrast-[1.06] transition-transform duration-700"
+            onError={(e) => {
+              const target = e.currentTarget;
+              if (target.src.endsWith('.webp')) {
+                target.src = target.src.replace(/\.webp$/i, '.jpg');
+              }
+            }}
           />
           <div
             className="pointer-events-none absolute inset-0"
@@ -1188,6 +1230,12 @@ export function TwfInnerPages({
             decoding="async"
             fetchPriority="high"
             className="pointer-events-none absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.84] contrast-[1.06] transition-transform duration-700"
+            onError={(e) => {
+              const target = e.currentTarget;
+              if (target.src.endsWith('.webp')) {
+                target.src = target.src.replace(/\.webp$/i, '.jpg');
+              }
+            }}
           />
           <div
             className="pointer-events-none absolute inset-0"
@@ -1231,7 +1279,12 @@ export function TwfInnerPages({
                     loading="lazy"
                     decoding="async"
                     className="w-full h-full object-cover transition-all duration-700"
-                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (target.src.endsWith('.webp')) {
+                        target.src = target.src.replace(/\.webp$/i, '.jpg');
+                      }
+                    }}
                   />
                   <div className="absolute top-3 left-3 px-3.5 py-1 rounded-full bg-[#061208]/75 backdrop-blur-md border border-[#f0b400]/25 text-[11px] text-[#f7f6f1]">
                     {inst.atmosphereTag}

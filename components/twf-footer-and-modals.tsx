@@ -162,7 +162,7 @@ export function TwfFooterAndModals({
       if (playPromise !== undefined) {
         playPromise.catch(() => {
           activeVid.muted = true;
-          activeVid.play().catch(() => {});
+          activeVid.play().catch(() => { });
         });
       }
     }
@@ -188,12 +188,9 @@ export function TwfFooterAndModals({
   };
 
   const whatsappText = encodeURIComponent(
-    `Hello The Green Heritage Resort and Banquet! I would like to submit an enquiry.\n\nName: ${
-      enquireForm.guestName || 'Guest'
-    }\nPhone: ${enquireForm.phone || 'Not provided'}\nEnquiry Type: ${selectedTypeValue}\nPreferred Date: ${
-      enquireForm.preferredDate || 'Flexible'
-    }\nGuests: ${enquireForm.guests || 'Not specified'}\nMessage: ${
-      enquireForm.message || 'Please share current availability and details.'
+    `Hello The Green Heritage Resort and Banquet! I would like to submit an enquiry.\n\nName: ${enquireForm.guestName || 'Guest'
+    }\nPhone: ${enquireForm.phone || 'Not provided'}\nEnquiry Type: ${selectedTypeValue}\nPreferred Date: ${enquireForm.preferredDate || 'Flexible'
+    }\nGuests: ${enquireForm.guests || 'Not specified'}\nMessage: ${enquireForm.message || 'Please share current availability and details.'
     }`
   );
   const whatsappHref = `https://wa.me/${STUDIO_INFO.whatsappNumber}?text=${whatsappText}`;
@@ -223,173 +220,170 @@ export function TwfFooterAndModals({
           ref={footerRef}
           className="relative w-full min-h-[430px] sm:min-h-[420px] sm:aspect-video bg-[#061208] text-white rounded-[18px] sm:rounded-[24px] overflow-hidden flex flex-col justify-end select-none shadow-2xl border border-[#14531e]/25"
         >
-        <video
-          ref={footerVideo1Ref}
-          src={FOOTER_REELS[0].videoSrc}
-          poster={FOOTER_REELS[0].posterUrl || `/reels/posters/${FOOTER_REELS[0].code}.jpg`}
-          autoPlay
-          loop={false}
-          muted
-          playsInline
-          preload="metadata"
-          onCanPlay={(e) => {
-            if (isFooterVisible && activeFooterVideoIdx === 0) {
-              e.currentTarget.muted = true;
-              e.currentTarget.play().catch(() => {});
-            }
-          }}
-          onEnded={() => setActiveFooterVideoIdx(1)}
-          onError={() => setActiveFooterVideoIdx(1)}
-          className={`pointer-events-none absolute inset-0 w-full h-full object-cover bg-[#061208] transition-opacity duration-1000 ease-in-out ${
-            activeFooterVideoIdx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'
-          }`}
-        />
+          <video
+            ref={footerVideo1Ref}
+            src={FOOTER_REELS[0].videoSrc}
+            poster={FOOTER_REELS[0].posterUrl || `/reels/posters/${FOOTER_REELS[0].code}.jpg`}
+            autoPlay
+            loop={false}
+            muted
+            playsInline
+            preload="metadata"
+            onCanPlay={(e) => {
+              if (isFooterVisible && activeFooterVideoIdx === 0) {
+                e.currentTarget.muted = true;
+                e.currentTarget.play().catch(() => { });
+              }
+            }}
+            onEnded={() => setActiveFooterVideoIdx(1)}
+            onError={() => setActiveFooterVideoIdx(1)}
+            className={`pointer-events-none absolute inset-0 w-full h-full object-cover bg-[#061208] transition-opacity duration-1000 ease-in-out ${activeFooterVideoIdx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'
+              }`}
+          />
 
-        <video
-          ref={footerVideo2Ref}
-          src={FOOTER_REELS[1].videoSrc}
-          poster={FOOTER_REELS[1].posterUrl || `/reels/posters/${FOOTER_REELS[1].code}.jpg`}
-          muted
-          playsInline
-          preload="metadata"
-          onCanPlay={(e) => {
-            if (isFooterVisible && activeFooterVideoIdx === 1) {
-              e.currentTarget.muted = true;
-              e.currentTarget.play().catch(() => {});
-            }
-          }}
-          onEnded={() => setActiveFooterVideoIdx(0)}
-          onError={() => setActiveFooterVideoIdx(0)}
-          className={`pointer-events-none absolute inset-0 w-full h-full object-cover bg-[#061208] transition-opacity duration-1000 ease-in-out ${
-            activeFooterVideoIdx === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'
-          }`}
-        />
+          <video
+            ref={footerVideo2Ref}
+            src={FOOTER_REELS[1].videoSrc}
+            poster={FOOTER_REELS[1].posterUrl || `/reels/posters/${FOOTER_REELS[1].code}.jpg`}
+            muted
+            playsInline
+            preload="metadata"
+            onCanPlay={(e) => {
+              if (isFooterVisible && activeFooterVideoIdx === 1) {
+                e.currentTarget.muted = true;
+                e.currentTarget.play().catch(() => { });
+              }
+            }}
+            onEnded={() => setActiveFooterVideoIdx(0)}
+            onError={() => setActiveFooterVideoIdx(0)}
+            className={`pointer-events-none absolute inset-0 w-full h-full object-cover bg-[#061208] transition-opacity duration-1000 ease-in-out ${activeFooterVideoIdx === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'
+              }`}
+          />
 
-        {/* Subtle dark fade overlay across entire footer video box — video stays clearly visible on smartphone */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-[12]"
-          style={{
-            background:
-              'radial-gradient(circle at 50% 38%, rgba(4,12,6,0.16) 0%, rgba(4,12,6,0.30) 70%, rgba(4,12,6,0.44) 100%)',
-          }}
-        />
+          {/* Subtle dark fade overlay across entire footer video box — video stays clearly visible on smartphone */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-[12]"
+            style={{
+              background:
+                'radial-gradient(circle at 50% 38%, rgba(4,12,6,0.16) 0%, rgba(4,12,6,0.30) 70%, rgba(4,12,6,0.44) 100%)',
+            }}
+          />
 
-        <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-[58%] sm:h-3/5 z-[13]"
-          style={{
-            background:
-              'linear-gradient(180deg, rgba(6,18,8,0) 0%, rgba(6,18,8,0.68) 44%, rgba(6,18,8,0.95) 100%)',
-          }}
-        />
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-[58%] sm:h-3/5 z-[13]"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(6,18,8,0) 0%, rgba(6,18,8,0.68) 44%, rgba(6,18,8,0.95) 100%)',
+            }}
+          />
 
-        <div className="relative z-20 w-full px-4 sm:px-8 lg:px-12 pb-5 sm:pb-7 pt-20 sm:pt-12 bg-transparent space-y-3 sm:space-y-4">
-          {/* Tier 1: Resort Logo + Tagline (Left) & Connect Icons + Enquire Button (Right) */}
-          <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-3.5 sm:gap-5">
-            <div className="flex flex-col sm:flex-row items-center text-center sm:text-left gap-2.5 sm:gap-5 min-w-0">
-              <button
-                type="button"
-                onClick={() => onNavigate('home')}
-                className="shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer focus:outline-none"
-                aria-label="The Green Heritage Resort and Banquet Home"
-              >
-                <img
-                  src="/TGHLogo.png"
-                  alt="The Green Heritage Resort and Banquet"
-                  loading="lazy"
-                  decoding="async"
-                  className="w-24 sm:w-44 lg:w-56 h-auto aspect-[3/2] object-contain drop-shadow-[0_0_20px_rgba(247,246,241,0.5)]"
-                  referrerPolicy="no-referrer"
-                />
-              </button>
+          <div className="relative z-20 w-full px-4 sm:px-8 lg:px-12 pb-5 sm:pb-7 pt-20 sm:pt-12 bg-transparent space-y-3 sm:space-y-4">
+            {/* Tier 1: Resort Logo + Tagline (Left) & Connect Icons + Enquire Button (Right) */}
+            <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-3.5 sm:gap-5">
+              <div className="flex flex-col sm:flex-row items-center text-center sm:text-left gap-2.5 sm:gap-5 min-w-0">
+                <button
+                  type="button"
+                  onClick={() => onNavigate('home')}
+                  className="shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer focus:outline-none"
+                  aria-label="The Green Heritage Resort and Banquet Home"
+                >
+                  <img
+                    src="/TGHLogo.png"
+                    alt="The Green Heritage Resort and Banquet"
+                    loading="lazy"
+                    decoding="async"
+                    className="w-24 sm:w-44 lg:w-56 h-auto aspect-[3/2] object-contain drop-shadow-[0_0_20px_rgba(247,246,241,0.5)]"
+                  />
+                </button>
 
-              <div className="min-w-0 space-y-1">
-                <span
-                  className="text-xl sm:text-3xl lg:text-4xl text-[#f0b400] block leading-snug drop-shadow"
-                  style={{ fontFamily: 'var(--font-script)' }}
-                >
-                  Where every blessing stays with the family
-                </span>
-                <p
-                  className="text-xs sm:text-lg lg:text-xl text-white/95 font-normal tracking-wide drop-shadow"
-                  style={{ fontFamily: 'var(--font-display)' }}
-                >
-                  Weddings, Phere &amp; Celebrations · Bakarpur, Gobarsahi–Sakri Road, Muzaffarpur 844127
-                </p>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap items-center justify-center md:justify-end gap-2.5 shrink-0">
-              <div className="flex items-center gap-2">
-                <a
-                  href={STUDIO_INFO.phonePrimaryUrl}
-                  aria-label={`Call ${STUDIO_INFO.phoneNumber}`}
-                  title={`Call ${STUDIO_INFO.phoneNumber}`}
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer"
-                >
-                  <Phone className="w-4 h-4" />
-                </a>
-                <a
-                  href={STUDIO_INFO.whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`WhatsApp ${STUDIO_INFO.phoneNumber}`}
-                  title={`WhatsApp ${STUDIO_INFO.phoneNumber}`}
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer group"
-                >
-                  <WhatsAppMinimalIcon className="w-4 h-4 text-white/95 group-hover:text-[#f0b400]" />
-                </a>
-                <a
-                  href={STUDIO_INFO.emailUrl}
-                  aria-label={`Email ${STUDIO_INFO.email}`}
-                  title={`Email ${STUDIO_INFO.email}`}
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer"
-                >
-                  <Mail className="w-4 h-4" />
-                </a>
-                <a
-                  href={STUDIO_INFO.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Instagram"
-                  title="Instagram"
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer"
-                >
-                  <Instagram className="w-4 h-4" />
-                </a>
-                <a
-                  href={STUDIO_INFO.facebook}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Facebook"
-                  title="Facebook"
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer"
-                >
-                  <FacebookMinimalIcon className="w-4 h-4" />
-                </a>
-                <a
-                  href={STUDIO_INFO.mapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Google Maps Directions"
-                  title="Open Google Maps"
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer"
-                >
-                  <MapPin className="w-4 h-4" />
-                </a>
+                <div className="min-w-0 space-y-1">
+                  <span
+                    className="text-xl sm:text-3xl lg:text-4xl text-[#f0b400] block leading-snug drop-shadow"
+                    style={{ fontFamily: 'var(--font-script)' }}
+                  >
+                    Where every blessing stays with the family
+                  </span>
+                  <p
+                    className="text-xs sm:text-lg lg:text-xl text-white/95 font-normal tracking-wide drop-shadow"
+                    style={{ fontFamily: 'var(--font-display)' }}
+                  >
+                    Weddings, Phere &amp; Celebrations · Bakarpur, Gobarsahi–Sakri Road, Muzaffarpur 844127
+                  </p>
+                </div>
               </div>
 
-              <button
-                type="button"
-                onClick={() => onOpenQuickEnquire()}
-                className="px-5 sm:px-6 py-2.5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] border border-[#f0b400]/55 active:scale-95 text-white text-[11px] sm:text-xs uppercase tracking-[0.18em] font-medium inline-flex items-center gap-1.5 transition-all cursor-pointer shadow-lg shadow-[#061208]/45"
-              >
-                <span>Enquire Now</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-[#f0b400]" />
-              </button>
+              <div className="flex flex-wrap items-center justify-center md:justify-end gap-2.5 shrink-0">
+                <div className="flex items-center gap-2">
+                  <a
+                    href={STUDIO_INFO.phonePrimaryUrl}
+                    aria-label={`Call ${STUDIO_INFO.phoneNumber}`}
+                    title={`Call ${STUDIO_INFO.phoneNumber}`}
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer"
+                  >
+                    <Phone className="w-4 h-4" />
+                  </a>
+                  <a
+                    href={STUDIO_INFO.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`WhatsApp ${STUDIO_INFO.phoneNumber}`}
+                    title={`WhatsApp ${STUDIO_INFO.phoneNumber}`}
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer group"
+                  >
+                    <WhatsAppMinimalIcon className="w-4 h-4 text-white/95 group-hover:text-[#f0b400]" />
+                  </a>
+                  <a
+                    href={STUDIO_INFO.emailUrl}
+                    aria-label={`Email ${STUDIO_INFO.email}`}
+                    title={`Email ${STUDIO_INFO.email}`}
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer"
+                  >
+                    <Mail className="w-4 h-4" />
+                  </a>
+                  <a
+                    href={STUDIO_INFO.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                    title="Instagram"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer"
+                  >
+                    <Instagram className="w-4 h-4" />
+                  </a>
+                  <a
+                    href={STUDIO_INFO.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook"
+                    title="Facebook"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer"
+                  >
+                    <FacebookMinimalIcon className="w-4 h-4" />
+                  </a>
+                  <a
+                    href={STUDIO_INFO.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Google Maps Directions"
+                    title="Open Google Maps"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer"
+                  >
+                    <MapPin className="w-4 h-4" />
+                  </a>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => onOpenQuickEnquire()}
+                  className="px-5 sm:px-6 py-2.5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] border border-[#f0b400]/55 active:scale-95 text-white text-[11px] sm:text-xs uppercase tracking-[0.18em] font-medium inline-flex items-center gap-1.5 transition-all cursor-pointer shadow-lg shadow-[#061208]/45"
+                >
+                  <span>Enquire Now</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-[#f0b400]" />
+                </button>
+              </div>
             </div>
           </div>
-        </div>
         </footer>
 
         {/* Tier 2: Copyright, Terms, Privacy/Cookie Policy, Developer Credit — Wraps Cleanly on Smartphone */}
@@ -435,7 +429,6 @@ export function TwfFooterAndModals({
                   loading="lazy"
                   decoding="async"
                   className="h-[14px] sm:h-[15px] w-auto object-contain block translate-y-[2.5px] drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]"
-                  referrerPolicy="no-referrer"
                 />
               </a>
             </div>
@@ -590,11 +583,15 @@ export function TwfFooterAndModals({
                   transform: `scale(${photoZoom})`,
                   transition: 'transform 0.25s ease-out',
                 }}
-                className={`max-w-full max-h-[52dvh] lg:max-h-[78dvh] w-auto h-auto object-contain ${
-                  photoZoom > 1 ? 'cursor-grab active:cursor-grabbing' : 'cursor-zoom-in'
-                }`}
+                className={`max-w-full max-h-[52dvh] lg:max-h-[78dvh] w-auto h-auto object-contain ${photoZoom > 1 ? 'cursor-grab active:cursor-grabbing' : 'cursor-zoom-in'
+                  }`}
                 onClick={() => setPhotoZoom((prev) => (prev < 2.5 ? prev + 0.5 : 1))}
-                referrerPolicy="no-referrer"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (target.src.endsWith('.webp')) {
+                    target.src = target.src.replace(/\.webp$/i, '.jpg');
+                  }
+                }}
               />
 
               <div className="absolute top-3 right-3 z-30 flex items-center gap-1 p-1 rounded-full bg-[#061208]/80 backdrop-blur-md border border-white/20 text-white shadow-xl">

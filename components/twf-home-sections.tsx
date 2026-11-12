@@ -640,10 +640,14 @@ export function TwfHomeSections({
                   <img
                     src={photo.imageUrl}
                     alt={photo.title}
-                    loading="lazy"
                     decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (target.src.endsWith('.webp')) {
+                        target.src = target.src.replace(/\.webp$/i, '.jpg');
+                      }
+                    }}
                   />
                   <div
                     className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
@@ -676,7 +680,7 @@ export function TwfHomeSections({
       <section
         ref={movingSectionRef}
         className="rounded-[22px] sm:rounded-[28px] bg-white border border-[#e8e1ce] shadow-[0_14px_40px_rgba(15,31,18,0.06)] pt-6 sm:pt-8 pb-4 sm:pb-6 space-y-3 sm:space-y-4 overflow-hidden"
-        style={{ backgroundColor: '#ffffff', contain: 'layout paint style' }}
+        style={{ backgroundColor: '#ffffff' }}
       >
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 px-4 sm:px-8">
           <div>
@@ -786,10 +790,14 @@ export function TwfHomeSections({
                           alt={photo.title}
                           width={390}
                           height={260}
-                          loading={idx < 4 ? 'eager' : 'lazy'}
                           decoding="async"
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                          referrerPolicy="no-referrer"
+                          onError={(e) => {
+                            const target = e.currentTarget;
+                            if (target.src.endsWith('.webp')) {
+                              target.src = target.src.replace(/\.webp$/i, '.jpg');
+                            }
+                          }}
                         />
                       </div>
                       <div className="pt-2 px-1.5 pb-0.5 bg-white">
@@ -829,10 +837,14 @@ export function TwfHomeSections({
                           alt={photo.title}
                           width={230}
                           height={345}
-                          loading={idx < 4 ? 'eager' : 'lazy'}
                           decoding="async"
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                          referrerPolicy="no-referrer"
+                          onError={(e) => {
+                            const target = e.currentTarget;
+                            if (target.src.endsWith('.webp')) {
+                              target.src = target.src.replace(/\.webp$/i, '.jpg');
+                            }
+                          }}
                         />
                       </div>
                       <div className="pt-2 px-1.5 pb-0.5 bg-white">
@@ -1092,10 +1104,14 @@ export function TwfHomeSections({
                   key={currentNote.id}
                   src={currentNote.imageUrl}
                   alt={currentNote.author}
-                  loading="lazy"
                   decoding="async"
                   className="w-full h-full object-cover object-[50%_18%] transition-all duration-700 ease-out animate-in fade-in"
-                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (target.src.endsWith('.webp')) {
+                      target.src = target.src.replace(/\.webp$/i, '.jpg');
+                    }
+                  }}
                 />
               </div>
             </div>
@@ -1312,10 +1328,14 @@ export function TwfHomeSections({
                 <img
                   src={item.image}
                   alt={item.title}
-                  loading="lazy"
                   decoding="async"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  referrerPolicy="no-referrer"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (target.src.endsWith('.webp')) {
+                      target.src = target.src.replace(/\.webp$/i, '.jpg');
+                    }
+                  }}
                 />
               </div>
               <div className="p-5 sm:p-6 space-y-3 flex-1 flex flex-col justify-between">

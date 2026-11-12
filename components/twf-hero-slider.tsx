@@ -161,7 +161,6 @@ export function TwfHeroSlider({
           loading="eager"
           decoding="async"
           className="w-20 sm:w-32 lg:w-40 h-auto aspect-[3/2] object-contain drop-shadow-[0_0_18px_rgba(247,246,241,0.52)]"
-          referrerPolicy="no-referrer"
         />
       </div>
 

@@ -23,6 +23,22 @@ const nextConfig: NextConfig = {
     ],
   },
   transpilePackages: ['motion'],
+  async rewrites() {
+    return [
+      {
+        source: '/TGHPhotos/:path*.JPG',
+        destination: '/TGHPhotos/:path*.jpg',
+      },
+      {
+        source: '/TGHPhotos/:path*.JPEG',
+        destination: '/TGHPhotos/:path*.jpg',
+      },
+      {
+        source: '/TGHPhotos/:path*.jpeg',
+        destination: '/TGHPhotos/:path*.jpg',
+      },
+    ];
+  },
   webpack: (config, {dev}) => {
     // HMR is disabled in AI Studio via DISABLE_HMR env var.
     // Do not modify—file watching is disabled to prevent flickering during agent edits.

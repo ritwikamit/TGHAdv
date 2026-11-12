@@ -184,7 +184,6 @@ export function TwfSidebar({
                 src="/TGHLogo.png"
                 alt="The Green Heritage Resort and Banquet"
                 className="w-44 sm:w-28 lg:w-36 h-auto aspect-[3/2] object-contain drop-shadow-[0_0_16px_rgba(247,246,241,0.45)]"
-                referrerPolicy="no-referrer"
               />
             </button>
 
@@ -305,6 +304,12 @@ export function TwfSidebar({
                               src={photo.imageUrl}
                               alt={photo.title}
                               className="w-8 h-8 rounded-lg object-cover shrink-0"
+                              onError={(e) => {
+                                const target = e.currentTarget;
+                                if (target.src.endsWith('.webp')) {
+                                  target.src = target.src.replace(/\.webp$/i, '.jpg');
+                                }
+                              }}
                             />
                             <div className="min-w-0 flex-1">
                               <p className="text-[11px] text-white font-medium truncate group-hover:text-[#f0b400]">
