@@ -10,3 +10,6 @@ coverage/
 /.aistudio/
 /.assets/
 /TGHPhotos/
+!public/TGHPhotos/
+!public/TGHPhotos/**
+scratch/

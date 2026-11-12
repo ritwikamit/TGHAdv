@@ -26,6 +26,10 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
+        source: '/tghphotos/:path*',
+        destination: '/TGHPhotos/:path*',
+      },
+      {
         source: '/TGHPhotos/:path*.JPG',
         destination: '/TGHPhotos/:path*.jpg',
       },

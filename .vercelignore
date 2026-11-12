@@ -1,9 +1,11 @@
 # Exclude non-runtime workspace assets and documentation from Vercel uploads
-.aistudio/
-.assets/
-TGHPhotos/
-The_Green_Heritage_Resort_Documentation/
+/.aistudio/
+/.assets/
+/The_Green_Heritage_Resort_Documentation/
 bun.lock
 *.log
 *.tsbuildinfo
 
+# Ensure public assets are always included
+!public/
+!public/**
