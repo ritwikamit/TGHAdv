@@ -9,8 +9,7 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   experimental: {
-    webpackMemoryOptimizations: true,
-    cpus: 1,
+    optimizePackageImports: ['lucide-react', 'motion'],
   },
   // Allow access to remote image placeholder.
   images: {
@@ -23,7 +22,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  output: 'standalone',
   transpilePackages: ['motion'],
   webpack: (config, {dev}) => {
     // HMR is disabled in AI Studio via DISABLE_HMR env var.

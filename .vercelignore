@@ -1,0 +1,9 @@
+# Exclude non-runtime workspace assets and documentation from Vercel uploads
+.aistudio/
+.assets/
+TGHPhotos/
+The_Green_Heritage_Resort_Documentation/
+bun.lock
+*.log
+*.tsbuildinfo
+

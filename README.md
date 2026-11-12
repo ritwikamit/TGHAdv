@@ -85,19 +85,14 @@ TGHAdv/
 │   ├── twf-mobile-dock.tsx        # Floating cylindrical mobile quick menu & call button
 │   ├── twf-realistic-globe.tsx    # Interactive Three.js / globe.gl Earth view
 │   ├── twf-scroll-progress.tsx    # Scroll progress & smooth back-to-top trigger
-│   ├── twf-search-header.tsx      # Sticky utility header & reels strip
 │   └── twf-sidebar.tsx            # Left navigation rail & photo search
 ├── lib/
 │   ├── masoom-data.ts             # Resort info, gallery media, FAQs, services & film reels
-│   ├── site-routes.ts             # Canonical route definitions & SEO metadata
-│   └── utils.ts                   # Classname helpers
+│   └── site-routes.ts             # Canonical route definitions & SEO metadata
 ├── public/
-│   ├── Gallary/                   # Curated gallery photos
-│   ├── SignatureImage/            # Celebration showcase portraits & landscapes
 │   ├── TGHPhotos/                 # Web-optimized resort, Director & Verma Family imagery
-│   ├── Thumbnails/                # Video poster thumbnails
 │   ├── globe/                     # Globe textures
-│   ├── reels/                     # Celebration video reels (.mp4)
+│   ├── reels/                     # Celebration video reels (.mp4) & posters/
 │   └── llms.txt                   # Generative Engine Optimization facts file
 └── The_Green_Heritage_Resort_Documentation/
     └── ...                        # PRD, TRD, SEO, AEO, GEO, SXO, security & QA docs
