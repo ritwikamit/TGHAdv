@@ -402,7 +402,7 @@ export function TwfInnerPages({
           </div>
         </div>
 
-        {/* 1. LANDSCAPE WEDDING FILMS (Initial 4 items with See All toggle) */}
+        {/* 1. LANDSCAPE WEDDING FILMS (3 on PC, 2 on smartphone, rest under See All) */}
         <section className="space-y-5">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[#0f1f12]/10 pb-2.5">
             <div>
@@ -419,26 +419,27 @@ export function TwfInnerPages({
                 landscape wedding films
               </h2>
             </div>
-            <span className="text-xs sm:text-sm text-[#0f1f12]/60">
-              Showing {Math.min(showAllLandscape ? landscapeVideos.length : 4, landscapeVideos.length)} of {landscapeVideos.length} films
-            </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 py-2">
-            {(showAllLandscape ? landscapeVideos : landscapeVideos.slice(0, 4)).map((reel) => (
-              <InnerHoverVideoBox
+            {(showAllLandscape ? landscapeVideos : landscapeVideos.slice(0, 3)).map((reel, idx) => (
+              <div
                 key={reel.id}
-                videoSrc={reel.videoSrc}
-                posterUrl={reel.posterUrl}
-                couple={reel.couple}
-                location={reel.location}
-                aspectClass="aspect-video"
-                onOpenModal={() => handleOpenReelModal(reel)}
-              />
+                className={!showAllLandscape && idx === 2 ? 'hidden sm:block' : ''}
+              >
+                <InnerHoverVideoBox
+                  videoSrc={reel.videoSrc}
+                  posterUrl={reel.posterUrl}
+                  couple={reel.couple}
+                  location={reel.location}
+                  aspectClass="aspect-video"
+                  onOpenModal={() => handleOpenReelModal(reel)}
+                />
+              </div>
             ))}
           </div>
 
-          {landscapeVideos.length > 4 && (
+          {landscapeVideos.length > 2 && (
             <div className="pt-1 text-center">
               <button
                 type="button"
@@ -451,7 +452,7 @@ export function TwfInnerPages({
           )}
         </section>
 
-        {/* 2. PORTRAIT WEDDING REELS (Initial 6 items with See All toggle) */}
+        {/* 2. PORTRAIT WEDDING REELS (4 on PC, 2 on smartphone, rest under See All) */}
         <section className="space-y-5">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[#0f1f12]/10 pb-2.5">
             <div>
@@ -468,26 +469,27 @@ export function TwfInnerPages({
                 portrait wedding reels
               </h2>
             </div>
-            <span className="text-xs sm:text-sm text-[#0f1f12]/60">
-              Showing {Math.min(showAllPortrait ? portraitVideos.length : 6, portraitVideos.length)} of {portraitVideos.length} reels
-            </span>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-5 py-2">
-            {(showAllPortrait ? portraitVideos : portraitVideos.slice(0, 6)).map((reel) => (
-              <InnerHoverVideoBox
+            {(showAllPortrait ? portraitVideos : portraitVideos.slice(0, 4)).map((reel, idx) => (
+              <div
                 key={reel.id}
-                videoSrc={reel.videoSrc}
-                posterUrl={reel.posterUrl}
-                couple={reel.couple}
-                location={reel.location}
-                aspectClass="aspect-[9/16]"
-                onOpenModal={() => handleOpenReelModal(reel)}
-              />
+                className={!showAllPortrait && idx >= 2 ? 'hidden sm:block' : ''}
+              >
+                <InnerHoverVideoBox
+                  videoSrc={reel.videoSrc}
+                  posterUrl={reel.posterUrl}
+                  couple={reel.couple}
+                  location={reel.location}
+                  aspectClass="aspect-[9/16]"
+                  onOpenModal={() => handleOpenReelModal(reel)}
+                />
+              </div>
             ))}
           </div>
 
-          {portraitVideos.length > 6 && (
+          {portraitVideos.length > 2 && (
             <div className="pt-1 text-center">
               <button
                 type="button"
@@ -500,7 +502,7 @@ export function TwfInnerPages({
           )}
         </section>
 
-        {/* 3. RESORT & EVENT GALLERY (Initial 6 items with See All toggle) */}
+        {/* 3. RESORT & EVENT GALLERY (6 on PC, 3 on smartphone, rest under See All) */}
         <section className="space-y-5">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[#0f1f12]/10 pb-2.5">
             <div>
@@ -517,17 +519,16 @@ export function TwfInnerPages({
                 resort &amp; event gallery
               </h2>
             </div>
-            <span className="text-xs sm:text-sm text-[#0f1f12]/60">
-              Showing {Math.min(showAllGallery ? filteredGallery.length : 6, filteredGallery.length)} of {filteredGallery.length} photos
-            </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {(showAllGallery ? filteredGallery : filteredGallery.slice(0, 6)).map((photo) => (
+            {(showAllGallery ? filteredGallery : filteredGallery.slice(0, 6)).map((photo, idx) => (
               <div
                 key={photo.id}
                 onClick={() => onSelectPhoto(photo)}
-                className="group relative aspect-[3/2] rounded-[18px] sm:rounded-[20px] overflow-hidden bg-[#061208] border border-[#0f1f12]/10 shadow-md cursor-pointer transition-all duration-500 hover:scale-[1.03]"
+                className={`group relative aspect-[3/2] rounded-[18px] sm:rounded-[20px] overflow-hidden bg-[#061208] border border-[#0f1f12]/10 shadow-md cursor-pointer transition-all duration-500 hover:scale-[1.03] ${
+                  !showAllGallery && idx >= 3 ? 'hidden sm:block' : ''
+                }`}
               >
                 <img
                   src={photo.imageUrl}
@@ -563,7 +564,7 @@ export function TwfInnerPages({
             ))}
           </div>
 
-          {filteredGallery.length > 6 && (
+          {filteredGallery.length > 3 && (
             <div className="pt-1 text-center">
               <button
                 type="button"
@@ -576,7 +577,7 @@ export function TwfInnerPages({
           )}
         </section>
 
-        {/* 4. SPACES & GATHERING VIEWS (Initial 6 items with See All toggle) */}
+        {/* 4. SPACES & GATHERING VIEWS (8 on PC, 4 on smartphone, rest under See All) */}
         <section className="space-y-5">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[#0f1f12]/10 pb-2.5">
             <div>
@@ -593,17 +594,16 @@ export function TwfInnerPages({
                 spaces &amp; gathering views
               </h2>
             </div>
-            <span className="text-xs sm:text-sm text-[#0f1f12]/60">
-              Showing {Math.min(showAllSignature ? filteredSignature.length : 6, filteredSignature.length)} of {filteredSignature.length} views
-            </span>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-5">
-            {(showAllSignature ? filteredSignature : filteredSignature.slice(0, 6)).map((frame) => (
+            {(showAllSignature ? filteredSignature : filteredSignature.slice(0, 8)).map((frame, idx) => (
               <div
                 key={frame.id}
                 onClick={() => onSelectPhoto(frame)}
-                className="group relative aspect-[2/3] rounded-[18px] sm:rounded-[20px] overflow-hidden bg-[#061208] border border-[#0f1f12]/10 shadow-md cursor-pointer transition-all duration-500 hover:scale-[1.03]"
+                className={`group relative aspect-[2/3] rounded-[18px] sm:rounded-[20px] overflow-hidden bg-[#061208] border border-[#0f1f12]/10 shadow-md cursor-pointer transition-all duration-500 hover:scale-[1.03] ${
+                  !showAllSignature && idx >= 4 ? 'hidden sm:block' : ''
+                }`}
               >
                 <img
                   src={frame.imageUrl}
@@ -643,7 +643,7 @@ export function TwfInnerPages({
             ))}
           </div>
 
-          {filteredSignature.length > 6 && (
+          {filteredSignature.length > 4 && (
             <div className="pt-1 text-center">
               <button
                 type="button"
@@ -815,30 +815,32 @@ export function TwfInnerPages({
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              {(showAllVenuePortrait ? venuePortraitVideos : venuePortraitVideos.slice(0, 2)).map((reel) => (
-                <InnerHoverVideoBox
+              {(showAllVenuePortrait ? venuePortraitVideos : venuePortraitVideos.slice(0, 3)).map((reel, idx) => (
+                <div
                   key={reel.id}
-                  videoSrc={reel.videoSrc}
-                  posterUrl={reel.posterUrl}
-                  couple={reel.couple}
-                  location={reel.location}
-                  aspectClass="aspect-[9/16]"
-                  onOpenModal={() => handleOpenReelModal(reel)}
-                />
+                  className={!showAllVenuePortrait && idx >= 1 ? 'hidden sm:block' : ''}
+                >
+                  <InnerHoverVideoBox
+                    videoSrc={reel.videoSrc}
+                    posterUrl={reel.posterUrl}
+                    couple={reel.couple}
+                    location={reel.location}
+                    aspectClass="aspect-[9/16]"
+                    onOpenModal={() => handleOpenReelModal(reel)}
+                  />
+                </div>
               ))}
             </div>
 
-            {venuePortraitVideos.length > 2 && (
-              <div className="pt-2 text-center">
-                <button
-                  type="button"
-                  onClick={() => setShowAllVenuePortrait(!showAllVenuePortrait)}
-                  className="px-6 py-2.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/40 text-white text-xs sm:text-sm font-semibold uppercase tracking-wider transition-colors shadow-sm cursor-pointer"
-                >
-                  {showAllVenuePortrait ? 'Show Less' : `Show All (${venuePortraitVideos.length})`}
-                </button>
-              </div>
-            )}
+            <div className={`pt-2 text-center ${!showAllVenuePortrait ? 'sm:hidden' : ''}`}>
+              <button
+                type="button"
+                onClick={() => setShowAllVenuePortrait(!showAllVenuePortrait)}
+                className="px-6 py-2.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/40 text-white text-xs sm:text-sm font-semibold uppercase tracking-wider transition-colors shadow-sm cursor-pointer"
+              >
+                {showAllVenuePortrait ? 'Show Less' : `Show All (${venuePortraitVideos.length})`}
+              </button>
+            </div>
           </div>
         </section>
 
@@ -1105,41 +1107,41 @@ export function TwfInnerPages({
           {COMMISSION_SERVICES.map((srv) => (
             <div
               key={srv.id}
-              className="rounded-[20px] sm:rounded-[24px] bg-white/95 border border-[#0f1f12]/10 p-6 sm:p-8 shadow-lg flex flex-col justify-between space-y-6"
+              className="rounded-[20px] sm:rounded-[24px] bg-white border border-[#0f1f12]/10 p-5 sm:p-7 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between space-y-4"
             >
-              <div className="space-y-3">
+              <div className="space-y-2.5">
                 <span
-                  className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
+                  className="text-2xl sm:text-3xl text-[#9e6800] block leading-none reveal-on-scroll"
                   style={{ fontFamily: 'var(--font-script)' }}
                 >
                   {srv.scriptHighlight}
                 </span>
                 <h2
-                  className="text-2xl sm:text-4xl text-[#0f1f12]"
+                  className="text-xl sm:text-3xl text-[#0f1f12] font-normal leading-snug reveal-on-scroll interactive-heading reveal-delay-1"
                   style={{ fontFamily: 'var(--font-display)' }}
                 >
                   {srv.title}
                 </h2>
-                <p className="text-sm sm:text-base text-[#0f1f12]/70 leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#0f1f12]/75 leading-relaxed font-light">
                   {srv.description}
                 </p>
 
-                <ul className="space-y-2 pt-2">
-                  {srv.deliverables.map((d, i) => (
+                <ul className="space-y-1.5 pt-2 border-t border-[#0f1f12]/10">
+                  {srv.deliverables.slice(0, 2).map((d, i) => (
                     <li
                       key={i}
-                      className="flex items-start gap-2.5 text-xs sm:text-sm text-[#0f1f12]"
+                      className="flex items-start gap-2 text-xs sm:text-sm text-[#0f1f12]/85 leading-snug"
                     >
-                      <Check className="w-4 h-4 text-[#14531e] shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                       <span>{d}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="pt-5 border-t border-[#0f1f12]/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="pt-3 border-t border-[#0f1f12]/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <p
-                  className="text-xl sm:text-2xl text-[#0f1f12]/70 max-w-xs leading-snug"
+                  className="text-base sm:text-lg text-[#9e6800] leading-snug"
                   style={{ fontFamily: 'var(--font-script)' }}
                 >
                   &ldquo;{srv.humanNote}&rdquo;
@@ -1147,10 +1149,10 @@ export function TwfInnerPages({
                 <button
                   type="button"
                   onClick={() => onOpenQuickEnquire(srv.title)}
-                  className="shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#09190c] hover:bg-[#14531e] text-[#f7f6f1] text-xs sm:text-sm uppercase tracking-[0.18em] transition-colors cursor-pointer"
+                  className="shrink-0 inline-flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] text-white text-xs uppercase tracking-wider font-medium transition-colors cursor-pointer shadow-sm"
                 >
                   <span>Enquire Now</span>
-                  <ArrowUpRight className="w-4 h-4" />
+                  <ArrowUpRight className="w-3.5 h-3.5 text-[#f0b400]" />
                 </button>
               </div>
             </div>
@@ -1694,39 +1696,41 @@ export function TwfInnerPages({
               </p>
 
               <div className="flex flex-wrap items-center justify-between gap-4 pt-1">
-                <div className="flex flex-wrap items-center gap-2.5">
+                <div className="flex items-center gap-2 sm:gap-2.5">
                   <a
                     href={STUDIO_INFO.phonePrimaryUrl}
-                    className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-full bg-[#0f1f12]/5 hover:bg-[#14531e] hover:text-white text-xs text-[#0f1f12]/80 font-medium transition-colors cursor-pointer"
+                    aria-label={`Call ${STUDIO_INFO.phoneNumber}`}
                     title={`Call ${STUDIO_INFO.phoneNumber}`}
+                    className="w-10 h-10 rounded-full bg-[#0f1f12]/5 hover:bg-[#14531e] hover:text-white text-[#0f1f12]/80 flex items-center justify-center transition-colors cursor-pointer"
                   >
-                    <Phone className="w-3.5 h-3.5" />
-                    <span>{STUDIO_INFO.phoneNumber}</span>
+                    <Phone className="w-4 h-4" />
                   </a>
                   <a
                     href={STUDIO_INFO.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-[#0f1f12]/5 hover:bg-[#14531e] hover:text-white flex items-center justify-center transition-colors group"
+                    aria-label={`WhatsApp ${STUDIO_INFO.phoneNumber}`}
                     title={`WhatsApp ${STUDIO_INFO.phoneNumber}`}
+                    className="w-10 h-10 rounded-full bg-[#0f1f12]/5 hover:bg-[#14531e] hover:text-white text-[#0f1f12]/80 flex items-center justify-center transition-colors group"
                   >
                     <WhatsAppMinimalIcon className="w-4 h-4 text-[#0f1f12]/75 group-hover:text-white transition-colors" />
                   </a>
                   <a
                     href={contactMailtoHref}
                     data-native-mailto="true"
-                    className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-full bg-[#0f1f12]/5 hover:bg-[#14531e] hover:text-white text-xs text-[#0f1f12]/80 font-medium transition-colors"
-                    title={`Send form via Mail to ${STUDIO_INFO.email}`}
+                    aria-label={`Email ${STUDIO_INFO.email}`}
+                    title={`Email ${STUDIO_INFO.email}`}
+                    className="w-10 h-10 rounded-full bg-[#0f1f12]/5 hover:bg-[#14531e] hover:text-white text-[#0f1f12]/80 flex items-center justify-center transition-colors"
                   >
-                    <Mail className="w-3.5 h-3.5" />
-                    <span>Send via Email</span>
+                    <Mail className="w-4 h-4" />
                   </a>
                   <a
                     href={STUDIO_INFO.facebook}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-[#0f1f12]/5 hover:bg-[#14531e] hover:text-white flex items-center justify-center transition-colors"
+                    aria-label="Facebook"
                     title="Facebook"
+                    className="w-10 h-10 rounded-full bg-[#0f1f12]/5 hover:bg-[#14531e] hover:text-white text-[#0f1f12]/80 flex items-center justify-center transition-colors"
                   >
                     <FacebookMinimalIcon className="w-4 h-4" />
                   </a>
@@ -1734,8 +1738,9 @@ export function TwfInnerPages({
                     href={STUDIO_INFO.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-[#0f1f12]/5 hover:bg-[#14531e] hover:text-white flex items-center justify-center transition-colors"
+                    aria-label="Google Maps"
                     title="Google Maps"
+                    className="w-10 h-10 rounded-full bg-[#0f1f12]/5 hover:bg-[#14531e] hover:text-white text-[#0f1f12]/80 flex items-center justify-center transition-colors"
                   >
                     <MapPin className="w-4 h-4" />
                   </a>

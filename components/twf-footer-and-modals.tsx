@@ -252,42 +252,43 @@ export function TwfFooterAndModals({
               }}
             />
 
-            <div className="relative z-20 w-full px-4 sm:px-8 lg:px-12 pb-5 sm:pb-7 pt-20 sm:pt-12 bg-transparent space-y-3 sm:space-y-4">
-              {/* Tier 1: Resort Logo + Tagline (Left) & Connect Icons + Enquire Button (Right) */}
-              <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-3.5 sm:gap-5">
-                <div className="flex flex-col sm:flex-row items-center text-center sm:text-left gap-2.5 sm:gap-5 min-w-0">
-                  <button
-                    type="button"
-                    onClick={() => onNavigate('home')}
-                    className="shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer focus:outline-none"
-                    aria-label="The Green Heritage Resort and Banquet Home"
-                  >
-                    <img
-                      src="/TGHLogo.png"
-                      alt="The Green Heritage Resort and Banquet"
-                      loading="lazy"
-                      decoding="async"
-                      className="w-24 sm:w-44 lg:w-56 h-auto aspect-[3/2] object-contain drop-shadow-[0_0_20px_rgba(247,246,241,0.5)]"
-                    />
-                  </button>
+            {/* TOP-LEFT CORNER OF FOOTER VIDEO BOX: RESORT LOGO */}
+            <div className="absolute top-3 left-3 sm:top-5 sm:left-6 z-20">
+              <button
+                type="button"
+                onClick={() => onNavigate('home')}
+                className="shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer focus:outline-none"
+                aria-label="The Green Heritage Resort and Banquet Home"
+              >
+                <img
+                  src="/TGHLogo.png"
+                  alt="The Green Heritage Resort and Banquet"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-20 sm:w-32 lg:w-40 h-auto aspect-[3/2] object-contain drop-shadow-[0_0_18px_rgba(247,246,241,0.52)]"
+                />
+              </button>
+            </div>
 
-                  <div className="min-w-0 space-y-1">
-                    <span
-                      className="text-xl sm:text-3xl lg:text-4xl text-[#f0b400] block leading-snug drop-shadow reveal-on-scroll"
-                      style={{ fontFamily: 'var(--font-script)' }}
-                    >
-                      Where every blessing stays with the family
-                    </span>
-                    <p
-                      className="text-xs sm:text-lg lg:text-xl text-white/95 font-normal tracking-wide drop-shadow reveal-on-scroll interactive-heading reveal-delay-1"
-                      style={{ fontFamily: 'var(--font-display)' }}
-                    >
-                      Weddings, Phere &amp; Celebrations · Bakarpur, Gobarsahi–Sakri Road, Muzaffarpur 844127
-                    </p>
-                  </div>
-                </div>
+            {/* BOTTOM OF FOOTER VIDEO BOX: TAGLINE + LOCATION + ACTION BUTTONS */}
+            <div className="relative z-20 w-full px-3.5 sm:px-7 lg:px-10 pb-3.5 sm:pb-6 pt-16 flex flex-col md:flex-row md:items-end justify-between gap-3 sm:gap-4">
+              {/* Left: Tagline & Subtext Left-Aligned */}
+              <div className="min-w-0 text-left space-y-0.5">
+                <span
+                  className="text-lg sm:text-2xl lg:text-3xl text-[#f0b400] block leading-snug drop-shadow reveal-on-scroll"
+                  style={{ fontFamily: 'var(--font-script)' }}
+                >
+                  Where every blessing stays with the family
+                </span>
+                <p
+                  className="text-xs sm:text-sm lg:text-base text-white/95 font-normal tracking-wide drop-shadow reveal-on-scroll interactive-heading reveal-delay-1"
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
+                  Weddings, Phere &amp; Celebrations · Bakarpur, Gobarsahi–Sakri Road, Muzaffarpur 844127
+                </p>
+              </div>
 
-                <div className="flex flex-wrap items-center justify-center md:justify-end gap-2.5 shrink-0">
+              <div className="flex flex-wrap items-center justify-start md:justify-end gap-2 sm:gap-2.5 shrink-0">
                   <div className="flex items-center gap-2">
                     <a
                       href={STUDIO_INFO.phonePrimaryUrl}
@@ -357,7 +358,6 @@ export function TwfFooterAndModals({
                   </button>
                 </div>
               </div>
-            </div>
           </footer>
         )}
 

@@ -879,21 +879,16 @@ export function TwfHomeSections({
               {/* Card Body — Concise Points Only */}
               <div className="p-5 sm:p-6 space-y-4 flex-1 flex flex-col justify-between">
                 <div className="space-y-3">
-                  <div>
-                    <h3
-                      className="text-xl sm:text-2xl text-[#0f1f12] font-normal leading-snug"
-                      style={{ fontFamily: 'var(--font-display)' }}
-                    >
-                      {spec.title}
-                    </h3>
-                    <p className="text-sm sm:text-base font-semibold text-[#14531e] leading-snug mt-1">
-                      {spec.capacityHeadline}
-                    </p>
-                  </div>
+                  <h3
+                    className="text-xl sm:text-2xl text-[#0f1f12] font-normal leading-snug"
+                    style={{ fontFamily: 'var(--font-display)' }}
+                  >
+                    {spec.title}
+                  </h3>
 
-                  {/* Bullet Highlights Only (Points in the boxes) */}
+                  {/* Bullet Highlights Only (2 Points in the boxes) */}
                   <ul className="pt-2.5 space-y-2 border-t border-[#0f1f12]/10">
-                    {spec.keyFeatures.map((feat, idx) => (
+                    {spec.keyFeatures.slice(0, 2).map((feat, idx) => (
                       <li
                         key={idx}
                         className="flex items-start gap-2 text-xs sm:text-sm text-[#0f1f12]/85 leading-snug"
