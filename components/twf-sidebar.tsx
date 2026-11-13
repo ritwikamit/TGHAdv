@@ -147,7 +147,7 @@ export function TwfSidebar({
           className="fixed top-3.5 right-3.5 z-40 sm:hidden inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#061208]/90 hover:bg-[#14531e] text-white backdrop-blur-xl border border-[#f0b400]/35 shadow-2xl transition-all active:scale-95 cursor-pointer"
         >
           <Menu className="w-3.5 h-3.5 text-[#f0b400]" />
-          <span className="text-[10px] font-medium tracking-wider uppercase">
+          <span className="text-xs font-medium tracking-wider uppercase">
             Menu
           </span>
         </button>
@@ -210,7 +210,7 @@ export function TwfSidebar({
                   setSearchFocused(true);
                 }}
                 placeholder="Search haldi, sangeet, varmala, rooms..."
-                className="w-full bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] text-white placeholder-white/55 text-[11px] sm:text-[10px] lg:text-[11px] rounded-full py-1.5 pl-8 pr-6 border border-white/[0.14] focus:border-[#f0b400] focus:outline-none backdrop-blur-md transition-all shadow-inner"
+                className="w-full bg-white/[0.06] hover:bg-white/[0.1] focus:bg-white/[0.14] text-white placeholder-white/55 text-xs rounded-full py-1.5 pl-8 pr-6 border border-white/[0.14] focus:border-[#f0b400] focus:outline-none backdrop-blur-md transition-all shadow-inner"
               />
               <button
                 type="submit"
@@ -244,7 +244,7 @@ export function TwfSidebar({
                   <>
                     {matchingFilms.length > 0 && (
                       <div className="space-y-1">
-                        <span className="text-[9px] uppercase tracking-wider text-[#f0b400] px-1 font-semibold block">
+                        <span className="text-xs uppercase tracking-wider text-[#f0b400] px-1 font-semibold block">
                           Wedding Films
                         </span>
                         {matchingFilms.map((film) => (
@@ -273,10 +273,10 @@ export function TwfSidebar({
                               />
                             </div>
                             <div className="min-w-0 flex-1">
-                              <p className="text-[11px] text-white font-medium truncate group-hover:text-[#f0b400]">
+                              <p className="text-xs text-white font-medium truncate group-hover:text-[#f0b400]">
                                 {film.couple}
                               </p>
-                              <p className="text-[9px] text-white/60 truncate">
+                              <p className="text-xs text-white/60 truncate">
                                 {film.location}
                               </p>
                             </div>
@@ -287,7 +287,7 @@ export function TwfSidebar({
 
                     {matchingPhotos.length > 0 && (
                       <div className="space-y-1 pt-1 border-t border-white/10">
-                        <span className="text-[9px] uppercase tracking-wider text-[#f0b400] px-1 font-semibold block">
+                        <span className="text-xs uppercase tracking-wider text-[#f0b400] px-1 font-semibold block">
                           Gallery Photos
                         </span>
                         {matchingPhotos.map((photo) => (
@@ -313,10 +313,10 @@ export function TwfSidebar({
                               }}
                             />
                             <div className="min-w-0 flex-1">
-                              <p className="text-[11px] text-white font-medium truncate group-hover:text-[#f0b400]">
+                              <p className="text-xs text-white font-medium truncate group-hover:text-[#f0b400]">
                                 {photo.title}
                               </p>
-                              <p className="text-[9px] text-white/60 truncate">
+                              <p className="text-xs text-white/60 truncate">
                                 {photo.couple}
                               </p>
                             </div>
@@ -327,7 +327,7 @@ export function TwfSidebar({
 
                     {matchingServices.length > 0 && (
                       <div className="space-y-1 pt-1 border-t border-white/10">
-                        <span className="text-[9px] uppercase tracking-wider text-[#f0b400] px-1 font-semibold block">
+                        <span className="text-xs uppercase tracking-wider text-[#f0b400] px-1 font-semibold block">
                           Stay &amp; Events
                         </span>
                         {matchingServices.map((service) => (
@@ -341,10 +341,10 @@ export function TwfSidebar({
                             }}
                             className="w-full p-1.5 rounded-xl hover:bg-white/10 transition-colors text-left cursor-pointer group"
                           >
-                            <p className="text-[11px] text-white font-medium truncate group-hover:text-[#f0b400]">
+                            <p className="text-xs text-white font-medium truncate group-hover:text-[#f0b400]">
                               {service.title}
                             </p>
-                            <p className="text-[9px] text-white/60 truncate">
+                            <p className="text-xs text-white/60 truncate">
                               {service.tagline}
                             </p>
                           </button>
@@ -359,14 +359,14 @@ export function TwfSidebar({
                         setSearchFocused(false);
                         setMobileOpen(false);
                       }}
-                      className="w-full py-1.5 rounded-lg bg-[#14531e] hover:bg-[#1b6d28] border border-[#f0b400]/40 text-white text-[10px] uppercase tracking-wider font-medium text-center transition-colors cursor-pointer mt-1"
+                      className="w-full py-2 rounded-lg bg-[#14531e] hover:bg-[#1b6d28] border border-[#f0b400]/40 text-white text-xs uppercase tracking-wider font-medium text-center transition-colors cursor-pointer mt-1"
                     >
                       View All Results &rarr;
                     </button>
                   </>
                 ) : (
                   <div className="py-3 text-center">
-                    <p className="text-[10px] text-white/65">
+                    <p className="text-xs text-white/65">
                       No results found for &ldquo;{searchQuery}&rdquo;
                     </p>
                     <button
@@ -376,7 +376,7 @@ export function TwfSidebar({
                         setSearchFocused(false);
                         setMobileOpen(false);
                       }}
-                      className="mt-1 text-[10px] text-[#f0b400] hover:underline"
+                      className="mt-1 text-xs text-[#f0b400] hover:underline"
                     >
                       Browse Gallery &rarr;
                     </button>
@@ -478,7 +478,7 @@ export function TwfSidebar({
             {/* Inner Content Box */}
             <div className="relative z-10 p-3 rounded-[14px] bg-[#08170b]/95 backdrop-blur-xl space-y-2.5">
               <p
-                className="text-base sm:text-sm lg:text-base text-[#f0b400] leading-snug text-center"
+                className="text-lg sm:text-base lg:text-lg text-[#f0b400] leading-snug text-center"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 Planning a stay or celebration?
@@ -490,7 +490,7 @@ export function TwfSidebar({
                   setMobileOpen(false);
                   onOpenQuickEnquire();
                 }}
-                className="w-full py-2 px-3 rounded-xl bg-[#14531e] hover:bg-[#1b6d28] border border-[#f0b400]/50 active:scale-[0.98] text-white text-[10px] uppercase tracking-[0.16em] font-medium flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#14531e]/35 cursor-pointer"
+                className="w-full py-2 px-3 rounded-xl bg-[#14531e] hover:bg-[#1b6d28] border border-[#f0b400]/50 active:scale-[0.98] text-white text-xs uppercase tracking-[0.16em] font-medium flex items-center justify-center gap-1.5 transition-all shadow-md shadow-[#14531e]/35 cursor-pointer"
               >
                 <span>Enquire Now</span>
                 <ArrowUpRight className="w-3.5 h-3.5 shrink-0 text-[#f0b400]" />

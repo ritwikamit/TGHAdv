@@ -95,6 +95,22 @@ export function TwfHeroSlider({
     >
       {/* FOREGROUND HEADER VIDEO (Full bleed frame, focal position preserved on smartphone & desktop) */}
       <div className="absolute inset-0 z-10 w-full h-full overflow-hidden bg-[#061208]">
+        {/* Instant high-res poster image behind video — 0ms wait on 4G */}
+        <img
+          src={
+            currentSlide.thumbnailUrl ||
+            (currentSlide.reelCode
+              ? `/reels/posters/${currentSlide.reelCode}.jpg`
+              : '/og-preview-brand-v4.jpg')
+          }
+          alt={currentSlide.title}
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+          style={{ objectPosition: currentSlide.objectPosition || 'center center' }}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+
         <video
           key={currentSlide.id}
           ref={fgVideoRef}
@@ -109,7 +125,7 @@ export function TwfHeroSlider({
           loop
           muted
           playsInline
-          preload="metadata"
+          preload="auto"
           style={{ objectPosition: currentSlide.objectPosition || 'center center' }}
           onLoadedData={(e) => {
             if (isInViewRef.current) {
@@ -123,7 +139,7 @@ export function TwfHeroSlider({
               e.currentTarget.play().catch(() => { });
             }
           }}
-          className="absolute inset-0 w-full h-full object-cover bg-[#061208]"
+          className="absolute inset-0 w-full h-full object-cover bg-transparent"
         />
         {/* Subtle dark fade overlay — video stays crisp & clearly visible on smartphone while UI pops cleanly */}
         <div
@@ -161,7 +177,7 @@ export function TwfHeroSlider({
         {/* Left: Script Accent + Headline & Supporting Copy */}
         <div className="min-w-0 text-left">
           <span
-            className="text-base sm:text-xl lg:text-2xl text-[#f0b400] block leading-[1.2] mb-0.5 drop-shadow"
+            className="text-lg sm:text-xl lg:text-2xl text-[#f0b400] block leading-[1.2] mb-0.5 drop-shadow"
             style={{ fontFamily: 'var(--font-script)' }}
           >
             {currentSlide.scriptHighlight || 'Bakarpur · Muzaffarpur, Bihar'}
@@ -172,7 +188,7 @@ export function TwfHeroSlider({
           >
             {currentSlide.couple}
           </h1>
-          <p className="text-[11px] sm:text-xs text-white/90 mt-0.5 max-w-xl font-light leading-relaxed line-clamp-2 sm:line-clamp-none">
+          <p className="text-xs sm:text-sm text-white/90 mt-0.5 max-w-xl font-light leading-relaxed line-clamp-2 sm:line-clamp-none">
             {currentSlide.synopsis}
           </p>
         </div>
@@ -193,7 +209,7 @@ export function TwfHeroSlider({
                   onNavigateFilms();
                 }
               }}
-              className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#14531e] hover:bg-[#1b6d28] border border-[#f0b400]/55 active:scale-95 text-white text-[10px] sm:text-[11px] uppercase tracking-[0.16em] font-medium transition-all shadow-lg shadow-[#061208]/45 cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#14531e] hover:bg-[#1b6d28] border border-[#f0b400]/55 active:scale-95 text-white text-xs uppercase tracking-[0.16em] font-medium transition-all shadow-lg shadow-[#061208]/45 cursor-pointer"
             >
               <span>Enquire Now</span>
               <ArrowUpRight className="w-3 h-3 text-[#f0b400]" />
@@ -203,7 +219,7 @@ export function TwfHeroSlider({
               href={STUDIO_INFO.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full bg-[#061208]/65 hover:bg-[#f0b400] hover:text-[#061208] backdrop-blur-md border border-white/25 text-white text-[10px] sm:text-[11px] uppercase tracking-[0.14em] font-medium transition-all cursor-pointer"
+              className="inline-flex items-center gap-1 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full bg-[#061208]/65 hover:bg-[#f0b400] hover:text-[#061208] backdrop-blur-md border border-white/25 text-white text-xs uppercase tracking-[0.14em] font-medium transition-all cursor-pointer"
             >
               <MapPin className="w-3 h-3" />
               <span>Get Directions</span>

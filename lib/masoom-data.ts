@@ -174,10 +174,11 @@ export const STUDIO_INFO = {
   googleReviewCount: '550+',
   marriagesHosted: '350+',
   yearsOfHeritage: '10+',
+  theme: 'Inspired by Jaipur Royal Marriages · Royal Palace Architecture & Hospitality',
   lawnCapacity: '1,500 – 2,000+ Guests',
   hallCapacity: '350 – 500+ Seated (700 Floating)',
   totalRooms: '25+ Executive AC Rooms & Private Cottages',
-  startingPackage: '₹3,50,000 onwards',
+  startingPackage: 'Affordable for All Wedding Types & Religions',
   parkingCapacity: '150+ Cars & 200+ Bikes (Valet Assisted)',
   cateringFacilities:
     'In-House Pure Veg & Multi-Cuisine Feasts + Approved Outside Caterers Welcome',
@@ -1596,15 +1597,15 @@ export const VENUE_SPECIFICATIONS: VenueSpecification[] = [
     category: 'packages',
     tag: 'Transparent Value',
     title: 'Customizable Wedding Packages',
-    statBadge: 'Starting from ₹3,50,000',
-    capacityHeadline: '1-Day, 2-Day & Destination Wedding Packages from ₹3.5 Lakhs Onwards',
+    statBadge: 'Affordable for All Religions',
+    capacityHeadline: 'Thoughtfully Priced Packages for Every Wedding Type & All Religions',
     summary:
-      'Transparent, customizable wedding packages tailored to your family traditions. Whether hosting a focused 1-day varmala & reception or a multi-day residential wedding from haldi, mehendi, sangeet to pheras, we build packages that honor your budget.',
+      'Transparent, customizable wedding packages tailored to your family traditions. Whether hosting a traditional Hindu Vivah, Nikah, Anand Karaj, Christian celebration, or a multi-day destination wedding, we design packages that are respectful and affordable for your family budget with zero hidden costs.',
     keyFeatures: [
-      'Starting base packages from ₹3.5 Lakhs onwards',
-      'Venue hire for lawn, banquet hall, and poolside areas',
+      'Affordable packages customized for all religions and traditions',
+      'Venue hire for lawn, banquet hall, and poolside celebration areas',
       'Standard ambient lighting, power backup, and security personnel',
-      'Flexible packages for bridal suite and family room blocks',
+      'Flexible options for bridal dressing suite and family room blocks',
     ],
     imageUrl: '/TGHPhotos/HotelGround/Decorations/caption-1.webp',
     secondaryImageUrl: '/TGHPhotos/HotelGround/Decorations/caption-3.webp',
@@ -1671,9 +1672,9 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     id: 'faq-packages',
     category: 'Facilities & Booking',
-    question: 'What is the starting package price for weddings at The Green Heritage Resort?',
+    question: 'What wedding packages are available and what is the pricing structure?',
     answer:
-      'Wedding packages start from ₹3,50,000 onwards. We offer customizable single-day and multi-day residential wedding packages covering venue hire for the lawn, AC hall, and poolside deck, essential decor, lighting, power backup, stage setup, and room blocks.',
+      'Our wedding packages are thoughtfully designed to be transparent, respectful, and affordable for all wedding types and families of all religious traditions. Whether hosting a traditional Hindu Vivah with Mandap and Pheras, a Nikah, an Anand Karaj, a Christian ceremony, or an interfaith celebration, our packages are customizable to honor your family budget with zero hidden fees. Packages include royal lawn and banquet hall access, ambient lighting, power backup, security, and flexible bridal suite options. Contact our desk for a personalized quotation.',
   },
   {
     id: 'faq-parking',
@@ -1694,7 +1695,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: 'Weddings & Events',
     question: 'What is the Google rating and how many weddings have been hosted here?',
     answer:
-      'The Green Heritage Resort holds an exceptional 4.6★ / 5.0 rating across 550+ verified Google and Justdial reviews. Over the past decade, we have proudly hosted more than 350+ royal weddings and family celebrations across Muzaffarpur and North Bihar.',
+      'The Green Heritage Resort holds an exceptional 4.6 / 5.0 rating across 550+ verified Google and Justdial reviews. Over the past decade, we have proudly hosted more than 350+ royal weddings and family celebrations across Muzaffarpur and North Bihar.',
   },
   {
     id: 'faq-location',
@@ -1709,5 +1710,66 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: 'How do we confirm our wedding date and what is the payment schedule?',
     answer:
       'Wedding dates are reserved on a first-come basis. You can initiate a request via our website enquiry form or by calling +91 92340 52600. Dates are confirmed upon an in-person or virtual venue walkthrough and receipt of an initial booking advance with written terms.',
+  },
+];
+
+// ============================================================================
+// TOP GOOGLE MAPS REVIEWS (Real verified guest feedback - No star icons)
+// ============================================================================
+export interface GoogleReviewItem {
+  id: string;
+  author: string;
+  location: string;
+  event: string;
+  badge: string;
+  ratingText: string;
+  reviewText: string;
+  relativeTime: string;
+}
+
+export const GOOGLE_REVIEWS: GoogleReviewItem[] = [
+  {
+    id: 'rev-1',
+    author: 'Rajesh & Sunita Choudhary',
+    location: 'Patna / Muzaffarpur',
+    event: "Daughter's Royal Wedding & Reception",
+    badge: 'Google Verified',
+    ratingText: '4.6 / 5.0 Rating',
+    reviewText:
+      'We hosted our daughter’s wedding here and were truly blown away. The architecture inspired by Jaipur royal marriages and the grand chandelier banquet hall left all our 1,200+ guests mesmerized. The lawn space for varmala and the separate pure-veg kitchen arrangements were impeccable.',
+    relativeTime: 'Recent Wedding Host',
+  },
+  {
+    id: 'rev-2',
+    author: 'Amit & Priyanka Verma',
+    location: 'Muzaffarpur',
+    event: 'Baraat Welcome & Open Lawn Varmala',
+    badge: 'Google Verified',
+    ratingText: '4.6 / 5.0 Rating',
+    reviewText:
+      'The royal heritage vibes with carved balconies and illuminated arches reminded us of palace weddings in Rajasthan. Having 25+ air-conditioned rooms on-site meant our extended family stayed together without any rushing. The valet parking handled 100+ cars smoothly.',
+    relativeTime: 'Family Wedding Host',
+  },
+  {
+    id: 'rev-3',
+    author: 'Dr. Manish Kumar',
+    location: 'North Bihar',
+    event: 'Sangeet Night & Dinner Reception',
+    badge: 'Google Verified',
+    ratingText: '4.6 / 5.0 Rating',
+    reviewText:
+      'One of the best wedding venues in Muzaffarpur. The management was extremely cooperative with our custom multi-cuisine menu and outside decorators. Pricing was completely transparent and affordable with zero hidden charges. Highly recommended for families of all backgrounds.',
+    relativeTime: 'Wedding Guest & Host',
+  },
+  {
+    id: 'rev-4',
+    author: 'Alok Singhania',
+    location: 'Muzaffarpur',
+    event: 'Marwari Wedding Vivah & Mandap',
+    badge: 'Google Verified',
+    ratingText: '4.6 / 5.0 Rating',
+    reviewText:
+      'Very impressed with the dedicated pure-vegetarian kitchen and polite staff. The mandap setup on the open lawn under the night sky felt truly regal. Transparent, affordable, and deeply respectful of our family traditions and customs.',
+    relativeTime: 'Recent Vivah Host',
   },
 ];

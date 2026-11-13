@@ -11,7 +11,8 @@ import {
   ArrowUpRight,
   MapPin,
   Play,
-  Star,
+  Crown,
+  Award,
   Users,
   Building2,
   BedDouble,
@@ -22,6 +23,7 @@ import {
   ArrowRight,
   ShieldCheck,
   Sparkles,
+  HeartHandshake,
 } from 'lucide-react';
 
 const TwfRealisticGlobe = dynamic(
@@ -43,6 +45,7 @@ import {
   FAQ_ITEMS,
   STUDIO_INFO,
   VENUE_SPECIFICATIONS,
+  GOOGLE_REVIEWS,
   CinemaFilm,
   InstagramReelItem,
   PhotoFrame,
@@ -376,116 +379,120 @@ export function TwfHomeSections({
           TOP TRUST & VENUE KEY SPECS BAR (Essential Details for Families & Guests)
          ===================================================================== */}
       <section
-        aria-label="Venue Key Facts and Guest Capacities"
+        aria-label="Verified Venue Facts and Guest Capacities"
         className="px-1 sm:px-2 pt-1"
       >
-        <div className="rounded-[20px] sm:rounded-[24px] bg-[#f7f6f1] border border-[#14531e]/15 p-4 sm:p-6 shadow-md">
-          {/* Header Line */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#0f1f12]/10 pb-3 mb-4">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse" />
-              <span className="text-xs uppercase tracking-[0.16em] font-semibold text-[#14531e]">
+        <div className="rounded-[20px] sm:rounded-[24px] bg-[#fbfaf6] border border-[#f0b400]/30 p-4 sm:p-6 shadow-sm">
+          {/* Header Line - Inspired by Jaipur Royal Marriages */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-b border-[#0f1f12]/10 pb-3.5 mb-4">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#14531e] text-[#f0b400] text-xs font-semibold uppercase tracking-wider shadow-sm">
+                <Crown className="w-3.5 h-3.5 text-[#f0b400]" />
+                <span>Jaipur Royal Marriage Theme</span>
+              </span>
+              <span className="text-xs sm:text-sm font-semibold text-[#0f1f12]">
                 Verified Venue Specifications · Gobarsahi–Sakri Road, Muzaffarpur
               </span>
             </div>
-            <div className="inline-flex items-center gap-1.5 text-xs text-[#9e6800] font-medium">
-              <Star className="w-3.5 h-3.5 fill-[#f0b400] text-[#f0b400]" />
+
+            <div className="inline-flex items-center gap-2 text-xs sm:text-sm text-[#0f1f12]/80 font-medium bg-[#14531e]/[0.06] px-3 py-1.5 rounded-full border border-[#14531e]/15">
+              <ShieldCheck className="w-4 h-4 text-emerald-600" />
               <span className="font-bold text-[#0f1f12]">4.6 / 5.0 Rating</span>
-              <span className="text-[#0f1f12]/50">·</span>
+              <span className="text-[#0f1f12]/40">·</span>
               <span>550+ Google Reviews</span>
-              <span className="text-[#0f1f12]/50">·</span>
-              <span>350+ Weddings</span>
+              <span className="text-[#0f1f12]/40">·</span>
+              <span>350+ Royal Weddings</span>
             </div>
           </div>
 
-          {/* 6 Key Highlights Grid */}
+          {/* 6 Key Highlights Grid (With Soft Note for Packages, NO Numeric Price, NO Star Icons) */}
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-            <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
+            <div className="p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
               <div className="flex items-center gap-1.5 text-[#14531e]">
-                <Users className="w-4 h-4 text-[#f0b400]" />
-                <span className="text-[11px] sm:text-xs uppercase tracking-wider text-[#0f1f12]/70 font-medium">
+                <Users className="w-4 h-4 text-[#9e6800]" />
+                <span className="text-xs uppercase tracking-wider text-[#0f1f12]/70 font-semibold">
                   Lawn Capacity
                 </span>
               </div>
               <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
                 1,500 – 2,000+
               </p>
-              <p className="text-[11px] sm:text-xs text-[#0f1f12]/65 leading-tight">
-                Receptions &amp; Varmala
+              <p className="text-xs text-[#0f1f12]/65 leading-tight">
+                Grand Receptions &amp; Varmala
               </p>
             </div>
 
-            <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
+            <div className="p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
               <div className="flex items-center gap-1.5 text-[#14531e]">
-                <Building2 className="w-4 h-4 text-[#f0b400]" />
-                <span className="text-[11px] sm:text-xs uppercase tracking-wider text-[#0f1f12]/70 font-medium">
+                <Building2 className="w-4 h-4 text-[#9e6800]" />
+                <span className="text-xs uppercase tracking-wider text-[#0f1f12]/70 font-semibold">
                   AC Banquet Hall
                 </span>
               </div>
               <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
                 350 – 500+ Seated
               </p>
-              <p className="text-[11px] sm:text-xs text-[#0f1f12]/65 leading-tight">
+              <p className="text-xs text-[#0f1f12]/65 leading-tight">
                 700 Floating · Sangeet &amp; Pheras
               </p>
             </div>
 
-            <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
+            <div className="p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
               <div className="flex items-center gap-1.5 text-[#14531e]">
-                <BedDouble className="w-4 h-4 text-[#f0b400]" />
-                <span className="text-[11px] sm:text-xs uppercase tracking-wider text-[#0f1f12]/70 font-medium">
+                <BedDouble className="w-4 h-4 text-[#9e6800]" />
+                <span className="text-xs uppercase tracking-wider text-[#0f1f12]/70 font-semibold">
                   Rooms &amp; Stay
                 </span>
               </div>
               <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
                 25+ Luxury Rooms
               </p>
-              <p className="text-[11px] sm:text-xs text-[#0f1f12]/65 leading-tight">
+              <p className="text-xs text-[#0f1f12]/65 leading-tight">
                 Bridal Suite &amp; Cottages
               </p>
             </div>
 
-            <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
+            <div className="p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
               <div className="flex items-center gap-1.5 text-[#14531e]">
-                <Tag className="w-4 h-4 text-[#f0b400]" />
-                <span className="text-[11px] sm:text-xs uppercase tracking-wider text-[#0f1f12]/70 font-medium">
-                  Starting Package
+                <Crown className="w-4 h-4 text-[#9e6800]" />
+                <span className="text-xs uppercase tracking-wider text-[#0f1f12]/70 font-semibold">
+                  Packages
                 </span>
               </div>
-              <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
-                ₹3,50,000+
+              <p className="text-sm sm:text-base font-bold text-[#14531e] leading-tight">
+                Affordable For All
               </p>
-              <p className="text-[11px] sm:text-xs text-[#0f1f12]/65 leading-tight">
-                1-Day &amp; Multi-Day Tiers
+              <p className="text-xs text-[#0f1f12]/65 leading-tight">
+                For All Wedding Types &amp; Religions
               </p>
             </div>
 
-            <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
+            <div className="p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
               <div className="flex items-center gap-1.5 text-[#14531e]">
-                <Car className="w-4 h-4 text-[#f0b400]" />
-                <span className="text-[11px] sm:text-xs uppercase tracking-wider text-[#0f1f12]/70 font-medium">
+                <Car className="w-4 h-4 text-[#9e6800]" />
+                <span className="text-xs uppercase tracking-wider text-[#0f1f12]/70 font-semibold">
                   Guest Parking
                 </span>
               </div>
               <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
                 150+ Cars
               </p>
-              <p className="text-[11px] sm:text-xs text-[#0f1f12]/65 leading-tight">
+              <p className="text-xs text-[#0f1f12]/65 leading-tight">
                 200+ Bikes · Valet Support
               </p>
             </div>
 
-            <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
+            <div className="p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
               <div className="flex items-center gap-1.5 text-[#14531e]">
-                <UtensilsCrossed className="w-4 h-4 text-[#f0b400]" />
-                <span className="text-[11px] sm:text-xs uppercase tracking-wider text-[#0f1f12]/70 font-medium">
+                <UtensilsCrossed className="w-4 h-4 text-[#9e6800]" />
+                <span className="text-xs uppercase tracking-wider text-[#0f1f12]/70 font-semibold">
                   Catering
                 </span>
               </div>
               <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
                 Pure Veg &amp; Multi
               </p>
-              <p className="text-[11px] sm:text-xs text-[#0f1f12]/65 leading-tight">
+              <p className="text-xs text-[#0f1f12]/65 leading-tight">
                 Live Counters · Outside Friendly
               </p>
             </div>
@@ -740,12 +747,12 @@ export function TwfHomeSections({
                   />
                   <div className="absolute inset-x-0 bottom-0 p-3.5 text-white">
                     <span
-                      className="text-sm text-[#f0b400] block leading-snug"
+                      className="text-base sm:text-lg text-[#f0b400] block leading-snug"
                       style={{ fontFamily: 'var(--font-script)' }}
                     >
                       {photo.couple}
                     </span>
-                    <span className="text-xs text-white/95 font-medium leading-snug block mt-0.5">
+                    <span className="text-xs sm:text-sm text-white/95 font-medium leading-snug block mt-0.5">
                       {photo.title}
                     </span>
                   </div>
@@ -884,12 +891,12 @@ export function TwfHomeSections({
                       </div>
                       <div className="pt-2 px-1.5 pb-0.5 bg-white">
                         <span
-                          className="text-xs sm:text-sm text-[#9e6800] block leading-none"
+                          className="text-base sm:text-lg text-[#9e6800] block leading-none"
                           style={{ fontFamily: 'var(--font-script)' }}
                         >
                           {photo.couple}
                         </span>
-                        <span className="text-[11px] sm:text-xs text-black font-medium leading-snug block mt-1 truncate">
+                        <span className="text-xs sm:text-sm text-black font-medium leading-snug block mt-1 truncate">
                           {photo.title}
                         </span>
                       </div>
@@ -931,12 +938,12 @@ export function TwfHomeSections({
                       </div>
                       <div className="pt-2 px-1.5 pb-0.5 bg-white">
                         <span
-                          className="text-xs sm:text-sm text-[#9e6800] block leading-none"
+                          className="text-base sm:text-lg text-[#9e6800] block leading-none"
                           style={{ fontFamily: 'var(--font-script)' }}
                         >
                           {photo.couple}
                         </span>
-                        <span className="text-[11px] sm:text-xs text-black font-medium leading-snug block mt-1 truncate">
+                        <span className="text-xs sm:text-sm text-black font-medium leading-snug block mt-1 truncate">
                           {photo.title}
                         </span>
                       </div>
@@ -1048,7 +1055,7 @@ export function TwfHomeSections({
                 </div>
                 <div className="absolute bottom-2.5 left-3.5 right-3.5 z-10 text-white">
                   <span
-                    className="text-sm sm:text-base text-[#f0b400] block leading-none"
+                    className="text-base sm:text-lg text-[#f0b400] block leading-none"
                     style={{ fontFamily: 'var(--font-script)' }}
                   >
                     {spec.tag}
@@ -1077,7 +1084,7 @@ export function TwfHomeSections({
                     {spec.keyFeatures.map((feat, idx) => (
                       <li
                         key={idx}
-                        className="flex items-start gap-2 text-[11px] sm:text-xs text-[#0f1f12]/80 leading-snug"
+                        className="flex items-start gap-2 text-xs sm:text-sm text-[#0f1f12]/80 leading-snug"
                       >
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                         <span>{feat}</span>
@@ -1104,7 +1111,7 @@ export function TwfHomeSections({
                     <button
                       type="button"
                       onClick={() => onOpenQuickEnquire(spec.title)}
-                      className="px-3 py-1.5 rounded-full bg-[#14531e]/10 hover:bg-[#14531e] hover:text-white text-[#14531e] text-[11px] uppercase tracking-wider font-medium transition-colors cursor-pointer"
+                      className="px-3 py-1.5 rounded-full bg-[#14531e]/10 hover:bg-[#14531e] hover:text-white text-[#14531e] text-xs uppercase tracking-wider font-medium transition-colors cursor-pointer"
                     >
                       Book Tour
                     </button>
@@ -1175,24 +1182,23 @@ export function TwfHomeSections({
                 )}
               </div>
 
-              {/* Google Review & Rating Card with Scannable QR Code */}
+              {/* Google Review & Rating Card with Scannable QR Code (No Star Icons) */}
               <div className="p-4 sm:p-5 rounded-2xl bg-white/[0.05] border border-[#f0b400]/30 backdrop-blur-sm space-y-3 mt-4">
                 <div className="flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-1.5">
-                    <div className="flex text-[#f0b400]">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-current" />
-                      ))}
-                    </div>
-                    <span className="font-bold text-[#f7f6f1] text-sm">4.6 / 5.0</span>
+                  <div className="flex items-center gap-2">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#14531e] text-[#f0b400] text-xs font-semibold">
+                      <ShieldCheck className="w-3.5 h-3.5 text-[#f0b400]" />
+                      <span>Google Verified</span>
+                    </span>
+                    <span className="font-bold text-[#f7f6f1] text-xs sm:text-sm">4.6 / 5.0 Rating</span>
                   </div>
-                  <span className="text-[11px] sm:text-xs text-[#f0b400] font-medium uppercase tracking-wider">
-                    Google Verified
+                  <span className="text-xs text-[#f0b400] font-medium">
+                    550+ Reviews
                   </span>
                 </div>
 
-                <p className="text-xs sm:text-sm text-[#f7f6f1]/80 leading-relaxed">
-                  Trusted by <strong>350+ families</strong> across Bihar for royal weddings &amp; celebrations. With over <strong>550+ verified Google reviews</strong>, we invite you to read our guest stories or scan to review your stay.
+                <p className="text-xs sm:text-sm text-[#f7f6f1]/80 leading-relaxed font-light">
+                  Trusted by <strong>350+ families</strong> across Bihar for royal weddings &amp; celebrations inspired by Jaipur palace hospitality. Scan or tap below to read guest stories or review your stay.
                 </p>
 
                 <div className="flex items-center gap-3.5 pt-1">
@@ -1220,14 +1226,14 @@ export function TwfHomeSections({
                     <p className="text-xs font-semibold text-white">
                       Scan to Review on Google Maps
                     </p>
-                    <p className="text-[11px] text-[#f7f6f1]/65 leading-tight">
+                    <p className="text-[11px] sm:text-xs text-[#f7f6f1]/65 leading-tight font-light">
                       Point your phone camera at the QR code, or tap the button below.
                     </p>
                     <a
                       href={STUDIO_INFO.googleReviewUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#f0b400] hover:text-white transition-colors pt-0.5"
+                      className="inline-flex items-center gap-1 text-xs font-semibold text-[#f0b400] hover:text-white transition-colors pt-0.5"
                     >
                       <span>Write a Review on Google</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
@@ -1242,6 +1248,85 @@ export function TwfHomeSections({
               <TwfRealisticGlobe onOpenQuickEnquire={onOpenQuickEnquire} />
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* =====================================================================
+          TOP GOOGLE MAPS REVIEWS (Real Verified Guest Stories — No Star Icons)
+         ===================================================================== */}
+      <section
+        aria-label="Top Google Maps Reviews and Guest Testimonials"
+        className="px-1 sm:px-2 space-y-6"
+      >
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <span
+              className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1"
+              style={{ fontFamily: 'var(--font-script)' }}
+            >
+              Words from Families Who Celebrated With Us
+            </span>
+            <h2
+              className="text-2xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#0f1f12]"
+              style={{ fontFamily: 'var(--font-display)' }}
+            >
+              VERIFIED GOOGLE REVIEWS
+            </h2>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14531e]/[0.08] border border-[#14531e]/20 text-xs sm:text-sm text-[#0f1f12] font-semibold">
+              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+              <span>4.6 / 5.0 Rating · 550+ Reviews</span>
+            </div>
+            <a
+              href={STUDIO_INFO.googleReviewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/40 text-white text-xs font-semibold uppercase tracking-wider transition-colors shadow-sm"
+            >
+              <span>Write a Review</span>
+              <ArrowUpRight className="w-3.5 h-3.5 text-[#f0b400]" />
+            </a>
+          </div>
+        </div>
+
+        {/* 4 Reviews Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+          {GOOGLE_REVIEWS.map((rev) => (
+            <div
+              key={rev.id}
+              className="p-5 sm:p-6 rounded-[20px] sm:rounded-[22px] bg-white border border-[#14531e]/15 shadow-sm hover:shadow-md hover:border-[#f0b400]/50 transition-all flex flex-col justify-between space-y-4"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between gap-2 border-b border-[#0f1f12]/10 pb-2.5">
+                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#14531e]">
+                    <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                    <span>{rev.badge}</span>
+                  </span>
+                  <span className="text-xs text-[#0f1f12]/55 font-medium">
+                    {rev.relativeTime}
+                  </span>
+                </div>
+
+                <p className="text-xs sm:text-sm text-[#0f1f12]/80 leading-relaxed font-light">
+                  &ldquo;{rev.reviewText}&rdquo;
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-[#0f1f12]/10 space-y-0.5">
+                <h4
+                  className="text-lg sm:text-xl text-[#14531e]"
+                  style={{ fontFamily: 'var(--font-script)' }}
+                >
+                  {rev.author}
+                </h4>
+                <p className="text-xs text-[#0f1f12]/60 truncate">
+                  {rev.event} · {rev.location}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -1417,11 +1502,14 @@ export function TwfHomeSections({
                   </p>
                 </div>
 
-                <div className="pt-2 border-t border-white/10 flex items-center justify-between text-[11px] text-[#f0b400]">
-                  <span style={{ fontFamily: 'var(--font-script)' }}>
+                <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs text-[#f0b400]">
+                  <span
+                    className="text-sm sm:text-base"
+                    style={{ fontFamily: 'var(--font-script)' }}
+                  >
                     {card.tag}
                   </span>
-                  <Compass className="w-3.5 h-3.5 text-[#f0b400]" />
+                  <Compass className="w-4 h-4 text-[#f0b400]" />
                 </div>
               </div>
             ))}
@@ -1436,7 +1524,7 @@ export function TwfHomeSections({
               once our team confirms availability and terms directly with
               you.&rdquo;
             </span>
-            <span className="text-[11px] uppercase tracking-[0.2em] text-white/55 block font-light">
+            <span className="text-xs uppercase tracking-[0.2em] text-white/70 block font-light">
               The Green Heritage Resort and Banquet · +91 92340 52600
             </span>
           </div>
@@ -1575,7 +1663,7 @@ export function TwfHomeSections({
                 e.preventDefault();
                 onNavigate('faqs');
               }}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#14531e] hover:bg-[#0c3a14] text-white text-[11px] uppercase tracking-[0.16em] font-medium transition-colors self-start sm:self-auto"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#14531e] hover:bg-[#0c3a14] text-white text-xs uppercase tracking-[0.16em] font-medium transition-colors self-start sm:self-auto"
             >
               <span>Full FAQs &amp; Policies</span>
               <ArrowUpRight className="w-3.5 h-3.5 text-[#f0b400]" />
@@ -1583,112 +1671,137 @@ export function TwfHomeSections({
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            {/* Left Column: Consistent Official Entity Summary */}
-            <div className="lg:col-span-5 rounded-2xl bg-[#f7f6f1] border border-[#14531e]/12 p-5 space-y-3.5 text-xs sm:text-sm text-[#0f1f12]/80">
-              <h3
-                className="text-xl sm:text-2xl text-[#0f1f12] lowercase"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                official property summary
-              </h3>
+            {/* Left Column: Modern Aesthetic Official Property Summary */}
+            <div className="lg:col-span-5 rounded-2xl bg-gradient-to-br from-[#fbfaf6] to-[#f4f2ea] border border-[#14531e]/15 p-5 sm:p-6 space-y-4 text-xs sm:text-sm text-[#0f1f12]/80 shadow-sm">
+              <div className="space-y-1.5 border-b border-[#14531e]/10 pb-3.5">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#14531e]/8 border border-[#14531e]/15 text-[#14531e] text-xs font-medium">
+                  <Crown className="w-3.5 h-3.5 text-[#9e6800]" />
+                  <span>Inspired by Jaipur Royal Marriages</span>
+                </div>
+                <h3
+                  className="text-2xl sm:text-3xl text-[#0f1f12] lowercase tracking-tight pt-1"
+                  style={{ fontFamily: 'var(--font-display)' }}
+                >
+                  official property summary
+                </h3>
+                <p className="text-xs text-[#0f1f12]/65">
+                  {STUDIO_INFO.name} · 350+ Celebrations Hosted · Muzaffarpur, Bihar
+                </p>
+              </div>
 
-              <dl className="space-y-3">
-                <div>
-                  <dt className="text-xs uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
-                    Official Name &amp; Heritage
-                  </dt>
-                  <dd className="font-medium text-[#0f1f12] mt-0.5">
-                    {STUDIO_INFO.name} · 350+ Royal Weddings Hosted
-                  </dd>
+              {/* Verified Highlights Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                {/* Lawn & Banquet */}
+                <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-[#14531e] uppercase tracking-wider">
+                    <Users className="w-3.5 h-3.5 text-[#9e6800]" />
+                    <span>Royal Lawns</span>
+                  </div>
+                  <p className="text-xs sm:text-sm font-medium text-[#0f1f12]">
+                    1,500 – 2,000+ Guests
+                  </p>
+                  <p className="text-xs text-[#0f1f12]/60">Sprawling open-air lawns</p>
                 </div>
-                <div>
-                  <dt className="text-xs uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
-                    Google Rating &amp; Verified Reviews
-                  </dt>
-                  <dd className="font-medium text-[#0f1f12] mt-0.5 flex items-center gap-1.5">
-                    <Star className="w-3.5 h-3.5 fill-[#f0b400] text-[#f0b400]" />
-                    <span>4.6 / 5.0 Rating (550+ Verified Google Reviews)</span>
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-xs uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
-                    Guest Capacities (Lawn &amp; Banquet Hall)
-                  </dt>
-                  <dd className="mt-0.5 text-xs sm:text-sm leading-relaxed text-[#0f1f12]">
-                    <strong>Royal Wedding Lawn:</strong> 1,500 – 2,000+ Guests<br />
-                    <strong>AC Banquet Hall:</strong> 350 – 500+ Seated (700 Floating)
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-xs uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
-                    Stay &amp; Bridal Suite
-                  </dt>
-                  <dd className="mt-0.5 text-xs sm:text-sm leading-relaxed text-[#0f1f12]">
-                    25+ Executive AC Rooms &amp; Private Heritage Cottages + Dedicated Bridal Dressing Suite
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-xs uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
-                    Starting Wedding Packages
-                  </dt>
-                  <dd className="mt-0.5 text-xs sm:text-sm leading-relaxed text-[#0f1f12]">
-                    Customizable Packages starting from <strong>₹3,50,000 onwards</strong> (1-Day &amp; Multi-Day Residential Tiers)
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-xs uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
-                    Guest Parking &amp; Logistics
-                  </dt>
-                  <dd className="mt-0.5 text-xs sm:text-sm leading-relaxed text-[#0f1f12]">
-                    150+ Cars &amp; 200+ Bikes with dedicated valet staff &amp; security attendants
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-xs uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
-                    Catering Facilities
-                  </dt>
-                  <dd className="mt-0.5 text-xs sm:text-sm leading-relaxed text-[#0f1f12]">
-                    In-House Pure Vegetarian Kitchen &amp; Multi-Cuisine Feasts. Approved outside catering partners also permitted.
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-xs uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
-                    Location &amp; Pin
-                  </dt>
-                  <dd className="mt-0.5 text-xs sm:text-sm">
-                    {STUDIO_INFO.address} · Map Pin: 26.06385, 85.3504979
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-xs uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
-                    Direct Phone / WhatsApp &amp; Email
-                  </dt>
-                  <dd className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm">
-                    <a
-                      href={STUDIO_INFO.phonePrimaryUrl}
-                      className="font-medium text-[#14531e] hover:underline"
-                    >
-                      {STUDIO_INFO.phoneNumber}
-                    </a>
-                    <span aria-hidden="true">·</span>
-                    <a
-                      href={STUDIO_INFO.emailUrl}
-                      className="font-medium text-[#14531e] hover:underline"
-                    >
-                      {STUDIO_INFO.email}
-                    </a>
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-xs uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
-                    Events &amp; Enquiry Confirmation
-                  </dt>
-                  <dd className="mt-0.5 leading-relaxed text-xs sm:text-sm">
-                    Haldi, mehendi, sangeet, baraat, varmala, pheras, receptions, bridal suites and family guest rooms. Online enquiries are requests only until availability and written terms are confirmed by our desk.
-                  </dd>
-                </div>
-              </dl>
 
+                <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-[#14531e] uppercase tracking-wider">
+                    <Building2 className="w-3.5 h-3.5 text-[#9e6800]" />
+                    <span>Banquet Hall</span>
+                  </div>
+                  <p className="text-xs sm:text-sm font-medium text-[#0f1f12]">
+                    350 – 500+ Seated
+                  </p>
+                  <p className="text-xs text-[#0f1f12]/60">700 Floating · AC Crystal Hall</p>
+                </div>
+
+                {/* Rooms & Suites */}
+                <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-[#14531e] uppercase tracking-wider">
+                    <BedDouble className="w-3.5 h-3.5 text-[#9e6800]" />
+                    <span>Stay &amp; Suites</span>
+                  </div>
+                  <p className="text-xs sm:text-sm font-medium text-[#0f1f12]">
+                    25+ Luxury AC Rooms
+                  </p>
+                  <p className="text-xs text-[#0f1f12]/60">Cottages + Bridal Dressing Suite</p>
+                </div>
+
+                {/* Affordable Packages */}
+                <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-[#14531e] uppercase tracking-wider">
+                    <Tag className="w-3.5 h-3.5 text-[#9e6800]" />
+                    <span>Wedding Pricing</span>
+                  </div>
+                  <p className="text-xs sm:text-sm font-medium text-[#14531e]">
+                    Affordable for All
+                  </p>
+                  <p className="text-xs text-[#0f1f12]/60">All wedding types &amp; religions</p>
+                </div>
+
+                {/* Parking & Logistics */}
+                <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-[#14531e] uppercase tracking-wider">
+                    <Car className="w-3.5 h-3.5 text-[#9e6800]" />
+                    <span>Guest Parking</span>
+                  </div>
+                  <p className="text-xs sm:text-sm font-medium text-[#0f1f12]">
+                    150+ Cars &amp; 200+ Bikes
+                  </p>
+                  <p className="text-xs text-[#0f1f12]/60">Dedicated valet staff &amp; security</p>
+                </div>
+
+                {/* Catering Facilities */}
+                <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
+                  <div className="flex items-center gap-1.5 text-xs font-semibold text-[#14531e] uppercase tracking-wider">
+                    <UtensilsCrossed className="w-3.5 h-3.5 text-[#9e6800]" />
+                    <span>Catering Feasts</span>
+                  </div>
+                  <p className="text-xs sm:text-sm font-medium text-[#0f1f12]">
+                    Pure Veg Kitchen
+                  </p>
+                  <p className="text-xs text-[#0f1f12]/60">Multi-cuisine &amp; outside partners ok</p>
+                </div>
+              </div>
+
+              {/* Rating & Trust Strip */}
+              <div className="p-3 rounded-xl bg-[#14531e]/[0.06] border border-[#14531e]/15 flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <Award className="w-4 h-4 text-[#9e6800] shrink-0" />
+                  <div>
+                    <span className="font-semibold text-[#0f1f12] text-xs sm:text-sm">
+                      4.6 / 5.0 Google Rating
+                    </span>
+                    <span className="text-xs text-[#0f1f12]/65 block">
+                      550+ verified Google Maps reviews
+                    </span>
+                  </div>
+                </div>
+                <a
+                  href={STUDIO_INFO.googleReviewUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="shrink-0 text-xs text-[#14531e] font-semibold hover:underline inline-flex items-center gap-1"
+                >
+                  <span>View</span>
+                  <ArrowUpRight className="w-3 h-3 text-[#f0b400]" />
+                </a>
+              </div>
+
+              {/* Direct Phone & WhatsApp Action Strip */}
+              <div className="pt-2 border-t border-[#14531e]/10 flex flex-wrap items-center justify-between gap-2">
+                <div className="flex items-center gap-1.5 text-xs text-[#0f1f12]/75">
+                  <MapPin className="w-3.5 h-3.5 text-[#14531e] shrink-0" />
+                  <span className="truncate">Gobarsahi–Sakri Road, Muzaffarpur</span>
+                </div>
+                <a
+                  href={STUDIO_INFO.phonePrimaryUrl}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] text-white text-xs font-medium transition-colors shadow-sm"
+                >
+                  <span>Desk: {STUDIO_INFO.phoneNumber}</span>
+                </a>
+              </div>
+
+              {/* Quick Navigation Links */}
               <div className="pt-2 border-t border-[#0f1f12]/10 flex flex-wrap gap-2">
                 {(
                   [
@@ -1706,7 +1819,7 @@ export function TwfHomeSections({
                       e.preventDefault();
                       onNavigate(link.id);
                     }}
-                    className="px-3 py-1.5 rounded-full bg-white hover:bg-[#14531e] hover:text-white border border-[#14531e]/15 text-[11px] font-medium text-[#0f1f12] transition-colors"
+                    className="px-3 py-1.5 rounded-full bg-white hover:bg-[#14531e] hover:text-white border border-[#14531e]/15 text-xs font-medium text-[#0f1f12] transition-colors"
                   >
                     {link.label}
                   </a>

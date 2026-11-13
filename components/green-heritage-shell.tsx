@@ -13,17 +13,7 @@ import { TwfScrollProgress } from '@/components/twf-scroll-progress';
 import { TwfMobileDock } from '@/components/twf-mobile-dock';
 import { CinemaFilm, PhotoFrame } from '@/lib/masoom-data';
 import { PAGE_ROUTES, getPageIdFromPath } from '@/lib/site-routes';
-
-const TwfInnerPages = dynamic(
-  () => import('@/components/twf-inner-pages').then((mod) => mod.TwfInnerPages),
-  {
-    loading: () => (
-      <div className="p-6 sm:p-10 min-h-[60vh] flex items-center justify-center">
-        <div className="w-8 h-8 rounded-full border-2 border-[#f0b400]/30 border-t-[#14531e] animate-spin" />
-      </div>
-    ),
-  }
-);
+import { TwfInnerPages } from '@/components/twf-inner-pages';
 
 interface GreenHeritageResortAppProps {
   initialPage?: PageId;

@@ -220,6 +220,15 @@ export function TwfFooterAndModals({
           ref={footerRef}
           className="relative w-full min-h-[430px] sm:min-h-[420px] sm:aspect-video bg-[#061208] text-white rounded-[18px] sm:rounded-[24px] overflow-hidden flex flex-col justify-end select-none shadow-2xl border border-[#14531e]/25"
         >
+          {/* Instant crisp poster behind footer video — zero delay or black box */}
+          <img
+            src={FOOTER_REELS[activeFooterVideoIdx]?.posterUrl || `/reels/posters/${FOOTER_REELS[activeFooterVideoIdx]?.code}.jpg`}
+            alt="The Green Heritage Resort"
+            loading="lazy"
+            decoding="async"
+            className="pointer-events-none absolute inset-0 w-full h-full object-cover"
+          />
+
           <video
             ref={footerVideo1Ref}
             src={isFooterVisible ? FOOTER_REELS[0].videoSrc : undefined}
@@ -228,7 +237,7 @@ export function TwfFooterAndModals({
             loop={false}
             muted
             playsInline
-            preload="none"
+            preload="metadata"
             onCanPlay={(e) => {
               if (isFooterVisible && activeFooterVideoIdx === 0) {
                 e.currentTarget.muted = true;
@@ -237,7 +246,7 @@ export function TwfFooterAndModals({
             }}
             onEnded={() => setActiveFooterVideoIdx(1)}
             onError={() => setActiveFooterVideoIdx(1)}
-            className={`pointer-events-none absolute inset-0 w-full h-full object-cover bg-[#061208] transition-opacity duration-1000 ease-in-out ${activeFooterVideoIdx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'
+            className={`pointer-events-none absolute inset-0 w-full h-full object-cover bg-transparent transition-opacity duration-1000 ease-in-out ${activeFooterVideoIdx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'
               }`}
           />
 
@@ -247,7 +256,7 @@ export function TwfFooterAndModals({
             poster={FOOTER_REELS[1].posterUrl || `/reels/posters/${FOOTER_REELS[1].code}.jpg`}
             muted
             playsInline
-            preload="none"
+            preload="metadata"
             onCanPlay={(e) => {
               if (isFooterVisible && activeFooterVideoIdx === 1) {
                 e.currentTarget.muted = true;
@@ -256,7 +265,7 @@ export function TwfFooterAndModals({
             }}
             onEnded={() => setActiveFooterVideoIdx(0)}
             onError={() => setActiveFooterVideoIdx(0)}
-            className={`pointer-events-none absolute inset-0 w-full h-full object-cover bg-[#061208] transition-opacity duration-1000 ease-in-out ${activeFooterVideoIdx === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'
+            className={`pointer-events-none absolute inset-0 w-full h-full object-cover bg-transparent transition-opacity duration-1000 ease-in-out ${activeFooterVideoIdx === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'
               }`}
           />
 
@@ -376,7 +385,7 @@ export function TwfFooterAndModals({
                 <button
                   type="button"
                   onClick={() => onOpenQuickEnquire()}
-                  className="px-5 sm:px-6 py-2.5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] border border-[#f0b400]/55 active:scale-95 text-white text-[11px] sm:text-xs uppercase tracking-[0.18em] font-medium inline-flex items-center gap-1.5 transition-all cursor-pointer shadow-lg shadow-[#061208]/45"
+                  className="px-5 sm:px-6 py-2.5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] border border-[#f0b400]/55 active:scale-95 text-white text-xs sm:text-sm uppercase tracking-[0.18em] font-medium inline-flex items-center gap-1.5 transition-all cursor-pointer shadow-lg shadow-[#061208]/45"
                 >
                   <span>Enquire Now</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-[#f0b400]" />
@@ -388,7 +397,7 @@ export function TwfFooterAndModals({
 
         {/* Tier 2: Copyright, Terms, Privacy/Cookie Policy, Developer Credit — Wraps Cleanly on Smartphone */}
         <div className="mt-2.5 sm:mt-3 rounded-[14px] sm:rounded-[18px] bg-[#061208] border border-[#14531e]/30 shadow-lg px-4 sm:px-7 py-3 sm:py-3.5 w-full">
-          <div className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center sm:justify-between gap-2 sm:gap-4 text-center sm:text-left text-[10.5px] sm:text-[11px] xl:text-xs text-[#f7f6f1]/85 leading-relaxed">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center sm:justify-between gap-2 sm:gap-4 text-center sm:text-left text-xs sm:text-sm text-[#f7f6f1]/85 leading-relaxed">
             <span>
               &copy; {new Date().getFullYear()} The Green Heritage Resort and Banquet. All rights reserved.
             </span>
@@ -461,7 +470,7 @@ export function TwfFooterAndModals({
                   >
                     {activeFilm.couple}
                   </h3>
-                  <p className="text-[11px] text-white/60 truncate">
+                  <p className="text-xs text-white/70 truncate">
                     {activeFilm.location} · {activeFilm.duration}
                   </p>
                 </div>
@@ -472,7 +481,7 @@ export function TwfFooterAndModals({
                   <button
                     type="button"
                     onClick={() => setModalVideoMuted((m) => !m)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-[#14531e] text-[11px] sm:text-xs text-white transition-colors cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-[#14531e] text-xs sm:text-sm text-white transition-colors cursor-pointer"
                   >
                     {modalVideoMuted ? (
                       <>
@@ -549,7 +558,7 @@ export function TwfFooterAndModals({
                     onCloseFilm();
                     onOpenQuickEnquire(`Enquiry (${topicRef})`);
                   }}
-                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] border border-[#f0b400]/50 text-white text-[10px] sm:text-[11px] uppercase tracking-[0.18em] font-medium transition-colors cursor-pointer"
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] border border-[#f0b400]/50 text-white text-xs sm:text-sm uppercase tracking-[0.18em] font-medium transition-colors cursor-pointer"
                 >
                   <Calendar className="w-3.5 h-3.5 text-[#f0b400]" />
                   <span>Enquire About Dates</span>
@@ -619,13 +628,13 @@ export function TwfFooterAndModals({
                     onClick={() => setPhotoZoom(1)}
                     aria-label="Reset zoom"
                     title="Reset to 100%"
-                    className="px-2 py-0.5 rounded-full text-[10px] bg-white/20 hover:bg-[#14531e] flex items-center gap-1 transition-colors cursor-pointer"
+                    className="px-2.5 py-1 rounded-full text-xs bg-white/20 hover:bg-[#14531e] flex items-center gap-1 transition-colors cursor-pointer"
                   >
                     <RotateCcw className="w-3 h-3" />
                     <span>Reset</span>
                   </button>
                 )}
-                <span className="text-[10px] px-1.5 text-white/70">
+                <span className="text-xs px-1.5 text-white/70">
                   {Math.round(photoZoom * 100)}%
                 </span>
               </div>
@@ -824,7 +833,7 @@ export function TwfFooterAndModals({
               <form onSubmit={handleQuickEnquireSubmit} className="space-y-4 pt-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div>
-                    <label className="block text-[11px] uppercase tracking-[0.14em] text-black/65 font-medium mb-1">
+                    <label className="block text-xs uppercase tracking-[0.14em] text-black/75 font-semibold mb-1">
                       Your Name *
                     </label>
                     <input
@@ -839,7 +848,7 @@ export function TwfFooterAndModals({
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] uppercase tracking-[0.14em] text-black/65 font-medium mb-1">
+                    <label className="block text-xs uppercase tracking-[0.14em] text-black/75 font-semibold mb-1">
                       Phone / WhatsApp *
                     </label>
                     <input
