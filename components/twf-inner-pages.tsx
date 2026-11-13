@@ -367,13 +367,13 @@ export function TwfInnerPages({
           <div className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div>
               <span
-                className="text-2xl sm:text-3xl text-[#f0b400] block mb-1"
+                className="text-2xl sm:text-3xl text-[#f0b400] block mb-1 reveal-on-scroll"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 The Green Heritage Wedding Stories · Muzaffarpur
               </span>
               <h1
-                className="text-3xl sm:text-5xl lg:text-6xl font-normal text-[#f7f6f1] tracking-tight lowercase"
+                className="text-3xl sm:text-5xl lg:text-6xl font-normal text-[#f7f6f1] tracking-tight lowercase reveal-on-scroll interactive-heading reveal-delay-1"
                 style={{ fontFamily: 'var(--font-display)' }}
               >
                 moments kept across every ritual
@@ -407,13 +407,13 @@ export function TwfInnerPages({
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[#0f1f12]/10 pb-2.5">
             <div>
               <span
-                className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
+                className="text-2xl sm:text-3xl text-[#9e6800] block leading-none reveal-on-scroll"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 Widescreen Wedding Highlights
               </span>
               <h2
-                className="text-2xl sm:text-4xl text-[#0f1f12] lowercase mt-0.5"
+                className="text-2xl sm:text-4xl text-[#0f1f12] lowercase mt-0.5 reveal-on-scroll interactive-heading reveal-delay-1"
                 style={{ fontFamily: 'var(--font-display)' }}
               >
                 landscape wedding films
@@ -456,13 +456,13 @@ export function TwfInnerPages({
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[#0f1f12]/10 pb-2.5">
             <div>
               <span
-                className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
+                className="text-2xl sm:text-3xl text-[#9e6800] block leading-none reveal-on-scroll"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 Vertical Ceremony Stories
               </span>
               <h2
-                className="text-2xl sm:text-4xl text-[#0f1f12] lowercase mt-0.5"
+                className="text-2xl sm:text-4xl text-[#0f1f12] lowercase mt-0.5 reveal-on-scroll interactive-heading reveal-delay-1"
                 style={{ fontFamily: 'var(--font-display)' }}
               >
                 portrait wedding reels
@@ -505,13 +505,13 @@ export function TwfInnerPages({
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[#0f1f12]/10 pb-2.5">
             <div>
               <span
-                className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
+                className="text-2xl sm:text-3xl text-[#9e6800] block leading-none reveal-on-scroll"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 Rooms, Outdoor Areas &amp; Event Spaces
               </span>
               <h2
-                className="text-2xl sm:text-4xl text-[#0f1f12] lowercase mt-0.5"
+                className="text-2xl sm:text-4xl text-[#0f1f12] lowercase mt-0.5 reveal-on-scroll interactive-heading reveal-delay-1"
                 style={{ fontFamily: 'var(--font-display)' }}
               >
                 resort &amp; event gallery
@@ -581,13 +581,13 @@ export function TwfInnerPages({
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[#0f1f12]/10 pb-2.5">
             <div>
               <span
-                className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
+                className="text-2xl sm:text-3xl text-[#9e6800] block leading-none reveal-on-scroll"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 Event &amp; Grounds Preview
               </span>
               <h2
-                className="text-2xl sm:text-4xl text-[#0f1f12] lowercase mt-0.5"
+                className="text-2xl sm:text-4xl text-[#0f1f12] lowercase mt-0.5 reveal-on-scroll interactive-heading reveal-delay-1"
                 style={{ fontFamily: 'var(--font-display)' }}
               >
                 spaces &amp; gathering views
@@ -695,13 +695,13 @@ export function TwfInnerPages({
           <div className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div className="max-w-2xl">
               <span
-                className="text-3xl sm:text-4xl text-[#f0b400] block mb-1"
+                className="text-3xl sm:text-4xl text-[#f0b400] block mb-1 reveal-on-scroll"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 Bakarpur · Muzaffarpur, Bihar
               </span>
               <h1
-                className="text-3xl sm:text-5xl lg:text-6xl font-normal text-[#f7f6f1] lowercase"
+                className="text-3xl sm:text-5xl lg:text-6xl font-normal text-[#f7f6f1] lowercase reveal-on-scroll interactive-heading reveal-delay-1"
                 style={{ fontFamily: 'var(--font-display)' }}
               >
                 welcome to the green heritage
@@ -736,13 +736,13 @@ export function TwfInnerPages({
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-[#0f1f12]/10 pb-4">
             <div>
               <span
-                className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
+                className="text-2xl sm:text-3xl text-[#9e6800] block leading-none reveal-on-scroll"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 Real Views From Bakarpur, Muzaffarpur
               </span>
               <h2
-                className="text-2xl sm:text-4xl text-[#0f1f12] lowercase mt-0.5"
+                className="text-2xl sm:text-4xl text-[#0f1f12] lowercase mt-0.5 reveal-on-scroll interactive-heading reveal-delay-1"
                 style={{ fontFamily: 'var(--font-display)' }}
               >
                 venue walkthrough &amp; lawn videos
@@ -1084,18 +1084,18 @@ export function TwfInnerPages({
 
           <div className="relative z-10">
             <span
-              className="text-3xl sm:text-4xl text-[#f0b400] block mb-1"
+              className="text-3xl sm:text-4xl text-[#f0b400] block mb-1 reveal-on-scroll"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               Bakarpur, Gobarsahi–Sakri Road · Muzaffarpur
             </span>
             <h1
-              className="text-3xl sm:text-5xl lg:text-6xl font-normal text-[#f7f6f1] lowercase"
+              className="text-3xl sm:text-5xl lg:text-6xl font-normal text-[#f7f6f1] lowercase reveal-on-scroll interactive-heading reveal-delay-1"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               weddings, pre-wedding rituals &amp; family stays
             </h1>
-            <p className="text-sm sm:text-base text-[#f7f6f1]/80 mt-3 max-w-2xl leading-relaxed">
+            <p className="text-sm sm:text-base text-[#f7f6f1]/80 mt-3 max-w-2xl leading-relaxed reveal-on-scroll reveal-delay-2">
               Call or WhatsApp +91 92340 52600 to plan haldi, mehendi, sangeet, baraat, pheras and bridal guest rooms at The Green Heritage Resort and Banquet.
             </p>
           </div>
@@ -1265,18 +1265,18 @@ export function TwfInnerPages({
 
           <div className="relative z-10">
             <span
-              className="text-3xl sm:text-4xl text-[#f0b400] block mb-1"
+              className="text-3xl sm:text-4xl text-[#f0b400] block mb-1 reveal-on-scroll"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               Lawns, Banquet Hall &amp; Bridal Suites
             </span>
             <h1
-              className="text-3xl sm:text-5xl lg:text-6xl font-normal text-[#f7f6f1] lowercase"
+              className="text-3xl sm:text-5xl lg:text-6xl font-normal text-[#f7f6f1] lowercase reveal-on-scroll interactive-heading reveal-delay-1"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               spaces built for every wedding ceremony
             </h1>
-            <p className="text-sm sm:text-base text-[#f7f6f1]/80 mt-3 max-w-xl leading-relaxed">
+            <p className="text-sm sm:text-base text-[#f7f6f1]/80 mt-3 max-w-xl leading-relaxed reveal-on-scroll reveal-delay-2">
               Every corner at Bakarpur, from the poolside mandap lawn to guest cottages and on-site parking, comes together to keep families close. Confirm active amenities for your wedding dates at +91 92340 52600.
             </p>
           </div>
@@ -1369,13 +1369,13 @@ export function TwfInnerPages({
       <div className="space-y-8 sm:space-y-10 py-2 sm:py-4 px-1 sm:px-2 max-w-4xl mx-auto">
         <div className="text-center space-y-2">
           <span
-            className="text-3xl sm:text-4xl text-[#9e6800] block"
+            className="text-3xl sm:text-4xl text-[#9e6800] block reveal-on-scroll"
             style={{ fontFamily: 'var(--font-script)' }}
           >
             Direct Answers
           </span>
           <h1
-            className="text-3xl sm:text-5xl lg:text-6xl text-[#0f1f12] lowercase"
+            className="text-3xl sm:text-5xl lg:text-6xl text-[#0f1f12] lowercase reveal-on-scroll interactive-heading reveal-delay-1"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             frequently asked questions
@@ -1486,13 +1486,13 @@ export function TwfInnerPages({
     <div className="space-y-10 sm:space-y-12 py-2 sm:py-4 px-1 sm:px-2 max-w-5xl mx-auto">
       <div className="text-center space-y-2">
         <span
-          className="text-3xl sm:text-4xl text-[#9e6800] block"
+          className="text-3xl sm:text-4xl text-[#9e6800] block reveal-on-scroll"
           style={{ fontFamily: 'var(--font-script)' }}
         >
           Bakarpur, Gobarsahi–Sakri Road · Muzaffarpur
         </span>
         <h1
-          className="text-3xl sm:text-5xl lg:text-6xl text-[#0f1f12] lowercase"
+          className="text-3xl sm:text-5xl lg:text-6xl text-[#0f1f12] lowercase reveal-on-scroll interactive-heading reveal-delay-1"
           style={{ fontFamily: 'var(--font-display)' }}
         >
           tell us what you are planning

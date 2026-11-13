@@ -273,13 +273,13 @@ export function TwfFooterAndModals({
 
                   <div className="min-w-0 space-y-1">
                     <span
-                      className="text-xl sm:text-3xl lg:text-4xl text-[#f0b400] block leading-snug drop-shadow"
+                      className="text-xl sm:text-3xl lg:text-4xl text-[#f0b400] block leading-snug drop-shadow reveal-on-scroll"
                       style={{ fontFamily: 'var(--font-script)' }}
                     >
                       Where every blessing stays with the family
                     </span>
                     <p
-                      className="text-xs sm:text-lg lg:text-xl text-white/95 font-normal tracking-wide drop-shadow"
+                      className="text-xs sm:text-lg lg:text-xl text-white/95 font-normal tracking-wide drop-shadow reveal-on-scroll interactive-heading reveal-delay-1"
                       style={{ fontFamily: 'var(--font-display)' }}
                     >
                       Weddings, Phere &amp; Celebrations · Bakarpur, Gobarsahi–Sakri Road, Muzaffarpur 844127

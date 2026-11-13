@@ -49,6 +49,48 @@ export function GreenHeritageResortApp({
     return () => window.removeEventListener('popstate', onPopState);
   }, []);
 
+  // Scroll text reveal animation observer (Zero dependencies, Ponytail-optimized)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.reveal-on-scroll').forEach((el) => {
+        el.classList.add('is-revealed');
+      });
+      return;
+    }
+
+    let observer: IntersectionObserver | null = null;
+
+    const setupObserver = () => {
+      const targets = document.querySelectorAll('.reveal-on-scroll:not(.is-revealed)');
+      if (targets.length === 0) return;
+
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-revealed');
+              observer?.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+      );
+
+      targets.forEach((target) => observer?.observe(target));
+    };
+
+    const rafId = window.requestAnimationFrame(setupObserver);
+    const timeoutId = window.setTimeout(setupObserver, 220);
+
+    return () => {
+      window.cancelAnimationFrame(rafId);
+      window.clearTimeout(timeoutId);
+      observer?.disconnect();
+    };
+  }, [activePage]);
+
   // Smooth scroll to top on navigation
   const smoothScrollToTop = useCallback(() => {
     if (typeof window === 'undefined') return;

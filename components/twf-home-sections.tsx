@@ -365,7 +365,7 @@ export function TwfHomeSections({
         aria-label="Verified Venue Facts and Guest Capacities"
         className="px-1 sm:px-2 pt-1"
       >
-        <div className="rounded-[20px] sm:rounded-[24px] bg-[#fbfaf6] border border-[#f0b400]/30 p-4 sm:p-6 shadow-sm">
+        <div className="rounded-[20px] sm:rounded-[24px] bg-[#fbfaf6] border border-[#f0b400]/30 p-4 sm:p-6 shadow-sm reveal-on-scroll">
           {/* Header Line - Inspired by Jaipur Royal Marriages */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-b border-[#0f1f12]/10 pb-3 mb-3.5">
             <div className="flex flex-wrap items-center gap-2">
@@ -490,13 +490,13 @@ export function TwfHomeSections({
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 px-1 sm:px-2">
           <div>
             <span
-              className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1"
+              className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1 reveal-on-scroll"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               From Sunlit Haldi to the Last Vidaai · Muzaffarpur
             </span>
             <h2
-              className="text-2xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#0f1f12]"
+              className="text-2xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#0f1f12] reveal-on-scroll interactive-heading reveal-delay-1"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               WEDDINGS{' '}
@@ -520,7 +520,7 @@ export function TwfHomeSections({
         <div className="space-y-8 px-1 sm:px-2">
           {/* ROW 1: WIDESCREEN WEDDING FILMS (3 on sm+, 2 on smartphone) */}
           <div className="space-y-3">
-            <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
+            <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5 reveal-on-scroll">
               <h3
                 className="text-lg sm:text-2xl text-[#0f1f12] lowercase"
                 style={{ fontFamily: 'var(--font-display)' }}
@@ -553,7 +553,7 @@ export function TwfHomeSections({
 
           {/* ROW 2: VERTICAL WEDDING REELS (4 on sm+, 2 on smartphone) */}
           <div className="space-y-3">
-            <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
+            <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5 reveal-on-scroll">
               <h3
                 className="text-lg sm:text-2xl text-[#0f1f12] lowercase"
                 style={{ fontFamily: 'var(--font-display)' }}
@@ -609,13 +609,13 @@ export function TwfHomeSections({
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 px-4 sm:px-8">
           <div>
             <span
-              className="text-2xl sm:text-3xl text-[#9e6800] block leading-snug"
+              className="text-2xl sm:text-3xl text-[#9e6800] block leading-snug reveal-on-scroll"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               a look around the property
             </span>
             <h2
-              className="text-2xl sm:text-4xl text-black lowercase tracking-tight mt-0.5"
+              className="text-2xl sm:text-4xl text-black lowercase tracking-tight mt-0.5 reveal-on-scroll interactive-heading reveal-delay-1"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               resort &amp; event gallery
@@ -835,19 +835,19 @@ export function TwfHomeSections({
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <span
-              className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1"
+              className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1 reveal-on-scroll"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               Every Space Crafted for Auspicious Moments
             </span>
             <h2
-              className="text-2xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#0f1f12]"
+              className="text-2xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#0f1f12] reveal-on-scroll interactive-heading reveal-delay-1"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               ROYAL VENUES &amp; CAPACITIES
             </h2>
           </div>
-          <p className="text-xs sm:text-sm text-[#0f1f12]/75 max-w-md font-light leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#0f1f12]/75 max-w-md font-light leading-relaxed reveal-on-scroll reveal-delay-2">
             Verified property specifications: 2,000+ guest lawns, crystal AC banquet, 25+ rooms, transparent packages, pure-veg kitchens, and secured parking.
           </p>
         </div>
@@ -945,13 +945,13 @@ export function TwfHomeSections({
             <div className="lg:col-span-5 space-y-6">
               <div>
                 <span
-                  className="text-3xl sm:text-4xl text-[#f0b400] block leading-snug"
+                  className="text-3xl sm:text-4xl text-[#f0b400] block leading-snug reveal-on-scroll"
                   style={{ fontFamily: 'var(--font-script)' }}
                 >
                   Find Us
                 </span>
                 <h2
-                  className="text-3xl sm:text-4xl lg:text-5xl text-[#f7f6f1] lowercase font-normal mt-1"
+                  className="text-3xl sm:text-4xl lg:text-5xl text-[#f7f6f1] lowercase font-normal mt-1 reveal-on-scroll interactive-heading reveal-delay-1"
                   style={{ fontFamily: 'var(--font-display)' }}
                 >
                   the green heritage resort
@@ -1073,13 +1073,13 @@ export function TwfHomeSections({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <span
-              className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1"
+              className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1 reveal-on-scroll"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               Words from Families Who Celebrated With Us
             </span>
             <h2
-              className="text-2xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#0f1f12]"
+              className="text-2xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#0f1f12] reveal-on-scroll interactive-heading reveal-delay-1"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               VERIFIED GOOGLE REVIEWS
@@ -1239,18 +1239,18 @@ export function TwfHomeSections({
         <div className="rounded-[22px] sm:rounded-[28px] bg-gradient-to-br from-[#0e2613] via-[#09190c] to-[#040d06] text-white p-6 sm:p-10 lg:p-14 border border-[#f0b400]/20 shadow-2xl space-y-8 sm:space-y-10">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <span
-              className="text-2xl sm:text-3xl md:text-4xl text-[#f0b400] block"
+              className="text-2xl sm:text-3xl md:text-4xl text-[#f0b400] block reveal-on-scroll"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               Every Ritual, Held Under One Sky
             </span>
             <h2
-              className="text-2xl sm:text-4xl lg:text-5xl font-normal text-white lowercase tracking-tight"
+              className="text-2xl sm:text-4xl lg:text-5xl font-normal text-white lowercase tracking-tight reveal-on-scroll interactive-heading reveal-delay-1"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               your wedding chapter at green heritage
             </h2>
-            <p className="text-xs sm:text-sm text-white/75 max-w-lg mx-auto leading-relaxed font-light">
+            <p className="text-xs sm:text-sm text-white/75 max-w-lg mx-auto leading-relaxed font-light reveal-on-scroll reveal-delay-2">
               Celebrate all your wedding ceremonies seamlessly at one grand destination in Bakarpur, Muzaffarpur.
             </p>
           </div>
@@ -1341,13 +1341,13 @@ export function TwfHomeSections({
       <section className="px-1 sm:px-2 pb-2">
         <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
           <span
-            className="text-3xl sm:text-4xl md:text-4xl text-[#9e6800] block mb-1 leading-snug"
+            className="text-3xl sm:text-4xl md:text-4xl text-[#9e6800] block mb-1 leading-snug reveal-on-scroll"
             style={{ fontFamily: 'var(--font-script)' }}
           >
             Taking the First Step Together
           </span>
           <h2
-            className="text-2xl sm:text-4xl lg:text-5xl font-normal text-[#0f1f12] lowercase"
+            className="text-2xl sm:text-4xl lg:text-5xl font-normal text-[#0f1f12] lowercase reveal-on-scroll interactive-heading reveal-delay-1"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             begin your wedding conversation

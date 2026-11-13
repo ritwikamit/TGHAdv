@@ -156,18 +156,18 @@ export function TwfHeroSlider({
         {/* Left: Script Accent + Headline & Supporting Copy */}
         <div className="min-w-0 text-left">
           <span
-            className="text-lg sm:text-xl lg:text-2xl text-[#f0b400] block leading-[1.2] mb-0.5 drop-shadow"
+            className="text-lg sm:text-xl lg:text-2xl text-[#f0b400] block leading-[1.2] mb-0.5 drop-shadow reveal-on-scroll"
             style={{ fontFamily: 'var(--font-script)' }}
           >
             {currentSlide.scriptHighlight || 'Bakarpur · Muzaffarpur, Bihar'}
           </span>
           <h1
-            className="text-2xl sm:text-3xl lg:text-5xl font-normal text-white tracking-tight leading-snug drop-shadow"
+            className="text-2xl sm:text-3xl lg:text-5xl font-normal text-white tracking-tight leading-snug drop-shadow reveal-on-scroll interactive-heading reveal-delay-1"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             {currentSlide.couple}
           </h1>
-          <p className="text-xs sm:text-sm text-white/90 mt-0.5 max-w-xl font-light leading-relaxed line-clamp-2 sm:line-clamp-none">
+          <p className="text-xs sm:text-sm text-white/90 mt-0.5 max-w-xl font-light leading-relaxed line-clamp-2 sm:line-clamp-none reveal-on-scroll reveal-delay-2">
             {currentSlide.synopsis}
           </p>
         </div>
