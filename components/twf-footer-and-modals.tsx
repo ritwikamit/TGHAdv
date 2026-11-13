@@ -395,9 +395,9 @@ export function TwfFooterAndModals({
           </div>
         </footer>
 
-        {/* Tier 2: Copyright, Terms, Privacy/Cookie Policy, Developer Credit — Wraps Cleanly on Smartphone */}
-        <div className="mt-2.5 sm:mt-3 rounded-[14px] sm:rounded-[18px] bg-[#061208] border border-[#14531e]/30 shadow-lg px-4 sm:px-7 py-3 sm:py-3.5 w-full">
-          <div className="flex flex-col sm:flex-row sm:flex-wrap items-center justify-center sm:justify-between gap-2 sm:gap-4 text-center sm:text-left text-xs sm:text-sm text-[#f7f6f1]/85 leading-relaxed">
+        {/* Tier 2: Copyright, Terms, Privacy/Cookie Policy, Developer Credit — Centered on Smartphone & Desktop */}
+        <div className="mt-2.5 sm:mt-3 rounded-[14px] sm:rounded-[18px] bg-[#061208] border border-[#14531e]/30 shadow-lg px-4 sm:px-7 py-3 sm:py-3.5 w-full space-y-2.5">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 text-center sm:text-left text-xs sm:text-sm text-[#f7f6f1]/85 leading-relaxed">
             <span>
               &copy; {new Date().getFullYear()} The Green Heritage Resort and Banquet. All rights reserved.
             </span>
@@ -419,28 +419,28 @@ export function TwfFooterAndModals({
                 Privacy &amp; Cookie Policy
               </button>
             </div>
+          </div>
 
-            <div className="inline-flex items-center gap-1.5 text-[#f7f6f1]/85 shrink-0">
-              <span className="leading-none">Designed and Developed by</span>
-              <a
-                href={`https://wa.me/917766833773?text=${encodeURIComponent(
-                  'Hi ACCustomLabs, I visited The Green Heritage Resort website and would like to enquire about your web design and development services.'
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center hover:opacity-100 opacity-95 transition-opacity"
-                title="Chat with ACCustomLabs on WhatsApp (+91 77668 33773)"
-                aria-label="Contact ACCustomLabs on WhatsApp"
-              >
-                <img
-                  src="/ac-custom-labs.png"
-                  alt="ACCUstomLabs"
-                  loading="lazy"
-                  decoding="async"
-                  className="h-[14px] sm:h-[15px] w-auto object-contain block translate-y-[2.5px] drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]"
-                />
-              </a>
-            </div>
+          <div className="pt-2 border-t border-white/10 flex items-center justify-center gap-2 text-center text-xs sm:text-sm text-[#f7f6f1]/85">
+            <span className="leading-none">Designed and Developed by</span>
+            <a
+              href={`https://wa.me/917766833773?text=${encodeURIComponent(
+                'Hi ACCustomLabs, I visited The Green Heritage Resort website and would like to enquire about your web design and development services.'
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center hover:opacity-100 opacity-95 transition-opacity"
+              title="Chat with ACCustomLabs on WhatsApp (+91 77668 33773)"
+              aria-label="Contact ACCustomLabs on WhatsApp"
+            >
+              <img
+                src="/ac-custom-labs.png"
+                alt="ACCUstomLabs"
+                loading="lazy"
+                decoding="async"
+                className="h-[15px] sm:h-[16px] w-auto object-contain block translate-y-[2px] drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]"
+              />
+            </a>
           </div>
         </div>
       </div>

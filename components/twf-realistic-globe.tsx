@@ -209,8 +209,9 @@ export function TwfRealisticGlobe({
 
       const Globe = GlobeModule.default;
       const isCompact = window.innerWidth < 640;
-      const width = container.clientWidth || (isCompact ? 360 : 460);
-      const height = container.clientHeight || (isCompact ? 360 : 460);
+      const measuredW = container.clientWidth || (stageRef.current ? stageRef.current.clientWidth : 0);
+      const width = measuredW > 0 ? measuredW : Math.min(window.innerWidth - 48, isCompact ? 320 : 460);
+      const height = width;
 
       container.innerHTML = '';
 
@@ -576,7 +577,7 @@ export function TwfRealisticGlobe({
     >
       {/* Centered 3D Globe & Map Stage — perfectly masked with identical rounded corners & border */}
       <div
-        className="relative w-[90vw] max-w-[340px] xs:max-w-[370px] sm:max-w-[440px] lg:max-w-[500px] aspect-square mx-auto rounded-[24px] overflow-hidden bg-[#061208] border border-[#f0b400]/25 ring-1 ring-[#f0b400]/20 shadow-[0_24px_60px_rgba(0,0,0,0.65)] flex items-center justify-center"
+        className="relative w-full max-w-[320px] xs:max-w-[360px] sm:max-w-[440px] lg:max-w-[500px] aspect-square mx-auto rounded-[24px] overflow-hidden bg-[#061208] border border-[#f0b400]/25 ring-1 ring-[#f0b400]/20 shadow-[0_24px_60px_rgba(0,0,0,0.65)] flex items-center justify-center"
         style={{
           isolation: 'isolate',
           WebkitMaskImage: '-webkit-radial-gradient(white, black)',
@@ -635,7 +636,7 @@ export function TwfRealisticGlobe({
             <button
               type="button"
               onClick={handleBackToGlobe}
-              className="pointer-events-auto inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#061208]/90 hover:bg-[#14531e] border border-[#f0b400]/45 text-[#f7f6f1] text-[11px] sm:text-xs uppercase tracking-wider font-medium shadow-lg backdrop-blur-md transition-colors cursor-pointer"
+              className="pointer-events-auto inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#061208]/90 hover:bg-[#14531e] border border-[#f0b400]/45 text-[#f7f6f1] text-xs sm:text-sm uppercase tracking-wider font-medium shadow-lg backdrop-blur-md transition-colors cursor-pointer"
             >
               <Globe2 className="w-3.5 h-3.5 text-[#f0b400]" />
               <span>← Back to Globe</span>

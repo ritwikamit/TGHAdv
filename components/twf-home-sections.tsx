@@ -31,7 +31,7 @@ const TwfRealisticGlobe = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="w-full max-w-[340px] xs:max-w-[370px] sm:max-w-[440px] lg:max-w-[500px] aspect-square mx-auto flex items-center justify-center">
+      <div className="w-full max-w-[320px] xs:max-w-[360px] sm:max-w-[440px] lg:max-w-[500px] aspect-square mx-auto flex items-center justify-center">
         <div className="w-[76%] h-[76%] rounded-full border border-[#f0b400]/20 bg-[#0b1f0f] animate-pulse" />
       </div>
     ),
@@ -205,13 +205,13 @@ export function TwfHomeSections({
   const portraitRowRef = useRef<HTMLDivElement | null>(null);
   const photoRowRef = useRef<HTMLDivElement | null>(null);
 
-  // Exactly 4 Landscape and 4 Portrait reels on Landing Page (Rest on /wedding-films)
+  // Exactly 4 Landscape and 5 Portrait reels on Landing Page (Rest on /wedding-films)
   const landscapeReels = useMemo(
     () => INSTAGRAM_REELS.filter((r) => !r.isPortrait).slice(0, 4),
     []
   );
   const portraitReels = useMemo(
-    () => INSTAGRAM_REELS.filter((r) => r.isPortrait).slice(0, 4),
+    () => INSTAGRAM_REELS.filter((r) => r.isPortrait).slice(0, 5),
     []
   );
 
@@ -386,16 +386,16 @@ export function TwfHomeSections({
           {/* Header Line - Inspired by Jaipur Royal Marriages */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-b border-[#0f1f12]/10 pb-3.5 mb-4">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#14531e] text-[#f0b400] text-xs font-semibold uppercase tracking-wider shadow-sm">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#14531e] text-[#f0b400] text-xs sm:text-xs font-semibold uppercase tracking-wider shadow-sm">
                 <Crown className="w-3.5 h-3.5 text-[#f0b400]" />
                 <span>Jaipur Royal Marriage Theme</span>
               </span>
-              <span className="text-xs sm:text-sm font-semibold text-[#0f1f12]">
+              <span className="text-sm sm:text-base font-semibold text-[#0f1f12]">
                 Verified Venue Specifications · Gobarsahi–Sakri Road, Muzaffarpur
               </span>
             </div>
 
-            <div className="inline-flex items-center gap-2 text-xs sm:text-sm text-[#0f1f12]/80 font-medium bg-[#14531e]/[0.06] px-3 py-1.5 rounded-full border border-[#14531e]/15">
+            <div className="inline-flex items-center gap-2 text-sm sm:text-sm text-[#0f1f12]/85 font-medium bg-[#14531e]/[0.06] px-3 py-1.5 rounded-full border border-[#14531e]/15">
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
               <span className="font-bold text-[#0f1f12]">4.6 / 5.0 Rating</span>
               <span className="text-[#0f1f12]/40">·</span>
@@ -410,14 +410,14 @@ export function TwfHomeSections({
             <div className="p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
               <div className="flex items-center gap-1.5 text-[#14531e]">
                 <Users className="w-4 h-4 text-[#9e6800]" />
-                <span className="text-xs uppercase tracking-wider text-[#0f1f12]/70 font-semibold">
+                <span className="text-xs sm:text-xs uppercase tracking-wider text-[#0f1f12]/80 font-bold">
                   Lawn Capacity
                 </span>
               </div>
-              <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
+              <p className="text-base sm:text-base font-bold text-[#0f1f12] leading-tight">
                 1,500 – 2,000+
               </p>
-              <p className="text-xs text-[#0f1f12]/65 leading-tight">
+              <p className="text-xs sm:text-xs text-[#0f1f12]/75 leading-tight">
                 Grand Receptions &amp; Varmala
               </p>
             </div>
@@ -425,14 +425,14 @@ export function TwfHomeSections({
             <div className="p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
               <div className="flex items-center gap-1.5 text-[#14531e]">
                 <Building2 className="w-4 h-4 text-[#9e6800]" />
-                <span className="text-xs uppercase tracking-wider text-[#0f1f12]/70 font-semibold">
+                <span className="text-xs sm:text-xs uppercase tracking-wider text-[#0f1f12]/80 font-bold">
                   AC Banquet Hall
                 </span>
               </div>
-              <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
+              <p className="text-base sm:text-base font-bold text-[#0f1f12] leading-tight">
                 350 – 500+ Seated
               </p>
-              <p className="text-xs text-[#0f1f12]/65 leading-tight">
+              <p className="text-xs sm:text-xs text-[#0f1f12]/75 leading-tight">
                 700 Floating · Sangeet &amp; Pheras
               </p>
             </div>
@@ -440,14 +440,14 @@ export function TwfHomeSections({
             <div className="p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
               <div className="flex items-center gap-1.5 text-[#14531e]">
                 <BedDouble className="w-4 h-4 text-[#9e6800]" />
-                <span className="text-xs uppercase tracking-wider text-[#0f1f12]/70 font-semibold">
+                <span className="text-xs sm:text-xs uppercase tracking-wider text-[#0f1f12]/80 font-bold">
                   Rooms &amp; Stay
                 </span>
               </div>
-              <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
+              <p className="text-base sm:text-base font-bold text-[#0f1f12] leading-tight">
                 25+ Luxury Rooms
               </p>
-              <p className="text-xs text-[#0f1f12]/65 leading-tight">
+              <p className="text-xs sm:text-xs text-[#0f1f12]/75 leading-tight">
                 Bridal Suite &amp; Cottages
               </p>
             </div>
@@ -455,14 +455,14 @@ export function TwfHomeSections({
             <div className="p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
               <div className="flex items-center gap-1.5 text-[#14531e]">
                 <Crown className="w-4 h-4 text-[#9e6800]" />
-                <span className="text-xs uppercase tracking-wider text-[#0f1f12]/70 font-semibold">
+                <span className="text-xs sm:text-xs uppercase tracking-wider text-[#0f1f12]/80 font-bold">
                   Packages
                 </span>
               </div>
-              <p className="text-sm sm:text-base font-bold text-[#14531e] leading-tight">
+              <p className="text-base sm:text-base font-bold text-[#14531e] leading-tight">
                 Affordable For All
               </p>
-              <p className="text-xs text-[#0f1f12]/65 leading-tight">
+              <p className="text-xs sm:text-xs text-[#0f1f12]/75 leading-tight">
                 For All Wedding Types &amp; Religions
               </p>
             </div>
@@ -470,14 +470,14 @@ export function TwfHomeSections({
             <div className="p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
               <div className="flex items-center gap-1.5 text-[#14531e]">
                 <Car className="w-4 h-4 text-[#9e6800]" />
-                <span className="text-xs uppercase tracking-wider text-[#0f1f12]/70 font-semibold">
+                <span className="text-xs sm:text-xs uppercase tracking-wider text-[#0f1f12]/80 font-bold">
                   Guest Parking
                 </span>
               </div>
-              <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
+              <p className="text-base sm:text-base font-bold text-[#0f1f12] leading-tight">
                 150+ Cars
               </p>
-              <p className="text-xs text-[#0f1f12]/65 leading-tight">
+              <p className="text-xs sm:text-xs text-[#0f1f12]/75 leading-tight">
                 200+ Bikes · Valet Support
               </p>
             </div>
@@ -485,14 +485,14 @@ export function TwfHomeSections({
             <div className="p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
               <div className="flex items-center gap-1.5 text-[#14531e]">
                 <UtensilsCrossed className="w-4 h-4 text-[#9e6800]" />
-                <span className="text-xs uppercase tracking-wider text-[#0f1f12]/70 font-semibold">
+                <span className="text-xs sm:text-xs uppercase tracking-wider text-[#0f1f12]/80 font-bold">
                   Catering
                 </span>
               </div>
-              <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
+              <p className="text-base sm:text-base font-bold text-[#0f1f12] leading-tight">
                 Pure Veg &amp; Multi
               </p>
-              <p className="text-xs text-[#0f1f12]/65 leading-tight">
+              <p className="text-xs sm:text-xs text-[#0f1f12]/75 leading-tight">
                 Live Counters · Outside Friendly
               </p>
             </div>
@@ -507,7 +507,7 @@ export function TwfHomeSections({
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 px-1 sm:px-2">
           <div>
             <span
-              className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1"
+              className="text-3xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               From Sunlit Haldi to the Last Vidaai · Muzaffarpur
@@ -517,7 +517,7 @@ export function TwfHomeSections({
               style={{ fontFamily: 'var(--font-display)' }}
             >
               WEDDINGS{' '}
-              <span className="italic font-script text-[#14531e] lowercase px-1">
+              <span className="italic font-script text-[#14531e] lowercase px-1 text-2xl sm:text-4xl">
                 in
               </span>{' '}
               MOTION
@@ -539,7 +539,7 @@ export function TwfHomeSections({
                       tab.id as 'videos' | 'gallery' | 'signature'
                     )
                   }
-                  className={`px-3.5 sm:px-4 py-1.5 rounded-full text-[11px] sm:text-xs transition-all cursor-pointer ${
+                  className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm transition-all cursor-pointer ${
                     trailerTab === tab.id
                       ? 'bg-[#14531e] text-white font-medium shadow-sm'
                       : 'text-[#0f1f12]/70 hover:text-[#14531e]'
@@ -553,7 +553,7 @@ export function TwfHomeSections({
             <button
               type="button"
               onClick={() => onNavigate('films')}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/45 text-white text-[11px] uppercase tracking-wider font-medium transition-colors shadow-sm cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/45 text-white text-xs sm:text-sm uppercase tracking-wider font-medium transition-colors shadow-sm cursor-pointer"
             >
               <span>All Wedding Films</span>
               <ArrowUpRight className="w-3.5 h-3.5 text-[#f0b400]" />
@@ -574,7 +574,7 @@ export function TwfHomeSections({
                     widescreen wedding films
                   </h3>
                   <span
-                    className="text-sm sm:text-lg text-[#9e6800]"
+                    className="text-lg sm:text-xl text-[#9e6800]"
                     style={{ fontFamily: 'var(--font-script)' }}
                   >
                     haldi, baraat &amp; varmala stories
@@ -630,7 +630,7 @@ export function TwfHomeSections({
                     vertical wedding reels
                   </h3>
                   <span
-                    className="text-base sm:text-lg text-[#9e6800]"
+                    className="text-lg sm:text-xl text-[#9e6800]"
                     style={{ fontFamily: 'var(--font-script)' }}
                   >
                     ceremonies &amp; rituals up close
@@ -774,7 +774,7 @@ export function TwfHomeSections({
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 px-4 sm:px-8">
           <div>
             <span
-              className="text-xl sm:text-2xl text-[#9e6800] block leading-snug"
+              className="text-2xl sm:text-3xl text-[#9e6800] block leading-snug"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               a look around the property
@@ -1000,7 +1000,7 @@ export function TwfHomeSections({
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <span
-              className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1"
+              className="text-3xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               Every Space Crafted for Auspicious Moments
@@ -1012,7 +1012,7 @@ export function TwfHomeSections({
               ROYAL VENUES &amp; CAPACITIES
             </h2>
           </div>
-          <p className="text-xs sm:text-sm text-[#0f1f12]/70 max-w-md font-light leading-relaxed">
+          <p className="text-sm sm:text-base text-[#0f1f12]/75 max-w-md font-light leading-relaxed">
             Direct, verified details for wedding families: 2,000+ guest lawns, crystal chandelier AC banquet, 25+ luxury rooms &amp; bridal suite, transparent packages, pure-veg kitchens, and secured valet parking.
           </p>
         </div>
@@ -1048,14 +1048,14 @@ export function TwfHomeSections({
                 />
                 {/* Floating Capacity Badge */}
                 <div className="absolute top-3 left-3 z-10">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#14531e]/90 backdrop-blur-md border border-[#f0b400]/50 text-white text-[11px] sm:text-xs font-semibold shadow-md">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#14531e]/90 backdrop-blur-md border border-[#f0b400]/50 text-white text-xs sm:text-sm font-semibold shadow-md">
                     <Sparkles className="w-3 h-3 text-[#f0b400]" />
                     <span>{spec.statBadge}</span>
                   </span>
                 </div>
                 <div className="absolute bottom-2.5 left-3.5 right-3.5 z-10 text-white">
                   <span
-                    className="text-base sm:text-lg text-[#f0b400] block leading-none"
+                    className="text-lg sm:text-xl text-[#f0b400] block leading-none"
                     style={{ fontFamily: 'var(--font-script)' }}
                   >
                     {spec.tag}
@@ -1072,10 +1072,10 @@ export function TwfHomeSections({
                   >
                     {spec.title}
                   </h3>
-                  <p className="text-xs sm:text-sm font-medium text-[#14531e] leading-snug">
+                  <p className="text-sm sm:text-base font-medium text-[#14531e] leading-snug">
                     {spec.capacityHeadline}
                   </p>
-                  <p className="text-xs text-[#0f1f12]/75 leading-relaxed font-light">
+                  <p className="text-sm sm:text-xs text-[#0f1f12]/80 leading-relaxed font-light">
                     {spec.summary}
                   </p>
 
@@ -1084,7 +1084,7 @@ export function TwfHomeSections({
                     {spec.keyFeatures.map((feat, idx) => (
                       <li
                         key={idx}
-                        className="flex items-start gap-2 text-xs sm:text-sm text-[#0f1f12]/80 leading-snug"
+                        className="flex items-start gap-2 text-sm sm:text-sm text-[#0f1f12]/85 leading-snug"
                       >
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                         <span>{feat}</span>
@@ -1101,7 +1101,7 @@ export function TwfHomeSections({
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#14531e] hover:text-[#9e6800] transition-colors"
+                    className="inline-flex items-center gap-1.5 text-sm sm:text-xs font-semibold text-[#14531e] hover:text-[#9e6800] transition-colors"
                   >
                     <span>Enquire for {spec.category.toUpperCase()}</span>
                     <ArrowUpRight className="w-3.5 h-3.5 text-[#f0b400]" />
@@ -1111,7 +1111,7 @@ export function TwfHomeSections({
                     <button
                       type="button"
                       onClick={() => onOpenQuickEnquire(spec.title)}
-                      className="px-3 py-1.5 rounded-full bg-[#14531e]/10 hover:bg-[#14531e] hover:text-white text-[#14531e] text-xs uppercase tracking-wider font-medium transition-colors cursor-pointer"
+                      className="px-3.5 py-1.5 rounded-full bg-[#14531e]/10 hover:bg-[#14531e] hover:text-white text-[#14531e] text-xs sm:text-sm uppercase tracking-wider font-medium transition-colors cursor-pointer"
                     >
                       Book Tour
                     </button>
@@ -1133,7 +1133,7 @@ export function TwfHomeSections({
             <div className="lg:col-span-5 space-y-6">
               <div>
                 <span
-                  className="text-2xl sm:text-3xl text-[#f0b400] block leading-snug"
+                  className="text-3xl sm:text-4xl text-[#f0b400] block leading-snug"
                   style={{ fontFamily: 'var(--font-script)' }}
                 >
                   Find Us
@@ -1146,7 +1146,7 @@ export function TwfHomeSections({
                 </h2>
               </div>
 
-              <div className="space-y-2.5 text-sm text-[#f7f6f1]/80 font-light border-l-2 border-[#f0b400]/50 pl-4">
+              <div className="space-y-2.5 text-base sm:text-base text-[#f7f6f1]/85 font-light border-l-2 border-[#f0b400]/50 pl-4">
                 <p>Bakarpur, Gobarsahi–Sakri Road, Muzaffarpur, Bihar 844127</p>
                 <p>
                   <a
@@ -1163,7 +1163,7 @@ export function TwfHomeSections({
                   href={STUDIO_INFO.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-2.5 px-5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] border border-[#f0b400]/50 active:scale-95 text-white text-[11px] uppercase tracking-[0.14em] font-medium inline-flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                  className="py-2.5 px-5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] border border-[#f0b400]/50 active:scale-95 text-white text-xs sm:text-sm uppercase tracking-[0.14em] font-medium inline-flex items-center justify-center gap-1.5 transition-all cursor-pointer"
                 >
                   <MapPin className="w-3.5 h-3.5 text-[#e52421]" />
                   <span>Get Directions</span>
@@ -1175,7 +1175,7 @@ export function TwfHomeSections({
                     onClick={() =>
                       onOpenQuickEnquire('Stay or Event Enquiry')
                     }
-                    className="py-2.5 px-5 rounded-full bg-white/10 hover:bg-[#f0b400] hover:text-[#061208] border border-white/20 text-white text-[11px] uppercase tracking-[0.14em] font-medium transition-colors cursor-pointer"
+                    className="py-2.5 px-5 rounded-full bg-white/10 hover:bg-[#f0b400] hover:text-[#061208] border border-white/20 text-white text-xs sm:text-sm uppercase tracking-[0.14em] font-medium transition-colors cursor-pointer"
                   >
                     Enquire Now
                   </button>
@@ -1186,18 +1186,18 @@ export function TwfHomeSections({
               <div className="p-4 sm:p-5 rounded-2xl bg-white/[0.05] border border-[#f0b400]/30 backdrop-blur-sm space-y-3 mt-4">
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#14531e] text-[#f0b400] text-xs font-semibold">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#14531e] text-[#f0b400] text-xs sm:text-sm font-semibold">
                       <ShieldCheck className="w-3.5 h-3.5 text-[#f0b400]" />
                       <span>Google Verified</span>
                     </span>
-                    <span className="font-bold text-[#f7f6f1] text-xs sm:text-sm">4.6 / 5.0 Rating</span>
+                    <span className="font-bold text-[#f7f6f1] text-sm sm:text-base">4.6 / 5.0 Rating</span>
                   </div>
-                  <span className="text-xs text-[#f0b400] font-medium">
+                  <span className="text-sm sm:text-xs text-[#f0b400] font-medium">
                     550+ Reviews
                   </span>
                 </div>
 
-                <p className="text-xs sm:text-sm text-[#f7f6f1]/80 leading-relaxed font-light">
+                <p className="text-sm sm:text-base text-[#f7f6f1]/85 leading-relaxed font-light">
                   Trusted by <strong>350+ families</strong> across Bihar for royal weddings &amp; celebrations inspired by Jaipur palace hospitality. Scan or tap below to read guest stories or review your stay.
                 </p>
 
@@ -1223,17 +1223,17 @@ export function TwfHomeSections({
                   </a>
 
                   <div className="space-y-1 min-w-0">
-                    <p className="text-xs font-semibold text-white">
+                    <p className="text-sm sm:text-xs font-semibold text-white">
                       Scan to Review on Google Maps
                     </p>
-                    <p className="text-[11px] sm:text-xs text-[#f7f6f1]/65 leading-tight font-light">
+                    <p className="text-xs sm:text-sm text-[#f7f6f1]/70 leading-tight font-light">
                       Point your phone camera at the QR code, or tap the button below.
                     </p>
                     <a
                       href={STUDIO_INFO.googleReviewUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-xs font-semibold text-[#f0b400] hover:text-white transition-colors pt-0.5"
+                      className="inline-flex items-center gap-1 text-sm sm:text-xs font-semibold text-[#f0b400] hover:text-white transition-colors pt-0.5"
                     >
                       <span>Write a Review on Google</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
@@ -1261,7 +1261,7 @@ export function TwfHomeSections({
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <span
-              className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1"
+              className="text-3xl sm:text-4xl text-[#9e6800] block leading-snug mb-1"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               Words from Families Who Celebrated With Us
@@ -1283,7 +1283,7 @@ export function TwfHomeSections({
               href={STUDIO_INFO.googleReviewUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/40 text-white text-xs font-semibold uppercase tracking-wider transition-colors shadow-sm"
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/40 text-white text-xs sm:text-sm font-semibold uppercase tracking-wider transition-colors shadow-sm"
             >
               <span>Write a Review</span>
               <ArrowUpRight className="w-3.5 h-3.5 text-[#f0b400]" />
@@ -1300,28 +1300,28 @@ export function TwfHomeSections({
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between gap-2 border-b border-[#0f1f12]/10 pb-2.5">
-                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#14531e]">
+                  <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#14531e]">
                     <ShieldCheck className="w-4 h-4 text-emerald-600" />
                     <span>{rev.badge}</span>
                   </span>
-                  <span className="text-xs text-[#0f1f12]/55 font-medium">
+                  <span className="text-xs sm:text-sm text-[#0f1f12]/55 font-medium">
                     {rev.relativeTime}
                   </span>
                 </div>
 
-                <p className="text-xs sm:text-sm text-[#0f1f12]/80 leading-relaxed font-light">
+                <p className="text-sm sm:text-base text-[#0f1f12]/80 leading-relaxed font-light">
                   &ldquo;{rev.reviewText}&rdquo;
                 </p>
               </div>
 
               <div className="pt-3 border-t border-[#0f1f12]/10 space-y-0.5">
                 <h4
-                  className="text-lg sm:text-xl text-[#14531e]"
+                  className="text-xl sm:text-2xl text-[#14531e]"
                   style={{ fontFamily: 'var(--font-script)' }}
                 >
                   {rev.author}
                 </h4>
-                <p className="text-xs text-[#0f1f12]/60 truncate">
+                <p className="text-xs sm:text-sm text-[#0f1f12]/60 truncate">
                   {rev.event} · {rev.location}
                 </p>
               </div>
@@ -1336,7 +1336,7 @@ export function TwfHomeSections({
       <section className="px-1 sm:px-2">
         <div className="text-center max-w-xl mx-auto mb-6 sm:mb-8">
           <span
-            className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block mb-1 leading-snug"
+            className="text-3xl sm:text-4xl text-[#9e6800] block mb-1 leading-snug"
             style={{ fontFamily: 'var(--font-script)' }}
           >
             From the Family&apos;s Heart to Ours
@@ -1373,7 +1373,7 @@ export function TwfHomeSections({
             {/* Guidance Note Content */}
             <div className="lg:col-span-8 space-y-4 sm:space-y-5">
               <p
-                className="text-xl sm:text-3xl lg:text-4xl text-[#0f1f12] leading-relaxed font-normal"
+                className="text-2xl sm:text-3xl lg:text-4xl text-[#0f1f12] leading-relaxed font-normal"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 &ldquo;{currentNote.quote}&rdquo;
@@ -1387,7 +1387,7 @@ export function TwfHomeSections({
                   >
                     {currentNote.author}
                   </h4>
-                  <p className="text-xs uppercase tracking-[0.16em] text-[#0f1f12]/55 mt-0.5">
+                  <p className="text-xs sm:text-sm uppercase tracking-[0.16em] text-[#0f1f12]/55 mt-0.5">
                     {currentNote.role} · {currentNote.location}
                   </p>
                 </div>
@@ -1433,7 +1433,7 @@ export function TwfHomeSections({
         <div className="rounded-[22px] sm:rounded-[28px] bg-gradient-to-br from-[#0e2613] via-[#09190c] to-[#040d06] text-white p-6 sm:p-10 lg:p-14 border border-[#f0b400]/20 shadow-2xl space-y-10">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <span
-              className="text-2xl sm:text-3xl text-[#f0b400] block"
+              className="text-3xl sm:text-4xl text-[#f0b400] block"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               Every Ritual, Held Under One Sky
@@ -1444,7 +1444,7 @@ export function TwfHomeSections({
             >
               your wedding chapter at green heritage
             </h2>
-            <p className="text-xs sm:text-sm text-white/75 max-w-lg mx-auto leading-relaxed font-light">
+            <p className="text-sm sm:text-base text-white/75 max-w-lg mx-auto leading-relaxed font-light">
               A wedding brings an entire family under one roof for days you carry for life. Speak directly with our team in Muzaffarpur to hold your auspicious dates and walk the lawns together.
             </p>
           </div>
@@ -1486,7 +1486,7 @@ export function TwfHomeSections({
               >
                 <div className="space-y-2">
                   <span
-                    className="text-lg sm:text-xl text-[#f0b400] block leading-none"
+                    className="text-xl sm:text-2xl text-[#f0b400] block leading-none"
                     style={{ fontFamily: 'var(--font-script)' }}
                   >
                     {card.scriptSub}
@@ -1497,14 +1497,14 @@ export function TwfHomeSections({
                   >
                     {card.title}
                   </h3>
-                  <p className="text-xs text-white/70 leading-relaxed font-light">
+                  <p className="text-xs sm:text-sm text-white/70 leading-relaxed font-light">
                     {card.story}
                   </p>
                 </div>
 
                 <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs text-[#f0b400]">
                   <span
-                    className="text-sm sm:text-base"
+                    className="text-base sm:text-lg"
                     style={{ fontFamily: 'var(--font-script)' }}
                   >
                     {card.tag}
@@ -1524,7 +1524,7 @@ export function TwfHomeSections({
               once our team confirms availability and terms directly with
               you.&rdquo;
             </span>
-            <span className="text-xs uppercase tracking-[0.2em] text-white/70 block font-light">
+            <span className="text-xs sm:text-sm uppercase tracking-[0.2em] text-white/70 block font-light">
               The Green Heritage Resort and Banquet · +91 92340 52600
             </span>
           </div>
@@ -1537,7 +1537,7 @@ export function TwfHomeSections({
       <section className="px-1 sm:px-2 pb-2">
         <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
           <span
-            className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block mb-1 leading-snug"
+            className="text-3xl sm:text-4xl md:text-4xl text-[#9e6800] block mb-1 leading-snug"
             style={{ fontFamily: 'var(--font-script)' }}
           >
             Taking the First Step Together
@@ -1598,7 +1598,7 @@ export function TwfHomeSections({
               <div className="p-5 sm:p-6 space-y-3 flex-1 flex flex-col justify-between">
                 <div>
                   <span
-                    className="text-lg sm:text-xl text-[#9e6800] block leading-snug"
+                    className="text-xl sm:text-2xl text-[#9e6800] block leading-snug"
                     style={{ fontFamily: 'var(--font-script)' }}
                   >
                     {item.tag}
@@ -1609,7 +1609,7 @@ export function TwfHomeSections({
                   >
                     {item.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-[#0f1f12]/65 leading-relaxed mt-1.5">
+                  <p className="text-sm sm:text-base text-[#0f1f12]/75 leading-relaxed mt-1.5">
                     {item.desc}
                   </p>
                 </div>
@@ -1619,7 +1619,7 @@ export function TwfHomeSections({
                     <button
                       type="button"
                       onClick={() => onOpenQuickEnquire(item.service)}
-                      className="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.16em] font-medium text-[#14531e] hover:text-[#9e6800] transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm uppercase tracking-[0.16em] font-semibold text-[#14531e] hover:text-[#9e6800] transition-colors cursor-pointer"
                     >
                       <span>{item.cta}</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
@@ -1643,7 +1643,7 @@ export function TwfHomeSections({
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-[#0f1f12]/10 pb-4">
             <div>
               <span
-                className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1"
+                className="text-3xl sm:text-4xl text-[#9e6800] block leading-snug mb-1"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 Clear Information for Families &amp; Guests
@@ -1663,7 +1663,7 @@ export function TwfHomeSections({
                 e.preventDefault();
                 onNavigate('faqs');
               }}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#14531e] hover:bg-[#0c3a14] text-white text-xs uppercase tracking-[0.16em] font-medium transition-colors self-start sm:self-auto"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#14531e] hover:bg-[#0c3a14] text-white text-xs sm:text-sm uppercase tracking-[0.16em] font-medium transition-colors self-start sm:self-auto"
             >
               <span>Full FAQs &amp; Policies</span>
               <ArrowUpRight className="w-3.5 h-3.5 text-[#f0b400]" />
@@ -1672,9 +1672,9 @@ export function TwfHomeSections({
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
             {/* Left Column: Modern Aesthetic Official Property Summary */}
-            <div className="lg:col-span-5 rounded-2xl bg-gradient-to-br from-[#fbfaf6] to-[#f4f2ea] border border-[#14531e]/15 p-5 sm:p-6 space-y-4 text-xs sm:text-sm text-[#0f1f12]/80 shadow-sm">
+            <div className="lg:col-span-5 rounded-2xl bg-gradient-to-br from-[#fbfaf6] to-[#f4f2ea] border border-[#14531e]/15 p-5 sm:p-6 space-y-4 text-sm text-[#0f1f12]/80 shadow-sm">
               <div className="space-y-1.5 border-b border-[#14531e]/10 pb-3.5">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#14531e]/8 border border-[#14531e]/15 text-[#14531e] text-xs font-medium">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#14531e]/8 border border-[#14531e]/15 text-[#14531e] text-xs sm:text-sm font-medium">
                   <Crown className="w-3.5 h-3.5 text-[#9e6800]" />
                   <span>Inspired by Jaipur Royal Marriages</span>
                 </div>
@@ -1684,7 +1684,7 @@ export function TwfHomeSections({
                 >
                   official property summary
                 </h3>
-                <p className="text-xs text-[#0f1f12]/65">
+                <p className="text-xs sm:text-sm text-[#0f1f12]/70">
                   {STUDIO_INFO.name} · 350+ Celebrations Hosted · Muzaffarpur, Bihar
                 </p>
               </div>
@@ -1697,10 +1697,10 @@ export function TwfHomeSections({
                     <Users className="w-3.5 h-3.5 text-[#9e6800]" />
                     <span>Royal Lawns</span>
                   </div>
-                  <p className="text-xs sm:text-sm font-medium text-[#0f1f12]">
+                  <p className="text-sm sm:text-base font-semibold text-[#0f1f12]">
                     1,500 – 2,000+ Guests
                   </p>
-                  <p className="text-xs text-[#0f1f12]/60">Sprawling open-air lawns</p>
+                  <p className="text-xs sm:text-sm text-[#0f1f12]/65">Sprawling open-air lawns</p>
                 </div>
 
                 <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
@@ -1708,10 +1708,10 @@ export function TwfHomeSections({
                     <Building2 className="w-3.5 h-3.5 text-[#9e6800]" />
                     <span>Banquet Hall</span>
                   </div>
-                  <p className="text-xs sm:text-sm font-medium text-[#0f1f12]">
+                  <p className="text-sm sm:text-base font-semibold text-[#0f1f12]">
                     350 – 500+ Seated
                   </p>
-                  <p className="text-xs text-[#0f1f12]/60">700 Floating · AC Crystal Hall</p>
+                  <p className="text-xs sm:text-sm text-[#0f1f12]/65">700 Floating · AC Crystal Hall</p>
                 </div>
 
                 {/* Rooms & Suites */}
@@ -1720,10 +1720,10 @@ export function TwfHomeSections({
                     <BedDouble className="w-3.5 h-3.5 text-[#9e6800]" />
                     <span>Stay &amp; Suites</span>
                   </div>
-                  <p className="text-xs sm:text-sm font-medium text-[#0f1f12]">
+                  <p className="text-sm sm:text-base font-semibold text-[#0f1f12]">
                     25+ Luxury AC Rooms
                   </p>
-                  <p className="text-xs text-[#0f1f12]/60">Cottages + Bridal Dressing Suite</p>
+                  <p className="text-xs sm:text-sm text-[#0f1f12]/65">Cottages + Bridal Dressing Suite</p>
                 </div>
 
                 {/* Affordable Packages */}
@@ -1732,10 +1732,10 @@ export function TwfHomeSections({
                     <Tag className="w-3.5 h-3.5 text-[#9e6800]" />
                     <span>Wedding Pricing</span>
                   </div>
-                  <p className="text-xs sm:text-sm font-medium text-[#14531e]">
+                  <p className="text-sm sm:text-base font-semibold text-[#14531e]">
                     Affordable for All
                   </p>
-                  <p className="text-xs text-[#0f1f12]/60">All wedding types &amp; religions</p>
+                  <p className="text-xs sm:text-sm text-[#0f1f12]/65">All wedding types &amp; religions</p>
                 </div>
 
                 {/* Parking & Logistics */}
@@ -1744,10 +1744,10 @@ export function TwfHomeSections({
                     <Car className="w-3.5 h-3.5 text-[#9e6800]" />
                     <span>Guest Parking</span>
                   </div>
-                  <p className="text-xs sm:text-sm font-medium text-[#0f1f12]">
+                  <p className="text-sm sm:text-base font-semibold text-[#0f1f12]">
                     150+ Cars &amp; 200+ Bikes
                   </p>
-                  <p className="text-xs text-[#0f1f12]/60">Dedicated valet staff &amp; security</p>
+                  <p className="text-xs sm:text-sm text-[#0f1f12]/65">Dedicated valet staff &amp; security</p>
                 </div>
 
                 {/* Catering Facilities */}
@@ -1756,10 +1756,10 @@ export function TwfHomeSections({
                     <UtensilsCrossed className="w-3.5 h-3.5 text-[#9e6800]" />
                     <span>Catering Feasts</span>
                   </div>
-                  <p className="text-xs sm:text-sm font-medium text-[#0f1f12]">
+                  <p className="text-sm sm:text-base font-semibold text-[#0f1f12]">
                     Pure Veg Kitchen
                   </p>
-                  <p className="text-xs text-[#0f1f12]/60">Multi-cuisine &amp; outside partners ok</p>
+                  <p className="text-xs sm:text-sm text-[#0f1f12]/65">Multi-cuisine &amp; outside partners ok</p>
                 </div>
               </div>
 
@@ -1768,10 +1768,10 @@ export function TwfHomeSections({
                 <div className="flex items-center gap-2">
                   <Award className="w-4 h-4 text-[#9e6800] shrink-0" />
                   <div>
-                    <span className="font-semibold text-[#0f1f12] text-xs sm:text-sm">
+                    <span className="font-semibold text-[#0f1f12] text-sm sm:text-base">
                       4.6 / 5.0 Google Rating
                     </span>
-                    <span className="text-xs text-[#0f1f12]/65 block">
+                    <span className="text-xs sm:text-sm text-[#0f1f12]/70 block">
                       550+ verified Google Maps reviews
                     </span>
                   </div>
@@ -1780,7 +1780,7 @@ export function TwfHomeSections({
                   href={STUDIO_INFO.googleReviewUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="shrink-0 text-xs text-[#14531e] font-semibold hover:underline inline-flex items-center gap-1"
+                  className="shrink-0 text-xs sm:text-sm text-[#14531e] font-semibold hover:underline inline-flex items-center gap-1"
                 >
                   <span>View</span>
                   <ArrowUpRight className="w-3 h-3 text-[#f0b400]" />
@@ -1789,13 +1789,13 @@ export function TwfHomeSections({
 
               {/* Direct Phone & WhatsApp Action Strip */}
               <div className="pt-2 border-t border-[#14531e]/10 flex flex-wrap items-center justify-between gap-2">
-                <div className="flex items-center gap-1.5 text-xs text-[#0f1f12]/75">
+                <div className="flex items-center gap-1.5 text-xs sm:text-sm text-[#0f1f12]/75">
                   <MapPin className="w-3.5 h-3.5 text-[#14531e] shrink-0" />
                   <span className="truncate">Gobarsahi–Sakri Road, Muzaffarpur</span>
                 </div>
                 <a
                   href={STUDIO_INFO.phonePrimaryUrl}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] text-white text-xs font-medium transition-colors shadow-sm"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] text-white text-xs sm:text-sm font-semibold transition-colors shadow-sm"
                 >
                   <span>Desk: {STUDIO_INFO.phoneNumber}</span>
                 </a>
@@ -1819,7 +1819,7 @@ export function TwfHomeSections({
                       e.preventDefault();
                       onNavigate(link.id);
                     }}
-                    className="px-3 py-1.5 rounded-full bg-white hover:bg-[#14531e] hover:text-white border border-[#14531e]/15 text-xs font-medium text-[#0f1f12] transition-colors"
+                    className="px-3 py-1.5 rounded-full bg-white hover:bg-[#14531e] hover:text-white border border-[#14531e]/15 text-xs sm:text-sm font-medium text-[#0f1f12] transition-colors"
                   >
                     {link.label}
                   </a>
@@ -1843,7 +1843,7 @@ export function TwfHomeSections({
                       +
                     </span>
                   </summary>
-                  <p className="mt-2.5 pt-2.5 border-t border-[#0f1f12]/10 text-xs sm:text-sm text-[#0f1f12]/75 leading-relaxed">
+                  <p className="mt-2.5 pt-2.5 border-t border-[#0f1f12]/10 text-sm sm:text-base text-[#0f1f12]/75 leading-relaxed">
                     {faq.answer}
                   </p>
                 </details>

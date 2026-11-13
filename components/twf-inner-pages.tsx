@@ -194,7 +194,7 @@ function InnerHoverVideoBox({
       <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 flex items-end justify-between gap-2 z-20">
         <div className="min-w-0">
           <span
-            className="text-sm sm:text-base text-[#f0b400] block leading-snug mb-0.5 break-words"
+            className="text-base sm:text-lg text-[#f0b400] block leading-snug mb-0.5 break-words"
             style={{ fontFamily: 'var(--font-script)' }}
           >
             {location}
@@ -364,7 +364,7 @@ export function TwfInnerPages({
           <div className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div>
               <span
-                className="text-xl sm:text-2xl text-[#f0b400] block mb-1"
+                className="text-2xl sm:text-3xl text-[#f0b400] block mb-1"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 The Green Heritage Wedding Stories · Muzaffarpur
@@ -473,7 +473,7 @@ export function TwfInnerPages({
           <section className="space-y-5">
             <div className="border-b border-[#0f1f12]/10 pb-2.5">
               <span
-                className="text-xl sm:text-2xl text-[#9e6800] block leading-none"
+                className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 Widescreen Wedding Highlights
@@ -506,7 +506,7 @@ export function TwfInnerPages({
           <section className="space-y-5">
             <div className="border-b border-[#0f1f12]/10 pb-2.5">
               <span
-                className="text-xl sm:text-2xl text-[#9e6800] block leading-none"
+                className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 Vertical Ceremony Stories
@@ -539,7 +539,7 @@ export function TwfInnerPages({
           <section className="space-y-5">
             <div className="border-b border-[#0f1f12]/10 pb-2.5">
               <span
-                className="text-xl sm:text-2xl text-[#9e6800] block leading-none"
+                className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 Rooms, Outdoor Areas &amp; Event Spaces
@@ -580,7 +580,7 @@ export function TwfInnerPages({
                   />
                   <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 text-[#f7f6f1]">
                     <span
-                      className="text-base sm:text-lg text-[#f0b400] block leading-snug"
+                      className="text-lg sm:text-xl text-[#f0b400] block leading-snug"
                       style={{ fontFamily: 'var(--font-script)' }}
                     >
                       {photo.couple}
@@ -599,7 +599,7 @@ export function TwfInnerPages({
           <section className="space-y-5">
             <div className="border-b border-[#0f1f12]/10 pb-2.5">
               <span
-                className="text-xl sm:text-2xl text-[#9e6800] block leading-none"
+                className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 Event &amp; Grounds Preview
@@ -644,7 +644,7 @@ export function TwfInnerPages({
                   />
                   <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 text-[#f7f6f1]">
                     <span
-                      className="text-base sm:text-lg text-[#f0b400] block leading-snug"
+                      className="text-lg sm:text-xl text-[#f0b400] block leading-snug"
                       style={{ fontFamily: 'var(--font-script)' }}
                     >
                       {frame.couple}
@@ -702,7 +702,7 @@ export function TwfInnerPages({
           <div className="relative z-10 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div className="max-w-2xl">
               <span
-                className="text-2xl sm:text-3xl text-[#f0b400] block mb-1"
+                className="text-3xl sm:text-4xl text-[#f0b400] block mb-1"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 Bakarpur · Muzaffarpur, Bihar
@@ -713,10 +713,10 @@ export function TwfInnerPages({
               >
                 welcome to the green heritage
               </h1>
-              <p className="text-xs sm:text-sm text-[#f7f6f1]/85 mt-3 max-w-xl leading-relaxed">
+              <p className="text-sm sm:text-base text-[#f7f6f1]/85 mt-3 max-w-xl leading-relaxed">
                 In Bakarpur along Gobarsahi–Sakri Road, The Green Heritage Resort and Banquet is where Muzaffarpur families gather for{' '}
                 <span
-                  className="text-xl text-[#f0b400] px-1"
+                  className="text-2xl text-[#f0b400] px-1"
                   style={{ fontFamily: 'var(--font-script)' }}
                 >
                   haldi mornings, starlit pheras &amp; joyful stays
@@ -743,7 +743,7 @@ export function TwfInnerPages({
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-[#0f1f12]/10 pb-4">
             <div>
               <span
-                className="text-xl sm:text-2xl text-[#9e6800] block leading-none"
+                className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 Real Views From Bakarpur, Muzaffarpur
@@ -770,7 +770,7 @@ export function TwfInnerPages({
                 campus, gateway &amp; dusk highlights
               </h3>
               <span
-                className="text-base sm:text-lg text-[#9e6800]"
+                className="text-lg sm:text-xl text-[#9e6800]"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 aerial &amp; evening views
@@ -802,7 +802,7 @@ export function TwfInnerPages({
                 poolside, lawn &amp; cottage reels
               </h3>
               <span
-                className="text-base sm:text-lg text-[#9e6800]"
+                className="text-lg sm:text-xl text-[#9e6800]"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 up close across the grounds
@@ -829,7 +829,7 @@ export function TwfInnerPages({
         <section className="space-y-6 sm:space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-1">
             <span
-              className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
+              className="text-3xl sm:text-4xl text-[#9e6800] block leading-none"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               Heart &amp; Stewardship Behind The Green Heritage
@@ -900,7 +900,7 @@ export function TwfInnerPages({
               <div className="flex-1 space-y-4 text-center md:text-left">
                 <div className="space-y-1">
                   <span
-                    className="text-xl sm:text-2xl text-[#9e6800] block leading-none"
+                    className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
                     style={{ fontFamily: 'var(--font-script)' }}
                   >
                     From the Director&rsquo;s Heart
@@ -922,12 +922,12 @@ export function TwfInnerPages({
                     <span className="text-xs sm:text-sm font-semibold text-[#0f1f12] block">
                       Founder &amp; Director
                     </span>
-                    <span className="text-xs text-[#0f1f12]/60 block">
+                    <span className="text-xs sm:text-sm text-[#0f1f12]/60 block">
                       The Green Heritage Resort &amp; Banquet · Bakarpur, Muzaffarpur
                     </span>
                   </div>
                   <span
-                    className="text-lg sm:text-xl text-[#14531e]"
+                    className="text-xl sm:text-2xl text-[#14531e]"
                     style={{ fontFamily: 'var(--font-script)' }}
                   >
                     Always here to welcome your family
@@ -994,7 +994,7 @@ export function TwfInnerPages({
               <div className="flex-1 space-y-4 text-center md:text-left">
                 <div className="space-y-1">
                   <span
-                    className="text-xl sm:text-2xl text-[#9e6800] block leading-none"
+                    className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
                     style={{ fontFamily: 'var(--font-script)' }}
                   >
                     From Our Family to Yours
@@ -1016,12 +1016,12 @@ export function TwfInnerPages({
                     <span className="text-xs sm:text-sm font-semibold text-[#0f1f12] block">
                       With Warm Regards, The Verma Family
                     </span>
-                    <span className="text-xs text-[#0f1f12]/60 block">
+                    <span className="text-xs sm:text-sm text-[#0f1f12]/60 block">
                       Owners · The Green Heritage Resort &amp; Banquet, Muzaffarpur
                     </span>
                   </div>
                   <span
-                    className="text-lg sm:text-xl text-[#9e6800]"
+                    className="text-xl sm:text-2xl text-[#9e6800]"
                     style={{ fontFamily: 'var(--font-script)' }}
                   >
                     With gratitude &amp; blessings
@@ -1036,7 +1036,7 @@ export function TwfInnerPages({
         <section className="space-y-6 sm:space-y-8">
           <div className="text-center max-w-2xl mx-auto">
             <span
-              className="text-2xl text-[#9e6800] block mb-0.5"
+              className="text-2xl sm:text-3xl text-[#9e6800] block mb-0.5"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               Stay, Events &amp; Grounds
@@ -1140,7 +1140,7 @@ export function TwfInnerPages({
 
           <div className="relative z-10">
             <span
-              className="text-2xl sm:text-3xl text-[#f0b400] block mb-1"
+              className="text-3xl sm:text-4xl text-[#f0b400] block mb-1"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               Bakarpur, Gobarsahi–Sakri Road · Muzaffarpur
@@ -1151,7 +1151,7 @@ export function TwfInnerPages({
             >
               weddings, pre-wedding rituals &amp; family stays
             </h1>
-            <p className="text-xs sm:text-sm text-[#f7f6f1]/80 mt-3 max-w-2xl leading-relaxed">
+            <p className="text-sm sm:text-base text-[#f7f6f1]/80 mt-3 max-w-2xl leading-relaxed">
               Call or WhatsApp +91 92340 52600 to plan haldi, mehendi, sangeet, baraat, pheras and bridal guest rooms at The Green Heritage Resort and Banquet.
             </p>
           </div>
@@ -1165,7 +1165,7 @@ export function TwfInnerPages({
             >
               <div className="space-y-3">
                 <span
-                  className="text-2xl text-[#9e6800] block leading-none"
+                  className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
                   style={{ fontFamily: 'var(--font-script)' }}
                 >
                   {srv.scriptHighlight}
@@ -1176,7 +1176,7 @@ export function TwfInnerPages({
                 >
                   {srv.title}
                 </h2>
-                <p className="text-xs sm:text-sm text-[#0f1f12]/70 leading-relaxed">
+                <p className="text-sm sm:text-base text-[#0f1f12]/70 leading-relaxed">
                   {srv.description}
                 </p>
 
@@ -1195,7 +1195,7 @@ export function TwfInnerPages({
 
               <div className="pt-5 border-t border-[#0f1f12]/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <p
-                  className="text-lg text-[#0f1f12]/70 max-w-xs leading-snug"
+                  className="text-xl sm:text-2xl text-[#0f1f12]/70 max-w-xs leading-snug"
                   style={{ fontFamily: 'var(--font-script)' }}
                 >
                   &ldquo;{srv.humanNote}&rdquo;
@@ -1203,7 +1203,7 @@ export function TwfInnerPages({
                 <button
                   type="button"
                   onClick={() => onOpenQuickEnquire(srv.title)}
-                  className="shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#09190c] hover:bg-[#14531e] text-[#f7f6f1] text-xs uppercase tracking-[0.18em] transition-colors cursor-pointer"
+                  className="shrink-0 inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#09190c] hover:bg-[#14531e] text-[#f7f6f1] text-xs sm:text-sm uppercase tracking-[0.18em] transition-colors cursor-pointer"
                 >
                   <span>Enquire Now</span>
                   <ArrowUpRight className="w-4 h-4" />
@@ -1247,7 +1247,7 @@ export function TwfInnerPages({
 
           <div className="relative z-10">
             <span
-              className="text-2xl sm:text-3xl text-[#f0b400] block mb-1"
+              className="text-3xl sm:text-4xl text-[#f0b400] block mb-1"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               Lawns, Banquet Hall &amp; Bridal Suites
@@ -1258,7 +1258,7 @@ export function TwfInnerPages({
             >
               spaces built for every wedding ceremony
             </h1>
-            <p className="text-xs sm:text-sm text-[#f7f6f1]/80 mt-3 max-w-xl leading-relaxed">
+            <p className="text-sm sm:text-base text-[#f7f6f1]/80 mt-3 max-w-xl leading-relaxed">
               Every corner at Bakarpur, from the poolside mandap lawn to guest cottages and on-site parking, comes together to keep families close. Confirm active amenities for your wedding dates at +91 92340 52600.
             </p>
           </div>
@@ -1286,7 +1286,7 @@ export function TwfInnerPages({
                       }
                     }}
                   />
-                  <div className="absolute top-3 left-3 px-3.5 py-1 rounded-full bg-[#061208]/75 backdrop-blur-md border border-[#f0b400]/25 text-xs text-[#f7f6f1]">
+                  <div className="absolute top-3 left-3 px-3.5 py-1 rounded-full bg-[#061208]/75 backdrop-blur-md border border-[#f0b400]/25 text-xs sm:text-sm text-[#f7f6f1]">
                     {inst.atmosphereTag}
                   </div>
                   <button
@@ -1294,7 +1294,7 @@ export function TwfInnerPages({
                     onClick={() =>
                       setLightingInspectId(inspecting ? null : inst.id)
                     }
-                    className="absolute bottom-3 right-3 px-3.5 py-1.5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] text-white text-xs uppercase tracking-wider font-medium shadow-lg cursor-pointer transition-colors"
+                    className="absolute bottom-3 right-3 px-3.5 py-1.5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] text-white text-xs sm:text-sm uppercase tracking-wider font-semibold shadow-lg cursor-pointer transition-colors"
                   >
                     {inspecting ? 'View First Photo' : 'See Another Angle'}
                   </button>
@@ -1303,7 +1303,7 @@ export function TwfInnerPages({
                 <div className="p-5 sm:p-6 space-y-3 flex-1 flex flex-col justify-between">
                   <div>
                     <span
-                      className="text-2xl text-[#9e6800] block leading-none"
+                      className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
                       style={{ fontFamily: 'var(--font-script)' }}
                     >
                       {inst.venue}
@@ -1314,13 +1314,13 @@ export function TwfInnerPages({
                     >
                       {inst.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#0f1f12]/70 mt-2 leading-relaxed">
+                    <p className="text-sm sm:text-base text-[#0f1f12]/70 mt-2 leading-relaxed">
                       {inst.summary}
                     </p>
                   </div>
 
                   <div className="pt-3 flex items-center justify-between gap-3 border-t border-[#0f1f12]/10">
-                    <span className="text-xs text-[#0f1f12]/60 truncate">
+                    <span className="text-xs sm:text-sm text-[#0f1f12]/60 truncate">
                       {inst.lightingNotes}
                     </span>
                     <button
@@ -1328,7 +1328,7 @@ export function TwfInnerPages({
                       onClick={() =>
                         onOpenQuickEnquire(`Enquiry: ${inst.title}`)
                       }
-                      className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#09190c] hover:bg-[#14531e] text-[#f7f6f1] text-xs uppercase tracking-wider font-medium transition-colors cursor-pointer"
+                      className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#09190c] hover:bg-[#14531e] text-[#f7f6f1] text-xs sm:text-sm uppercase tracking-wider font-medium transition-colors cursor-pointer"
                     >
                       <span>Confirm</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
@@ -1351,7 +1351,7 @@ export function TwfInnerPages({
       <div className="space-y-8 sm:space-y-10 py-2 sm:py-4 px-1 sm:px-2 max-w-4xl mx-auto">
         <div className="text-center space-y-2">
           <span
-            className="text-2xl sm:text-3xl text-[#9e6800] block"
+            className="text-3xl sm:text-4xl text-[#9e6800] block"
             style={{ fontFamily: 'var(--font-script)' }}
           >
             Direct Answers
@@ -1404,7 +1404,7 @@ export function TwfInnerPages({
                   >
                     <div>
                       <span
-                        className="text-lg text-[#9e6800] block leading-none"
+                        className="text-xl sm:text-2xl text-[#9e6800] block leading-none"
                         style={{ fontFamily: 'var(--font-script)' }}
                       >
                         {item.category}
@@ -1423,7 +1423,7 @@ export function TwfInnerPages({
                     />
                   </button>
                   {isOpen && (
-                    <div className="px-4 sm:px-5 pb-5 text-xs sm:text-sm text-[#0f1f12]/70 leading-relaxed border-t border-[#0f1f12]/5 pt-3">
+                    <div className="px-4 sm:px-5 pb-5 text-sm sm:text-base text-[#0f1f12]/75 leading-relaxed border-t border-[#0f1f12]/5 pt-3">
                       {item.answer}
                     </div>
                   )}
@@ -1432,7 +1432,7 @@ export function TwfInnerPages({
             })}
           </div>
         ) : (
-          <div className="rounded-[20px] sm:rounded-[24px] bg-white/95 border border-[#0f1f12]/10 p-6 sm:p-8 space-y-4 text-xs sm:text-sm text-[#0f1f12]/75 leading-relaxed">
+          <div className="rounded-[20px] sm:rounded-[24px] bg-white/95 border border-[#0f1f12]/10 p-6 sm:p-8 space-y-4 text-sm sm:text-base text-[#0f1f12]/75 leading-relaxed">
             <h3
               className="text-2xl sm:text-3xl text-[#0f1f12]"
               style={{ fontFamily: 'var(--font-display)' }}
@@ -1468,7 +1468,7 @@ export function TwfInnerPages({
     <div className="space-y-10 sm:space-y-12 py-2 sm:py-4 px-1 sm:px-2 max-w-5xl mx-auto">
       <div className="text-center space-y-2">
         <span
-          className="text-2xl sm:text-3xl text-[#9e6800] block"
+          className="text-3xl sm:text-4xl text-[#9e6800] block"
           style={{ fontFamily: 'var(--font-script)' }}
         >
           Bakarpur, Gobarsahi–Sakri Road · Muzaffarpur
@@ -1484,7 +1484,7 @@ export function TwfInnerPages({
           <button
             type="button"
             onClick={() => setContactTab('enquiry')}
-            className={`px-4 sm:px-5 py-2 rounded-full text-xs transition-all cursor-pointer ${
+            className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
               contactTab === 'enquiry'
                 ? 'bg-[#14531e] text-white font-medium'
                 : 'text-[#0f1f12]/65 hover:text-[#0f1f12]'
@@ -1498,7 +1498,7 @@ export function TwfInnerPages({
               setContactTab('directions');
               setMapLoaded(true);
             }}
-            className={`px-4 sm:px-5 py-2 rounded-full text-xs transition-all cursor-pointer ${
+            className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
               contactTab === 'directions'
                 ? 'bg-[#14531e] text-white font-medium'
                 : 'text-[#0f1f12]/65 hover:text-[#0f1f12]'
