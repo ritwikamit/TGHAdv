@@ -69,6 +69,7 @@ export function TwfFooterAndModals({
 }: TwfFooterAndModalsProps) {
   const footerRef = useRef<HTMLElement | null>(null);
   const footerVideoRef = useRef<HTMLVideoElement | null>(null);
+  const isFooterVisibleRef = useRef(false);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
   const [modalVideoMuted, setModalVideoMuted] = useState(false);
   const [photoZoom, setPhotoZoom] = useState(1);
@@ -112,47 +113,37 @@ export function TwfFooterAndModals({
       : preselectedService) || 'Wedding & Reception';
 
   useEffect(() => {
+    if (compactFooter) return;
     const el = footerRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          isFooterVisibleRef.current = entry.isIntersecting;
           setIsFooterVisible(entry.isIntersecting);
+          const vid = footerVideoRef.current;
+          if (!vid) return;
+          if (entry.isIntersecting) {
+            vid.defaultMuted = true;
+            vid.muted = true;
+            vid.playsInline = true;
+            const playPromise = vid.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(() => {
+                vid.muted = true;
+                vid.play().catch(() => {});
+              });
+            }
+          } else {
+            vid.pause();
+          }
         });
       },
-      { rootMargin: '300px 0px', threshold: 0.01 }
+      { rootMargin: '200px 0px', threshold: 0.05 }
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (compactFooter) return;
-    const vid = footerVideoRef.current;
-    if (!vid) return;
-
-    if (!isFooterVisible) {
-      vid.pause();
-      return;
-    }
-
-    vid.defaultMuted = true;
-    vid.muted = true;
-    vid.playsInline = true;
-    if (vid.preload !== 'auto') {
-      vid.preload = 'auto';
-    }
-    if (vid.readyState === 0) {
-      vid.load();
-    }
-    const playPromise = vid.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        vid.muted = true;
-        vid.play().catch(() => { });
-      });
-    }
-  }, [compactFooter, isFooterVisible]);
+  }, [compactFooter]);
 
   const allPhotos = [...GALLERY_PHOTOS, ...SIGNATURE_FRAMES];
   const currentPhotoIndex = activePhoto
@@ -218,17 +209,17 @@ export function TwfFooterAndModals({
 
             <video
               ref={footerVideoRef}
-              src={isFooterVisible ? FOOTER_REELS[0].videoSrc : undefined}
+              src={FOOTER_REELS[0].videoSrc}
               poster={FOOTER_REELS[0].posterUrl || `/reels/posters/${FOOTER_REELS[0].code}.jpg`}
-              autoPlay={isFooterVisible}
-              loop={true}
+              autoPlay
+              loop
               muted
               playsInline
               preload="metadata"
-              onCanPlay={(e) => {
-                if (isFooterVisible) {
+              onLoadedData={(e) => {
+                if (isFooterVisibleRef.current) {
                   e.currentTarget.muted = true;
-                  e.currentTarget.play().catch(() => { });
+                  e.currentTarget.play().catch(() => {});
                 }
               }}
               className="pointer-events-none absolute inset-0 w-full h-full object-cover bg-transparent z-10"
@@ -361,52 +352,60 @@ export function TwfFooterAndModals({
           </footer>
         )}
 
-        {/* Tier 2: Copyright, Terms, Privacy/Cookie Policy, Developer Credit — Centered on Smartphone & Desktop */}
-        <div className={`rounded-[14px] sm:rounded-[18px] bg-[#061208] border border-[#14531e]/30 shadow-lg px-4 sm:px-7 py-3 sm:py-3.5 w-full space-y-2.5 ${compactFooter ? 'mt-0' : 'mt-2.5 sm:mt-3'}`}>
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 text-center sm:text-left text-xs sm:text-sm text-[#f7f6f1]/85 leading-relaxed">
+        {/* Tier 2: Single-line Copyright, Legal Links & Developer Credit */}
+        <div
+          className={`rounded-[14px] sm:rounded-[18px] bg-[#061208] border border-[#14531e]/30 shadow-lg px-3 sm:px-6 py-2.5 sm:py-3 w-full ${
+            compactFooter ? 'mt-0' : 'mt-2.5 sm:mt-3'
+          }`}
+        >
+          <div className="flex flex-wrap items-center justify-center gap-x-2 sm:gap-x-3 gap-y-1.5 text-center text-[11px] sm:text-xs text-[#f7f6f1]/85 leading-normal">
             <span>
               &copy; {new Date().getFullYear()} The Green Heritage Resort and Banquet. All rights reserved.
             </span>
-
-            <div className="inline-flex items-center gap-2.5 text-[#f7f6f1]/75 shrink-0">
-              <button
-                type="button"
-                onClick={() => setTermsModalOpen(true)}
-                className="hover:text-[#f0b400] transition-colors cursor-pointer underline-offset-4 hover:underline"
-              >
-                Terms &amp; Conditions
-              </button>
-              <span className="text-[#f0b400]/45" aria-hidden="true">·</span>
-              <button
-                type="button"
-                onClick={() => setCookieModalOpen(true)}
-                className="hover:text-[#f0b400] transition-colors cursor-pointer underline-offset-4 hover:underline"
-              >
-                Privacy &amp; Cookie Policy
-              </button>
-            </div>
-          </div>
-
-          <div className="pt-2 border-t border-white/10 flex items-center justify-center gap-2 text-center text-xs sm:text-sm text-[#f7f6f1]/85">
-            <span className="leading-none">Designed and Developed by</span>
-            <a
-              href={`https://wa.me/917766833773?text=${encodeURIComponent(
-                'Hi ACCustomLabs, I visited The Green Heritage Resort website and would like to enquire about your web design and development services.'
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center hover:opacity-100 opacity-95 transition-opacity"
-              title="Chat with ACCustomLabs on WhatsApp (+91 77668 33773)"
-              aria-label="Contact ACCustomLabs on WhatsApp"
+            <span className="text-[#f0b400]/45" aria-hidden="true">
+              ·
+            </span>
+            <button
+              type="button"
+              onClick={() => setTermsModalOpen(true)}
+              className="hover:text-[#f0b400] transition-colors cursor-pointer underline-offset-4 hover:underline"
             >
-              <img
-                src="/ac-custom-labs.png"
-                alt="ACCUstomLabs"
-                loading="lazy"
-                decoding="async"
-                className="h-[15px] sm:h-[16px] w-auto object-contain block translate-y-[2px] drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]"
-              />
-            </a>
+              Terms &amp; Conditions
+            </button>
+            <span className="text-[#f0b400]/45" aria-hidden="true">
+              ·
+            </span>
+            <button
+              type="button"
+              onClick={() => setCookieModalOpen(true)}
+              className="hover:text-[#f0b400] transition-colors cursor-pointer underline-offset-4 hover:underline"
+            >
+              Privacy &amp; Cookie Policy
+            </button>
+            <span className="text-[#f0b400]/45" aria-hidden="true">
+              ·
+            </span>
+            <span className="inline-flex items-center gap-1.5">
+              <span>Designed and Developed by</span>
+              <a
+                href={`https://wa.me/917766833773?text=${encodeURIComponent(
+                  'Hi ACCustomLabs, I visited The Green Heritage Resort website and would like to enquire about your web design and development services.'
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center hover:opacity-100 opacity-95 transition-opacity"
+                title="Chat with ACCustomLabs on WhatsApp (+91 77668 33773)"
+                aria-label="Contact ACCustomLabs on WhatsApp"
+              >
+                <img
+                  src="/ac-custom-labs.png"
+                  alt="ACCUstomLabs"
+                  loading="lazy"
+                  decoding="async"
+                  className="h-[13px] sm:h-[15px] w-auto object-contain block translate-y-[1px] drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)]"
+                />
+              </a>
+            </span>
           </div>
         </div>
       </div>

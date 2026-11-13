@@ -1295,8 +1295,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
     lightingNotes:
       'Check current suite availability and wedding-block tariffs on +91 92340 52600.',
     acousticNotes: 'Ask about check-in flexibility and ID rules for outstation guests.',
-    imageUrl: '/TGHPhotos/HotelGround/RoomsCottages/cottage-room.webp',
-    secondaryImageUrl: '/TGHPhotos/HotelGround/RoomsCottages/executive-room.webp',
+    imageUrl: '/TGHPhotos/HotelGround/RoomsCottages/caption-16.webp',
+    secondaryImageUrl: '/TGHPhotos/HotelGround/RoomsCottages/executive-room-1.webp',
     dateSeason: 'Confirm Room Counts Early',
   },
   {
@@ -1309,8 +1309,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
       'Easy road access off Gobarsahi–Sakri Road helps travelling wedding buses and family cars arrive together. Confirm designated parking allocation for large baraats ahead of time.',
     lightingNotes: 'Grand arched gateway ready for floral and chattar welcomes.',
     acousticNotes: 'Call +91 92340 52600 for route landmarks for travelling guests.',
-    imageUrl: '/TGHPhotos/HotelGround/Outdoor&Parking/caption-15.webp',
-    secondaryImageUrl: '/TGHPhotos/HotelGround/Outdoor&Parking/caption-17.webp',
+    imageUrl: '/TGHPhotos/HotelGround/Outdoor&Parking/caption-17.webp',
+    secondaryImageUrl: '/TGHPhotos/HotelGround/Outdoor&Parking/caption-15.webp',
     dateSeason: 'Verify Event Parking',
   },
   {
@@ -1556,8 +1556,8 @@ export const VENUE_SPECIFICATIONS: VenueSpecification[] = [
   {
     id: 'spec-rooms',
     category: 'rooms',
-    tag: 'Stay & Bridal Suite',
-    title: 'Executive Rooms & Heritage Cottages',
+    tag: 'Getting-Ready & Guest Stays',
+    title: 'Bridal Suites & Family Cottages',
     statBadge: '25+ Rooms & Cottages',
     capacityHeadline: '25+ Luxury Rooms',
     summary:
@@ -1566,9 +1566,9 @@ export const VENUE_SPECIFICATIONS: VenueSpecification[] = [
       '25+ air-conditioned family rooms & cottages',
       'Private bridal dressing suite with salon vanity',
     ],
-    imageUrl: '/TGHPhotos/HotelGround/RoomsCottages/caption-24.webp',
-    secondaryImageUrl: '/TGHPhotos/HotelGround/RoomsCottages/cottage-room.webp',
-    fallbackImageUrl: '/TGHPhotos/HotelGround/RoomsCottages/caption-24.jpg',
+    imageUrl: '/TGHPhotos/HotelGround/RoomsCottages/caption-16.webp',
+    secondaryImageUrl: '/TGHPhotos/HotelGround/RoomsCottages/executive-room-1.webp',
+    fallbackImageUrl: '/TGHPhotos/HotelGround/RoomsCottages/caption-16.jpg',
   },
   {
     id: 'spec-packages',
@@ -1617,9 +1617,9 @@ export const VENUE_SPECIFICATIONS: VenueSpecification[] = [
       'Dedicated secured parking for 150+ cars & 200+ bikes',
       'Valet assistance and 24/7 on-site security guards',
     ],
-    imageUrl: '/TGHPhotos/HotelGround/Outdoor&Parking/caption-15.webp',
-    secondaryImageUrl: '/TGHPhotos/HotelGround/Outdoor&Parking/caption-17.webp',
-    fallbackImageUrl: '/TGHPhotos/HotelGround/Outdoor&Parking/caption-15.jpg',
+    imageUrl: '/TGHPhotos/HotelGround/Outdoor&Parking/caption-17.webp',
+    secondaryImageUrl: '/TGHPhotos/HotelGround/Outdoor&Parking/caption-15.webp',
+    fallbackImageUrl: '/TGHPhotos/HotelGround/Outdoor&Parking/caption-17.jpg',
   },
 ];
 

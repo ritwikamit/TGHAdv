@@ -24,7 +24,6 @@ import {
   GALLERY_PHOTOS,
   SIGNATURE_FRAMES,
   COMMISSION_SERVICES,
-  VENUE_INSTALLATIONS,
   VENUE_SPECIFICATIONS,
   FAQ_ITEMS,
   STUDIO_INFO,
@@ -244,8 +243,6 @@ export function TwfInnerPages({
   const iconicWeddingsCol1 = GALLERY_PHOTOS.slice(0, 4);
   const iconicWeddingsCol2 = SIGNATURE_FRAMES.slice(0, 4);
   const iconicWeddingsCol3 = GALLERY_PHOTOS.slice(14, 18);
-
-  const [lightingInspectId, setLightingInspectId] = useState<string | null>(null);
 
   const [openFaqId, setOpenFaqId] = useState<string>('faq1');
   const [legalTab, setLegalTab] = useState<'faqs' | 'cookies' | 'terms' | 'privacy'>(
@@ -1285,84 +1282,8 @@ export function TwfInnerPages({
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
-          {VENUE_INSTALLATIONS.map((inst) => {
-            const inspecting = lightingInspectId === inst.id;
-            return (
-              <div
-                key={inst.id}
-                className="rounded-[20px] sm:rounded-[24px] bg-white/95 border border-[#0f1f12]/10 overflow-hidden shadow-lg flex flex-col justify-between"
-              >
-                <div className="relative aspect-[16/10] bg-[#061208] overflow-hidden">
-                  <img
-                    src={inspecting ? inst.secondaryImageUrl : inst.imageUrl}
-                    alt={inst.title}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover transition-all duration-700"
-                    onError={(e) => {
-                      const target = e.currentTarget;
-                      if (target.src.endsWith('.webp')) {
-                        target.src = target.src.replace(/\.webp$/i, '.jpg');
-                      }
-                    }}
-                  />
-                  <div className="absolute top-3 left-3 px-3.5 py-1 rounded-full bg-[#061208]/75 backdrop-blur-md border border-[#f0b400]/25 text-xs sm:text-sm text-[#f7f6f1]">
-                    {inst.atmosphereTag}
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setLightingInspectId(inspecting ? null : inst.id)
-                    }
-                    className="absolute bottom-3 right-3 px-3.5 py-1.5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] text-white text-xs sm:text-sm uppercase tracking-wider font-semibold shadow-lg cursor-pointer transition-colors"
-                  >
-                    {inspecting ? 'View First Photo' : 'See Another Angle'}
-                  </button>
-                </div>
-
-                <div className="p-5 sm:p-6 space-y-3 flex-1 flex flex-col justify-between">
-                  <div>
-                    <span
-                      className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
-                      style={{ fontFamily: 'var(--font-script)' }}
-                    >
-                      {inst.venue}
-                    </span>
-                    <h3
-                      className="text-2xl sm:text-3xl text-[#0f1f12] mt-1"
-                      style={{ fontFamily: 'var(--font-display)' }}
-                    >
-                      {inst.title}
-                    </h3>
-                    <p className="text-sm sm:text-base text-[#0f1f12]/70 mt-2 leading-relaxed">
-                      {inst.summary}
-                    </p>
-                  </div>
-
-                  <div className="pt-3 flex items-center justify-between gap-3 border-t border-[#0f1f12]/10">
-                    <span className="text-xs sm:text-sm text-[#0f1f12]/60 truncate">
-                      {inst.lightingNotes}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        onOpenQuickEnquire(`Enquiry: ${inst.title}`)
-                      }
-                      className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#09190c] hover:bg-[#14531e] text-[#f7f6f1] text-xs sm:text-sm uppercase tracking-wider font-medium transition-colors cursor-pointer"
-                    >
-                      <span>Confirm</span>
-                      <ArrowUpRight className="w-3.5 h-3.5" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Transferred Specifications: Packages, Catering & Parking */}
-        <section className="space-y-6 pt-6 border-t border-[#0f1f12]/10">
+        {/* Unified Spaces, Facilities & Packages Grid */}
+        <section className="space-y-6 pt-2">
           <div className="text-center max-w-2xl mx-auto space-y-1">
             <span
               className="text-2xl sm:text-3xl text-[#9e6800] block leading-none reveal-on-scroll"
@@ -1378,8 +1299,8 @@ export function TwfInnerPages({
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
-            {VENUE_SPECIFICATIONS.slice(3).map((spec) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            {VENUE_SPECIFICATIONS.map((spec) => (
               <div
                 key={spec.id}
                 className="rounded-[22px] sm:rounded-[24px] bg-white border border-[#14531e]/15 overflow-hidden shadow-md hover:shadow-xl hover:border-[#f0b400]/60 transition-all duration-300 flex flex-col justify-between group"
@@ -1398,16 +1319,24 @@ export function TwfInnerPages({
                       }
                     }}
                   />
+                  <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#061208]/80 backdrop-blur-md border border-[#f0b400]/30 text-[11px] sm:text-xs text-[#f7f6f1] font-medium tracking-wide">
+                    {spec.statBadge}
+                  </div>
                 </div>
 
                 <div className="p-5 sm:p-6 space-y-4 flex-1 flex flex-col justify-between">
                   <div className="space-y-3">
-                    <h3
-                      className="text-xl sm:text-2xl text-[#0f1f12] font-normal leading-snug"
-                      style={{ fontFamily: 'var(--font-display)' }}
-                    >
-                      {spec.title}
-                    </h3>
+                    <div>
+                      <span className="text-[11px] uppercase tracking-wider text-[#9e6800] font-semibold block mb-0.5">
+                        {spec.tag}
+                      </span>
+                      <h3
+                        className="text-xl sm:text-2xl text-[#0f1f12] font-normal leading-snug"
+                        style={{ fontFamily: 'var(--font-display)' }}
+                      >
+                        {spec.title}
+                      </h3>
+                    </div>
 
                     <ul className="pt-2.5 space-y-2 border-t border-[#0f1f12]/10">
                       {spec.keyFeatures.slice(0, 2).map((feat, idx) => (
