@@ -232,12 +232,17 @@ export function TwfInnerPages({
   onSelectPhoto,
   onOpenQuickEnquire,
 }: TwfInnerPagesProps) {
-  const [archiveTab, setArchiveTab] = useState<
-    'all' | 'landscape' | 'portrait' | 'gallery' | 'signature'
-  >('all');
-  const [photoFilter, setPhotoFilter] = useState<
-    'all' | 'weddings' | 'pre-wedding' | 'portraits' | 'candid'
-  >('all');
+  // Section unfold toggles for Wedding Films (initial 4-6 items) & The Venue (initial 2 items)
+  const [showAllLandscape, setShowAllLandscape] = useState(false);
+  const [showAllPortrait, setShowAllPortrait] = useState(false);
+  const [showAllGallery, setShowAllGallery] = useState(false);
+  const [showAllSignature, setShowAllSignature] = useState(false);
+  const [showAllVenueLandscape, setShowAllVenueLandscape] = useState(false);
+  const [showAllVenuePortrait, setShowAllVenuePortrait] = useState(false);
+
+  const iconicWeddingsCol1 = GALLERY_PHOTOS.slice(0, 4);
+  const iconicWeddingsCol2 = SIGNATURE_FRAMES.slice(0, 4);
+  const iconicWeddingsCol3 = GALLERY_PHOTOS.slice(14, 18);
 
   const [lightingInspectId, setLightingInspectId] = useState<string | null>(null);
 
@@ -312,24 +317,22 @@ export function TwfInnerPages({
   const portraitVideos = filteredReels.filter((r) => r.isPortrait);
 
   const filteredGallery = GALLERY_PHOTOS.filter((p) => {
-    const matchesQ =
+    return (
       !q ||
       p.title.toLowerCase().includes(q) ||
       p.couple.toLowerCase().includes(q) ||
       p.location.toLowerCase().includes(q) ||
-      p.categoryLabel.toLowerCase().includes(q);
-    const matchesCat = photoFilter === 'all' || p.category === photoFilter;
-    return matchesQ && matchesCat;
+      p.categoryLabel.toLowerCase().includes(q)
+    );
   });
 
   const filteredSignature = SIGNATURE_FRAMES.filter((p) => {
-    const matchesQ =
+    return (
       !q ||
       p.title.toLowerCase().includes(q) ||
       p.couple.toLowerCase().includes(q) ||
-      p.categoryLabel.toLowerCase().includes(q);
-    const matchesCat = photoFilter === 'all' || p.category === photoFilter;
-    return matchesQ && matchesCat;
+      p.categoryLabel.toLowerCase().includes(q)
+    );
   });
 
   // =========================================================================
@@ -397,81 +400,12 @@ export function TwfInnerPages({
               )}
             </div>
           </div>
-
-          <div className="relative z-10 mt-6 pt-5 border-t border-[#f0b400]/20 flex flex-wrap items-center justify-between gap-3">
-            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-              {[
-                { id: 'all', label: 'All Wedding Memories' },
-                { id: 'landscape', label: 'Widescreen Films' },
-                { id: 'portrait', label: 'Portrait Reels' },
-                { id: 'gallery', label: 'Wedding Stills' },
-                { id: 'signature', label: 'Mandap & Lawns' },
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() =>
-                    setArchiveTab(
-                      tab.id as
-                        | 'all'
-                        | 'landscape'
-                        | 'portrait'
-                        | 'gallery'
-                        | 'signature'
-                    )
-                  }
-                  className={`px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm transition-all cursor-pointer ${
-                    archiveTab === tab.id
-                      ? 'bg-[#14531e] text-white font-medium border border-[#f0b400]/45 shadow-lg shadow-[#14531e]/30'
-                      : 'bg-white/10 text-[#f7f6f1]/75 hover:bg-white/20 hover:text-[#f7f6f1]'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-
-            {(archiveTab === 'all' ||
-              archiveTab === 'gallery' ||
-              archiveTab === 'signature') && (
-              <div className="flex flex-wrap items-center gap-1">
-                {[
-                  { id: 'all', label: 'All Photos' },
-                  { id: 'weddings', label: 'Events' },
-                  { id: 'portraits', label: 'Guest Stay' },
-                  { id: 'pre-wedding', label: 'Grounds' },
-                  { id: 'candid', label: 'Gatherings' },
-                ].map((cat) => (
-                  <button
-                    key={cat.id}
-                    type="button"
-                    onClick={() =>
-                      setPhotoFilter(
-                        cat.id as
-                          | 'all'
-                          | 'weddings'
-                          | 'pre-wedding'
-                          | 'portraits'
-                          | 'candid'
-                      )
-                    }
-                    className={`px-2.5 sm:px-3 py-1 rounded-full text-xs transition-all cursor-pointer ${
-                      photoFilter === cat.id
-                        ? 'bg-[#f0b400] text-[#061208] font-medium'
-                        : 'text-[#f7f6f1]/65 hover:text-[#f7f6f1]'
-                    }`}
-                  >
-                    {cat.label}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
         </div>
 
-        {(archiveTab === 'all' || archiveTab === 'landscape') && (
-          <section className="space-y-5">
-            <div className="border-b border-[#0f1f12]/10 pb-2.5">
+        {/* 1. LANDSCAPE WEDDING FILMS (Initial 4 items with See All toggle) */}
+        <section className="space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[#0f1f12]/10 pb-2.5">
+            <div>
               <span
                 className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
                 style={{ fontFamily: 'var(--font-script)' }}
@@ -485,26 +419,42 @@ export function TwfInnerPages({
                 landscape wedding films
               </h2>
             </div>
+            <span className="text-xs sm:text-sm text-[#0f1f12]/60">
+              Showing {Math.min(showAllLandscape ? landscapeVideos.length : 4, landscapeVideos.length)} of {landscapeVideos.length} films
+            </span>
+          </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 py-2">
-              {landscapeVideos.map((reel) => (
-                <InnerHoverVideoBox
-                  key={reel.id}
-                  videoSrc={reel.videoSrc}
-                  posterUrl={reel.posterUrl}
-                  couple={reel.couple}
-                  location={reel.location}
-                  aspectClass="aspect-video"
-                  onOpenModal={() => handleOpenReelModal(reel)}
-                />
-              ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 py-2">
+            {(showAllLandscape ? landscapeVideos : landscapeVideos.slice(0, 4)).map((reel) => (
+              <InnerHoverVideoBox
+                key={reel.id}
+                videoSrc={reel.videoSrc}
+                posterUrl={reel.posterUrl}
+                couple={reel.couple}
+                location={reel.location}
+                aspectClass="aspect-video"
+                onOpenModal={() => handleOpenReelModal(reel)}
+              />
+            ))}
+          </div>
+
+          {landscapeVideos.length > 4 && (
+            <div className="pt-1 text-center">
+              <button
+                type="button"
+                onClick={() => setShowAllLandscape(!showAllLandscape)}
+                className="px-6 py-2.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/40 text-white text-xs sm:text-sm font-semibold uppercase tracking-wider transition-colors shadow-sm cursor-pointer"
+              >
+                {showAllLandscape ? 'Show Less' : `See All (${landscapeVideos.length})`}
+              </button>
             </div>
-          </section>
-        )}
+          )}
+        </section>
 
-        {(archiveTab === 'all' || archiveTab === 'portrait') && (
-          <section className="space-y-5">
-            <div className="border-b border-[#0f1f12]/10 pb-2.5">
+        {/* 2. PORTRAIT WEDDING REELS (Initial 6 items with See All toggle) */}
+        <section className="space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[#0f1f12]/10 pb-2.5">
+            <div>
               <span
                 className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
                 style={{ fontFamily: 'var(--font-script)' }}
@@ -518,26 +468,42 @@ export function TwfInnerPages({
                 portrait wedding reels
               </h2>
             </div>
+            <span className="text-xs sm:text-sm text-[#0f1f12]/60">
+              Showing {Math.min(showAllPortrait ? portraitVideos.length : 6, portraitVideos.length)} of {portraitVideos.length} reels
+            </span>
+          </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-5 py-2">
-              {portraitVideos.map((reel) => (
-                <InnerHoverVideoBox
-                  key={reel.id}
-                  videoSrc={reel.videoSrc}
-                  posterUrl={reel.posterUrl}
-                  couple={reel.couple}
-                  location={reel.location}
-                  aspectClass="aspect-[9/16]"
-                  onOpenModal={() => handleOpenReelModal(reel)}
-                />
-              ))}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-5 py-2">
+            {(showAllPortrait ? portraitVideos : portraitVideos.slice(0, 6)).map((reel) => (
+              <InnerHoverVideoBox
+                key={reel.id}
+                videoSrc={reel.videoSrc}
+                posterUrl={reel.posterUrl}
+                couple={reel.couple}
+                location={reel.location}
+                aspectClass="aspect-[9/16]"
+                onOpenModal={() => handleOpenReelModal(reel)}
+              />
+            ))}
+          </div>
+
+          {portraitVideos.length > 6 && (
+            <div className="pt-1 text-center">
+              <button
+                type="button"
+                onClick={() => setShowAllPortrait(!showAllPortrait)}
+                className="px-6 py-2.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/40 text-white text-xs sm:text-sm font-semibold uppercase tracking-wider transition-colors shadow-sm cursor-pointer"
+              >
+                {showAllPortrait ? 'Show Less' : `See All (${portraitVideos.length})`}
+              </button>
             </div>
-          </section>
-        )}
+          )}
+        </section>
 
-        {(archiveTab === 'all' || archiveTab === 'gallery') && (
-          <section className="space-y-5">
-            <div className="border-b border-[#0f1f12]/10 pb-2.5">
+        {/* 3. RESORT & EVENT GALLERY (Initial 6 items with See All toggle) */}
+        <section className="space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[#0f1f12]/10 pb-2.5">
+            <div>
               <span
                 className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
                 style={{ fontFamily: 'var(--font-script)' }}
@@ -551,53 +517,69 @@ export function TwfInnerPages({
                 resort &amp; event gallery
               </h2>
             </div>
+            <span className="text-xs sm:text-sm text-[#0f1f12]/60">
+              Showing {Math.min(showAllGallery ? filteredGallery.length : 6, filteredGallery.length)} of {filteredGallery.length} photos
+            </span>
+          </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              {filteredGallery.map((photo) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            {(showAllGallery ? filteredGallery : filteredGallery.slice(0, 6)).map((photo) => (
+              <div
+                key={photo.id}
+                onClick={() => onSelectPhoto(photo)}
+                className="group relative aspect-[3/2] rounded-[18px] sm:rounded-[20px] overflow-hidden bg-[#061208] border border-[#0f1f12]/10 shadow-md cursor-pointer transition-all duration-500 hover:scale-[1.03]"
+              >
+                <img
+                  src={photo.imageUrl}
+                  alt={photo.title}
+                  decoding="async"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (target.src.endsWith('.webp')) {
+                      target.src = target.src.replace(/\.webp$/i, '.jpg');
+                    }
+                  }}
+                />
                 <div
-                  key={photo.id}
-                  onClick={() => onSelectPhoto(photo)}
-                  className="group relative aspect-[3/2] rounded-[18px] sm:rounded-[20px] overflow-hidden bg-[#061208] border border-[#0f1f12]/10 shadow-md cursor-pointer transition-all duration-500 hover:scale-[1.03]"
-                >
-                  <img
-                    src={photo.imageUrl}
-                    alt={photo.title}
-                    decoding="async"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    onError={(e) => {
-                      const target = e.currentTarget;
-                      if (target.src.endsWith('.webp')) {
-                        target.src = target.src.replace(/\.webp$/i, '.jpg');
-                      }
-                    }}
-                  />
-                  <div
-                    className="pointer-events-none absolute inset-x-0 bottom-0 h-20"
-                    style={{
-                      background:
-                        'linear-gradient(180deg, rgba(6,18,8,0) 0%, rgba(6,18,8,0.85) 100%)',
-                    }}
-                  />
-                  <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 text-[#f7f6f1]">
-                    <span
-                      className="text-lg sm:text-xl text-[#f0b400] block leading-snug"
-                      style={{ fontFamily: 'var(--font-script)' }}
-                    >
-                      {photo.couple}
-                    </span>
-                    <span className="text-xs sm:text-sm text-[#f7f6f1]/95 font-medium leading-snug block mt-0.5">
-                      {photo.title}
-                    </span>
-                  </div>
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-20"
+                  style={{
+                    background:
+                      'linear-gradient(180deg, rgba(6,18,8,0) 0%, rgba(6,18,8,0.85) 100%)',
+                  }}
+                />
+                <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 text-[#f7f6f1]">
+                  <span
+                    className="text-lg sm:text-xl text-[#f0b400] block leading-snug"
+                    style={{ fontFamily: 'var(--font-script)' }}
+                  >
+                    {photo.couple}
+                  </span>
+                  <span className="text-xs sm:text-sm text-[#f7f6f1]/95 font-medium leading-snug block mt-0.5">
+                    {photo.title}
+                  </span>
                 </div>
-              ))}
-            </div>
-          </section>
-        )}
+              </div>
+            ))}
+          </div>
 
-        {(archiveTab === 'all' || archiveTab === 'signature') && (
-          <section className="space-y-5">
-            <div className="border-b border-[#0f1f12]/10 pb-2.5">
+          {filteredGallery.length > 6 && (
+            <div className="pt-1 text-center">
+              <button
+                type="button"
+                onClick={() => setShowAllGallery(!showAllGallery)}
+                className="px-6 py-2.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/40 text-white text-xs sm:text-sm font-semibold uppercase tracking-wider transition-colors shadow-sm cursor-pointer"
+              >
+                {showAllGallery ? 'Show Less' : `See All (${filteredGallery.length})`}
+              </button>
+            </div>
+          )}
+        </section>
+
+        {/* 4. SPACES & GATHERING VIEWS (Initial 6 items with See All toggle) */}
+        <section className="space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[#0f1f12]/10 pb-2.5">
+            <div>
               <span
                 className="text-2xl sm:text-3xl text-[#9e6800] block leading-none"
                 style={{ fontFamily: 'var(--font-script)' }}
@@ -611,53 +593,68 @@ export function TwfInnerPages({
                 spaces &amp; gathering views
               </h2>
             </div>
+            <span className="text-xs sm:text-sm text-[#0f1f12]/60">
+              Showing {Math.min(showAllSignature ? filteredSignature.length : 6, filteredSignature.length)} of {filteredSignature.length} views
+            </span>
+          </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-5">
-              {filteredSignature.map((frame) => (
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-5">
+            {(showAllSignature ? filteredSignature : filteredSignature.slice(0, 6)).map((frame) => (
+              <div
+                key={frame.id}
+                onClick={() => onSelectPhoto(frame)}
+                className="group relative aspect-[2/3] rounded-[18px] sm:rounded-[20px] overflow-hidden bg-[#061208] border border-[#0f1f12]/10 shadow-md cursor-pointer transition-all duration-500 hover:scale-[1.03]"
+              >
+                <img
+                  src={frame.imageUrl}
+                  alt={frame.title}
+                  decoding="async"
+                  className={`w-full h-full group-hover:scale-105 transition-transform duration-700 ${
+                    frame.aspect === 'landscape'
+                      ? 'object-contain bg-[#061208]'
+                      : 'object-cover'
+                  }`}
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (target.src.endsWith('.webp')) {
+                      target.src = target.src.replace(/\.webp$/i, '.jpg');
+                    }
+                  }}
+                />
                 <div
-                  key={frame.id}
-                  onClick={() => onSelectPhoto(frame)}
-                  className="group relative aspect-[2/3] rounded-[18px] sm:rounded-[20px] overflow-hidden bg-[#061208] border border-[#0f1f12]/10 shadow-md cursor-pointer transition-all duration-500 hover:scale-[1.03]"
-                >
-                  <img
-                    src={frame.imageUrl}
-                    alt={frame.title}
-                    decoding="async"
-                    className={`w-full h-full group-hover:scale-105 transition-transform duration-700 ${
-                      frame.aspect === 'landscape'
-                        ? 'object-contain bg-[#061208]'
-                        : 'object-cover'
-                    }`}
-                    onError={(e) => {
-                      const target = e.currentTarget;
-                      if (target.src.endsWith('.webp')) {
-                        target.src = target.src.replace(/\.webp$/i, '.jpg');
-                      }
-                    }}
-                  />
-                  <div
-                    className="pointer-events-none absolute inset-x-0 bottom-0 h-20"
-                    style={{
-                      background:
-                        'linear-gradient(180deg, rgba(6,18,8,0) 0%, rgba(6,18,8,0.85) 100%)',
-                    }}
-                  />
-                  <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 text-[#f7f6f1]">
-                    <span
-                      className="text-lg sm:text-xl text-[#f0b400] block leading-snug"
-                      style={{ fontFamily: 'var(--font-script)' }}
-                    >
-                      {frame.couple}
-                    </span>
-                    <span className="text-xs sm:text-sm text-[#f7f6f1]/95 font-medium leading-snug block mt-0.5">
-                      {frame.title}
-                    </span>
-                  </div>
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-20"
+                  style={{
+                    background:
+                      'linear-gradient(180deg, rgba(6,18,8,0) 0%, rgba(6,18,8,0.85) 100%)',
+                  }}
+                />
+                <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 text-[#f7f6f1]">
+                  <span
+                    className="text-lg sm:text-xl text-[#f0b400] block leading-snug"
+                    style={{ fontFamily: 'var(--font-script)' }}
+                  >
+                    {frame.couple}
+                  </span>
+                  <span className="text-xs sm:text-sm text-[#f7f6f1]/95 font-medium leading-snug block mt-0.5">
+                    {frame.title}
+                  </span>
                 </div>
-              ))}
+              </div>
+            ))}
+          </div>
+
+          {filteredSignature.length > 6 && (
+            <div className="pt-1 text-center">
+              <button
+                type="button"
+                onClick={() => setShowAllSignature(!showAllSignature)}
+                className="px-6 py-2.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/40 text-white text-xs sm:text-sm font-semibold uppercase tracking-wider transition-colors shadow-sm cursor-pointer"
+              >
+                {showAllSignature ? 'Show Less' : `See All (${filteredSignature.length})`}
+              </button>
             </div>
-          </section>
-        )}
+          )}
+        </section>
       </div>
     );
   }
@@ -668,10 +665,6 @@ export function TwfInnerPages({
   if (activePage === 'about') {
     const venueLandscapeVideos = VENUE_REELS.filter((r) => !r.isPortrait);
     const venuePortraitVideos = VENUE_REELS.filter((r) => r.isPortrait);
-
-    const iconicWeddingsCol1 = GALLERY_PHOTOS.slice(0, 4);
-    const iconicWeddingsCol2 = SIGNATURE_FRAMES.slice(0, 4);
-    const iconicWeddingsCol3 = GALLERY_PHOTOS.slice(14, 18);
 
     return (
       <div className="space-y-12 sm:space-y-16 py-2 sm:py-4 px-1 sm:px-2">
@@ -760,7 +753,7 @@ export function TwfInnerPages({
             </span>
           </div>
 
-          {/* 4 Widescreen Venue Videos */}
+          {/* 4 Widescreen Venue Videos (Initial 2 with Show All toggle) */}
           <div className="space-y-3">
             <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
               <h3
@@ -778,7 +771,7 @@ export function TwfInnerPages({
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-              {venueLandscapeVideos.map((reel) => (
+              {(showAllVenueLandscape ? venueLandscapeVideos : venueLandscapeVideos.slice(0, 2)).map((reel) => (
                 <InnerHoverVideoBox
                   key={reel.id}
                   videoSrc={reel.videoSrc}
@@ -790,9 +783,21 @@ export function TwfInnerPages({
                 />
               ))}
             </div>
+
+            {venueLandscapeVideos.length > 2 && (
+              <div className="pt-2 text-center">
+                <button
+                  type="button"
+                  onClick={() => setShowAllVenueLandscape(!showAllVenueLandscape)}
+                  className="px-6 py-2.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/40 text-white text-xs sm:text-sm font-semibold uppercase tracking-wider transition-colors shadow-sm cursor-pointer"
+                >
+                  {showAllVenueLandscape ? 'Show Less' : `Show All (${venueLandscapeVideos.length})`}
+                </button>
+              </div>
+            )}
           </div>
 
-          {/* 3 Vertical Venue Reels */}
+          {/* 3 Vertical Venue Reels (Initial 2 with Show All toggle) */}
           <div className="space-y-3 pt-2 border-t border-[#0f1f12]/10">
             <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5">
               <h3
@@ -809,8 +814,8 @@ export function TwfInnerPages({
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
-              {venuePortraitVideos.map((reel) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+              {(showAllVenuePortrait ? venuePortraitVideos : venuePortraitVideos.slice(0, 2)).map((reel) => (
                 <InnerHoverVideoBox
                   key={reel.id}
                   videoSrc={reel.videoSrc}
@@ -822,6 +827,18 @@ export function TwfInnerPages({
                 />
               ))}
             </div>
+
+            {venuePortraitVideos.length > 2 && (
+              <div className="pt-2 text-center">
+                <button
+                  type="button"
+                  onClick={() => setShowAllVenuePortrait(!showAllVenuePortrait)}
+                  className="px-6 py-2.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/40 text-white text-xs sm:text-sm font-semibold uppercase tracking-wider transition-colors shadow-sm cursor-pointer"
+                >
+                  {showAllVenuePortrait ? 'Show Less' : `Show All (${venuePortraitVideos.length})`}
+                </button>
+              </div>
+            )}
           </div>
         </section>
 
@@ -1032,79 +1049,6 @@ export function TwfInnerPages({
           </div>
         </section>
 
-        {/* 3-COLUMN SPACES GRID */}
-        <section className="space-y-6 sm:space-y-8">
-          <div className="text-center max-w-2xl mx-auto">
-            <span
-              className="text-2xl sm:text-3xl text-[#9e6800] block mb-0.5"
-              style={{ fontFamily: 'var(--font-script)' }}
-            >
-              Stay, Events &amp; Grounds
-            </span>
-            <h2
-              className="text-2xl sm:text-4xl lg:text-5xl text-[#0f1f12] lowercase"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              spaces &amp; celebration previews
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
-            {[iconicWeddingsCol1, iconicWeddingsCol2, iconicWeddingsCol3].map(
-              (col, colIdx) => (
-                <div
-                  key={colIdx}
-                  className={`space-y-5 sm:space-y-6 ${
-                    colIdx === 1 ? 'md:mt-8' : colIdx === 2 ? 'md:mt-16' : ''
-                  }`}
-                >
-                  {col.map((photo) => (
-                    <div
-                      key={photo.id}
-                      onClick={() => onSelectPhoto(photo)}
-                      className="group relative aspect-[4/5] rounded-[20px] overflow-hidden bg-[#061208] border border-[#0f1f12]/10 shadow-xl cursor-pointer"
-                    >
-                      <img
-                        src={photo.imageUrl}
-                        alt={photo.title}
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-full object-cover object-[center_18%] group-hover:scale-105 transition-transform duration-700"
-                        onError={(e) => {
-                          const target = e.currentTarget;
-                          if (target.src.endsWith('.webp')) {
-                            target.src = target.src.replace(/\.webp$/i, '.jpg');
-                          }
-                        }}
-                      />
-                      <div
-                        className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
-                        style={{
-                          background:
-                            'linear-gradient(180deg, rgba(6,18,8,0) 0%, rgba(6,18,8,0.88) 100%)',
-                        }}
-                      />
-                      <div className="absolute inset-x-0 bottom-0 p-5 text-[#f7f6f1]">
-                        <div
-                          className="text-lg text-[#f0b400] leading-none"
-                          style={{ fontFamily: 'var(--font-script)' }}
-                        >
-                          {photo.location}
-                        </div>
-                        <div
-                          className="text-xl sm:text-2xl text-[#f7f6f1] tracking-wide mt-0.5"
-                          style={{ fontFamily: 'var(--font-display)' }}
-                        >
-                          {photo.couple}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )
-            )}
-          </div>
-        </section>
       </div>
     );
   }
@@ -1212,6 +1156,80 @@ export function TwfInnerPages({
             </div>
           ))}
         </div>
+
+        {/* 3-COLUMN SPACES & CELEBRATION PREVIEWS (MOVED FROM THE VENUE) */}
+        <section className="space-y-6 sm:space-y-8 pt-4 sm:pt-6">
+          <div className="text-center max-w-2xl mx-auto">
+            <span
+              className="text-2xl sm:text-3xl text-[#9e6800] block mb-0.5"
+              style={{ fontFamily: 'var(--font-script)' }}
+            >
+              Stay, Events &amp; Grounds
+            </span>
+            <h2
+              className="text-2xl sm:text-4xl lg:text-5xl text-[#0f1f12] lowercase"
+              style={{ fontFamily: 'var(--font-display)' }}
+            >
+              spaces &amp; celebration previews
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+            {[iconicWeddingsCol1, iconicWeddingsCol2, iconicWeddingsCol3].map(
+              (col, colIdx) => (
+                <div
+                  key={colIdx}
+                  className={`space-y-5 sm:space-y-6 ${
+                    colIdx === 1 ? 'md:mt-8' : colIdx === 2 ? 'md:mt-16' : ''
+                  }`}
+                >
+                  {col.map((photo) => (
+                    <div
+                      key={photo.id}
+                      onClick={() => onSelectPhoto(photo)}
+                      className="group relative aspect-[4/5] rounded-[20px] overflow-hidden bg-[#061208] border border-[#0f1f12]/10 shadow-xl cursor-pointer"
+                    >
+                      <img
+                        src={photo.imageUrl}
+                        alt={photo.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-full h-full object-cover object-[center_18%] group-hover:scale-105 transition-transform duration-700"
+                        onError={(e) => {
+                          const target = e.currentTarget;
+                          if (target.src.endsWith('.webp')) {
+                            target.src = target.src.replace(/\.webp$/i, '.jpg');
+                          }
+                        }}
+                      />
+                      <div
+                        className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
+                        style={{
+                          background:
+                            'linear-gradient(180deg, rgba(6,18,8,0) 0%, rgba(6,18,8,0.88) 100%)',
+                        }}
+                      />
+                      <div className="absolute inset-x-0 bottom-0 p-5 text-[#f7f6f1]">
+                        <div
+                          className="text-lg text-[#f0b400] leading-none"
+                          style={{ fontFamily: 'var(--font-script)' }}
+                        >
+                          {photo.location}
+                        </div>
+                        <div
+                          className="text-xl sm:text-2xl text-[#f7f6f1] tracking-wide mt-0.5"
+                          style={{ fontFamily: 'var(--font-display)' }}
+                        >
+                          {photo.couple}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )
+            )}
+          </div>
+        </section>
       </div>
     );
   }
@@ -1224,7 +1242,7 @@ export function TwfInnerPages({
       <div className="space-y-10 sm:space-y-12 py-2 sm:py-4 px-1 sm:px-2">
         <div className="rounded-[20px] sm:rounded-[24px] min-h-[340px] sm:min-h-[370px] lg:min-h-[430px] bg-[#061208] text-[#f7f6f1] p-5 sm:p-10 lg:p-12 relative overflow-hidden border border-[#f0b400]/20 shadow-2xl flex flex-col justify-end">
           <img
-            src="/TGHPhotos/heroes/spaces-hero.webp"
+            src="/TGHPhotos/HotelGround/Hall/banquet-hall.webp"
             alt="Aerial Resort Lawns and Illuminated Heritage Campus"
             loading="eager"
             decoding="async"

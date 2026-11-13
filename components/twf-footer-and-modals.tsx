@@ -49,6 +49,7 @@ interface TwfFooterAndModalsProps {
   onOpenQuickEnquire: (service?: string) => void;
   cookiePolicyOpen?: boolean;
   onCloseCookiePolicy?: () => void;
+  compactFooter?: boolean;
 }
 
 export function TwfFooterAndModals({
@@ -64,11 +65,10 @@ export function TwfFooterAndModals({
   onOpenQuickEnquire,
   cookiePolicyOpen,
   onCloseCookiePolicy,
+  compactFooter = false,
 }: TwfFooterAndModalsProps) {
   const footerRef = useRef<HTMLElement | null>(null);
-  const footerVideo1Ref = useRef<HTMLVideoElement | null>(null);
-  const footerVideo2Ref = useRef<HTMLVideoElement | null>(null);
-  const [activeFooterVideoIdx, setActiveFooterVideoIdx] = useState<0 | 1>(0);
+  const footerVideoRef = useRef<HTMLVideoElement | null>(null);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
   const [modalVideoMuted, setModalVideoMuted] = useState(false);
   const [photoZoom, setPhotoZoom] = useState(1);
@@ -127,46 +127,32 @@ export function TwfFooterAndModals({
   }, []);
 
   useEffect(() => {
-    const activeVid =
-      activeFooterVideoIdx === 0
-        ? footerVideo1Ref.current
-        : footerVideo2Ref.current;
-    const inactiveVid =
-      activeFooterVideoIdx === 0
-        ? footerVideo2Ref.current
-        : footerVideo1Ref.current;
-
-    if (inactiveVid) {
-      inactiveVid.pause();
-    }
+    if (compactFooter) return;
+    const vid = footerVideoRef.current;
+    if (!vid) return;
 
     if (!isFooterVisible) {
-      activeVid?.pause();
+      vid.pause();
       return;
     }
 
-    if (activeVid) {
-      if (activeVid.ended) {
-        activeVid.currentTime = 0;
-      }
-      activeVid.defaultMuted = true;
-      activeVid.muted = true;
-      activeVid.playsInline = true;
-      if (activeVid.preload !== 'auto') {
-        activeVid.preload = 'auto';
-      }
-      if (activeVid.readyState === 0) {
-        activeVid.load();
-      }
-      const playPromise = activeVid.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          activeVid.muted = true;
-          activeVid.play().catch(() => { });
-        });
-      }
+    vid.defaultMuted = true;
+    vid.muted = true;
+    vid.playsInline = true;
+    if (vid.preload !== 'auto') {
+      vid.preload = 'auto';
     }
-  }, [activeFooterVideoIdx, isFooterVisible]);
+    if (vid.readyState === 0) {
+      vid.load();
+    }
+    const playPromise = vid.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        vid.muted = true;
+        vid.play().catch(() => { });
+      });
+    }
+  }, [compactFooter, isFooterVisible]);
 
   const allPhotos = [...GALLERY_PHOTOS, ...SIGNATURE_FRAMES];
   const currentPhotoIndex = activePhoto
@@ -216,187 +202,167 @@ export function TwfFooterAndModals({
           CLEAN FULL-BLEED LANDSCAPE VIDEO FOOTER (Matching Header Gap & Radii)
          =================================================================== */}
       <div className="px-2 pb-2 sm:px-4 sm:pb-4 lg:px-5 lg:pb-5 pt-4 sm:pt-6">
-        <footer
-          ref={footerRef}
-          className="relative w-full min-h-[430px] sm:min-h-[420px] sm:aspect-video bg-[#061208] text-white rounded-[18px] sm:rounded-[24px] overflow-hidden flex flex-col justify-end select-none shadow-2xl border border-[#14531e]/25"
-        >
-          {/* Instant crisp poster behind footer video — zero delay or black box */}
-          <img
-            src={FOOTER_REELS[activeFooterVideoIdx]?.posterUrl || `/reels/posters/${FOOTER_REELS[activeFooterVideoIdx]?.code}.jpg`}
-            alt="The Green Heritage Resort"
-            loading="lazy"
-            decoding="async"
-            className="pointer-events-none absolute inset-0 w-full h-full object-cover"
-          />
+        {!compactFooter && (
+          <footer
+            ref={footerRef}
+            className="relative w-full min-h-[430px] sm:min-h-[420px] sm:aspect-video bg-[#061208] text-white rounded-[18px] sm:rounded-[24px] overflow-hidden flex flex-col justify-end select-none shadow-2xl border border-[#14531e]/25"
+          >
+            {/* Instant crisp poster behind footer video — zero delay or black box */}
+            <img
+              src={FOOTER_REELS[0].posterUrl || `/reels/posters/${FOOTER_REELS[0].code}.jpg`}
+              alt="The Green Heritage Resort"
+              loading="lazy"
+              decoding="async"
+              className="pointer-events-none absolute inset-0 w-full h-full object-cover"
+            />
 
-          <video
-            ref={footerVideo1Ref}
-            src={isFooterVisible ? FOOTER_REELS[0].videoSrc : undefined}
-            poster={FOOTER_REELS[0].posterUrl || `/reels/posters/${FOOTER_REELS[0].code}.jpg`}
-            autoPlay={isFooterVisible}
-            loop={false}
-            muted
-            playsInline
-            preload="metadata"
-            onCanPlay={(e) => {
-              if (isFooterVisible && activeFooterVideoIdx === 0) {
-                e.currentTarget.muted = true;
-                e.currentTarget.play().catch(() => { });
-              }
-            }}
-            onEnded={() => setActiveFooterVideoIdx(1)}
-            onError={() => setActiveFooterVideoIdx(1)}
-            className={`pointer-events-none absolute inset-0 w-full h-full object-cover bg-transparent transition-opacity duration-1000 ease-in-out ${activeFooterVideoIdx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'
-              }`}
-          />
+            <video
+              ref={footerVideoRef}
+              src={isFooterVisible ? FOOTER_REELS[0].videoSrc : undefined}
+              poster={FOOTER_REELS[0].posterUrl || `/reels/posters/${FOOTER_REELS[0].code}.jpg`}
+              autoPlay={isFooterVisible}
+              loop={true}
+              muted
+              playsInline
+              preload="metadata"
+              onCanPlay={(e) => {
+                if (isFooterVisible) {
+                  e.currentTarget.muted = true;
+                  e.currentTarget.play().catch(() => { });
+                }
+              }}
+              className="pointer-events-none absolute inset-0 w-full h-full object-cover bg-transparent z-10"
+            />
 
-          <video
-            ref={footerVideo2Ref}
-            src={isFooterVisible ? FOOTER_REELS[1].videoSrc : undefined}
-            poster={FOOTER_REELS[1].posterUrl || `/reels/posters/${FOOTER_REELS[1].code}.jpg`}
-            muted
-            playsInline
-            preload="metadata"
-            onCanPlay={(e) => {
-              if (isFooterVisible && activeFooterVideoIdx === 1) {
-                e.currentTarget.muted = true;
-                e.currentTarget.play().catch(() => { });
-              }
-            }}
-            onEnded={() => setActiveFooterVideoIdx(0)}
-            onError={() => setActiveFooterVideoIdx(0)}
-            className={`pointer-events-none absolute inset-0 w-full h-full object-cover bg-transparent transition-opacity duration-1000 ease-in-out ${activeFooterVideoIdx === 1 ? 'opacity-100 z-10' : 'opacity-0 z-0'
-              }`}
-          />
+            {/* Subtle dark fade overlay across entire footer video box — video stays clearly visible on smartphone */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 z-[12]"
+              style={{
+                background:
+                  'radial-gradient(circle at 50% 38%, rgba(4,12,6,0.16) 0%, rgba(4,12,6,0.30) 70%, rgba(4,12,6,0.44) 100%)',
+              }}
+            />
 
-          {/* Subtle dark fade overlay across entire footer video box — video stays clearly visible on smartphone */}
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-[12]"
-            style={{
-              background:
-                'radial-gradient(circle at 50% 38%, rgba(4,12,6,0.16) 0%, rgba(4,12,6,0.30) 70%, rgba(4,12,6,0.44) 100%)',
-            }}
-          />
+            <div
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-[58%] sm:h-3/5 z-[13]"
+              style={{
+                background:
+                  'linear-gradient(180deg, rgba(6,18,8,0) 0%, rgba(6,18,8,0.68) 44%, rgba(6,18,8,0.95) 100%)',
+              }}
+            />
 
-          <div
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-[58%] sm:h-3/5 z-[13]"
-            style={{
-              background:
-                'linear-gradient(180deg, rgba(6,18,8,0) 0%, rgba(6,18,8,0.68) 44%, rgba(6,18,8,0.95) 100%)',
-            }}
-          />
+            <div className="relative z-20 w-full px-4 sm:px-8 lg:px-12 pb-5 sm:pb-7 pt-20 sm:pt-12 bg-transparent space-y-3 sm:space-y-4">
+              {/* Tier 1: Resort Logo + Tagline (Left) & Connect Icons + Enquire Button (Right) */}
+              <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-3.5 sm:gap-5">
+                <div className="flex flex-col sm:flex-row items-center text-center sm:text-left gap-2.5 sm:gap-5 min-w-0">
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('home')}
+                    className="shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer focus:outline-none"
+                    aria-label="The Green Heritage Resort and Banquet Home"
+                  >
+                    <img
+                      src="/TGHLogo.png"
+                      alt="The Green Heritage Resort and Banquet"
+                      loading="lazy"
+                      decoding="async"
+                      className="w-24 sm:w-44 lg:w-56 h-auto aspect-[3/2] object-contain drop-shadow-[0_0_20px_rgba(247,246,241,0.5)]"
+                    />
+                  </button>
 
-          <div className="relative z-20 w-full px-4 sm:px-8 lg:px-12 pb-5 sm:pb-7 pt-20 sm:pt-12 bg-transparent space-y-3 sm:space-y-4">
-            {/* Tier 1: Resort Logo + Tagline (Left) & Connect Icons + Enquire Button (Right) */}
-            <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-3.5 sm:gap-5">
-              <div className="flex flex-col sm:flex-row items-center text-center sm:text-left gap-2.5 sm:gap-5 min-w-0">
-                <button
-                  type="button"
-                  onClick={() => onNavigate('home')}
-                  className="shrink-0 transition-transform duration-300 hover:scale-105 cursor-pointer focus:outline-none"
-                  aria-label="The Green Heritage Resort and Banquet Home"
-                >
-                  <img
-                    src="/TGHLogo.png"
-                    alt="The Green Heritage Resort and Banquet"
-                    loading="lazy"
-                    decoding="async"
-                    className="w-24 sm:w-44 lg:w-56 h-auto aspect-[3/2] object-contain drop-shadow-[0_0_20px_rgba(247,246,241,0.5)]"
-                  />
-                </button>
-
-                <div className="min-w-0 space-y-1">
-                  <span
-                    className="text-xl sm:text-3xl lg:text-4xl text-[#f0b400] block leading-snug drop-shadow"
-                    style={{ fontFamily: 'var(--font-script)' }}
-                  >
-                    Where every blessing stays with the family
-                  </span>
-                  <p
-                    className="text-xs sm:text-lg lg:text-xl text-white/95 font-normal tracking-wide drop-shadow"
-                    style={{ fontFamily: 'var(--font-display)' }}
-                  >
-                    Weddings, Phere &amp; Celebrations · Bakarpur, Gobarsahi–Sakri Road, Muzaffarpur 844127
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap items-center justify-center md:justify-end gap-2.5 shrink-0">
-                <div className="flex items-center gap-2">
-                  <a
-                    href={STUDIO_INFO.phonePrimaryUrl}
-                    aria-label={`Call ${STUDIO_INFO.phoneNumber}`}
-                    title={`Call ${STUDIO_INFO.phoneNumber}`}
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer"
-                  >
-                    <Phone className="w-4 h-4" />
-                  </a>
-                  <a
-                    href={STUDIO_INFO.whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`WhatsApp ${STUDIO_INFO.phoneNumber}`}
-                    title={`WhatsApp ${STUDIO_INFO.phoneNumber}`}
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer group"
-                  >
-                    <WhatsAppMinimalIcon className="w-4 h-4 text-white/95 group-hover:text-[#f0b400]" />
-                  </a>
-                  <a
-                    href={STUDIO_INFO.emailUrl}
-                    aria-label={`Email ${STUDIO_INFO.email}`}
-                    title={`Email ${STUDIO_INFO.email}`}
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer"
-                  >
-                    <Mail className="w-4 h-4" />
-                  </a>
-                  <a
-                    href={STUDIO_INFO.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Instagram"
-                    title="Instagram"
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer"
-                  >
-                    <Instagram className="w-4 h-4" />
-                  </a>
-                  <a
-                    href={STUDIO_INFO.facebook}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Facebook"
-                    title="Facebook"
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer"
-                  >
-                    <FacebookMinimalIcon className="w-4 h-4" />
-                  </a>
-                  <a
-                    href={STUDIO_INFO.mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Google Maps Directions"
-                    title="Open Google Maps"
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer"
-                  >
-                    <MapPin className="w-4 h-4" />
-                  </a>
+                  <div className="min-w-0 space-y-1">
+                    <span
+                      className="text-xl sm:text-3xl lg:text-4xl text-[#f0b400] block leading-snug drop-shadow"
+                      style={{ fontFamily: 'var(--font-script)' }}
+                    >
+                      Where every blessing stays with the family
+                    </span>
+                    <p
+                      className="text-xs sm:text-lg lg:text-xl text-white/95 font-normal tracking-wide drop-shadow"
+                      style={{ fontFamily: 'var(--font-display)' }}
+                    >
+                      Weddings, Phere &amp; Celebrations · Bakarpur, Gobarsahi–Sakri Road, Muzaffarpur 844127
+                    </p>
+                  </div>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => onOpenQuickEnquire()}
-                  className="px-5 sm:px-6 py-2.5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] border border-[#f0b400]/55 active:scale-95 text-white text-xs sm:text-sm uppercase tracking-[0.18em] font-medium inline-flex items-center gap-1.5 transition-all cursor-pointer shadow-lg shadow-[#061208]/45"
-                >
-                  <span>Enquire Now</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-[#f0b400]" />
-                </button>
+                <div className="flex flex-wrap items-center justify-center md:justify-end gap-2.5 shrink-0">
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={STUDIO_INFO.phonePrimaryUrl}
+                      aria-label={`Call ${STUDIO_INFO.phoneNumber}`}
+                      title={`Call ${STUDIO_INFO.phoneNumber}`}
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer"
+                    >
+                      <Phone className="w-4 h-4" />
+                    </a>
+                    <a
+                      href={STUDIO_INFO.whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`WhatsApp ${STUDIO_INFO.phoneNumber}`}
+                      title={`WhatsApp ${STUDIO_INFO.phoneNumber}`}
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer group"
+                    >
+                      <WhatsAppMinimalIcon className="w-4 h-4 text-white/95 group-hover:text-[#f0b400]" />
+                    </a>
+                    <a
+                      href={STUDIO_INFO.emailUrl}
+                      aria-label={`Email ${STUDIO_INFO.email}`}
+                      title={`Email ${STUDIO_INFO.email}`}
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer"
+                    >
+                      <Mail className="w-4 h-4" />
+                    </a>
+                    <a
+                      href={STUDIO_INFO.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Instagram"
+                      title="Instagram"
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer"
+                    >
+                      <Instagram className="w-4 h-4" />
+                    </a>
+                    <a
+                      href={STUDIO_INFO.facebook}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Facebook"
+                      title="Facebook"
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer"
+                    >
+                      <FacebookMinimalIcon className="w-4 h-4" />
+                    </a>
+                    <a
+                      href={STUDIO_INFO.mapsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Google Maps Directions"
+                      title="Open Google Maps"
+                      className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/15 hover:bg-[#14531e] hover:border-[#f0b400]/65 border border-white/25 text-white hover:text-[#f0b400] flex items-center justify-center transition-colors cursor-pointer"
+                    >
+                      <MapPin className="w-4 h-4" />
+                    </a>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => onOpenQuickEnquire()}
+                    className="px-5 sm:px-6 py-2.5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] border border-[#f0b400]/55 active:scale-95 text-white text-xs sm:text-sm uppercase tracking-[0.18em] font-medium inline-flex items-center gap-1.5 transition-all cursor-pointer shadow-lg shadow-[#061208]/45"
+                  >
+                    <span>Enquire Now</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[#f0b400]" />
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </footer>
+          </footer>
+        )}
 
         {/* Tier 2: Copyright, Terms, Privacy/Cookie Policy, Developer Credit — Centered on Smartphone & Desktop */}
-        <div className="mt-2.5 sm:mt-3 rounded-[14px] sm:rounded-[18px] bg-[#061208] border border-[#14531e]/30 shadow-lg px-4 sm:px-7 py-3 sm:py-3.5 w-full space-y-2.5">
+        <div className={`rounded-[14px] sm:rounded-[18px] bg-[#061208] border border-[#14531e]/30 shadow-lg px-4 sm:px-7 py-3 sm:py-3.5 w-full space-y-2.5 ${compactFooter ? 'mt-0' : 'mt-2.5 sm:mt-3'}`}>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 text-center sm:text-left text-xs sm:text-sm text-[#f7f6f1]/85 leading-relaxed">
             <span>
               &copy; {new Date().getFullYear()} The Green Heritage Resort and Banquet. All rights reserved.

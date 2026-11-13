@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 
-const MIN_SPLASH_MS = 2000;
-const MAX_WAIT_MS = 6500;
+const MIN_SPLASH_MS = 1000;
+const MAX_WAIT_MS = 1500;
 const CRITICAL_PRELOAD_IMAGES = [
   '/TGHLogo.png',
   '/reels/posters/DSG3HcWEcov.jpg',
@@ -99,7 +99,7 @@ export function TwfLoadingScreen() {
     const globeGraceTimer = window.setTimeout(() => {
       globeReady = true;
       tryFinish();
-    }, 3200);
+    }, 1000);
 
     const maxCapTimer = window.setTimeout(() => {
       docComplete = true;

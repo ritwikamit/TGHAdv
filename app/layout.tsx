@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond, Plus_Jakarta_Sans, Great_Vibes } from 'next/font/google';
+import { Cormorant_Garamond, Plus_Jakarta_Sans, Marcellus } from 'next/font/google';
 import { TwfClickSound } from '@/components/twf-click-sound';
 import { TwfEmailHandler } from '@/components/twf-email-handler';
 import { FAQ_ITEMS, STUDIO_INFO } from '@/lib/masoom-data';
@@ -21,7 +21,7 @@ const jakarta = Plus_Jakarta_Sans({
   display: 'swap',
 });
 
-const greatVibes = Great_Vibes({
+const marcellus = Marcellus({
   subsets: ['latin'],
   weight: ['400'],
   variable: '--font-script',
@@ -225,7 +225,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${cormorant.variable} ${jakarta.variable} ${greatVibes.variable}`}
+      className={`${cormorant.variable} ${jakarta.variable} ${marcellus.variable}`}
     >
       <head>
         <link rel="icon" type="image/png" href="/TGHLogo.png" />

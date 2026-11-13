@@ -3,13 +3,13 @@
 @theme {
   --font-display: var(--font-display), Georgia, serif;
   --font-sans: var(--font-sans), system-ui, -apple-system, sans-serif;
-  --font-script: var(--font-script), cursive;
+  --font-script: var(--font-script), Georgia, serif;
 }
 
 .font-script {
-  font-family: var(--font-script), cursive;
-  font-size: 1.28em;
-  line-height: 1.2;
+  font-family: var(--font-script), Georgia, serif;
+  font-size: 1.15em;
+  line-height: 1.25;
   letter-spacing: 0.02em;
 }
 

@@ -1024,7 +1024,7 @@ export function TwfHomeSections({
               key={spec.id}
               className="rounded-[22px] sm:rounded-[24px] bg-white border border-[#14531e]/15 overflow-hidden shadow-md hover:shadow-xl hover:border-[#f0b400]/60 transition-all duration-300 flex flex-col justify-between group"
             >
-              {/* Photo Frame with Stat Badge */}
+              {/* Clean Photo Frame (No floating badges, cylinders or text overlays) */}
               <div className="relative aspect-[16/10] overflow-hidden bg-[#09190c]">
                 <img
                   src={spec.imageUrl}
@@ -1039,28 +1039,6 @@ export function TwfHomeSections({
                     }
                   }}
                 />
-                <div
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-20"
-                  style={{
-                    background:
-                      'linear-gradient(180deg, rgba(6,18,8,0) 0%, rgba(6,18,8,0.85) 100%)',
-                  }}
-                />
-                {/* Floating Capacity Badge */}
-                <div className="absolute top-3 left-3 z-10">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#14531e]/90 backdrop-blur-md border border-[#f0b400]/50 text-white text-xs sm:text-sm font-semibold shadow-md">
-                    <Sparkles className="w-3 h-3 text-[#f0b400]" />
-                    <span>{spec.statBadge}</span>
-                  </span>
-                </div>
-                <div className="absolute bottom-2.5 left-3.5 right-3.5 z-10 text-white">
-                  <span
-                    className="text-lg sm:text-xl text-[#f0b400] block leading-none"
-                    style={{ fontFamily: 'var(--font-script)' }}
-                  >
-                    {spec.tag}
-                  </span>
-                </div>
               </div>
 
               {/* Card Body */}

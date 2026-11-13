@@ -182,6 +182,7 @@ export function GreenHeritageResortApp({
               onOpenQuickEnquire={(service) => handleOpenQuickEnquire(service)}
               cookiePolicyOpen={cookiePolicyOpen}
               onCloseCookiePolicy={() => setCookiePolicyOpen(false)}
+              compactFooter={activePage !== 'home'}
             />
           </main>
         </div>

@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, MapPin, ArrowUpRight } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { MapPin, ArrowUpRight } from 'lucide-react';
 import { HEADER_HERO_FILMS, STUDIO_INFO, CinemaFilm } from '@/lib/masoom-data';
 
 interface TwfHeroSliderProps {
@@ -15,22 +15,13 @@ export function TwfHeroSlider({
   onNavigateFilms,
   onOpenQuickEnquire,
 }: TwfHeroSliderProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
   const sectionRef = useRef<HTMLElement | null>(null);
   const fgVideoRef = useRef<HTMLVideoElement | null>(null);
   const isInViewRef = useRef(true);
 
-  const currentSlide = HEADER_HERO_FILMS[activeIndex] || HEADER_HERO_FILMS[0];
+  // Single primary hero video — plays directly as requested with zero slide rotation overhead
+  const currentSlide = HEADER_HERO_FILMS[0];
   const activeVideoSrc = currentSlide.videoSrc || '/reels/DSG3HcWEcov.mp4';
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (isInViewRef.current) {
-        setActiveIndex((prev) => (prev + 1) % HEADER_HERO_FILMS.length);
-      }
-    }, 12000);
-    return () => clearInterval(timer);
-  }, []);
 
   useEffect(() => {
     const el = sectionRef.current;
@@ -73,19 +64,7 @@ export function TwfHeroSlider({
         });
       }
     }
-  }, [activeIndex, activeVideoSrc]);
-
-  const handlePrev = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setActiveIndex(
-      (prev) => (prev - 1 + HEADER_HERO_FILMS.length) % HEADER_HERO_FILMS.length
-    );
-  };
-
-  const handleNext = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setActiveIndex((prev) => (prev + 1) % HEADER_HERO_FILMS.length);
-  };
+  }, [activeVideoSrc]);
 
   return (
     <section
@@ -93,7 +72,7 @@ export function TwfHeroSlider({
       onClick={() => onPlayFilm(currentSlide)}
       className="relative w-full min-h-[370px] sm:min-h-[340px] md:min-h-0 sm:aspect-video rounded-[18px] sm:rounded-[24px] overflow-hidden bg-[#061208] select-none shadow-2xl border border-[#14531e]/20 cursor-pointer group"
     >
-      {/* FOREGROUND HEADER VIDEO (Full bleed frame, focal position preserved on smartphone & desktop) */}
+      {/* FOREGROUND HEADER VIDEO (Single primary video playing directly) */}
       <div className="absolute inset-0 z-10 w-full h-full overflow-hidden bg-[#061208]">
         {/* Instant high-res poster image behind video — 0ms wait on 4G */}
         <img
@@ -172,7 +151,7 @@ export function TwfHeroSlider({
         }}
       />
 
-      {/* BOTTOM OF HEADER: HEADLINE + SUPPORTING COPY + ACTION BUTTONS & SLIDE SWITCHERS */}
+      {/* BOTTOM OF HEADER: HEADLINE + SUPPORTING COPY + ACTION BUTTONS */}
       <div className="absolute inset-x-0 bottom-0 z-20 px-3.5 sm:px-7 lg:px-10 pb-3.5 sm:pb-6 pt-10 flex flex-col md:flex-row md:items-end justify-between gap-2.5 sm:gap-4">
         {/* Left: Script Accent + Headline & Supporting Copy */}
         <div className="min-w-0 text-left">
@@ -193,12 +172,11 @@ export function TwfHeroSlider({
           </p>
         </div>
 
-        {/* Right: Enquire Now & Get Directions Buttons, Slide Dots & Prev/Next Controls */}
+        {/* Right: Enquire Now & Get Directions Buttons */}
         <div
           onClick={(e) => e.stopPropagation()}
           className="flex flex-wrap items-center justify-between md:justify-end gap-2 sm:gap-2.5 shrink-0"
         >
-          {/* Enquire Now & Get Directions Buttons */}
           <div className="flex items-center gap-1.5 sm:gap-2">
             <button
               type="button"
@@ -224,46 +202,6 @@ export function TwfHeroSlider({
               <MapPin className="w-3 h-3" />
               <span>Get Directions</span>
             </a>
-          </div>
-
-          {/* Slide Dots + Prev/Next */}
-          <div className="flex items-center gap-1.5 sm:gap-2">
-            <div className="flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1.5 rounded-full bg-[#061208]/60 backdrop-blur-md border border-white/15">
-              {HEADER_HERO_FILMS.map((slide, idx) => {
-                const active = idx === activeIndex;
-                return (
-                  <button
-                    key={slide.id}
-                    type="button"
-                    onClick={() => setActiveIndex(idx)}
-                    aria-label={`Show ${slide.couple}`}
-                    className={`h-1.5 rounded-full transition-all cursor-pointer ${active
-                      ? 'w-4 sm:w-6 bg-[#f0b400]'
-                      : 'w-1.5 bg-white/50 hover:bg-white'
-                      }`}
-                  />
-                );
-              })}
-            </div>
-
-            <div className="flex items-center gap-1.5">
-              <button
-                type="button"
-                onClick={handlePrev}
-                aria-label="Previous slide"
-                className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-[#061208]/65 hover:bg-[#14531e] hover:border-[#f0b400]/60 backdrop-blur-md border border-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
-              >
-                <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              </button>
-              <button
-                type="button"
-                onClick={handleNext}
-                aria-label="Next slide"
-                className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-[#061208]/65 hover:bg-[#14531e] hover:border-[#f0b400]/60 backdrop-blur-md border border-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
-              >
-                <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              </button>
-            </div>
           </div>
         </div>
       </div>

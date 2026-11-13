@@ -1282,8 +1282,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
     lightingNotes:
       'Confirm stage placement, chandelier warmth and indoor decor rules directly.',
     acousticNotes: 'Review DJ, folk music and live band sound timings with us.',
-    imageUrl: '/TGHPhotos/Landscape/DSC_5387.webp',
-    secondaryImageUrl: '/TGHPhotos/Portrait/_DSC5985.webp',
+    imageUrl: '/TGHPhotos/HotelGround/Hall/banquet-hall.webp',
+    secondaryImageUrl: '/TGHPhotos/HotelGround/Hall/caption-8.webp',
     dateSeason: 'All-Season Weddings',
   },
   {
@@ -1296,8 +1296,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
       'Wide green lawns in front of our heritage facade welcome grand baraat entries, floral mandap setups and open-air buffet dining under Muzaffarpur skies.',
     lightingNotes: 'Ask about facade illumination, fairy lights and backup power.',
     acousticNotes: 'Confirm outdoor dhol and music curfew hours when holding dates.',
-    imageUrl: '/TGHPhotos/Landscape/DSC_4669.webp',
-    secondaryImageUrl: '/TGHPhotos/Portrait/DSC_4687.webp',
+    imageUrl: '/TGHPhotos/HotelGround/Lawn/caption-10.webp',
+    secondaryImageUrl: '/TGHPhotos/HotelGround/Lawn/caption-12.webp',
     dateSeason: 'Evening & Winter Favoured',
   },
   {
@@ -1311,8 +1311,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
     lightingNotes:
       'Check current suite availability and wedding-block tariffs on +91 92340 52600.',
     acousticNotes: 'Ask about check-in flexibility and ID rules for outstation guests.',
-    imageUrl: '/TGHPhotos/Landscape/DSC_4991.webp',
-    secondaryImageUrl: '/TGHPhotos/Portrait/DSC_5663.webp',
+    imageUrl: '/TGHPhotos/HotelGround/RoomsCottages/cottage-room.webp',
+    secondaryImageUrl: '/TGHPhotos/HotelGround/RoomsCottages/executive-room.webp',
     dateSeason: 'Confirm Room Counts Early',
   },
   {
@@ -1325,8 +1325,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
       'Easy road access off Gobarsahi–Sakri Road helps travelling wedding buses and family cars arrive together. Confirm designated parking allocation for large baraats ahead of time.',
     lightingNotes: 'Grand arched gateway ready for floral and chattar welcomes.',
     acousticNotes: 'Call +91 92340 52600 for route landmarks for travelling guests.',
-    imageUrl: '/TGHPhotos/Landscape/DSC_5280.webp',
-    secondaryImageUrl: '/TGHPhotos/Portrait/DSC_5290.webp',
+    imageUrl: '/TGHPhotos/HotelGround/Outdoor&Parking/caption-15.webp',
+    secondaryImageUrl: '/TGHPhotos/HotelGround/Outdoor&Parking/caption-17.webp',
     dateSeason: 'Verify Event Parking',
   },
   {
@@ -1339,8 +1339,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
       'Turquoise water right beside the courtyard brings bright reflection and fresh breeze to daytime haldi circles, mehendi seating and pre-wedding shoots. Confirm pool schedule before decorating.',
     lightingNotes: 'Check daytime decor rules and poolside safety hours directly.',
     acousticNotes: 'Availability may vary with private event schedules.',
-    imageUrl: '/TGHPhotos/Landscape/DSC_4795.webp',
-    secondaryImageUrl: '/TGHPhotos/Portrait/DSC_5667.webp',
+    imageUrl: '/TGHPhotos/HotelGround/Pool/caption-22.webp',
+    secondaryImageUrl: '/TGHPhotos/HotelGround/Pool/caption-25.webp',
     dateSeason: 'Confirm Pool Access',
   },
   {
@@ -1354,8 +1354,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
     lightingNotes:
       'Verify Wi-Fi reach across rooms and hall areas with our team.',
     acousticNotes: 'Written menu, vendor and deposit terms shared directly on enquiry.',
-    imageUrl: '/TGHPhotos/Landscape/DSC_5282.webp',
-    secondaryImageUrl: '/TGHPhotos/Portrait/_DSC6036.webp',
+    imageUrl: '/TGHPhotos/HotelGround/Catering/caption-6.webp',
+    secondaryImageUrl: '/TGHPhotos/HotelGround/Decorations/caption-1.webp',
     dateSeason: 'Ask Team Directly',
   },
 ];
