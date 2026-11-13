@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 
-const MIN_SPLASH_MS = 1000;
-const MAX_WAIT_MS = 1500;
+const MIN_SPLASH_MS = 500;
+const MAX_WAIT_MS = 1000;
 const CRITICAL_PRELOAD_IMAGES = [
-  '/TGHLogo.png',
+  '/TGHLogo.webp',
   '/reels/posters/DSG3HcWEcov.jpg',
   '/globe/earth-blue-marble.jpg',
   '/globe/earth-topology.png',
@@ -99,7 +99,7 @@ export function TwfLoadingScreen() {
     const globeGraceTimer = window.setTimeout(() => {
       globeReady = true;
       tryFinish();
-    }, 1000);
+    }, 600);
 
     const maxCapTimer = window.setTimeout(() => {
       docComplete = true;
@@ -135,10 +135,15 @@ export function TwfLoadingScreen() {
         {/* Resort Brand Emblem */}
         <div className="relative">
           <img
-            src="/TGHLogo.png"
+            src="/TGHLogo.webp"
+            onError={(e) => {
+              (e.currentTarget as HTMLImageElement).src = '/TGHLogo.png';
+            }}
             alt="The Green Heritage Resort and Banquet"
             loading="eager"
             decoding="sync"
+            // @ts-expect-error fetchPriority supported in modern HTML
+            fetchpriority="high"
             className="w-48 sm:w-64 md:w-[300px] h-auto aspect-[3/2] object-contain drop-shadow-[0_0_20px_rgba(247,246,241,0.42)]"
           />
         </div>

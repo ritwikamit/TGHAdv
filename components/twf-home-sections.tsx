@@ -197,13 +197,15 @@ export function TwfHomeSections({
   onNavigate,
   onOpenQuickEnquire,
 }: TwfHomeSectionsProps) {
-  // Exactly 3 Landscape reels (2 on mobile) and 4 Portrait reels (2 on mobile) on Landing Page
-  const landscapeReels = useMemo(
-    () => INSTAGRAM_REELS.filter((r) => !r.isPortrait).slice(0, 3),
+  const [showAllHomeLandscape, setShowAllHomeLandscape] = useState(false);
+  const [showAllHomePortrait, setShowAllHomePortrait] = useState(false);
+
+  const allLandscapeReels = useMemo(
+    () => INSTAGRAM_REELS.filter((r) => !r.isPortrait),
     []
   );
-  const portraitReels = useMemo(
-    () => INSTAGRAM_REELS.filter((r) => r.isPortrait).slice(0, 4),
+  const allPortraitReels = useMemo(
+    () => INSTAGRAM_REELS.filter((r) => r.isPortrait),
     []
   );
 
@@ -518,7 +520,7 @@ export function TwfHomeSections({
         </div>
 
         <div className="space-y-8 px-1 sm:px-2">
-          {/* ROW 1: WIDESCREEN WEDDING FILMS (3 on sm+, 2 on smartphone) */}
+          {/* ROW 1: WIDESCREEN WEDDING FILMS (1 on smartphone full-width, 3 on sm+, rest on Show All) */}
           <div className="space-y-3">
             <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5 reveal-on-scroll">
               <h3
@@ -535,9 +537,12 @@ export function TwfHomeSections({
               </span>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3.5 sm:gap-5">
-              {landscapeReels.slice(0, 3).map((reel, idx) => (
-                <div key={reel.id} className={idx === 2 ? 'hidden sm:block' : ''}>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5">
+              {(showAllHomeLandscape ? allLandscapeReels : allLandscapeReels.slice(0, 3)).map((reel, idx) => (
+                <div
+                  key={reel.id}
+                  className={`w-full ${!showAllHomeLandscape && idx >= 1 ? 'hidden sm:block' : ''}`}
+                >
                   <HoverVideoBox
                     videoSrc={reel.videoSrc}
                     posterUrl={reel.posterUrl}
@@ -549,9 +554,19 @@ export function TwfHomeSections({
                 </div>
               ))}
             </div>
+
+            <div className={`pt-1 text-center ${!showAllHomeLandscape ? 'sm:hidden' : ''}`}>
+              <button
+                type="button"
+                onClick={() => setShowAllHomeLandscape(!showAllHomeLandscape)}
+                className="px-5 py-2 rounded-full bg-[#14531e]/10 hover:bg-[#14531e] hover:text-white border border-[#14531e]/20 text-[#14531e] text-xs uppercase tracking-wider font-semibold transition-all cursor-pointer"
+              >
+                {showAllHomeLandscape ? 'Show Less' : `Show All Stories (${allLandscapeReels.length})`}
+              </button>
+            </div>
           </div>
 
-          {/* ROW 2: VERTICAL WEDDING REELS (4 on sm+, 2 on smartphone) */}
+          {/* ROW 2: VERTICAL WEDDING REELS (1 centered on smartphone, 4 on sm+, rest on Show All) */}
           <div className="space-y-3">
             <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5 reveal-on-scroll">
               <h3
@@ -568,19 +583,34 @@ export function TwfHomeSections({
               </span>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-5">
-              {portraitReels.slice(0, 4).map((reel, idx) => (
-                <div key={reel.id} className={idx >= 2 ? 'hidden sm:block' : ''}>
-                  <HoverVideoBox
-                    videoSrc={reel.videoSrc}
-                    posterUrl={reel.posterUrl}
-                    couple={reel.couple}
-                    location={reel.location}
-                    aspectClass="aspect-[9/16]"
-                    onOpenModal={() => handleOpenReelAsFilm(reel)}
-                  />
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-3.5 sm:gap-5">
+              {(showAllHomePortrait ? allPortraitReels : allPortraitReels.slice(0, 4)).map((reel, idx) => (
+                <div
+                  key={reel.id}
+                  className={`w-full ${!showAllHomePortrait && idx >= 1 ? 'hidden sm:block' : ''}`}
+                >
+                  <div className="max-w-[300px] xs:max-w-[340px] mx-auto sm:max-w-none">
+                    <HoverVideoBox
+                      videoSrc={reel.videoSrc}
+                      posterUrl={reel.posterUrl}
+                      couple={reel.couple}
+                      location={reel.location}
+                      aspectClass="aspect-[9/16]"
+                      onOpenModal={() => handleOpenReelAsFilm(reel)}
+                    />
+                  </div>
                 </div>
               ))}
+            </div>
+
+            <div className={`pt-1 text-center ${!showAllHomePortrait ? 'sm:hidden' : ''}`}>
+              <button
+                type="button"
+                onClick={() => setShowAllHomePortrait(!showAllHomePortrait)}
+                className="px-5 py-2 rounded-full bg-[#14531e]/10 hover:bg-[#14531e] hover:text-white border border-[#14531e]/20 text-[#14531e] text-xs uppercase tracking-wider font-semibold transition-all cursor-pointer"
+              >
+                {showAllHomePortrait ? 'Show Less' : `Show All Reels (${allPortraitReels.length})`}
+              </button>
             </div>
           </div>
 
@@ -852,9 +882,9 @@ export function TwfHomeSections({
           </p>
         </div>
 
-        {/* 6-Card Specifications Grid */}
+        {/* 3-Card Specifications Grid (Top 3 Highlights for Landing Page) */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {VENUE_SPECIFICATIONS.map((spec) => (
+          {VENUE_SPECIFICATIONS.slice(0, 3).map((spec) => (
             <div
               key={spec.id}
               className="rounded-[22px] sm:rounded-[24px] bg-white border border-[#14531e]/15 overflow-hidden shadow-md hover:shadow-xl hover:border-[#f0b400]/60 transition-all duration-300 flex flex-col justify-between group"
@@ -928,6 +958,18 @@ export function TwfHomeSections({
             </div>
           ))}
         </div>
+
+        {/* Redirect CTA to Spaces & Halls menu for full packages, catering & parking */}
+        <div className="pt-2 text-center">
+          <button
+            type="button"
+            onClick={() => onNavigate('installations')}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/45 text-white text-xs sm:text-sm uppercase tracking-[0.16em] font-medium transition-all shadow-md hover:scale-105 cursor-pointer"
+          >
+            <span>Explore All Spaces, Packages &amp; Catering Facilities</span>
+            <ArrowRight className="w-4 h-4 text-[#f0b400]" />
+          </button>
+        </div>
       </section>
 
       {/* =====================================================================
@@ -993,18 +1035,18 @@ export function TwfHomeSections({
               <div className="p-4 sm:p-5 rounded-2xl bg-white/[0.05] border border-[#f0b400]/30 backdrop-blur-sm space-y-3 mt-4">
                 <div className="flex items-center justify-between gap-3">
                   <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#14531e] text-[#f0b400] text-xs sm:text-sm font-semibold">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#14531e] text-[#f0b400] text-xs font-semibold">
                       <ShieldCheck className="w-3.5 h-3.5 text-[#f0b400]" />
                       <span>Google Verified</span>
                     </span>
-                    <span className="font-bold text-[#f7f6f1] text-sm sm:text-base">4.6 / 5.0 Rating</span>
+                    <span className="font-bold text-[#f7f6f1] text-xs sm:text-sm">4.6 / 5.0 Rating</span>
                   </div>
-                  <span className="text-sm sm:text-xs text-[#f0b400] font-medium">
+                  <span className="text-xs sm:text-sm text-[#f0b400] font-medium">
                     550+ Reviews
                   </span>
                 </div>
 
-                <p className="text-sm sm:text-base text-[#f7f6f1]/85 leading-relaxed font-light">
+                <p className="text-xs sm:text-sm text-[#f7f6f1]/85 leading-relaxed font-light">
                   Trusted by <strong>350+ families</strong> across Bihar for royal weddings &amp; celebrations inspired by Jaipur palace hospitality. Scan or tap below to read guest stories or review your stay.
                 </p>
 
@@ -1030,17 +1072,17 @@ export function TwfHomeSections({
                   </a>
 
                   <div className="space-y-1 min-w-0">
-                    <p className="text-sm sm:text-xs font-semibold text-white">
+                    <p className="text-xs sm:text-sm font-semibold text-white">
                       Scan to Review on Google Maps
                     </p>
-                    <p className="text-xs sm:text-sm text-[#f7f6f1]/70 leading-tight font-light">
+                    <p className="text-[11px] sm:text-xs text-[#f7f6f1]/70 leading-tight font-light">
                       Point your phone camera at the QR code, or tap the button below.
                     </p>
                     <a
                       href={STUDIO_INFO.googleReviewUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-sm sm:text-xs font-semibold text-[#f0b400] hover:text-white transition-colors pt-0.5"
+                      className="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-[#f0b400] hover:text-white transition-colors pt-0.5"
                     >
                       <span>Write a Review on Google</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />

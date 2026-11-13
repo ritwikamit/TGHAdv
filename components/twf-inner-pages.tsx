@@ -25,6 +25,7 @@ import {
   SIGNATURE_FRAMES,
   COMMISSION_SERVICES,
   VENUE_INSTALLATIONS,
+  VENUE_SPECIFICATIONS,
   FAQ_ITEMS,
   STUDIO_INFO,
   CinemaFilm,
@@ -1359,6 +1360,96 @@ export function TwfInnerPages({
             );
           })}
         </div>
+
+        {/* Transferred Specifications: Packages, Catering & Parking */}
+        <section className="space-y-6 pt-6 border-t border-[#0f1f12]/10">
+          <div className="text-center max-w-2xl mx-auto space-y-1">
+            <span
+              className="text-2xl sm:text-3xl text-[#9e6800] block leading-none reveal-on-scroll"
+              style={{ fontFamily: 'var(--font-script)' }}
+            >
+              Essential Packages, Catering &amp; Parking
+            </span>
+            <h2
+              className="text-2xl sm:text-4xl text-[#0f1f12] lowercase tracking-tight reveal-on-scroll interactive-heading reveal-delay-1"
+              style={{ fontFamily: 'var(--font-display)' }}
+            >
+              wedding packages &amp; guest facilities
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+            {VENUE_SPECIFICATIONS.slice(3).map((spec) => (
+              <div
+                key={spec.id}
+                className="rounded-[22px] sm:rounded-[24px] bg-white border border-[#14531e]/15 overflow-hidden shadow-md hover:shadow-xl hover:border-[#f0b400]/60 transition-all duration-300 flex flex-col justify-between group"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden bg-[#09190c]">
+                  <img
+                    src={spec.imageUrl}
+                    alt={spec.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (target.src.endsWith('.webp')) {
+                        target.src = spec.fallbackImageUrl || target.src.replace(/\.webp$/i, '.jpg');
+                      }
+                    }}
+                  />
+                </div>
+
+                <div className="p-5 sm:p-6 space-y-4 flex-1 flex flex-col justify-between">
+                  <div className="space-y-3">
+                    <h3
+                      className="text-xl sm:text-2xl text-[#0f1f12] font-normal leading-snug"
+                      style={{ fontFamily: 'var(--font-display)' }}
+                    >
+                      {spec.title}
+                    </h3>
+
+                    <ul className="pt-2.5 space-y-2 border-t border-[#0f1f12]/10">
+                      {spec.keyFeatures.slice(0, 2).map((feat, idx) => (
+                        <li
+                          key={idx}
+                          className="flex items-start gap-2 text-xs sm:text-sm text-[#0f1f12]/85 leading-snug"
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="pt-3 border-t border-[#0f1f12]/10 flex items-center justify-between gap-2">
+                    <a
+                      href={`https://wa.me/919234052600?text=${encodeURIComponent(
+                        `Hello The Green Heritage Resort, I am inquiring about ${spec.title} (${spec.statBadge}) for our wedding.`
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#14531e] hover:text-[#9e6800] transition-colors"
+                    >
+                      <span>Enquire on WhatsApp</span>
+                      <ArrowUpRight className="w-3.5 h-3.5 text-[#f0b400]" />
+                    </a>
+
+                    {onOpenQuickEnquire && (
+                      <button
+                        type="button"
+                        onClick={() => onOpenQuickEnquire(spec.title)}
+                        className="px-3.5 py-1.5 rounded-full bg-[#14531e]/10 hover:bg-[#14531e] hover:text-white text-[#14531e] text-xs sm:text-sm uppercase tracking-wider font-medium transition-colors cursor-pointer"
+                      >
+                        Book Tour
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     );
   }

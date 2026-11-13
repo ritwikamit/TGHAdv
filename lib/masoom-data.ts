@@ -1566,9 +1566,9 @@ export const VENUE_SPECIFICATIONS: VenueSpecification[] = [
       '25+ air-conditioned family rooms & cottages',
       'Private bridal dressing suite with salon vanity',
     ],
-    imageUrl: '/TGHPhotos/HotelGround/RoomsCottages/cottage-room.webp',
-    secondaryImageUrl: '/TGHPhotos/HotelGround/RoomsCottages/executive-room.webp',
-    fallbackImageUrl: '/TGHPhotos/HotelGround/RoomsCottages/cottage-room.jpg',
+    imageUrl: '/TGHPhotos/HotelGround/RoomsCottages/caption-24.webp',
+    secondaryImageUrl: '/TGHPhotos/HotelGround/RoomsCottages/cottage-room.webp',
+    fallbackImageUrl: '/TGHPhotos/HotelGround/RoomsCottages/caption-24.jpg',
   },
   {
     id: 'spec-packages',

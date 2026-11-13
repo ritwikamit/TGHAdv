@@ -231,6 +231,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" type="image/png" href="/TGHLogo.png" />
         <link rel="shortcut icon" type="image/png" href="/TGHLogo.png" />
         <link rel="apple-touch-icon" href="/TGHLogo.png" />
+        {/* Preload brand logo for instant loading screen display */}
+        <link rel="preload" as="image" href="/TGHLogo.webp" type="image/webp" fetchPriority="high" />
         {/* Preload hero images for instant switching between dedicated pages */}
         <link rel="preload" as="image" href="/TGHPhotos/heroes/films-hero.webp" type="image/webp" />
         <link rel="preload" as="image" href="/TGHPhotos/heroes/venue-hero-v2.webp" type="image/webp" />
