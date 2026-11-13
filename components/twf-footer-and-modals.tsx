@@ -222,6 +222,10 @@ export function TwfFooterAndModals({
                   e.currentTarget.play().catch(() => {});
                 }
               }}
+              onEnded={(e) => {
+                e.currentTarget.currentTime = 0;
+                e.currentTarget.play().catch(() => {});
+              }}
               className="pointer-events-none absolute inset-0 w-full h-full object-cover bg-transparent z-10"
             />
 

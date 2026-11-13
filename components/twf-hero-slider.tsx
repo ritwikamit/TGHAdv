@@ -69,8 +69,7 @@ export function TwfHeroSlider({
   return (
     <section
       ref={sectionRef}
-      onClick={() => onPlayFilm(currentSlide)}
-      className="relative w-full min-h-[370px] sm:min-h-[340px] md:min-h-0 sm:aspect-video rounded-[18px] sm:rounded-[24px] overflow-hidden bg-[#061208] select-none shadow-2xl border border-[#14531e]/20 cursor-pointer group"
+      className="relative w-full min-h-[370px] sm:min-h-[340px] md:min-h-0 sm:aspect-video rounded-[18px] sm:rounded-[24px] overflow-hidden bg-[#061208] select-none shadow-2xl border border-[#14531e]/20 group"
     >
       {/* FOREGROUND HEADER VIDEO (Single primary video playing directly) */}
       <div className="absolute inset-0 z-10 w-full h-full overflow-hidden bg-[#061208]">
@@ -117,6 +116,10 @@ export function TwfHeroSlider({
               e.currentTarget.muted = true;
               e.currentTarget.play().catch(() => { });
             }
+          }}
+          onEnded={(e) => {
+            e.currentTarget.currentTime = 0;
+            e.currentTarget.play().catch(() => {});
           }}
           className="absolute inset-0 w-full h-full object-cover bg-transparent"
         />

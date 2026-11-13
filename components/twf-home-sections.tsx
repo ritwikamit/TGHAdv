@@ -60,12 +60,11 @@ interface TwfHomeSectionsProps {
 }
 
 interface HoverVideoBoxProps {
-  videoSrc: string;
-  posterUrl: string;
+  videoSrc?: string;
+  posterUrl?: string;
   couple: string;
   location: string;
   aspectClass?: string;
-  onOpenModal: () => void;
 }
 
 function HoverVideoBox({
@@ -74,23 +73,50 @@ function HoverVideoBox({
   couple,
   location,
   aspectClass = 'aspect-[9/16]',
-  onOpenModal,
 }: HoverVideoBoxProps) {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const isMutedRef = useRef(true);
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
-  };
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const vid = videoRef.current;
+          if (!vid) return;
+          if (entry.isIntersecting) {
+            vid.defaultMuted = true;
+            vid.muted = isMutedRef.current;
+            vid.playsInline = true;
+            const p = vid.play();
+            if (p !== undefined) {
+              p.then(() => setIsPlaying(true)).catch(() => {});
+            }
+          } else {
+            vid.pause();
+            setIsPlaying(false);
+          }
+        });
+      },
+      { threshold: 0.25, rootMargin: '60px 0px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    if (videoRef.current) {
-      videoRef.current.pause();
+  const handleTogglePlay = () => {
+    const vid = videoRef.current;
+    if (!vid) return;
+    if (vid.paused) {
+      vid.muted = isMutedRef.current;
+      vid.play().then(() => setIsPlaying(true)).catch(() => {});
+    } else {
+      vid.pause();
+      setIsPlaying(false);
     }
   };
 
@@ -98,6 +124,7 @@ function HoverVideoBox({
     e.stopPropagation();
     const nextMuted = !isMuted;
     setIsMuted(nextMuted);
+    isMutedRef.current = nextMuted;
     if (videoRef.current) {
       videoRef.current.muted = nextMuted;
     }
@@ -105,20 +132,17 @@ function HoverVideoBox({
 
   return (
     <div
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onClick={onOpenModal}
-      className={`group relative shrink-0 ${aspectClass} rounded-[18px] sm:rounded-[22px] overflow-hidden bg-[#09190c] cursor-pointer border border-[#14531e]/20 shadow-lg transition-transform duration-300 ease-out hover:scale-[1.02] hover:z-30`}
+      ref={containerRef}
+      onClick={handleTogglePlay}
+      className={`group relative shrink-0 ${aspectClass} rounded-[18px] sm:rounded-[22px] overflow-hidden bg-[#09190c] cursor-pointer border border-[#14531e]/20 shadow-lg transition-transform duration-300 ease-out hover:scale-[1.02] hover:z-30 select-none`}
     >
-      {/* High-resolution instant poster image (Loads in milliseconds, zero bandwidth waste on 4G) */}
+      {/* High-resolution instant poster image behind video */}
       <img
         src={posterUrl || '/og-preview-brand-v4.jpg'}
         alt={couple}
         loading="lazy"
         decoding="async"
-        className={`absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${
-          isHovered ? 'opacity-0' : 'opacity-100'
-        }`}
+        className="pointer-events-none absolute inset-0 w-full h-full object-cover"
         onError={(e) => {
           const t = e.currentTarget;
           if (t.src.endsWith('.webp')) {
@@ -127,28 +151,47 @@ function HoverVideoBox({
         }}
       />
 
-      {/* Video element only mounts / plays when desktop user hovers — zero prebuffering on mobile load */}
-      {isHovered && videoSrc && (
+      {/* Video Element plays automatically on loop when in view */}
+      {videoSrc && (
         <video
           ref={videoRef}
           src={videoSrc}
+          poster={posterUrl || '/og-preview-brand-v4.jpg'}
           autoPlay
           loop
           muted={isMuted}
           playsInline
           preload="metadata"
-          className="absolute inset-0 w-full h-full object-cover bg-[#061208]"
+          onLoadedData={(e) => {
+            const el = containerRef.current;
+            if (!el) return;
+            const rect = el.getBoundingClientRect();
+            const inView = rect.top < window.innerHeight && rect.bottom > 0;
+            if (inView) {
+              e.currentTarget.muted = isMutedRef.current;
+              e.currentTarget.play().then(() => setIsPlaying(true)).catch(() => {});
+            }
+          }}
+          onEnded={(e) => {
+            e.currentTarget.currentTime = 0;
+            e.currentTarget.play().catch(() => {});
+          }}
+          className="absolute inset-0 w-full h-full object-cover bg-transparent"
         />
       )}
 
-      {/* Floating Center Play Badge */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
-        <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#14531e]/85 backdrop-blur-md border border-[#f0b400]/60 flex items-center justify-center text-[#f0b400] shadow-2xl group-hover:scale-115 transition-transform duration-300">
-          <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current ml-0.5" />
+      {/* Center Play Button Overlay (Visible only when paused) */}
+      {!isPlaying && (
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#14531e]/85 backdrop-blur-md border border-[#f0b400]/60 flex items-center justify-center text-[#f0b400] shadow-2xl transition-transform duration-300">
+            <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current ml-0.5" />
+          </div>
         </div>
-      </div>
+      )}
 
+      {/* Gradient Vignette at bottom */}
       <div
+        aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 bottom-0 h-32 transition-opacity duration-300 opacity-90 z-10"
         style={{
           background:
@@ -156,8 +199,9 @@ function HoverVideoBox({
         }}
       />
 
+      {/* Bottom Info bar + Sound Button */}
       <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 flex items-end justify-between gap-2 z-20">
-        <div className="min-w-0 text-left">
+        <div className="min-w-0 text-left pointer-events-none">
           <span
             className="text-base sm:text-lg text-[#f0b400] block leading-snug mb-0.5 break-words"
             style={{ fontFamily: 'var(--font-script)' }}
@@ -172,20 +216,18 @@ function HoverVideoBox({
           </h3>
         </div>
 
-        {isHovered && (
-          <button
-            type="button"
-            onClick={toggleMute}
-            aria-label={isMuted ? 'Unmute video' : 'Mute video'}
-            className="relative z-30 shrink-0 w-8 h-8 rounded-full bg-[#061208]/85 hover:bg-[#14531e] border border-[#f0b400]/40 text-white flex items-center justify-center transition-colors cursor-pointer"
-          >
-            {isMuted ? (
-              <VolumeX className="w-3.5 h-3.5" />
-            ) : (
-              <Volume2 className="w-3.5 h-3.5 text-emerald-400" />
-            )}
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={toggleMute}
+          aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+          className="relative z-30 shrink-0 w-8 h-8 rounded-full bg-[#061208]/85 hover:bg-[#14531e] border border-[#f0b400]/40 text-white flex items-center justify-center transition-colors cursor-pointer"
+        >
+          {isMuted ? (
+            <VolumeX className="w-3.5 h-3.5" />
+          ) : (
+            <Volume2 className="w-3.5 h-3.5 text-emerald-400" />
+          )}
+        </button>
       </div>
     </div>
   );
@@ -320,30 +362,6 @@ export function TwfHomeSections({
 
   const [gratitudeIndex, setGratitudeIndex] = useState(0);
 
-  const handleOpenReelAsFilm = (reel: InstagramReelItem) => {
-    onPlayFilm({
-      id: reel.id,
-      videoSrc: reel.videoSrc,
-      instagramUrl: reel.instagramUrl,
-      reelCode: reel.code,
-      isPortrait: reel.isPortrait,
-      title: reel.title,
-      scriptHighlight: 'the green heritage',
-      couple: reel.couple,
-      location: reel.location,
-      year: 'Muzaffarpur',
-      month: 'Property Preview',
-      duration: reel.isPortrait ? 'Portrait Clip' : 'Property Clip',
-      thumbnailUrl: reel.posterUrl,
-      heroImageUrl: reel.posterUrl,
-      aiConceptPrompt: reel.caption,
-      synopsis: reel.caption,
-      emotionalHook:
-        'Call or WhatsApp +91 92340 52600 for availability and details.',
-      category: 'royal',
-    });
-  };
-
   const rowOnePhotos = [
     ...GALLERY_PHOTOS.slice(0, 14),
     ...GALLERY_PHOTOS.slice(0, 6),
@@ -380,7 +398,7 @@ export function TwfHomeSections({
               </span>
             </div>
 
-            <div className="inline-flex items-center gap-2 text-xs sm:text-sm text-[#0f1f12]/85 font-medium bg-[#14531e]/[0.06] px-3 py-1.5 rounded-full border border-[#14531e]/15">
+            <div className="inline-flex items-center gap-2 text-xs sm:text-sm text-[#0f1f12]/85 font-medium">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
               <span className="font-bold text-[#0f1f12]">4.6 / 5.0 Rating</span>
               <span className="text-[#0f1f12]/40">·</span>
@@ -549,7 +567,6 @@ export function TwfHomeSections({
                     couple={reel.couple}
                     location={reel.location}
                     aspectClass="aspect-video"
-                    onOpenModal={() => handleOpenReelAsFilm(reel)}
                   />
                 </div>
               ))}
@@ -596,7 +613,6 @@ export function TwfHomeSections({
                       couple={reel.couple}
                       location={reel.location}
                       aspectClass="aspect-[9/16]"
-                      onOpenModal={() => handleOpenReelAsFilm(reel)}
                     />
                   </div>
                 </div>
@@ -1134,12 +1150,14 @@ export function TwfHomeSections({
           </a>
         </div>
 
-        {/* 4 Reviews Grid */}
+        {/* Reviews Grid: 2 on smartphone, 4 on tablet/desktop */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-          {GOOGLE_REVIEWS.map((rev) => (
+          {GOOGLE_REVIEWS.map((rev, idx) => (
             <div
               key={rev.id}
-              className="p-5 sm:p-6 rounded-[20px] sm:rounded-[22px] bg-white border border-[#14531e]/15 shadow-sm hover:shadow-md hover:border-[#f0b400]/50 transition-all flex flex-col justify-between space-y-4"
+              className={`p-5 sm:p-6 rounded-[20px] sm:rounded-[22px] bg-white border border-[#14531e]/15 shadow-sm hover:shadow-md hover:border-[#f0b400]/50 transition-all flex flex-col justify-between space-y-4 ${
+                idx >= 2 ? 'hidden sm:flex' : 'flex'
+              }`}
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between gap-2 border-b border-[#0f1f12]/10 pb-2.5">
