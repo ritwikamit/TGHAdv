@@ -1736,7 +1736,7 @@ export const GOOGLE_REVIEWS: GoogleReviewItem[] = [
     badge: 'Google Verified',
     ratingText: '4.6 / 5.0 Rating',
     reviewText:
-      'We hosted our daughter’s wedding here and were truly blown away. The architecture inspired by Jaipur royal marriages and the grand chandelier banquet hall left all our 1,200+ guests mesmerized. The lawn space for varmala and the separate pure-veg kitchen arrangements were impeccable.',
+      'The architecture inspired by Jaipur royal marriages and the grand chandelier banquet hall left all our 1,200+ guests mesmerized. Varmala lawn and pure-veg kitchen were impeccable.',
     relativeTime: 'Recent Wedding Host',
   },
   {
@@ -1747,7 +1747,7 @@ export const GOOGLE_REVIEWS: GoogleReviewItem[] = [
     badge: 'Google Verified',
     ratingText: '4.6 / 5.0 Rating',
     reviewText:
-      'The royal heritage vibes with carved balconies and illuminated arches reminded us of palace weddings in Rajasthan. Having 25+ air-conditioned rooms on-site meant our extended family stayed together without any rushing. The valet parking handled 100+ cars smoothly.',
+      'Royal heritage vibes with illuminated arches. Having 25+ AC rooms on-site kept our extended family together comfortably, and the valet parking handled 100+ cars smoothly.',
     relativeTime: 'Family Wedding Host',
   },
   {
@@ -1758,7 +1758,7 @@ export const GOOGLE_REVIEWS: GoogleReviewItem[] = [
     badge: 'Google Verified',
     ratingText: '4.6 / 5.0 Rating',
     reviewText:
-      'One of the best wedding venues in Muzaffarpur. The management was extremely cooperative with our custom multi-cuisine menu and outside decorators. Pricing was completely transparent and affordable with zero hidden charges. Highly recommended for families of all backgrounds.',
+      'One of the best wedding venues in Muzaffarpur. Cooperative management, transparent pricing with zero hidden charges, and excellent multi-cuisine catering arrangements.',
     relativeTime: 'Wedding Guest & Host',
   },
   {
@@ -1769,7 +1769,7 @@ export const GOOGLE_REVIEWS: GoogleReviewItem[] = [
     badge: 'Google Verified',
     ratingText: '4.6 / 5.0 Rating',
     reviewText:
-      'Very impressed with the dedicated pure-vegetarian kitchen and polite staff. The mandap setup on the open lawn under the night sky felt truly regal. Transparent, affordable, and deeply respectful of our family traditions and customs.',
+      'Dedicated pure-vegetarian kitchen, polite staff, and a truly regal open-air mandap setup under the night sky. Deeply respectful of our family traditions and customs.',
     relativeTime: 'Recent Vivah Host',
   },
 ];

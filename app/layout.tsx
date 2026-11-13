@@ -231,6 +231,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" type="image/png" href="/TGHLogo.png" />
         <link rel="shortcut icon" type="image/png" href="/TGHLogo.png" />
         <link rel="apple-touch-icon" href="/TGHLogo.png" />
+        {/* Preload hero images for instant switching between dedicated pages */}
+        <link rel="preload" as="image" href="/TGHPhotos/heroes/films-hero.webp" type="image/webp" />
+        <link rel="preload" as="image" href="/TGHPhotos/heroes/venue-hero-v2.webp" type="image/webp" />
+        <link rel="preload" as="image" href="/TGHPhotos/heroes/packages-hero.webp" type="image/webp" />
+        <link rel="preload" as="image" href="/TGHPhotos/HotelGround/Hall/banquet-hall.webp" type="image/webp" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

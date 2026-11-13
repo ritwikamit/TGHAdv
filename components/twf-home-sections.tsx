@@ -42,7 +42,6 @@ import {
   GALLERY_PHOTOS,
   SIGNATURE_FRAMES,
   GRATITUDE_NOTES,
-  FAQ_ITEMS,
   STUDIO_INFO,
   VENUE_SPECIFICATIONS,
   GOOGLE_REVIEWS,
@@ -198,20 +197,13 @@ export function TwfHomeSections({
   onNavigate,
   onOpenQuickEnquire,
 }: TwfHomeSectionsProps) {
-  const [trailerTab, setTrailerTab] = useState<
-    'videos' | 'gallery' | 'signature'
-  >('videos');
-  const landscapeRowRef = useRef<HTMLDivElement | null>(null);
-  const portraitRowRef = useRef<HTMLDivElement | null>(null);
-  const photoRowRef = useRef<HTMLDivElement | null>(null);
-
-  // Exactly 4 Landscape and 5 Portrait reels on Landing Page (Rest on /wedding-films)
+  // Exactly 3 Landscape reels (2 on mobile) and 4 Portrait reels (2 on mobile) on Landing Page
   const landscapeReels = useMemo(
-    () => INSTAGRAM_REELS.filter((r) => !r.isPortrait).slice(0, 4),
+    () => INSTAGRAM_REELS.filter((r) => !r.isPortrait).slice(0, 3),
     []
   );
   const portraitReels = useMemo(
-    () => INSTAGRAM_REELS.filter((r) => r.isPortrait).slice(0, 5),
+    () => INSTAGRAM_REELS.filter((r) => r.isPortrait).slice(0, 4),
     []
   );
 
@@ -326,15 +318,6 @@ export function TwfHomeSections({
 
   const [gratitudeIndex, setGratitudeIndex] = useState(0);
 
-  const scrollRow = (
-    ref: React.RefObject<HTMLDivElement | null>,
-    dir: 'left' | 'right'
-  ) => {
-    if (!ref.current) return;
-    const offset = dir === 'left' ? -440 : 440;
-    ref.current.scrollBy({ left: offset, behavior: 'smooth' });
-  };
-
   const handleOpenReelAsFilm = (reel: InstagramReelItem) => {
     onPlayFilm({
       id: reel.id,
@@ -384,116 +367,116 @@ export function TwfHomeSections({
       >
         <div className="rounded-[20px] sm:rounded-[24px] bg-[#fbfaf6] border border-[#f0b400]/30 p-4 sm:p-6 shadow-sm">
           {/* Header Line - Inspired by Jaipur Royal Marriages */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-b border-[#0f1f12]/10 pb-3.5 mb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 border-b border-[#0f1f12]/10 pb-3 mb-3.5">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#14531e] text-[#f0b400] text-xs sm:text-xs font-semibold uppercase tracking-wider shadow-sm">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#14531e] text-[#f0b400] text-xs font-semibold uppercase tracking-wider shadow-sm">
                 <Crown className="w-3.5 h-3.5 text-[#f0b400]" />
                 <span>Jaipur Royal Marriage Theme</span>
               </span>
-              <span className="text-sm sm:text-base font-semibold text-[#0f1f12]">
+              <span className="text-xs sm:text-sm font-semibold text-[#0f1f12]">
                 Verified Venue Specifications · Gobarsahi–Sakri Road, Muzaffarpur
               </span>
             </div>
 
-            <div className="inline-flex items-center gap-2 text-sm sm:text-sm text-[#0f1f12]/85 font-medium bg-[#14531e]/[0.06] px-3 py-1.5 rounded-full border border-[#14531e]/15">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
+            <div className="inline-flex items-center gap-2 text-xs sm:text-sm text-[#0f1f12]/85 font-medium bg-[#14531e]/[0.06] px-3 py-1.5 rounded-full border border-[#14531e]/15">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
               <span className="font-bold text-[#0f1f12]">4.6 / 5.0 Rating</span>
               <span className="text-[#0f1f12]/40">·</span>
-              <span>550+ Google Reviews</span>
+              <span>550+ Reviews</span>
               <span className="text-[#0f1f12]/40">·</span>
-              <span>350+ Royal Weddings</span>
+              <span>350+ Weddings</span>
             </div>
           </div>
 
           {/* 6 Key Highlights Grid (With Soft Note for Packages, NO Numeric Price, NO Star Icons) */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-            <div className="p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-4">
+            <div className="p-3 sm:p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
               <div className="flex items-center gap-1.5 text-[#14531e]">
                 <Users className="w-4 h-4 text-[#9e6800]" />
-                <span className="text-xs sm:text-xs uppercase tracking-wider text-[#0f1f12]/80 font-bold">
+                <span className="text-xs uppercase tracking-wider text-[#0f1f12]/80 font-bold">
                   Lawn Capacity
                 </span>
               </div>
-              <p className="text-base sm:text-base font-bold text-[#0f1f12] leading-tight">
+              <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
                 1,500 – 2,000+
               </p>
-              <p className="text-xs sm:text-xs text-[#0f1f12]/75 leading-tight">
-                Grand Receptions &amp; Varmala
+              <p className="text-xs text-[#0f1f12]/75 leading-tight">
+                Grand Receptions
               </p>
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
+            <div className="p-3 sm:p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
               <div className="flex items-center gap-1.5 text-[#14531e]">
                 <Building2 className="w-4 h-4 text-[#9e6800]" />
-                <span className="text-xs sm:text-xs uppercase tracking-wider text-[#0f1f12]/80 font-bold">
+                <span className="text-xs uppercase tracking-wider text-[#0f1f12]/80 font-bold">
                   AC Banquet Hall
                 </span>
               </div>
-              <p className="text-base sm:text-base font-bold text-[#0f1f12] leading-tight">
+              <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
                 350 – 500+ Seated
               </p>
-              <p className="text-xs sm:text-xs text-[#0f1f12]/75 leading-tight">
-                700 Floating · Sangeet &amp; Pheras
+              <p className="text-xs text-[#0f1f12]/75 leading-tight">
+                700 Floating · AC Hall
               </p>
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
+            <div className="p-3 sm:p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
               <div className="flex items-center gap-1.5 text-[#14531e]">
                 <BedDouble className="w-4 h-4 text-[#9e6800]" />
-                <span className="text-xs sm:text-xs uppercase tracking-wider text-[#0f1f12]/80 font-bold">
+                <span className="text-xs uppercase tracking-wider text-[#0f1f12]/80 font-bold">
                   Rooms &amp; Stay
                 </span>
               </div>
-              <p className="text-base sm:text-base font-bold text-[#0f1f12] leading-tight">
+              <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
                 25+ Luxury Rooms
               </p>
-              <p className="text-xs sm:text-xs text-[#0f1f12]/75 leading-tight">
+              <p className="text-xs text-[#0f1f12]/75 leading-tight">
                 Bridal Suite &amp; Cottages
               </p>
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
+            <div className="p-3 sm:p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
               <div className="flex items-center gap-1.5 text-[#14531e]">
                 <Crown className="w-4 h-4 text-[#9e6800]" />
-                <span className="text-xs sm:text-xs uppercase tracking-wider text-[#0f1f12]/80 font-bold">
+                <span className="text-xs uppercase tracking-wider text-[#0f1f12]/80 font-bold">
                   Packages
                 </span>
               </div>
-              <p className="text-base sm:text-base font-bold text-[#14531e] leading-tight">
+              <p className="text-sm sm:text-base font-bold text-[#14531e] leading-tight">
                 Affordable For All
               </p>
-              <p className="text-xs sm:text-xs text-[#0f1f12]/75 leading-tight">
-                For All Wedding Types &amp; Religions
+              <p className="text-xs text-[#0f1f12]/75 leading-tight">
+                All Wedding Types
               </p>
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
+            <div className="p-3 sm:p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
               <div className="flex items-center gap-1.5 text-[#14531e]">
                 <Car className="w-4 h-4 text-[#9e6800]" />
-                <span className="text-xs sm:text-xs uppercase tracking-wider text-[#0f1f12]/80 font-bold">
+                <span className="text-xs uppercase tracking-wider text-[#0f1f12]/80 font-bold">
                   Guest Parking
                 </span>
               </div>
-              <p className="text-base sm:text-base font-bold text-[#0f1f12] leading-tight">
+              <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
                 150+ Cars
               </p>
-              <p className="text-xs sm:text-xs text-[#0f1f12]/75 leading-tight">
-                200+ Bikes · Valet Support
+              <p className="text-xs text-[#0f1f12]/75 leading-tight">
+                200+ Bikes · Valet
               </p>
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
+            <div className="p-3 sm:p-3.5 rounded-2xl bg-white border border-[#14531e]/10 space-y-1 shadow-sm hover:border-[#f0b400]/40 transition-colors">
               <div className="flex items-center gap-1.5 text-[#14531e]">
                 <UtensilsCrossed className="w-4 h-4 text-[#9e6800]" />
-                <span className="text-xs sm:text-xs uppercase tracking-wider text-[#0f1f12]/80 font-bold">
+                <span className="text-xs uppercase tracking-wider text-[#0f1f12]/80 font-bold">
                   Catering
                 </span>
               </div>
-              <p className="text-base sm:text-base font-bold text-[#0f1f12] leading-tight">
+              <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
                 Pure Veg &amp; Multi
               </p>
-              <p className="text-xs sm:text-xs text-[#0f1f12]/75 leading-tight">
-                Live Counters · Outside Friendly
+              <p className="text-xs text-[#0f1f12]/75 leading-tight">
+                Live Counters
               </p>
             </div>
           </div>
@@ -504,10 +487,10 @@ export function TwfHomeSections({
           SECTION 1: PROPERTY PREVIEW & GALLERY
          ===================================================================== */}
       <section className="pt-2 space-y-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 px-1 sm:px-2">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 px-1 sm:px-2">
           <div>
             <span
-              className="text-3xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1"
+              className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               From Sunlit Haldi to the Last Vidaai · Muzaffarpur
@@ -524,243 +507,95 @@ export function TwfHomeSections({
             </h2>
           </div>
 
-          <div className="flex flex-wrap items-center justify-between sm:justify-end gap-2.5">
-            <div className="inline-flex flex-wrap items-center gap-1 p-1 rounded-2xl sm:rounded-full bg-[#14531e]/[0.07] border border-[#14531e]/15">
-              {[
-                { id: 'videos', label: 'Wedding Films' },
-                { id: 'gallery', label: 'Wedding Stills' },
-                { id: 'signature', label: 'Mandap & Lawns' },
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() =>
-                    setTrailerTab(
-                      tab.id as 'videos' | 'gallery' | 'signature'
-                    )
-                  }
-                  className={`px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm transition-all cursor-pointer ${
-                    trailerTab === tab.id
-                      ? 'bg-[#14531e] text-white font-medium shadow-sm'
-                      : 'text-[#0f1f12]/70 hover:text-[#14531e]'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
+          <button
+            type="button"
+            onClick={() => onNavigate('films')}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/45 text-white text-xs sm:text-sm uppercase tracking-wider font-medium transition-colors shadow-sm cursor-pointer self-start sm:self-auto"
+          >
+            <span>All Wedding Films</span>
+            <ArrowUpRight className="w-3.5 h-3.5 text-[#f0b400]" />
+          </button>
+        </div>
+
+        <div className="space-y-8 px-1 sm:px-2">
+          {/* ROW 1: WIDESCREEN WEDDING FILMS (3 on sm+, 2 on smartphone) */}
+          <div className="space-y-3">
+            <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
+              <h3
+                className="text-lg sm:text-2xl text-[#0f1f12] lowercase"
+                style={{ fontFamily: 'var(--font-display)' }}
+              >
+                widescreen wedding films
+              </h3>
+              <span
+                className="text-lg sm:text-xl text-[#9e6800]"
+                style={{ fontFamily: 'var(--font-script)' }}
+              >
+                haldi, baraat &amp; varmala stories
+              </span>
             </div>
 
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3.5 sm:gap-5">
+              {landscapeReels.slice(0, 3).map((reel, idx) => (
+                <div key={reel.id} className={idx === 2 ? 'hidden sm:block' : ''}>
+                  <HoverVideoBox
+                    videoSrc={reel.videoSrc}
+                    posterUrl={reel.posterUrl}
+                    couple={reel.couple}
+                    location={reel.location}
+                    aspectClass="aspect-video"
+                    onOpenModal={() => handleOpenReelAsFilm(reel)}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ROW 2: VERTICAL WEDDING REELS (4 on sm+, 2 on smartphone) */}
+          <div className="space-y-3">
+            <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
+              <h3
+                className="text-lg sm:text-2xl text-[#0f1f12] lowercase"
+                style={{ fontFamily: 'var(--font-display)' }}
+              >
+                vertical wedding reels
+              </h3>
+              <span
+                className="text-lg sm:text-xl text-[#9e6800]"
+                style={{ fontFamily: 'var(--font-script)' }}
+              >
+                ceremonies &amp; rituals up close
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-5">
+              {portraitReels.slice(0, 4).map((reel, idx) => (
+                <div key={reel.id} className={idx >= 2 ? 'hidden sm:block' : ''}>
+                  <HoverVideoBox
+                    videoSrc={reel.videoSrc}
+                    posterUrl={reel.posterUrl}
+                    couple={reel.couple}
+                    location={reel.location}
+                    aspectClass="aspect-[9/16]"
+                    onOpenModal={() => handleOpenReelAsFilm(reel)}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* CTA to explore all wedding films */}
+          <div className="pt-2 pb-1 flex justify-center">
             <button
               type="button"
               onClick={() => onNavigate('films')}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/45 text-white text-xs sm:text-sm uppercase tracking-wider font-medium transition-colors shadow-sm cursor-pointer"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/45 text-white text-xs sm:text-sm uppercase tracking-[0.16em] font-medium transition-all shadow-md hover:scale-105 cursor-pointer"
             >
-              <span>All Wedding Films</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-[#f0b400]" />
+              <span>Explore All 22+ Wedding Films &amp; Highlights</span>
+              <ArrowRight className="w-4 h-4 text-[#f0b400]" />
             </button>
           </div>
         </div>
-
-        {trailerTab === 'videos' ? (
-          <div className="space-y-8">
-            {/* ROW 1: LANDSCAPE CLIPS */}
-            <div className="space-y-2.5">
-              <div className="flex items-center justify-between gap-2 px-2 sm:px-3">
-                <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5 min-w-0">
-                  <h3
-                    className="text-lg sm:text-2xl text-[#0f1f12] lowercase"
-                    style={{ fontFamily: 'var(--font-display)' }}
-                  >
-                    widescreen wedding films
-                  </h3>
-                  <span
-                    className="text-lg sm:text-xl text-[#9e6800]"
-                    style={{ fontFamily: 'var(--font-script)' }}
-                  >
-                    haldi, baraat &amp; varmala stories
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-1.5 shrink-0">
-                  <button
-                    type="button"
-                    onClick={() => scrollRow(landscapeRowRef, 'left')}
-                    aria-label="Scroll landscape clips left"
-                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white hover:bg-[#14531e] hover:text-white border border-[#14531e]/15 flex items-center justify-center transition-colors shadow-sm cursor-pointer"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => scrollRow(landscapeRowRef, 'right')}
-                    aria-label="Scroll landscape clips right"
-                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white hover:bg-[#14531e] hover:text-white border border-[#14531e]/15 flex items-center justify-center transition-colors shadow-sm cursor-pointer"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-
-              <div
-                ref={landscapeRowRef}
-                className="flex items-center gap-4 sm:gap-5 overflow-x-auto no-scrollbar py-3 px-2 sm:px-3 scroll-smooth snap-x snap-proximity overscroll-x-contain"
-              >
-                {landscapeReels.map((reel) => (
-                  <HoverVideoBox
-                    key={reel.id}
-                    videoSrc={reel.videoSrc}
-                    posterUrl={reel.posterUrl}
-                    couple={reel.couple}
-                    location={reel.location}
-                    aspectClass="w-[78vw] max-w-[300px] sm:w-[370px] lg:w-[420px] aspect-video snap-start"
-                    onOpenModal={() => handleOpenReelAsFilm(reel)}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* ROW 2: PORTRAIT CLIPS */}
-            <div className="space-y-2.5">
-              <div className="flex items-center justify-between px-2 sm:px-3">
-                <div className="flex flex-wrap items-baseline gap-2.5">
-                  <h3
-                    className="text-xl sm:text-2xl text-[#0f1f12] lowercase"
-                    style={{ fontFamily: 'var(--font-display)' }}
-                  >
-                    vertical wedding reels
-                  </h3>
-                  <span
-                    className="text-lg sm:text-xl text-[#9e6800]"
-                    style={{ fontFamily: 'var(--font-script)' }}
-                  >
-                    ceremonies &amp; rituals up close
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-1.5">
-                  <button
-                    type="button"
-                    onClick={() => scrollRow(portraitRowRef, 'left')}
-                    aria-label="Scroll portrait clips left"
-                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white hover:bg-[#14531e] hover:text-white border border-[#14531e]/15 flex items-center justify-center transition-colors shadow-sm cursor-pointer"
-                  >
-                    <ChevronLeft className="w-4 h-4" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => scrollRow(portraitRowRef, 'right')}
-                    aria-label="Scroll portrait clips right"
-                    className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white hover:bg-[#14531e] hover:text-white border border-[#14531e]/15 flex items-center justify-center transition-colors shadow-sm cursor-pointer"
-                  >
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-
-              <div
-                ref={portraitRowRef}
-                className="flex items-center gap-4 sm:gap-5 overflow-x-auto no-scrollbar py-3 px-2 sm:px-3 scroll-smooth snap-x snap-proximity overscroll-x-contain"
-              >
-                {portraitReels.map((reel) => (
-                  <HoverVideoBox
-                    key={reel.id}
-                    videoSrc={reel.videoSrc}
-                    posterUrl={reel.posterUrl}
-                    couple={reel.couple}
-                    location={reel.location}
-                    aspectClass="w-[54vw] max-w-[205px] sm:w-[230px] lg:w-[250px] aspect-[9/16] snap-start"
-                    onOpenModal={() => handleOpenReelAsFilm(reel)}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* CTA to explore all wedding films */}
-            <div className="pt-3 pb-1 flex justify-center">
-              <button
-                type="button"
-                onClick={() => onNavigate('films')}
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/45 text-white text-xs sm:text-sm uppercase tracking-[0.16em] font-medium transition-all shadow-md hover:scale-105 cursor-pointer"
-              >
-                <span>Explore All 22+ Wedding Films &amp; Highlights</span>
-                <ArrowRight className="w-4 h-4 text-[#f0b400]" />
-              </button>
-            </div>
-          </div>
-        ) : (
-          /* PHOTO TABS */
-          <div className="space-y-2.5">
-            <div className="flex items-center justify-end gap-1.5 px-2 sm:px-3">
-              <button
-                type="button"
-                onClick={() => scrollRow(photoRowRef, 'left')}
-                aria-label="Scroll photos left"
-                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white hover:bg-[#14531e] hover:text-white border border-[#14531e]/15 flex items-center justify-center transition-colors shadow-sm cursor-pointer"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollRow(photoRowRef, 'right')}
-                aria-label="Scroll photos right"
-                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white hover:bg-[#14531e] hover:text-white border border-[#14531e]/15 flex items-center justify-center transition-colors shadow-sm cursor-pointer"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div
-              ref={photoRowRef}
-              className="flex items-center gap-4 sm:gap-5 overflow-x-auto no-scrollbar py-3 px-2 sm:px-3 scroll-smooth snap-x snap-proximity overscroll-x-contain"
-            >
-              {(trailerTab === 'gallery'
-                ? GALLERY_PHOTOS.slice(0, 18)
-                : SIGNATURE_FRAMES
-              ).map((photo) => (
-                <div
-                  key={photo.id}
-                  onClick={() => onSelectPhoto(photo)}
-                  className={`group relative shrink-0 rounded-[18px] sm:rounded-[22px] overflow-hidden bg-[#09190c] snap-start cursor-pointer shadow-lg border border-[#14531e]/15 transition-all duration-500 hover:scale-[1.02] ${
-                    photo.aspect === 'landscape'
-                      ? 'w-[78vw] max-w-[300px] sm:w-[360px] lg:w-[400px] aspect-[3/2]'
-                      : 'w-[54vw] max-w-[205px] sm:w-[235px] lg:w-[255px] aspect-[2/3]'
-                  }`}
-                >
-                  <img
-                    src={photo.imageUrl}
-                    alt={photo.title}
-                    decoding="async"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    onError={(e) => {
-                      const target = e.currentTarget;
-                      if (target.src.endsWith('.webp')) {
-                        target.src = target.src.replace(/\.webp$/i, '.jpg');
-                      }
-                    }}
-                  />
-                  <div
-                    className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
-                    style={{
-                      background:
-                        'linear-gradient(180deg, rgba(6,18,8,0) 0%, rgba(6,18,8,0.88) 100%)',
-                    }}
-                  />
-                  <div className="absolute inset-x-0 bottom-0 p-3.5 text-white">
-                    <span
-                      className="text-base sm:text-lg text-[#f0b400] block leading-snug"
-                      style={{ fontFamily: 'var(--font-script)' }}
-                    >
-                      {photo.couple}
-                    </span>
-                    <span className="text-xs sm:text-sm text-white/95 font-medium leading-snug block mt-0.5">
-                      {photo.title}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
       </section>
 
       {/* =====================================================================
@@ -1000,7 +835,7 @@ export function TwfHomeSections({
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <span
-              className="text-3xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1"
+              className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               Every Space Crafted for Auspicious Moments
@@ -1012,8 +847,8 @@ export function TwfHomeSections({
               ROYAL VENUES &amp; CAPACITIES
             </h2>
           </div>
-          <p className="text-sm sm:text-base text-[#0f1f12]/75 max-w-md font-light leading-relaxed">
-            Direct, verified details for wedding families: 2,000+ guest lawns, crystal chandelier AC banquet, 25+ luxury rooms &amp; bridal suite, transparent packages, pure-veg kitchens, and secured valet parking.
+          <p className="text-xs sm:text-sm text-[#0f1f12]/75 max-w-md font-light leading-relaxed">
+            Verified property specifications: 2,000+ guest lawns, crystal AC banquet, 25+ rooms, transparent packages, pure-veg kitchens, and secured parking.
           </p>
         </div>
 
@@ -1041,28 +876,27 @@ export function TwfHomeSections({
                 />
               </div>
 
-              {/* Card Body */}
+              {/* Card Body — Concise Points Only */}
               <div className="p-5 sm:p-6 space-y-4 flex-1 flex flex-col justify-between">
-                <div className="space-y-2.5">
-                  <h3
-                    className="text-xl sm:text-2xl text-[#0f1f12] font-normal leading-snug"
-                    style={{ fontFamily: 'var(--font-display)' }}
-                  >
-                    {spec.title}
-                  </h3>
-                  <p className="text-sm sm:text-base font-medium text-[#14531e] leading-snug">
-                    {spec.capacityHeadline}
-                  </p>
-                  <p className="text-sm sm:text-xs text-[#0f1f12]/80 leading-relaxed font-light">
-                    {spec.summary}
-                  </p>
+                <div className="space-y-3">
+                  <div>
+                    <h3
+                      className="text-xl sm:text-2xl text-[#0f1f12] font-normal leading-snug"
+                      style={{ fontFamily: 'var(--font-display)' }}
+                    >
+                      {spec.title}
+                    </h3>
+                    <p className="text-sm sm:text-base font-semibold text-[#14531e] leading-snug mt-1">
+                      {spec.capacityHeadline}
+                    </p>
+                  </div>
 
-                  {/* Bullet Highlights */}
-                  <ul className="pt-2 space-y-1.5 border-t border-[#0f1f12]/10">
+                  {/* Bullet Highlights Only (Points in the boxes) */}
+                  <ul className="pt-2.5 space-y-2 border-t border-[#0f1f12]/10">
                     {spec.keyFeatures.map((feat, idx) => (
                       <li
                         key={idx}
-                        className="flex items-start gap-2 text-sm sm:text-sm text-[#0f1f12]/85 leading-snug"
+                        className="flex items-start gap-2 text-xs sm:text-sm text-[#0f1f12]/85 leading-snug"
                       >
                         <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                         <span>{feat}</span>
@@ -1079,9 +913,9 @@ export function TwfHomeSections({
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm sm:text-xs font-semibold text-[#14531e] hover:text-[#9e6800] transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#14531e] hover:text-[#9e6800] transition-colors"
                   >
-                    <span>Enquire for {spec.category.toUpperCase()}</span>
+                    <span>Enquire on WhatsApp</span>
                     <ArrowUpRight className="w-3.5 h-3.5 text-[#f0b400]" />
                   </a>
 
@@ -1236,10 +1070,10 @@ export function TwfHomeSections({
         aria-label="Top Google Maps Reviews and Guest Testimonials"
         className="px-1 sm:px-2 space-y-6"
       >
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <span
-              className="text-3xl sm:text-4xl text-[#9e6800] block leading-snug mb-1"
+              className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               Words from Families Who Celebrated With Us
@@ -1252,21 +1086,15 @@ export function TwfHomeSections({
             </h2>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14531e]/[0.08] border border-[#14531e]/20 text-xs sm:text-sm text-[#0f1f12] font-semibold">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" />
-              <span>4.6 / 5.0 Rating · 550+ Reviews</span>
-            </div>
-            <a
-              href={STUDIO_INFO.googleReviewUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/40 text-white text-xs sm:text-sm font-semibold uppercase tracking-wider transition-colors shadow-sm"
-            >
-              <span>Write a Review</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-[#f0b400]" />
-            </a>
-          </div>
+          <a
+            href={STUDIO_INFO.googleReviewUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/40 text-white text-xs sm:text-sm font-semibold uppercase tracking-wider transition-colors shadow-sm whitespace-nowrap self-start sm:self-auto"
+          >
+            <span>Write a Review</span>
+            <ArrowUpRight className="w-3.5 h-3.5 text-[#f0b400]" />
+          </a>
         </div>
 
         {/* 4 Reviews Grid */}
@@ -1408,53 +1236,53 @@ export function TwfHomeSections({
           DARK FEATURE BOX: WHAT YOU CAN ENQUIRE ABOUT
          ===================================================================== */}
       <section className="px-1 sm:px-2">
-        <div className="rounded-[22px] sm:rounded-[28px] bg-gradient-to-br from-[#0e2613] via-[#09190c] to-[#040d06] text-white p-6 sm:p-10 lg:p-14 border border-[#f0b400]/20 shadow-2xl space-y-10">
+        <div className="rounded-[22px] sm:rounded-[28px] bg-gradient-to-br from-[#0e2613] via-[#09190c] to-[#040d06] text-white p-6 sm:p-10 lg:p-14 border border-[#f0b400]/20 shadow-2xl space-y-8 sm:space-y-10">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <span
-              className="text-3xl sm:text-4xl text-[#f0b400] block"
+              className="text-2xl sm:text-3xl md:text-4xl text-[#f0b400] block"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               Every Ritual, Held Under One Sky
             </span>
             <h2
-              className="text-3xl sm:text-5xl font-normal text-white lowercase tracking-tight"
+              className="text-2xl sm:text-4xl lg:text-5xl font-normal text-white lowercase tracking-tight"
               style={{ fontFamily: 'var(--font-display)' }}
             >
               your wedding chapter at green heritage
             </h2>
-            <p className="text-sm sm:text-base text-white/75 max-w-lg mx-auto leading-relaxed font-light">
-              A wedding brings an entire family under one roof for days you carry for life. Speak directly with our team in Muzaffarpur to hold your auspicious dates and walk the lawns together.
+            <p className="text-xs sm:text-sm text-white/75 max-w-lg mx-auto leading-relaxed font-light">
+              Celebrate all your wedding ceremonies seamlessly at one grand destination in Bakarpur, Muzaffarpur.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             {[
               {
                 title: 'Haldi & Mehendi Lawns',
                 scriptSub: 'sunlit morning joy',
                 story:
-                  'Picture yellow marigolds drifting over the poolside lawn, green bangles clinking under shaded porticos, and elders laughing without anyone feeling rushed.',
+                  'Poolside lawns, sunlit marigolds, and comfortable shaded seating for all family elders.',
                 tag: 'Day Rituals',
               },
               {
                 title: 'Sangeet & Varmala Stage',
                 scriptSub: 'music, pyros & applause',
                 story:
-                  'When dusk settles on Bakarpur, our carved facade lights up for your baraat welcome, sangeet dances, and the first quiet breath before you exchange garlands.',
+                  'Illuminated palace facade, spacious performance stage, and memorable starlit varmala.',
                 tag: 'Evening Celebrations',
               },
               {
-                title: 'Bridal Suites & Family Rooms',
+                title: 'Bridal Suites & Rooms',
                 scriptSub: 'rest between rituals',
                 story:
-                  'A bride needs calm mirrors while getting ready, and travelling relatives deserve quiet rest after midnight pheras. Ask our desk for room blocks aligned with your wedding dates.',
+                  '25+ air-conditioned luxury rooms and private bridal dressing suites steps from the venue.',
                 tag: 'Guest Hospitality',
               },
               {
                 title: 'Walk the Venue Together',
                 scriptSub: 'bakarpur, muzaffarpur',
                 story:
-                  'Come see where the mandap will stand and feel the space in person on Gobarsahi–Sakri Road. Call or WhatsApp +91 92340 52600 to plan a family walkthrough.',
+                  'Visit our lawns along Gobarsahi–Sakri Road with family. Call +91 92340 52600 to schedule.',
                 tag: 'Site Walkthrough',
               },
             ].map((card, idx) => (
@@ -1464,7 +1292,7 @@ export function TwfHomeSections({
               >
                 <div className="space-y-2">
                   <span
-                    className="text-xl sm:text-2xl text-[#f0b400] block leading-none"
+                    className="text-lg sm:text-xl text-[#f0b400] block leading-none"
                     style={{ fontFamily: 'var(--font-script)' }}
                   >
                     {card.scriptSub}
@@ -1475,14 +1303,14 @@ export function TwfHomeSections({
                   >
                     {card.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-white/70 leading-relaxed font-light">
+                  <p className="text-xs sm:text-sm text-white/75 leading-relaxed font-light">
                     {card.story}
                   </p>
                 </div>
 
                 <div className="pt-2 border-t border-white/10 flex items-center justify-between text-xs text-[#f0b400]">
                   <span
-                    className="text-base sm:text-lg"
+                    className="text-sm sm:text-base"
                     style={{ fontFamily: 'var(--font-script)' }}
                   >
                     {card.tag}
@@ -1493,17 +1321,15 @@ export function TwfHomeSections({
             ))}
           </div>
 
-          <div className="p-5 sm:p-8 rounded-2xl bg-[#040d06]/70 border border-[#f0b400]/25 text-center max-w-3xl mx-auto space-y-2">
+          <div className="p-4 sm:p-6 rounded-2xl bg-[#040d06]/70 border border-[#f0b400]/25 text-center max-w-2xl mx-auto space-y-1.5">
             <span
-              className="text-2xl sm:text-4xl text-[#f0b400] block leading-tight"
+              className="text-xl sm:text-2xl text-[#f0b400] block leading-tight"
               style={{ fontFamily: 'var(--font-script)' }}
             >
-              &ldquo;An online enquiry is a request only. A booking is confirmed
-              once our team confirms availability and terms directly with
-              you.&rdquo;
+              &ldquo;An online enquiry is a request only. Bookings are confirmed directly with our team.&rdquo;
             </span>
-            <span className="text-xs sm:text-sm uppercase tracking-[0.2em] text-white/70 block font-light">
-              The Green Heritage Resort and Banquet · +91 92340 52600
+            <span className="text-xs uppercase tracking-[0.18em] text-white/70 block font-light">
+              The Green Heritage Resort &amp; Banquet · +91 92340 52600
             </span>
           </div>
         </div>
@@ -1607,227 +1433,6 @@ export function TwfHomeSections({
               </div>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* =====================================================================
-          SECTION 6: VERIFIED VENUE FACTS & QUICK ANSWERS (AEO & GEO)
-         ===================================================================== */}
-      <section
-        aria-label="Verified Venue Facts and Frequently Asked Questions"
-        className="px-1 sm:px-2 pb-2"
-      >
-        <div className="rounded-[22px] sm:rounded-[28px] bg-white/95 border border-[#14531e]/15 p-5 sm:p-8 lg:p-10 shadow-xl space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-[#0f1f12]/10 pb-4">
-            <div>
-              <span
-                className="text-3xl sm:text-4xl text-[#9e6800] block leading-snug mb-1"
-                style={{ fontFamily: 'var(--font-script)' }}
-              >
-                Clear Information for Families &amp; Guests
-              </span>
-              <h2
-                className="text-2xl sm:text-4xl text-[#0f1f12] lowercase mt-0.5"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                verified venue guide &amp; quick answers
-              </h2>
-            </div>
-
-            <a
-              href={PAGE_ROUTES.faqs.path}
-              onClick={(e) => {
-                if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-                e.preventDefault();
-                onNavigate('faqs');
-              }}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#14531e] hover:bg-[#0c3a14] text-white text-xs sm:text-sm uppercase tracking-[0.16em] font-medium transition-colors self-start sm:self-auto"
-            >
-              <span>Full FAQs &amp; Policies</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-[#f0b400]" />
-            </a>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-            {/* Left Column: Modern Aesthetic Official Property Summary */}
-            <div className="lg:col-span-5 rounded-2xl bg-gradient-to-br from-[#fbfaf6] to-[#f4f2ea] border border-[#14531e]/15 p-5 sm:p-6 space-y-4 text-sm text-[#0f1f12]/80 shadow-sm">
-              <div className="space-y-1.5 border-b border-[#14531e]/10 pb-3.5">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#14531e]/8 border border-[#14531e]/15 text-[#14531e] text-xs sm:text-sm font-medium">
-                  <Crown className="w-3.5 h-3.5 text-[#9e6800]" />
-                  <span>Inspired by Jaipur Royal Marriages</span>
-                </div>
-                <h3
-                  className="text-2xl sm:text-3xl text-[#0f1f12] lowercase tracking-tight pt-1"
-                  style={{ fontFamily: 'var(--font-display)' }}
-                >
-                  official property summary
-                </h3>
-                <p className="text-xs sm:text-sm text-[#0f1f12]/70">
-                  {STUDIO_INFO.name} · 350+ Celebrations Hosted · Muzaffarpur, Bihar
-                </p>
-              </div>
-
-              {/* Verified Highlights Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
-                {/* Lawn & Banquet */}
-                <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-[#14531e] uppercase tracking-wider">
-                    <Users className="w-3.5 h-3.5 text-[#9e6800]" />
-                    <span>Royal Lawns</span>
-                  </div>
-                  <p className="text-sm sm:text-base font-semibold text-[#0f1f12]">
-                    1,500 – 2,000+ Guests
-                  </p>
-                  <p className="text-xs sm:text-sm text-[#0f1f12]/65">Sprawling open-air lawns</p>
-                </div>
-
-                <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-[#14531e] uppercase tracking-wider">
-                    <Building2 className="w-3.5 h-3.5 text-[#9e6800]" />
-                    <span>Banquet Hall</span>
-                  </div>
-                  <p className="text-sm sm:text-base font-semibold text-[#0f1f12]">
-                    350 – 500+ Seated
-                  </p>
-                  <p className="text-xs sm:text-sm text-[#0f1f12]/65">700 Floating · AC Crystal Hall</p>
-                </div>
-
-                {/* Rooms & Suites */}
-                <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-[#14531e] uppercase tracking-wider">
-                    <BedDouble className="w-3.5 h-3.5 text-[#9e6800]" />
-                    <span>Stay &amp; Suites</span>
-                  </div>
-                  <p className="text-sm sm:text-base font-semibold text-[#0f1f12]">
-                    25+ Luxury AC Rooms
-                  </p>
-                  <p className="text-xs sm:text-sm text-[#0f1f12]/65">Cottages + Bridal Dressing Suite</p>
-                </div>
-
-                {/* Affordable Packages */}
-                <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-[#14531e] uppercase tracking-wider">
-                    <Tag className="w-3.5 h-3.5 text-[#9e6800]" />
-                    <span>Wedding Pricing</span>
-                  </div>
-                  <p className="text-sm sm:text-base font-semibold text-[#14531e]">
-                    Affordable for All
-                  </p>
-                  <p className="text-xs sm:text-sm text-[#0f1f12]/65">All wedding types &amp; religions</p>
-                </div>
-
-                {/* Parking & Logistics */}
-                <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-[#14531e] uppercase tracking-wider">
-                    <Car className="w-3.5 h-3.5 text-[#9e6800]" />
-                    <span>Guest Parking</span>
-                  </div>
-                  <p className="text-sm sm:text-base font-semibold text-[#0f1f12]">
-                    150+ Cars &amp; 200+ Bikes
-                  </p>
-                  <p className="text-xs sm:text-sm text-[#0f1f12]/65">Dedicated valet staff &amp; security</p>
-                </div>
-
-                {/* Catering Facilities */}
-                <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-[#14531e] uppercase tracking-wider">
-                    <UtensilsCrossed className="w-3.5 h-3.5 text-[#9e6800]" />
-                    <span>Catering Feasts</span>
-                  </div>
-                  <p className="text-sm sm:text-base font-semibold text-[#0f1f12]">
-                    Pure Veg Kitchen
-                  </p>
-                  <p className="text-xs sm:text-sm text-[#0f1f12]/65">Multi-cuisine &amp; outside partners ok</p>
-                </div>
-              </div>
-
-              {/* Rating & Trust Strip */}
-              <div className="p-3 rounded-xl bg-[#14531e]/[0.06] border border-[#14531e]/15 flex items-center justify-between gap-2">
-                <div className="flex items-center gap-2">
-                  <Award className="w-4 h-4 text-[#9e6800] shrink-0" />
-                  <div>
-                    <span className="font-semibold text-[#0f1f12] text-sm sm:text-base">
-                      4.6 / 5.0 Google Rating
-                    </span>
-                    <span className="text-xs sm:text-sm text-[#0f1f12]/70 block">
-                      550+ verified Google Maps reviews
-                    </span>
-                  </div>
-                </div>
-                <a
-                  href={STUDIO_INFO.googleReviewUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0 text-xs sm:text-sm text-[#14531e] font-semibold hover:underline inline-flex items-center gap-1"
-                >
-                  <span>View</span>
-                  <ArrowUpRight className="w-3 h-3 text-[#f0b400]" />
-                </a>
-              </div>
-
-              {/* Direct Phone & WhatsApp Action Strip */}
-              <div className="pt-2 border-t border-[#14531e]/10 flex flex-wrap items-center justify-between gap-2">
-                <div className="flex items-center gap-1.5 text-xs sm:text-sm text-[#0f1f12]/75">
-                  <MapPin className="w-3.5 h-3.5 text-[#14531e] shrink-0" />
-                  <span className="truncate">Gobarsahi–Sakri Road, Muzaffarpur</span>
-                </div>
-                <a
-                  href={STUDIO_INFO.phonePrimaryUrl}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] text-white text-xs sm:text-sm font-semibold transition-colors shadow-sm"
-                >
-                  <span>Desk: {STUDIO_INFO.phoneNumber}</span>
-                </a>
-              </div>
-
-              {/* Quick Navigation Links */}
-              <div className="pt-2 border-t border-[#0f1f12]/10 flex flex-wrap gap-2">
-                {(
-                  [
-                    { id: 'about', label: 'The Venue' },
-                    { id: 'installations', label: 'Spaces & Halls' },
-                    { id: 'commissions', label: 'Celebrations' },
-                    { id: 'contact', label: 'Contact & Visit' },
-                  ] as const
-                ).map((link) => (
-                  <a
-                    key={link.id}
-                    href={PAGE_ROUTES[link.id].path}
-                    onClick={(e) => {
-                      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-                      e.preventDefault();
-                      onNavigate(link.id);
-                    }}
-                    className="px-3 py-1.5 rounded-full bg-white hover:bg-[#14531e] hover:text-white border border-[#14531e]/15 text-xs sm:text-sm font-medium text-[#0f1f12] transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Right Column: Semantic Native HTML Q&A Accordion */}
-            <div className="lg:col-span-7 space-y-2.5">
-              {FAQ_ITEMS.map((faq, idx) => (
-                <details
-                  key={faq.id}
-                  open={idx === 0}
-                  className="group rounded-2xl bg-[#f7f6f1] border border-[#14531e]/12 px-4 sm:px-5 py-3.5 open:bg-white open:shadow-sm transition-colors"
-                >
-                  <summary className="list-none cursor-pointer flex items-center justify-between gap-3 font-medium text-sm sm:text-base text-[#0f1f12]">
-                    <span style={{ fontFamily: 'var(--font-display)' }}>
-                      {faq.question}
-                    </span>
-                    <span className="shrink-0 w-6 h-6 rounded-full bg-[#14531e]/10 text-[#14531e] flex items-center justify-center text-xs font-semibold group-open:bg-[#14531e] group-open:text-[#f0b400] transition-colors">
-                      +
-                    </span>
-                  </summary>
-                  <p className="mt-2.5 pt-2.5 border-t border-[#0f1f12]/10 text-sm sm:text-base text-[#0f1f12]/75 leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </details>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
     </div>
