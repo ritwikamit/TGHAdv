@@ -1200,34 +1200,32 @@ export function TwfHomeSections({
           SECTION 4: PLANNING & ENQUIRY GUIDANCE SLIDER (No fake reviews)
          ===================================================================== */}
       <section className="px-1 sm:px-2">
-        <div className="text-center max-w-xl mx-auto mb-3 sm:mb-8">
+        <div className="text-center max-w-xl mx-auto mb-6 sm:mb-8">
           <span
-            className="text-xl sm:text-3xl lg:text-4xl text-[#9e6800] block mb-0.5 leading-snug"
+            className="text-3xl sm:text-4xl text-[#9e6800] block mb-1 leading-snug"
             style={{ fontFamily: 'var(--font-script)' }}
           >
             From the Family&apos;s Heart to Ours
           </span>
           <h2
-            className="text-xl sm:text-3xl lg:text-5xl font-normal text-[#0f1f12] lowercase"
+            className="text-2xl sm:text-4xl lg:text-5xl font-normal text-[#0f1f12] lowercase"
             style={{ fontFamily: 'var(--font-display)' }}
           >
             planning a muzaffarpur wedding
           </h2>
         </div>
 
-        <div className="rounded-[18px] sm:rounded-[24px] bg-white/95 border border-[#14531e]/15 p-3.5 sm:p-8 lg:p-10 shadow-xl max-w-5xl mx-auto">
-          {/* Mobile view: compact horizontal header row with avatar + author + controls, quote below */}
-          {/* Desktop view (lg:): classic 2-column showcase */}
-          <div className="flex flex-col lg:grid lg:grid-cols-12 gap-3 sm:gap-6 lg:gap-8 lg:items-center">
-            {/* Image / Header Block */}
-            <div className="lg:col-span-4 flex items-center justify-between sm:justify-start lg:block">
-              <div className="w-14 h-14 sm:w-20 sm:h-20 lg:w-full lg:max-w-none lg:aspect-[4/5] rounded-full lg:rounded-2xl overflow-hidden border border-[#14531e]/15 shadow-md bg-[#09190c] shrink-0">
+        <div className="rounded-[20px] sm:rounded-[24px] bg-white/95 border border-[#14531e]/15 p-5 sm:p-10 shadow-xl max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
+            {/* Portrait Image Frame */}
+            <div className="lg:col-span-4">
+              <div className="aspect-[4/5] max-w-[280px] mx-auto lg:max-w-none rounded-2xl overflow-hidden border border-[#14531e]/15 shadow-lg bg-[#09190c]">
                 <img
                   key={currentNote.id}
                   src={currentNote.imageUrl}
                   alt={currentNote.author}
                   decoding="async"
-                  className="w-full h-full object-cover object-[50%_18%] transition-all duration-700 ease-out"
+                  className="w-full h-full object-cover object-[50%_18%] transition-all duration-700 ease-out animate-in fade-in"
                   onError={(e) => {
                     const target = e.currentTarget;
                     if (target.src.endsWith('.webp')) {
@@ -1236,62 +1234,18 @@ export function TwfHomeSections({
                   }}
                 />
               </div>
-
-              {/* Mobile Author & Role next to avatar */}
-              <div className="lg:hidden pl-2.5 sm:pl-3.5 flex-1 min-w-0">
-                <h4
-                  className="text-base sm:text-xl text-[#14531e] truncate"
-                  style={{ fontFamily: 'var(--font-script)' }}
-                >
-                  {currentNote.author}
-                </h4>
-                <p className="text-[10px] sm:text-xs uppercase tracking-[0.14em] text-[#0f1f12]/60 truncate">
-                  {currentNote.role} · {currentNote.location}
-                </p>
-              </div>
-
-              {/* Mobile Prev / Next Controls */}
-              <div className="lg:hidden flex items-center gap-1.5 pl-2 shrink-0">
-                <button
-                  type="button"
-                  onClick={() =>
-                    setGratitudeIndex(
-                      (prev) =>
-                        (prev - 1 + GRATITUDE_NOTES.length) %
-                        GRATITUDE_NOTES.length
-                    )
-                  }
-                  aria-label="Previous note"
-                  className="w-8 h-8 rounded-full bg-[#14531e]/8 hover:bg-[#14531e] hover:text-white text-[#14531e] flex items-center justify-center transition-colors cursor-pointer"
-                >
-                  <ChevronLeft className="w-3.5 h-3.5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() =>
-                    setGratitudeIndex(
-                      (prev) => (prev + 1) % GRATITUDE_NOTES.length
-                    )
-                  }
-                  aria-label="Next note"
-                  className="w-8 h-8 rounded-full bg-[#14531e]/8 hover:bg-[#14531e] hover:text-white text-[#14531e] flex items-center justify-center transition-colors cursor-pointer"
-                >
-                  <ChevronRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
             </div>
 
             {/* Guidance Note Content */}
-            <div className="lg:col-span-8 flex flex-col justify-between">
+            <div className="lg:col-span-8 space-y-4 sm:space-y-5">
               <p
-                className="text-sm sm:text-xl lg:text-3xl text-[#0f1f12] leading-snug sm:leading-relaxed font-normal"
+                className="text-2xl sm:text-3xl lg:text-4xl text-[#0f1f12] leading-relaxed font-normal"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 &ldquo;{currentNote.quote}&rdquo;
               </p>
 
-              {/* Desktop Author and Controls (hidden on mobile) */}
-              <div className="hidden lg:flex items-center justify-between gap-4 pt-5 mt-5 border-t border-[#14531e]/15">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-[#14531e]/15">
                 <div>
                   <h4
                     className="text-2xl sm:text-3xl text-[#14531e]"
@@ -1315,7 +1269,7 @@ export function TwfHomeSections({
                       )
                     }
                     aria-label="Previous note"
-                    className="w-10 h-10 rounded-full bg-[#14531e]/8 hover:bg-[#14531e] hover:text-white text-[#14531e] flex items-center justify-center transition-colors cursor-pointer"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#14531e]/8 hover:bg-[#14531e] hover:text-white text-[#14531e] flex items-center justify-center transition-colors cursor-pointer"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
@@ -1327,7 +1281,7 @@ export function TwfHomeSections({
                       )
                     }
                     aria-label="Next note"
-                    className="w-10 h-10 rounded-full bg-[#14531e]/8 hover:bg-[#14531e] hover:text-white text-[#14531e] flex items-center justify-center transition-colors cursor-pointer"
+                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#14531e]/8 hover:bg-[#14531e] hover:text-white text-[#14531e] flex items-center justify-center transition-colors cursor-pointer"
                   >
                     <ChevronRight className="w-4 h-4" />
                   </button>

@@ -117,6 +117,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         url: baseUrl,
         logo: `${baseUrl}/TGHLogo.png`,
         image: [
+          `${baseUrl}/og-preview-brand-v5.jpg`,
           `${baseUrl}/og-preview-brand-v4.jpg`,
           `${baseUrl}/og-resort-preview.jpg`,
           `${baseUrl}/og-resort-aerial.jpg`,

@@ -20,21 +20,28 @@ export const SITE_URL =
 
 export const DEFAULT_OG_IMAGES = [
   {
-    url: '/og-preview-brand-v4.jpg?v=brand4',
+    url: '/og-preview-brand-v5.jpg?v=brand5',
     width: 1200,
     height: 630,
     type: 'image/jpeg',
     alt: 'The Green Heritage Resort and Banquet — Official Logo, Aerial Resort Campus & Wedding Lawns in Bakarpur, Muzaffarpur',
   },
   {
-    url: '/og-resort-preview.jpg?v=brand4',
+    url: '/og-preview-brand-v4.jpg?v=brand5',
+    width: 1200,
+    height: 630,
+    type: 'image/jpeg',
+    alt: 'The Green Heritage Resort and Banquet — Official Logo, Aerial Resort Campus & Wedding Lawns in Bakarpur, Muzaffarpur',
+  },
+  {
+    url: '/og-resort-preview.jpg?v=brand5',
     width: 1200,
     height: 630,
     type: 'image/jpeg',
     alt: 'The Green Heritage Resort and Banquet — Aerial Resort View, Illuminated Courtyard & Wedding Stage in Bakarpur, Muzaffarpur',
   },
   {
-    url: '/og-resort-aerial.jpg?v=brand4',
+    url: '/og-resort-aerial.jpg?v=brand5',
     width: 1200,
     height: 630,
     type: 'image/jpeg',
