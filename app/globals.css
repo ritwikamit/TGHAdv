@@ -8,6 +8,9 @@
 
 .font-script {
   font-family: var(--font-script), cursive;
+  font-size: 1.28em;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
 }
 
 .font-display {

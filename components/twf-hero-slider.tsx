@@ -93,23 +93,6 @@ export function TwfHeroSlider({
       onClick={() => onPlayFilm(currentSlide)}
       className="relative w-full min-h-[370px] sm:min-h-[340px] md:min-h-0 sm:aspect-video rounded-[18px] sm:rounded-[24px] overflow-hidden bg-[#061208] select-none shadow-2xl border border-[#14531e]/20 cursor-pointer group"
     >
-      {/* Lightly preload metadata for ONLY the single next slide to keep mobile bandwidth & memory lean */}
-      {(() => {
-        const nextSlide =
-          HEADER_HERO_FILMS[(activeIndex + 1) % HEADER_HERO_FILMS.length];
-        return nextSlide?.videoSrc && nextSlide.id !== currentSlide.id ? (
-          <div className="hidden" aria-hidden="true">
-            <video
-              key={nextSlide.id}
-              src={nextSlide.videoSrc}
-              preload="metadata"
-              muted
-              playsInline
-            />
-          </div>
-        ) : null;
-      })()}
-
       {/* FOREGROUND HEADER VIDEO (Full bleed frame, focal position preserved on smartphone & desktop) */}
       <div className="absolute inset-0 z-10 w-full h-full overflow-hidden bg-[#061208]">
         <video
@@ -126,7 +109,7 @@ export function TwfHeroSlider({
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           style={{ objectPosition: currentSlide.objectPosition || 'center center' }}
           onLoadedData={(e) => {
             if (isInViewRef.current) {

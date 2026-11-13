@@ -167,6 +167,20 @@ export const STUDIO_INFO = {
     'https://www.google.com/maps/place/The+Green+Heritage+Resort+and+Banquet/@26.0638548,85.347923,17z/data=!3m1!4b1!4m9!3m8!1s0x39ed1724a0dfa55b:0x5737c356be2eaddb!5m2!4m1!1i2!8m2!3d26.06385!4d85.3504979!16s%2Fg%2F11kq2x_1j4?entry=ttu&g_ep=EgoyMDI2MTEwOS4wIKXMDSoASAFQAw%3D%3D',
   mapsEmbedUrl:
     'https://maps.google.com/maps?ll=26.06385,85.3504979&q=26.06385,85.3504979+(The+Green+Heritage+Resort+and+Banquet)&hl=en&z=17&ie=UTF8&iwloc=&output=embed',
+  googleReviewUrl:
+    'https://search.google.com/local/writereview?placeid=ChIJW6DfoCQX7TkR260uvlbDN1c',
+  reviewQrUrl: '/google-review-qr.webp',
+  googleRating: '4.6',
+  googleReviewCount: '550+',
+  marriagesHosted: '350+',
+  yearsOfHeritage: '10+',
+  lawnCapacity: '1,500 – 2,000+ Guests',
+  hallCapacity: '350 – 500+ Seated (700 Floating)',
+  totalRooms: '25+ Executive AC Rooms & Private Cottages',
+  startingPackage: '₹3,50,000 onwards',
+  parkingCapacity: '150+ Cars & 200+ Bikes (Valet Assisted)',
+  cateringFacilities:
+    'In-House Pure Veg & Multi-Cuisine Feasts + Approved Outside Caterers Welcome',
   studioHours: 'Call or WhatsApp +91 92340 52600 for wedding dates and venue tours',
 };
 
@@ -1505,50 +1519,195 @@ export const STORY_SCENES: StoryScene[] = [
   },
 ];
 
+export interface VenueSpecification {
+  id: string;
+  category: 'lawn' | 'hall' | 'rooms' | 'packages' | 'catering' | 'parking';
+  tag: string;
+  title: string;
+  statBadge: string;
+  capacityHeadline: string;
+  summary: string;
+  keyFeatures: string[];
+  imageUrl: string;
+  secondaryImageUrl: string;
+  fallbackImageUrl: string;
+}
+
+export const VENUE_SPECIFICATIONS: VenueSpecification[] = [
+  {
+    id: 'spec-lawn',
+    category: 'lawn',
+    tag: 'Grand Open-Air Celebrations',
+    title: 'The Royal Wedding Lawn',
+    statBadge: '1,500 – 2,000+ Guests',
+    capacityHeadline: 'Accommodates up to 2,000+ Guests for Grand Receptions & Varmala',
+    summary:
+      'Expansive lush green natural grass lawn designed specifically for grand North Indian weddings. Features an elevated grand stage pathway, dedicated mandap perimeter, baraat procession driveway, and poolside celebration deck.',
+    keyFeatures: [
+      'Capacity: 1,500 to 2,000+ attending guests',
+      'Wide dedicated baraat entry & welcoming portico',
+      'Illuminated perimeter trees and high-mast celebratory lighting',
+      'Direct connectivity to buffet dining counters and bridal cottage',
+    ],
+    imageUrl: '/TGHPhotos/HotelGround/Lawn/lawn1.webp',
+    secondaryImageUrl: '/TGHPhotos/HotelGround/Lawn/lawn2.webp',
+    fallbackImageUrl: '/TGHPhotos/HotelGround/Lawn/lawn1.jpg',
+  },
+  {
+    id: 'spec-hall',
+    category: 'hall',
+    tag: 'Climate-Controlled Luxury',
+    title: 'Heritage Chandelier Banquet Hall',
+    statBadge: '350 – 500+ Seated (700 Floating)',
+    capacityHeadline: 'Air-Conditioned Indoor Hall for Sangeet, Dinners & Sacred Pheras',
+    summary:
+      'An opulent indoor hall adorned with sparkling crystal chandeliers, high acoustic ceilings, all-weather 100% air-conditioning, and an elevated mandap stage suitable for rings, sangeet performances, and auspicious phere rituals.',
+    keyFeatures: [
+      'Seated theater arrangement for 350 – 500+ guests',
+      'Floating capacity up to 700+ guests during dinner receptions',
+      'Built-in audio-visual wiring and stage lighting consoles',
+      'All-weather comfort for summer weddings and winter evenings',
+    ],
+    imageUrl: '/TGHPhotos/HotelGround/Hall/banquet-hall.webp',
+    secondaryImageUrl: '/TGHPhotos/HotelGround/Hall/caption-20.webp',
+    fallbackImageUrl: '/TGHPhotos/HotelGround/Hall/banquet-hall.jpg',
+  },
+  {
+    id: 'spec-rooms',
+    category: 'rooms',
+    tag: 'Stay & Bridal Suite',
+    title: 'Executive Rooms & Heritage Cottages',
+    statBadge: '25+ Rooms & Cottages',
+    capacityHeadline: 'Comfortable On-Site Stays with Dedicated Bridal Dressing Suite',
+    summary:
+      'Spacious air-conditioned executive rooms and private heritage cottages allowing family, out-of-town guests, and the bridal entourage to stay together comfortably right at the venue with zero travel hassle on the wedding day.',
+    keyFeatures: [
+      'Dedicated Bridal Suite with large full-length mirrors and salon vanity',
+      '25+ air-conditioned family rooms and heritage cottages',
+      '24/7 power backup, running hot/cold water, and room service',
+      'Private balconies overlooking the resort greenery and pool',
+    ],
+    imageUrl: '/TGHPhotos/HotelGround/RoomsCottages/cottage-room.webp',
+    secondaryImageUrl: '/TGHPhotos/HotelGround/RoomsCottages/executive-room.webp',
+    fallbackImageUrl: '/TGHPhotos/HotelGround/RoomsCottages/cottage-room.jpg',
+  },
+  {
+    id: 'spec-packages',
+    category: 'packages',
+    tag: 'Transparent Value',
+    title: 'Customizable Wedding Packages',
+    statBadge: 'Starting from ₹3,50,000',
+    capacityHeadline: '1-Day, 2-Day & Destination Wedding Packages from ₹3.5 Lakhs Onwards',
+    summary:
+      'Transparent, customizable wedding packages tailored to your family traditions. Whether hosting a focused 1-day varmala & reception or a multi-day residential wedding from haldi, mehendi, sangeet to pheras, we build packages that honor your budget.',
+    keyFeatures: [
+      'Starting base packages from ₹3.5 Lakhs onwards',
+      'Venue hire for lawn, banquet hall, and poolside areas',
+      'Standard ambient lighting, power backup, and security personnel',
+      'Flexible packages for bridal suite and family room blocks',
+    ],
+    imageUrl: '/TGHPhotos/HotelGround/Decorations/caption-1.webp',
+    secondaryImageUrl: '/TGHPhotos/HotelGround/Decorations/caption-3.webp',
+    fallbackImageUrl: '/TGHPhotos/HotelGround/Decorations/caption-1.jpg',
+  },
+  {
+    id: 'spec-catering',
+    category: 'catering',
+    tag: 'Culinary Heritage',
+    title: 'In-House Pure Veg & Multi-Cuisine Feasts',
+    statBadge: 'Pure Veg & Multi-Cuisine',
+    capacityHeadline: 'Dedicated Pure Vegetarian Kitchens, Live Counters & Outside Caterer Welcome',
+    summary:
+      'Grand wedding banqueting with authentic regional and royal Indian menus. From traditional Bihari wedding feasts to North Indian delicacies, Marwari spreads, South Indian breakfasts, and live chaat and jalebi stations prepared under strict hygiene standards.',
+    keyFeatures: [
+      'Dedicated, separate pure-vegetarian cooking facilities',
+      'Authentic regional flavors, live tandoor, chaat, and dessert counters',
+      'Menu tasting and custom recipe coordination with family elders',
+      'Outside catering partners permitted upon prior written coordination',
+    ],
+    imageUrl: '/TGHPhotos/HotelGround/Catering/caption-6.webp',
+    secondaryImageUrl: '/TGHPhotos/HotelGround/Decorations/caption-18.webp',
+    fallbackImageUrl: '/TGHPhotos/HotelGround/Catering/caption-6.jpg',
+  },
+  {
+    id: 'spec-parking',
+    category: 'parking',
+    tag: 'Arrival & Security',
+    title: 'Secured Parking & Valet Services',
+    statBadge: '150+ Cars · 200+ Bikes',
+    capacityHeadline: 'Dedicated On-Premises Parking with Valet & Security Guard Assistance',
+    summary:
+      'Stress-free guest arrival with expansive, secure parking located directly within the resort perimeter along Gobarsahi–Sakri Road. Professional valet personnel and security guards ensure smooth vehicle flow throughout your celebration.',
+    keyFeatures: [
+      'Accommodates 150+ four-wheelers and 200+ two-wheelers simultaneously',
+      'Wide double-gate entrance and clear turning radius for buses and luxury cars',
+      'Valet parking staff and security attendants on duty day and night',
+      'Direct, well-lit pedestrian pathways connecting parking to the reception lawn',
+    ],
+    imageUrl: '/TGHPhotos/HotelGround/Outdoor&Parking/caption-15.webp',
+    secondaryImageUrl: '/TGHPhotos/HotelGround/Outdoor&Parking/caption-17.webp',
+    fallbackImageUrl: '/TGHPhotos/HotelGround/Outdoor&Parking/caption-15.jpg',
+  },
+];
+
 // ============================================================================
 // WEDDING FAQS (Honest, practical & 100% wedding-focused)
 // ============================================================================
 export const FAQ_ITEMS: FaqItem[] = [
   {
-    id: 'faq1',
-    category: 'Location & Directions',
-    question: 'Where is The Green Heritage Resort and Banquet located?',
-    answer:
-      'We are located along Gobarsahi–Sakri Road in Bakarpur (Mauza Bakarpur, Dariyapur Kafen), Muzaffarpur, Bihar 844127. Open our Google Maps pin (26.06385, 85.3504979) or call +91 92340 52600 for route landmarks so travelling wedding guests arrive smoothly.',
-  },
-  {
-    id: 'faq2',
-    category: 'Location & Directions',
-    question: 'How do families reach the wedding coordinator team?',
-    answer:
-      'Call or WhatsApp +91 92340 52600, write to ajay888277@gmail.com, or send your preferred wedding dates through the enquiry form on this website.',
-  },
-  {
-    id: 'faq3',
+    id: 'faq-capacity',
     category: 'Weddings & Events',
-    question: 'Can we host multi-day weddings from Haldi and Mehendi to Pheras here?',
+    question: 'How many guests can accommodate in the lawn and banquet hall?',
     answer:
-      'Yes. Families use our poolside lawn and portico for haldi and mehendi mornings, our open lawn for baraat and varmala, and our indoor chandelier banquet hall for sangeet dinners and pheras. Share your dates and guest count on +91 92340 52600 to plan the spaces.',
+      'The Grand Royal Wedding Lawn accommodates up to 1,500 – 2,000+ guests for grand wedding receptions, baraat, and varmala ceremonies. The centrally air-conditioned Heritage Banquet Hall accommodates 350 – 500+ seated guests (up to 700 floating), ideal for sangeet nights, ring ceremonies, and monsoon or winter weddings.',
   },
   {
-    id: 'faq4',
+    id: 'faq-rooms',
     category: 'Stay & Rooms',
-    question: 'Are bridal suites and family rooms available alongside the wedding venue?',
+    question: 'How many rooms and cottages are available, and is there a bridal dressing suite?',
     answer:
-      'Yes — ask our team directly at +91 92340 52600 for current room counts, cottage options, wedding-group tariffs, check-in timings and guest ID requirements for your exact dates.',
+      'We offer 25+ air-conditioned executive rooms and private heritage cottages on-premises for out-of-town wedding guests and family stays. We also provide a dedicated, spacious Bridal Dressing Suite equipped with professional vanity mirrors, full-length dressing glass, private washroom, and 24/7 power backup.',
   },
   {
-    id: 'faq5',
+    id: 'faq-packages',
     category: 'Facilities & Booking',
-    question: 'How do catering, decor vendors, parking and pool access work?',
+    question: 'What is the starting package price for weddings at The Green Heritage Resort?',
     answer:
-      'Third-party listings note parking, Wi-Fi and a swimming pool at the resort. Speak directly with us to confirm catering packages, outside decorator or photographer terms, event parking and active facilities before locking your dates.',
+      'Wedding packages start from ₹3,50,000 onwards. We offer customizable single-day and multi-day residential wedding packages covering venue hire for the lawn, AC hall, and poolside deck, essential decor, lighting, power backup, stage setup, and room blocks.',
   },
   {
-    id: 'faq6',
+    id: 'faq-parking',
     category: 'Facilities & Booking',
-    question: 'Does sending an online enquiry confirm our wedding date?',
+    question: 'What parking facilities are available for wedding guests?',
     answer:
-      'No — an online or WhatsApp enquiry starts a request only. Your wedding dates are reserved only after our team verifies calendar availability and confirms written booking, deposit and cancellation terms directly with your family.',
+      'The resort features an expansive, secure on-premises parking facility accommodating 150+ cars and 200+ two-wheelers. Dedicated valet parking staff, security attendants, and wide direct access from Gobarsahi–Sakri Road ensure seamless guest arrival and departure.',
+  },
+  {
+    id: 'faq-catering',
+    category: 'Facilities & Booking',
+    question: 'How does catering work? Can we bring our own catering team?',
+    answer:
+      'We offer comprehensive in-house catering with dedicated pure-vegetarian kitchens serving authentic Bihari delicacies, North Indian royal feasts, Marwari cuisine, and live chaat and sweet counters. Families are also welcome to bring their own approved catering partners with prior arrangement.',
+  },
+  {
+    id: 'faq-reviews',
+    category: 'Weddings & Events',
+    question: 'What is the Google rating and how many weddings have been hosted here?',
+    answer:
+      'The Green Heritage Resort holds an exceptional 4.6★ / 5.0 rating across 550+ verified Google and Justdial reviews. Over the past decade, we have proudly hosted more than 350+ royal weddings and family celebrations across Muzaffarpur and North Bihar.',
+  },
+  {
+    id: 'faq-location',
+    category: 'Location & Directions',
+    question: 'Where is The Green Heritage Resort located and how do guests reach it?',
+    answer:
+      'We are located along Gobarsahi–Sakri Road in Bakarpur (Mauza Bakarpur, Dariyapur Kafen), Muzaffarpur, Bihar 844127. Our Google Maps pin is 26.06385, 85.3504979. Landmark: close to Gobarsahi Chowk with wide roadway access. Call or WhatsApp +91 92340 52600 for route guidance.',
+  },
+  {
+    id: 'faq-booking',
+    category: 'Facilities & Booking',
+    question: 'How do we confirm our wedding date and what is the payment schedule?',
+    answer:
+      'Wedding dates are reserved on a first-come basis. You can initiate a request via our website enquiry form or by calling +91 92340 52600. Dates are confirmed upon an in-person or virtual venue walkthrough and receipt of an initial booking advance with written terms.',
   },
 ];

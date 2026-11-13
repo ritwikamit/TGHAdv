@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import {
   ChevronLeft,
@@ -10,6 +10,18 @@ import {
   VolumeX,
   ArrowUpRight,
   MapPin,
+  Play,
+  Star,
+  Users,
+  Building2,
+  BedDouble,
+  Car,
+  UtensilsCrossed,
+  Tag,
+  CheckCircle2,
+  ArrowRight,
+  ShieldCheck,
+  Sparkles,
 } from 'lucide-react';
 
 const TwfRealisticGlobe = dynamic(
@@ -30,6 +42,7 @@ import {
   GRATITUDE_NOTES,
   FAQ_ITEMS,
   STUDIO_INFO,
+  VENUE_SPECIFICATIONS,
   CinemaFilm,
   InstagramReelItem,
   PhotoFrame,
@@ -61,80 +74,22 @@ function HoverVideoBox({
   aspectClass = 'aspect-[9/16]',
   onOpenModal,
 }: HoverVideoBoxProps) {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const isInViewRef = useRef(false);
-  const [isMuted, setIsMuted] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
-
-  useEffect(() => {
-    const el = containerRef.current;
-    const vid = videoRef.current;
-    if (!el || !vid) return;
-
-    vid.defaultMuted = true;
-    vid.muted = isMuted;
-    vid.playsInline = true;
-    let settleTimer: number | null = null;
-
-    const tryPlay = () => {
-      if (!isInViewRef.current) return;
-      vid.defaultMuted = true;
-      vid.muted = isMuted;
-      if (vid.preload !== 'auto') {
-        vid.preload = 'auto';
-      }
-      if (vid.readyState === 0) {
-        vid.load();
-      }
-      vid.play().catch(() => {
-        vid.muted = true;
-        vid.play().catch(() => {});
-      });
-    };
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          isInViewRef.current = entry.isIntersecting;
-          if (settleTimer !== null) {
-            window.clearTimeout(settleTimer);
-            settleTimer = null;
-          }
-          if (entry.isIntersecting) {
-            // Brief settle delay prevents decoding bursts during fast touch/wheel scroll flicks
-            settleTimer = window.setTimeout(() => {
-              settleTimer = null;
-              tryPlay();
-            }, 95);
-          } else {
-            vid.pause();
-          }
-        });
-      },
-      { rootMargin: '40px 0px', threshold: 0.35 }
-    );
-
-    observer.observe(el);
-    return () => {
-      if (settleTimer !== null) {
-        window.clearTimeout(settleTimer);
-      }
-      observer.disconnect();
-      vid.pause();
-    };
-  }, [isMuted]);
+  const [isMuted, setIsMuted] = useState(true);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
     if (videoRef.current) {
-      videoRef.current.muted = isMuted;
       videoRef.current.play().catch(() => {});
     }
   };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
   };
 
   const toggleMute = (e: React.MouseEvent) => {
@@ -143,49 +98,56 @@ function HoverVideoBox({
     setIsMuted(nextMuted);
     if (videoRef.current) {
       videoRef.current.muted = nextMuted;
-      if (videoRef.current.paused) {
-        videoRef.current.play().catch(() => {});
-      }
     }
   };
 
   return (
     <div
-      ref={containerRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onTouchStart={handleMouseEnter}
       onClick={onOpenModal}
-      className={`group relative shrink-0 ${aspectClass} rounded-[18px] sm:rounded-[22px] overflow-hidden bg-[#09190c] cursor-pointer border border-[#14531e]/15 shadow-lg transition-transform duration-300 ease-out hover:scale-[1.02] hover:z-30`}
+      className={`group relative shrink-0 ${aspectClass} rounded-[18px] sm:rounded-[22px] overflow-hidden bg-[#09190c] cursor-pointer border border-[#14531e]/20 shadow-lg transition-transform duration-300 ease-out hover:scale-[1.02] hover:z-30`}
     >
-      <video
-        ref={videoRef}
-        src={videoSrc}
-        poster={posterUrl || undefined}
-        autoPlay
-        loop
-        muted={isMuted}
-        playsInline
-        preload="none"
-        onLoadedData={(e) => {
-          if (isInViewRef.current) {
-            e.currentTarget.muted = isMuted;
-            e.currentTarget.play().catch(() => {});
+      {/* High-resolution instant poster image (Loads in milliseconds, zero bandwidth waste on 4G) */}
+      <img
+        src={posterUrl || '/og-preview-brand-v4.jpg'}
+        alt={couple}
+        loading="lazy"
+        decoding="async"
+        className={`absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+          isHovered ? 'opacity-0' : 'opacity-100'
+        }`}
+        onError={(e) => {
+          const t = e.currentTarget;
+          if (t.src.endsWith('.webp')) {
+            t.src = t.src.replace(/\.webp$/i, '.jpg');
           }
         }}
-        onCanPlay={(e) => {
-          if (isInViewRef.current) {
-            e.currentTarget.muted = isMuted;
-            e.currentTarget.play().catch(() => {});
-          }
-        }}
-        className="w-full h-full object-cover bg-[#061208]"
       />
 
+      {/* Video element only mounts / plays when desktop user hovers — zero prebuffering on mobile load */}
+      {isHovered && videoSrc && (
+        <video
+          ref={videoRef}
+          src={videoSrc}
+          autoPlay
+          loop
+          muted={isMuted}
+          playsInline
+          preload="metadata"
+          className="absolute inset-0 w-full h-full object-cover bg-[#061208]"
+        />
+      )}
+
+      {/* Floating Center Play Badge */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+        <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#14531e]/85 backdrop-blur-md border border-[#f0b400]/60 flex items-center justify-center text-[#f0b400] shadow-2xl group-hover:scale-115 transition-transform duration-300">
+          <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-current ml-0.5" />
+        </div>
+      </div>
+
       <div
-        className={`pointer-events-none absolute inset-x-0 bottom-0 h-32 transition-opacity duration-300 ${
-          isHovered ? 'opacity-95' : 'opacity-85'
-        }`}
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-32 transition-opacity duration-300 opacity-90 z-10"
         style={{
           background:
             'linear-gradient(180deg, rgba(6,18,8,0) 0%, rgba(6,18,8,0.52) 45%, rgba(6,18,8,0.92) 100%)',
@@ -195,7 +157,7 @@ function HoverVideoBox({
       <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 flex items-end justify-between gap-2 z-20">
         <div className="min-w-0 text-left">
           <span
-            className="text-sm sm:text-base text-[#f0b400] block leading-snug mb-0.5 break-words"
+            className="text-base sm:text-lg text-[#f0b400] block leading-snug mb-0.5 break-words"
             style={{ fontFamily: 'var(--font-script)' }}
           >
             {location}
@@ -208,18 +170,20 @@ function HoverVideoBox({
           </h3>
         </div>
 
-        <button
-          type="button"
-          onClick={toggleMute}
-          aria-label={isMuted ? 'Unmute video' : 'Mute video'}
-          className="relative z-30 shrink-0 w-8 h-8 rounded-full bg-[#061208]/75 hover:bg-[#14531e] border border-[#f0b400]/35 text-white flex items-center justify-center transition-colors cursor-pointer"
-        >
-          {isMuted ? (
-            <VolumeX className="w-3.5 h-3.5" />
-          ) : (
-            <Volume2 className="w-3.5 h-3.5 text-emerald-400" />
-          )}
-        </button>
+        {isHovered && (
+          <button
+            type="button"
+            onClick={toggleMute}
+            aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+            className="relative z-30 shrink-0 w-8 h-8 rounded-full bg-[#061208]/85 hover:bg-[#14531e] border border-[#f0b400]/40 text-white flex items-center justify-center transition-colors cursor-pointer"
+          >
+            {isMuted ? (
+              <VolumeX className="w-3.5 h-3.5" />
+            ) : (
+              <Volume2 className="w-3.5 h-3.5 text-emerald-400" />
+            )}
+          </button>
+        )}
       </div>
     </div>
   );
@@ -238,8 +202,15 @@ export function TwfHomeSections({
   const portraitRowRef = useRef<HTMLDivElement | null>(null);
   const photoRowRef = useRef<HTMLDivElement | null>(null);
 
-  const landscapeReels = INSTAGRAM_REELS.filter((r) => !r.isPortrait);
-  const portraitReels = INSTAGRAM_REELS.filter((r) => r.isPortrait);
+  // Exactly 4 Landscape and 4 Portrait reels on Landing Page (Rest on /wedding-films)
+  const landscapeReels = useMemo(
+    () => INSTAGRAM_REELS.filter((r) => !r.isPortrait).slice(0, 4),
+    []
+  );
+  const portraitReels = useMemo(
+    () => INSTAGRAM_REELS.filter((r) => r.isPortrait).slice(0, 4),
+    []
+  );
 
   const movingSectionRef = useRef<HTMLDivElement | null>(null);
   const movingRowOneRef = useRef<HTMLDivElement | null>(null);
@@ -402,13 +373,134 @@ export function TwfHomeSections({
   return (
     <div className="space-y-14 sm:space-y-20">
       {/* =====================================================================
+          TOP TRUST & VENUE KEY SPECS BAR (Essential Details for Families & Guests)
+         ===================================================================== */}
+      <section
+        aria-label="Venue Key Facts and Guest Capacities"
+        className="px-1 sm:px-2 pt-1"
+      >
+        <div className="rounded-[20px] sm:rounded-[24px] bg-[#f7f6f1] border border-[#14531e]/15 p-4 sm:p-6 shadow-md">
+          {/* Header Line */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#0f1f12]/10 pb-3 mb-4">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-600 animate-pulse" />
+              <span className="text-xs uppercase tracking-[0.16em] font-semibold text-[#14531e]">
+                Verified Venue Specifications · Gobarsahi–Sakri Road, Muzaffarpur
+              </span>
+            </div>
+            <div className="inline-flex items-center gap-1.5 text-xs text-[#9e6800] font-medium">
+              <Star className="w-3.5 h-3.5 fill-[#f0b400] text-[#f0b400]" />
+              <span className="font-bold text-[#0f1f12]">4.6 / 5.0 Rating</span>
+              <span className="text-[#0f1f12]/50">·</span>
+              <span>550+ Google Reviews</span>
+              <span className="text-[#0f1f12]/50">·</span>
+              <span>350+ Weddings</span>
+            </div>
+          </div>
+
+          {/* 6 Key Highlights Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+            <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
+              <div className="flex items-center gap-1.5 text-[#14531e]">
+                <Users className="w-4 h-4 text-[#f0b400]" />
+                <span className="text-[11px] sm:text-xs uppercase tracking-wider text-[#0f1f12]/70 font-medium">
+                  Lawn Capacity
+                </span>
+              </div>
+              <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
+                1,500 – 2,000+
+              </p>
+              <p className="text-[11px] sm:text-xs text-[#0f1f12]/65 leading-tight">
+                Receptions &amp; Varmala
+              </p>
+            </div>
+
+            <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
+              <div className="flex items-center gap-1.5 text-[#14531e]">
+                <Building2 className="w-4 h-4 text-[#f0b400]" />
+                <span className="text-[11px] sm:text-xs uppercase tracking-wider text-[#0f1f12]/70 font-medium">
+                  AC Banquet Hall
+                </span>
+              </div>
+              <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
+                350 – 500+ Seated
+              </p>
+              <p className="text-[11px] sm:text-xs text-[#0f1f12]/65 leading-tight">
+                700 Floating · Sangeet &amp; Pheras
+              </p>
+            </div>
+
+            <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
+              <div className="flex items-center gap-1.5 text-[#14531e]">
+                <BedDouble className="w-4 h-4 text-[#f0b400]" />
+                <span className="text-[11px] sm:text-xs uppercase tracking-wider text-[#0f1f12]/70 font-medium">
+                  Rooms &amp; Stay
+                </span>
+              </div>
+              <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
+                25+ Luxury Rooms
+              </p>
+              <p className="text-[11px] sm:text-xs text-[#0f1f12]/65 leading-tight">
+                Bridal Suite &amp; Cottages
+              </p>
+            </div>
+
+            <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
+              <div className="flex items-center gap-1.5 text-[#14531e]">
+                <Tag className="w-4 h-4 text-[#f0b400]" />
+                <span className="text-[11px] sm:text-xs uppercase tracking-wider text-[#0f1f12]/70 font-medium">
+                  Starting Package
+                </span>
+              </div>
+              <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
+                ₹3,50,000+
+              </p>
+              <p className="text-[11px] sm:text-xs text-[#0f1f12]/65 leading-tight">
+                1-Day &amp; Multi-Day Tiers
+              </p>
+            </div>
+
+            <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
+              <div className="flex items-center gap-1.5 text-[#14531e]">
+                <Car className="w-4 h-4 text-[#f0b400]" />
+                <span className="text-[11px] sm:text-xs uppercase tracking-wider text-[#0f1f12]/70 font-medium">
+                  Guest Parking
+                </span>
+              </div>
+              <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
+                150+ Cars
+              </p>
+              <p className="text-[11px] sm:text-xs text-[#0f1f12]/65 leading-tight">
+                200+ Bikes · Valet Support
+              </p>
+            </div>
+
+            <div className="p-3 rounded-xl bg-white border border-[#14531e]/10 space-y-1">
+              <div className="flex items-center gap-1.5 text-[#14531e]">
+                <UtensilsCrossed className="w-4 h-4 text-[#f0b400]" />
+                <span className="text-[11px] sm:text-xs uppercase tracking-wider text-[#0f1f12]/70 font-medium">
+                  Catering
+                </span>
+              </div>
+              <p className="text-sm sm:text-base font-bold text-[#0f1f12] leading-tight">
+                Pure Veg &amp; Multi
+              </p>
+              <p className="text-[11px] sm:text-xs text-[#0f1f12]/65 leading-tight">
+                Live Counters · Outside Friendly
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =====================================================================
           SECTION 1: PROPERTY PREVIEW & GALLERY
          ===================================================================== */}
       <section className="pt-2 space-y-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 px-1 sm:px-2">
           <div>
             <span
-              className="text-xl sm:text-2xl text-[#9e6800] block leading-none mb-1"
+              className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               From Sunlit Haldi to the Last Vidaai · Muzaffarpur
@@ -575,6 +667,18 @@ export function TwfHomeSections({
                 ))}
               </div>
             </div>
+
+            {/* CTA to explore all wedding films */}
+            <div className="pt-3 pb-1 flex justify-center">
+              <button
+                type="button"
+                onClick={() => onNavigate('films')}
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#14531e] hover:bg-[#0c3a14] border border-[#f0b400]/45 text-white text-xs sm:text-sm uppercase tracking-[0.16em] font-medium transition-all shadow-md hover:scale-105 cursor-pointer"
+              >
+                <span>Explore All 22+ Wedding Films &amp; Highlights</span>
+                <ArrowRight className="w-4 h-4 text-[#f0b400]" />
+              </button>
+            </div>
           </div>
         ) : (
           /* PHOTO TABS */
@@ -663,7 +767,7 @@ export function TwfHomeSections({
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 px-4 sm:px-8">
           <div>
             <span
-              className="text-base sm:text-lg text-[#9e6800] block leading-none"
+              className="text-xl sm:text-2xl text-[#9e6800] block leading-snug"
               style={{ fontFamily: 'var(--font-script)' }}
             >
               a look around the property
@@ -880,6 +984,139 @@ export function TwfHomeSections({
       </section>
 
       {/* =====================================================================
+          VENUE SPECIFICATIONS & CAPACITIES SHOWCASE (Lawn, Hall, Rooms, Packages, Catering, Parking)
+         ===================================================================== */}
+      <section
+        aria-label="Venue Capacities and Property Specifications"
+        className="px-1 sm:px-2 space-y-6 sm:space-y-8"
+      >
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+          <div>
+            <span
+              className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1"
+              style={{ fontFamily: 'var(--font-script)' }}
+            >
+              Every Space Crafted for Auspicious Moments
+            </span>
+            <h2
+              className="text-2xl sm:text-4xl lg:text-5xl font-normal tracking-tight text-[#0f1f12]"
+              style={{ fontFamily: 'var(--font-display)' }}
+            >
+              ROYAL VENUES &amp; CAPACITIES
+            </h2>
+          </div>
+          <p className="text-xs sm:text-sm text-[#0f1f12]/70 max-w-md font-light leading-relaxed">
+            Direct, verified details for wedding families: 2,000+ guest lawns, crystal chandelier AC banquet, 25+ luxury rooms &amp; bridal suite, transparent packages, pure-veg kitchens, and secured valet parking.
+          </p>
+        </div>
+
+        {/* 6-Card Specifications Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          {VENUE_SPECIFICATIONS.map((spec) => (
+            <div
+              key={spec.id}
+              className="rounded-[22px] sm:rounded-[24px] bg-white border border-[#14531e]/15 overflow-hidden shadow-md hover:shadow-xl hover:border-[#f0b400]/60 transition-all duration-300 flex flex-col justify-between group"
+            >
+              {/* Photo Frame with Stat Badge */}
+              <div className="relative aspect-[16/10] overflow-hidden bg-[#09190c]">
+                <img
+                  src={spec.imageUrl}
+                  alt={spec.title}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (target.src.endsWith('.webp')) {
+                      target.src = spec.fallbackImageUrl || target.src.replace(/\.webp$/i, '.jpg');
+                    }
+                  }}
+                />
+                <div
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-20"
+                  style={{
+                    background:
+                      'linear-gradient(180deg, rgba(6,18,8,0) 0%, rgba(6,18,8,0.85) 100%)',
+                  }}
+                />
+                {/* Floating Capacity Badge */}
+                <div className="absolute top-3 left-3 z-10">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#14531e]/90 backdrop-blur-md border border-[#f0b400]/50 text-white text-[11px] sm:text-xs font-semibold shadow-md">
+                    <Sparkles className="w-3 h-3 text-[#f0b400]" />
+                    <span>{spec.statBadge}</span>
+                  </span>
+                </div>
+                <div className="absolute bottom-2.5 left-3.5 right-3.5 z-10 text-white">
+                  <span
+                    className="text-sm sm:text-base text-[#f0b400] block leading-none"
+                    style={{ fontFamily: 'var(--font-script)' }}
+                  >
+                    {spec.tag}
+                  </span>
+                </div>
+              </div>
+
+              {/* Card Body */}
+              <div className="p-5 sm:p-6 space-y-4 flex-1 flex flex-col justify-between">
+                <div className="space-y-2.5">
+                  <h3
+                    className="text-xl sm:text-2xl text-[#0f1f12] font-normal leading-snug"
+                    style={{ fontFamily: 'var(--font-display)' }}
+                  >
+                    {spec.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm font-medium text-[#14531e] leading-snug">
+                    {spec.capacityHeadline}
+                  </p>
+                  <p className="text-xs text-[#0f1f12]/75 leading-relaxed font-light">
+                    {spec.summary}
+                  </p>
+
+                  {/* Bullet Highlights */}
+                  <ul className="pt-2 space-y-1.5 border-t border-[#0f1f12]/10">
+                    {spec.keyFeatures.map((feat, idx) => (
+                      <li
+                        key={idx}
+                        className="flex items-start gap-2 text-[11px] sm:text-xs text-[#0f1f12]/80 leading-snug"
+                      >
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Enquire CTA */}
+                <div className="pt-3 border-t border-[#0f1f12]/10 flex items-center justify-between gap-2">
+                  <a
+                    href={`https://wa.me/919234052600?text=${encodeURIComponent(
+                      `Hello The Green Heritage Resort, I am inquiring about the ${spec.title} (${spec.statBadge}) for our wedding.`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#14531e] hover:text-[#9e6800] transition-colors"
+                  >
+                    <span>Enquire for {spec.category.toUpperCase()}</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[#f0b400]" />
+                  </a>
+
+                  {onOpenQuickEnquire && (
+                    <button
+                      type="button"
+                      onClick={() => onOpenQuickEnquire(spec.title)}
+                      className="px-3 py-1.5 rounded-full bg-[#14531e]/10 hover:bg-[#14531e] hover:text-white text-[#14531e] text-[11px] uppercase tracking-wider font-medium transition-colors cursor-pointer"
+                    >
+                      Book Tour
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* =====================================================================
           SECTION 3: MINIMAL MAP SECTION (Location + 3D Globe -> Live Google Map)
          ===================================================================== */}
       <section className="px-1 sm:px-2">
@@ -889,7 +1126,7 @@ export function TwfHomeSections({
             <div className="lg:col-span-5 space-y-6">
               <div>
                 <span
-                  className="text-xl sm:text-2xl text-[#f0b400] block leading-snug"
+                  className="text-2xl sm:text-3xl text-[#f0b400] block leading-snug"
                   style={{ fontFamily: 'var(--font-script)' }}
                 >
                   Find Us
@@ -937,6 +1174,67 @@ export function TwfHomeSections({
                   </button>
                 )}
               </div>
+
+              {/* Google Review & Rating Card with Scannable QR Code */}
+              <div className="p-4 sm:p-5 rounded-2xl bg-white/[0.05] border border-[#f0b400]/30 backdrop-blur-sm space-y-3 mt-4">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-1.5">
+                    <div className="flex text-[#f0b400]">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-current" />
+                      ))}
+                    </div>
+                    <span className="font-bold text-[#f7f6f1] text-sm">4.6 / 5.0</span>
+                  </div>
+                  <span className="text-[11px] sm:text-xs text-[#f0b400] font-medium uppercase tracking-wider">
+                    Google Verified
+                  </span>
+                </div>
+
+                <p className="text-xs sm:text-sm text-[#f7f6f1]/80 leading-relaxed">
+                  Trusted by <strong>350+ families</strong> across Bihar for royal weddings &amp; celebrations. With over <strong>550+ verified Google reviews</strong>, we invite you to read our guest stories or scan to review your stay.
+                </p>
+
+                <div className="flex items-center gap-3.5 pt-1">
+                  <a
+                    href={STUDIO_INFO.googleReviewUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="shrink-0 block rounded-xl overflow-hidden bg-white p-1.5 shadow-md border border-[#f0b400]/40 group"
+                    title="Scan or click to review The Green Heritage Resort on Google Maps"
+                  >
+                    <img
+                      src="/google-review-qr.webp"
+                      alt="Scan QR code to review The Green Heritage Resort on Google Maps"
+                      width={72}
+                      height={72}
+                      className="w-16 h-16 sm:w-18 sm:h-18 object-contain rounded-lg group-hover:scale-105 transition-transform"
+                      onError={(e) => {
+                        const t = e.currentTarget;
+                        if (t.src.endsWith('.webp')) t.src = '/google-review-qr.png';
+                      }}
+                    />
+                  </a>
+
+                  <div className="space-y-1 min-w-0">
+                    <p className="text-xs font-semibold text-white">
+                      Scan to Review on Google Maps
+                    </p>
+                    <p className="text-[11px] text-[#f7f6f1]/65 leading-tight">
+                      Point your phone camera at the QR code, or tap the button below.
+                    </p>
+                    <a
+                      href={STUDIO_INFO.googleReviewUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#f0b400] hover:text-white transition-colors pt-0.5"
+                    >
+                      <span>Write a Review on Google</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Right Column: Interactive 3D Globe -> Smooth Live Google Map */}
@@ -953,7 +1251,7 @@ export function TwfHomeSections({
       <section className="px-1 sm:px-2">
         <div className="text-center max-w-xl mx-auto mb-6 sm:mb-8">
           <span
-            className="text-xl sm:text-2xl text-[#9e6800] block mb-0.5"
+            className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block mb-1 leading-snug"
             style={{ fontFamily: 'var(--font-script)' }}
           >
             From the Family&apos;s Heart to Ours
@@ -1151,7 +1449,7 @@ export function TwfHomeSections({
       <section className="px-1 sm:px-2 pb-2">
         <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-10">
           <span
-            className="text-xl sm:text-2xl text-[#9e6800] block mb-0.5"
+            className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block mb-1 leading-snug"
             style={{ fontFamily: 'var(--font-script)' }}
           >
             Taking the First Step Together
@@ -1257,7 +1555,7 @@ export function TwfHomeSections({
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-[#0f1f12]/10 pb-4">
             <div>
               <span
-                className="text-xl sm:text-2xl text-[#9e6800] block leading-none"
+                className="text-2xl sm:text-3xl md:text-4xl text-[#9e6800] block leading-snug mb-1"
                 style={{ fontFamily: 'var(--font-script)' }}
               >
                 Clear Information for Families &amp; Guests
@@ -1294,28 +1592,78 @@ export function TwfHomeSections({
                 official property summary
               </h3>
 
-              <dl className="space-y-2.5">
+              <dl className="space-y-3">
                 <div>
-                  <dt className="text-[10px] uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
-                    Official Name
+                  <dt className="text-xs uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
+                    Official Name &amp; Heritage
                   </dt>
                   <dd className="font-medium text-[#0f1f12] mt-0.5">
-                    {STUDIO_INFO.name}
+                    {STUDIO_INFO.name} · 350+ Royal Weddings Hosted
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-[10px] uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
+                  <dt className="text-xs uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
+                    Google Rating &amp; Verified Reviews
+                  </dt>
+                  <dd className="font-medium text-[#0f1f12] mt-0.5 flex items-center gap-1.5">
+                    <Star className="w-3.5 h-3.5 fill-[#f0b400] text-[#f0b400]" />
+                    <span>4.6 / 5.0 Rating (550+ Verified Google Reviews)</span>
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-xs uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
+                    Guest Capacities (Lawn &amp; Banquet Hall)
+                  </dt>
+                  <dd className="mt-0.5 text-xs sm:text-sm leading-relaxed text-[#0f1f12]">
+                    <strong>Royal Wedding Lawn:</strong> 1,500 – 2,000+ Guests<br />
+                    <strong>AC Banquet Hall:</strong> 350 – 500+ Seated (700 Floating)
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-xs uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
+                    Stay &amp; Bridal Suite
+                  </dt>
+                  <dd className="mt-0.5 text-xs sm:text-sm leading-relaxed text-[#0f1f12]">
+                    25+ Executive AC Rooms &amp; Private Heritage Cottages + Dedicated Bridal Dressing Suite
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-xs uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
+                    Starting Wedding Packages
+                  </dt>
+                  <dd className="mt-0.5 text-xs sm:text-sm leading-relaxed text-[#0f1f12]">
+                    Customizable Packages starting from <strong>₹3,50,000 onwards</strong> (1-Day &amp; Multi-Day Residential Tiers)
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-xs uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
+                    Guest Parking &amp; Logistics
+                  </dt>
+                  <dd className="mt-0.5 text-xs sm:text-sm leading-relaxed text-[#0f1f12]">
+                    150+ Cars &amp; 200+ Bikes with dedicated valet staff &amp; security attendants
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-xs uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
+                    Catering Facilities
+                  </dt>
+                  <dd className="mt-0.5 text-xs sm:text-sm leading-relaxed text-[#0f1f12]">
+                    In-House Pure Vegetarian Kitchen &amp; Multi-Cuisine Feasts. Approved outside catering partners also permitted.
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-xs uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
                     Location &amp; Pin
                   </dt>
-                  <dd className="mt-0.5">
+                  <dd className="mt-0.5 text-xs sm:text-sm">
                     {STUDIO_INFO.address} · Map Pin: 26.06385, 85.3504979
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-[10px] uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
+                  <dt className="text-xs uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
                     Direct Phone / WhatsApp &amp; Email
                   </dt>
-                  <dd className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1">
+                  <dd className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs sm:text-sm">
                     <a
                       href={STUDIO_INFO.phonePrimaryUrl}
                       className="font-medium text-[#14531e] hover:underline"
@@ -1332,10 +1680,10 @@ export function TwfHomeSections({
                   </dd>
                 </div>
                 <div>
-                  <dt className="text-[10px] uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
+                  <dt className="text-xs uppercase tracking-[0.16em] text-[#9e6800] font-semibold">
                     Events &amp; Enquiry Confirmation
                   </dt>
-                  <dd className="mt-0.5 leading-relaxed">
+                  <dd className="mt-0.5 leading-relaxed text-xs sm:text-sm">
                     Haldi, mehendi, sangeet, baraat, varmala, pheras, receptions, bridal suites and family guest rooms. Online enquiries are requests only until availability and written terms are confirmed by our desk.
                   </dd>
                 </div>

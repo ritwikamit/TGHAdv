@@ -222,13 +222,13 @@ export function TwfFooterAndModals({
         >
           <video
             ref={footerVideo1Ref}
-            src={FOOTER_REELS[0].videoSrc}
+            src={isFooterVisible ? FOOTER_REELS[0].videoSrc : undefined}
             poster={FOOTER_REELS[0].posterUrl || `/reels/posters/${FOOTER_REELS[0].code}.jpg`}
-            autoPlay
+            autoPlay={isFooterVisible}
             loop={false}
             muted
             playsInline
-            preload="metadata"
+            preload="none"
             onCanPlay={(e) => {
               if (isFooterVisible && activeFooterVideoIdx === 0) {
                 e.currentTarget.muted = true;
@@ -243,11 +243,11 @@ export function TwfFooterAndModals({
 
           <video
             ref={footerVideo2Ref}
-            src={FOOTER_REELS[1].videoSrc}
+            src={isFooterVisible ? FOOTER_REELS[1].videoSrc : undefined}
             poster={FOOTER_REELS[1].posterUrl || `/reels/posters/${FOOTER_REELS[1].code}.jpg`}
             muted
             playsInline
-            preload="metadata"
+            preload="none"
             onCanPlay={(e) => {
               if (isFooterVisible && activeFooterVideoIdx === 1) {
                 e.currentTarget.muted = true;

@@ -146,7 +146,50 @@ export function TwfRealisticGlobe({
       }
     };
     window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
+
+    // Two-thumb pinch-out on map wrapper smoothly returns to Globe on smartphones
+    const mapEl = mapWrapperRef.current;
+    let initialTouchDist = 0;
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 2) {
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        initialTouchDist = Math.hypot(dx, dy);
+      }
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (e.touches.length === 2 && initialTouchDist > 0) {
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        const currentDist = Math.hypot(dx, dy);
+        // Pinching thumbs together (zoom out) -> glide back to 3D globe
+        if (initialTouchDist - currentDist > 30) {
+          initialTouchDist = 0;
+          handleBackToGlobe();
+        }
+      }
+    };
+
+    const onTouchEnd = () => {
+      initialTouchDist = 0;
+    };
+
+    if (mapEl) {
+      mapEl.addEventListener('touchstart', onTouchStart, { passive: true });
+      mapEl.addEventListener('touchmove', onTouchMove, { passive: true });
+      mapEl.addEventListener('touchend', onTouchEnd, { passive: true });
+    }
+
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+      if (mapEl) {
+        mapEl.removeEventListener('touchstart', onTouchStart);
+        mapEl.removeEventListener('touchmove', onTouchMove);
+        mapEl.removeEventListener('touchend', onTouchEnd);
+      }
+    };
   }, [handleBackToGlobe, isMapActive]);
 
   useEffect(() => {
@@ -343,7 +386,7 @@ export function TwfRealisticGlobe({
         controls.dampingFactor = 0.08;
         controls.enableZoom = true;
         controls.enablePan = false;
-        controls.zoomSpeed = 1.25;
+        controls.zoomSpeed = isCompact ? 1.6 : 1.25;
         controls.minDistance = 122;
         controls.maxDistance = 420;
         controls.touches = {
@@ -367,7 +410,7 @@ export function TwfRealisticGlobe({
           const dist = cam.position.length();
 
           // Smoothly glide into Google Map when pinching all the way in to Bakarpur
-          if (dist <= 126) {
+          if (dist <= 128) {
             handleZoomToMap();
           }
         };
@@ -477,32 +520,69 @@ export function TwfRealisticGlobe({
     );
   }, [handleBackToGlobe, isMapActive]);
 
-  const handleStepZoom = useCallback((direction: 'in' | 'out') => {
-    const world = worldInstanceRef.current;
-    if (!world || isMapActive) return;
-    const pov = world.pointOfView({});
-    const currentAlt = typeof pov?.altitude === 'number' ? pov.altitude : 1.85;
-    const nextAlt =
-      direction === 'in'
-        ? Math.max(0.55, currentAlt - 0.45)
-        : Math.min(3.2, currentAlt + 0.45);
-    world.pointOfView(
-      {
-        lat: pov?.lat ?? RESORT_COORDS.lat,
-        lng: pov?.lng ?? RESORT_COORDS.lng,
-        altitude: nextAlt,
-      },
-      420
-    );
-  }, [isMapActive]);
+  const handleStepZoom = useCallback(
+    (direction: 'in' | 'out') => {
+      if (isMapActive) {
+        if (direction === 'out') {
+          handleBackToGlobe();
+        } else {
+          // Open high-res full map in new window
+          window.open(STUDIO_INFO.mapsUrl, '_blank', 'noopener,noreferrer');
+        }
+        return;
+      }
+      const world = worldInstanceRef.current;
+      if (!world) return;
+      const pov = world.pointOfView({});
+      const currentAlt = typeof pov?.altitude === 'number' ? pov.altitude : 1.85;
+
+      if (direction === 'in') {
+        if (currentAlt <= 0.65) {
+          handleZoomToMap();
+          return;
+        }
+        const nextAlt = Math.max(0.22, currentAlt - 0.45);
+        if (nextAlt <= 0.28) {
+          handleZoomToMap();
+        } else {
+          world.pointOfView(
+            {
+              lat: pov?.lat ?? RESORT_COORDS.lat,
+              lng: pov?.lng ?? RESORT_COORDS.lng,
+              altitude: nextAlt,
+            },
+            420
+          );
+        }
+      } else {
+        const nextAlt = Math.min(3.2, currentAlt + 0.45);
+        world.pointOfView(
+          {
+            lat: pov?.lat ?? RESORT_COORDS.lat,
+            lng: pov?.lng ?? RESORT_COORDS.lng,
+            altitude: nextAlt,
+          },
+          420
+        );
+      }
+    },
+    [isMapActive, handleZoomToMap, handleBackToGlobe]
+  );
 
   return (
     <div
       ref={stageRef}
       className="relative w-full min-w-0 flex flex-col items-center justify-center select-none"
     >
-      {/* Centered 3D Globe Stage sized proportionally so entire globe + halo + pin fits on smartphones */}
-      <div className="relative w-full max-w-[320px] xs:max-w-[360px] sm:max-w-[440px] lg:max-w-[500px] aspect-square mx-auto flex items-center justify-center">
+      {/* Centered 3D Globe & Map Stage — perfectly masked with identical rounded corners & border */}
+      <div
+        className="relative w-[90vw] max-w-[340px] xs:max-w-[370px] sm:max-w-[440px] lg:max-w-[500px] aspect-square mx-auto rounded-[24px] overflow-hidden bg-[#061208] border border-[#f0b400]/25 ring-1 ring-[#f0b400]/20 shadow-[0_24px_60px_rgba(0,0,0,0.65)] flex items-center justify-center"
+        style={{
+          isolation: 'isolate',
+          WebkitMaskImage: '-webkit-radial-gradient(white, black)',
+          borderRadius: '24px',
+        }}
+      >
         {/* Subtle loading ring while WebGL initializes */}
         {!shouldInitGlobe && (
           <div
@@ -521,11 +601,16 @@ export function TwfRealisticGlobe({
         {/* Actual Live Google Map Card — Smoothly Crossfades & Scales on GPU */}
         <div
           ref={mapWrapperRef}
-          className={`absolute inset-0 z-20 overflow-hidden rounded-[24px] bg-[#061208] border border-[#f0b400]/35 ring-1 ring-[#f0b400]/25 shadow-[0_28px_70px_rgba(0,0,0,0.65)] transition-all duration-500 ease-out ${
+          className={`absolute inset-0 z-20 rounded-[24px] overflow-hidden bg-[#061208] transition-all duration-500 ease-out ${
             isMapActive
               ? 'opacity-100 scale-100 pointer-events-auto visible'
               : 'opacity-0 scale-95 pointer-events-none invisible'
           }`}
+          style={{
+            isolation: 'isolate',
+            WebkitMaskImage: '-webkit-radial-gradient(white, black)',
+            borderRadius: '24px',
+          }}
         >
           {shouldPreloadMap && (
             <iframe
@@ -542,7 +627,7 @@ export function TwfRealisticGlobe({
           {/* Soft Luxury Vignette & Inner Perimeter Polish */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 rounded-[24px] shadow-[inset_0_0_28px_rgba(6,18,8,0.18)] ring-1 ring-inset ring-[#14531e]/20"
+            className="pointer-events-none absolute inset-0 shadow-[inset_0_0_28px_rgba(6,18,8,0.22)] ring-1 ring-inset ring-[#14531e]/20"
           />
 
           {/* Minimal Top-Right Back-to-Globe Pill Inside Map Overlay */}
@@ -550,10 +635,10 @@ export function TwfRealisticGlobe({
             <button
               type="button"
               onClick={handleBackToGlobe}
-              className="pointer-events-auto inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#061208]/88 hover:bg-[#14531e] border border-[#f0b400]/45 text-[#f7f6f1] text-[10px] uppercase tracking-wider font-medium shadow-lg backdrop-blur-md transition-colors cursor-pointer"
+              className="pointer-events-auto inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#061208]/90 hover:bg-[#14531e] border border-[#f0b400]/45 text-[#f7f6f1] text-[11px] sm:text-xs uppercase tracking-wider font-medium shadow-lg backdrop-blur-md transition-colors cursor-pointer"
             >
               <Globe2 className="w-3.5 h-3.5 text-[#f0b400]" />
-              <span>3D Globe</span>
+              <span>← Back to Globe</span>
             </button>
           </div>
         </div>
@@ -562,33 +647,55 @@ export function TwfRealisticGlobe({
       {/* Minimal Toggle & Zoom Controls Below Globe */}
       <div className="mt-3 flex flex-wrap items-center justify-center gap-2 relative z-10">
         {isMapActive ? (
-          <button
-            type="button"
-            onClick={handleBackToGlobe}
-            aria-label="Return to 3D Globe view"
-            className="px-4 py-1.5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] text-white border border-[#f0b400]/45 text-[10px] tracking-wider uppercase font-medium inline-flex items-center gap-1.5 transition-colors cursor-pointer"
-          >
-            <Globe2 className="w-3 h-3 text-[#f0b400]" />
-            <span>3D Globe</span>
-          </button>
+          <>
+            <button
+              type="button"
+              onClick={handleBackToGlobe}
+              aria-label="Return to 3D Globe view"
+              className="px-4 py-1.5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] text-white border border-[#f0b400]/45 text-xs tracking-wider uppercase font-medium inline-flex items-center gap-1.5 transition-colors cursor-pointer"
+            >
+              <Globe2 className="w-3.5 h-3.5 text-[#f0b400]" />
+              <span>3D Globe</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleStepZoom('out')}
+              aria-label="Zoom out back to 3D globe"
+              title="Zoom out back to 3D globe"
+              className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-[#f7f6f1] border border-white/15 inline-flex items-center justify-center transition-colors cursor-pointer"
+            >
+              <Minus className="w-3.5 h-3.5" />
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleStepZoom('in')}
+              aria-label="Open detailed Google Map directions"
+              title="Open Google Maps directions"
+              className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-[#f7f6f1] border border-white/15 inline-flex items-center justify-center transition-colors cursor-pointer"
+            >
+              <Plus className="w-3.5 h-3.5" />
+            </button>
+          </>
         ) : (
           <>
             <button
               type="button"
               onClick={handleZoomToMap}
               aria-label="Smoothly zoom into Google Map of The Green Heritage Resort"
-              className="px-4 py-1.5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] text-white border border-[#f0b400]/45 text-[10px] tracking-wider uppercase font-medium inline-flex items-center gap-1.5 transition-colors cursor-pointer"
+              className="px-4 py-1.5 rounded-full bg-[#14531e] hover:bg-[#1b6d28] text-white border border-[#f0b400]/45 text-xs tracking-wider uppercase font-medium inline-flex items-center gap-1.5 transition-colors cursor-pointer"
             >
-              <Navigation className="w-3 h-3 text-[#f0b400]" />
+              <Navigation className="w-3.5 h-3.5 text-[#f0b400]" />
               <span>Live Map</span>
             </button>
 
             <button
               type="button"
               onClick={() => handleStepZoom('in')}
-              aria-label="Zoom in 3D globe"
-              title="Zoom in"
-              className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 text-[#f7f6f1] border border-white/15 inline-flex items-center justify-center transition-colors cursor-pointer"
+              aria-label="Zoom in 3D globe towards map"
+              title="Zoom in (Double click / pinch in flies to Map)"
+              className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-[#f7f6f1] border border-white/15 inline-flex items-center justify-center transition-colors cursor-pointer"
             >
               <Plus className="w-3.5 h-3.5" />
             </button>
@@ -598,28 +705,28 @@ export function TwfRealisticGlobe({
               onClick={() => handleStepZoom('out')}
               aria-label="Zoom out 3D globe"
               title="Zoom out"
-              className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 text-[#f7f6f1] border border-white/15 inline-flex items-center justify-center transition-colors cursor-pointer"
+              className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-[#f7f6f1] border border-white/15 inline-flex items-center justify-center transition-colors cursor-pointer"
             >
               <Minus className="w-3.5 h-3.5" />
             </button>
+
+            <button
+              type="button"
+              onClick={handleFocusResort}
+              aria-label="Center 3D globe on The Green Heritage Resort"
+              className="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/15 text-[#f7f6f1] border border-white/15 text-xs tracking-wider uppercase font-medium transition-colors cursor-pointer"
+            >
+              Center Pin
+            </button>
           </>
         )}
-
-        <button
-          type="button"
-          onClick={handleFocusResort}
-          aria-label="Center 3D globe on The Green Heritage Resort"
-          className="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/15 text-[#f7f6f1] border border-white/15 text-[10px] tracking-wider uppercase font-medium transition-colors cursor-pointer"
-        >
-          Center Pin
-        </button>
       </div>
 
-      {!isMapActive && (
-        <p className="mt-2 text-[10px] text-white/55 tracking-wide text-center">
-          Pinch with thumbs to zoom · Drag to rotate
-        </p>
-      )}
+      <p className="mt-2 text-xs text-white/60 tracking-wide text-center">
+        {isMapActive
+          ? 'Zoom out or tap "3D Globe" to return to global view'
+          : 'Pinch thumbs to zoom in to Map · Zoom out returns to Globe'}
+      </p>
     </div>
   );
 }

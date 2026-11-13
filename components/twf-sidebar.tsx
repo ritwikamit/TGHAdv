@@ -259,17 +259,18 @@ export function TwfSidebar({
                             className="w-full flex items-center gap-2 p-1.5 rounded-xl hover:bg-white/10 transition-colors text-left cursor-pointer group"
                           >
                             <div className="w-8 h-8 rounded-lg overflow-hidden shrink-0 bg-[#061208]">
-                              {film.videoSrc ? (
-                                <video
-                                  src={film.videoSrc}
-                                  autoPlay
-                                  loop
-                                  muted
-                                  playsInline
-                                  preload="metadata"
-                                  className="w-full h-full object-cover"
-                                />
-                              ) : null}
+                              <img
+                                src={
+                                  film.thumbnailUrl ||
+                                  (film.reelCode
+                                    ? `/reels/posters/${film.reelCode}.jpg`
+                                    : '/TGHLogo.png')
+                                }
+                                alt={film.couple}
+                                loading="lazy"
+                                decoding="async"
+                                className="w-full h-full object-cover"
+                              />
                             </div>
                             <div className="min-w-0 flex-1">
                               <p className="text-[11px] text-white font-medium truncate group-hover:text-[#f0b400]">
