@@ -1295,8 +1295,8 @@ export const VENUE_INSTALLATIONS: VenueInstallation[] = [
     lightingNotes:
       'Check current suite availability and wedding-block tariffs on +91 92340 52600.',
     acousticNotes: 'Ask about check-in flexibility and ID rules for outstation guests.',
-    imageUrl: '/TGHPhotos/HotelGround/RoomsCottages/caption-16.webp',
-    secondaryImageUrl: '/TGHPhotos/HotelGround/RoomsCottages/executive-room-1.webp',
+    imageUrl: '/TGHPhotos/HotelGround/RoomsCottages/caption-24.webp',
+    secondaryImageUrl: '/TGHPhotos/HotelGround/RoomsCottages/caption-16.webp',
     dateSeason: 'Confirm Room Counts Early',
   },
   {
@@ -1566,9 +1566,9 @@ export const VENUE_SPECIFICATIONS: VenueSpecification[] = [
       '25+ air-conditioned family rooms & cottages',
       'Private bridal dressing suite with salon vanity',
     ],
-    imageUrl: '/TGHPhotos/HotelGround/RoomsCottages/caption-16.webp',
-    secondaryImageUrl: '/TGHPhotos/HotelGround/RoomsCottages/executive-room-1.webp',
-    fallbackImageUrl: '/TGHPhotos/HotelGround/RoomsCottages/caption-16.jpg',
+    imageUrl: '/TGHPhotos/HotelGround/RoomsCottages/caption-24.webp',
+    secondaryImageUrl: '/TGHPhotos/HotelGround/RoomsCottages/caption-16.webp',
+    fallbackImageUrl: '/TGHPhotos/HotelGround/RoomsCottages/caption-24.jpg',
   },
   {
     id: 'spec-packages',

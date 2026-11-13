@@ -144,11 +144,12 @@ export function GreenHeritageResortApp({
         {/* Scroll-Up Button with Filling Circular Progress Border */}
         <TwfScrollProgress />
 
-        {/* Smartphone Floating Split-Cylinder Quick Menu Bar + Quick Call Orb */}
+        {/* Smartphone Floating Cylinder Quick Navigation Dock */}
         <TwfMobileDock
           activePage={activePage}
           onNavigate={handleNavigate}
           onOpenQuickEnquire={handleOpenQuickEnquire}
+          onOpenMenu={() => setMobileMenuOpen(true)}
         />
 
         {/* LEFT SIDEBAR MENU */}

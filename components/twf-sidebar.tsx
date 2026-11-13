@@ -135,24 +135,6 @@ export function TwfSidebar({
 
   return (
     <>
-      {/* ===================================================================
-          SMARTPHONE COLLAPSED MENU TRIGGER BUTTON (< 640px)
-          Allows the left menu to collapse completely on smartphones
-         =================================================================== */}
-      {!mobileOpen && (
-        <button
-          type="button"
-          onClick={() => setMobileOpen(true)}
-          aria-label="Open navigation menu"
-          className="fixed top-3.5 right-3.5 z-40 sm:hidden inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#061208]/90 hover:bg-[#14531e] text-white backdrop-blur-xl border border-[#f0b400]/35 shadow-2xl transition-all active:scale-95 cursor-pointer"
-        >
-          <Menu className="w-3.5 h-3.5 text-[#f0b400]" />
-          <span className="text-xs font-medium tracking-wider uppercase">
-            Menu
-          </span>
-        </button>
-      )}
-
       {/* Smartphone Backdrop Scrim when Left Menu is Expanded */}
       {mobileOpen && (
         <div

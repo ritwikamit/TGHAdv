@@ -376,6 +376,9 @@ export function TwfInnerPages({
               >
                 moments kept across every ritual
               </h1>
+              <p className="text-xs sm:text-sm text-[#f7f6f1]/80 mt-2 max-w-lg leading-relaxed reveal-on-scroll reveal-delay-2">
+                Cinematic wedding films and authentic moments captured across our lawns and banquet.
+              </p>
             </div>
 
             <div className="relative w-full sm:w-64">
@@ -704,15 +707,8 @@ export function TwfInnerPages({
               >
                 welcome to the green heritage
               </h1>
-              <p className="text-sm sm:text-base text-[#f7f6f1]/85 mt-3 max-w-xl leading-relaxed">
-                In Bakarpur along Gobarsahi–Sakri Road, The Green Heritage Resort and Banquet is where Muzaffarpur families gather for{' '}
-                <span
-                  className="text-2xl text-[#f0b400] px-1"
-                  style={{ fontFamily: 'var(--font-script)' }}
-                >
-                  haldi mornings, starlit pheras &amp; joyful stays
-                </span>{' '}
-                under open lawns and chandelier halls.
+              <p className="text-xs sm:text-sm text-[#f7f6f1]/80 mt-2 max-w-xl leading-relaxed reveal-on-scroll reveal-delay-2">
+                Muzaffarpur&apos;s premier destination for grand weddings, starlit pheras, and memorable family celebrations.
               </p>
             </div>
 
@@ -1095,8 +1091,8 @@ export function TwfInnerPages({
             >
               weddings, pre-wedding rituals &amp; family stays
             </h1>
-            <p className="text-sm sm:text-base text-[#f7f6f1]/80 mt-3 max-w-2xl leading-relaxed reveal-on-scroll reveal-delay-2">
-              Call or WhatsApp +91 92340 52600 to plan haldi, mehendi, sangeet, baraat, pheras and bridal guest rooms at The Green Heritage Resort and Banquet.
+            <p className="text-xs sm:text-sm text-[#f7f6f1]/80 mt-2 max-w-xl leading-relaxed reveal-on-scroll reveal-delay-2">
+              Tailored celebrations from vibrant poolside haldi to grand varmala receptions and comfortable family stays.
             </p>
           </div>
         </div>
@@ -1276,8 +1272,8 @@ export function TwfInnerPages({
             >
               spaces built for every wedding ceremony
             </h1>
-            <p className="text-sm sm:text-base text-[#f7f6f1]/80 mt-3 max-w-xl leading-relaxed reveal-on-scroll reveal-delay-2">
-              Every corner at Bakarpur, from the poolside mandap lawn to guest cottages and on-site parking, comes together to keep families close. Confirm active amenities for your wedding dates at +91 92340 52600.
+            <p className="text-xs sm:text-sm text-[#f7f6f1]/80 mt-2 max-w-xl leading-relaxed reveal-on-scroll reveal-delay-2">
+              Every corner at Bakarpur, from lush open-air lawns to crystal chandelier halls, crafted to host your grand celebration.
             </p>
           </div>
         </div>
