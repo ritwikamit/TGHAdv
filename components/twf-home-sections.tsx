@@ -399,7 +399,7 @@ export function TwfHomeSections({
                 <span>Jaipur Royal Marriage Theme</span>
               </span>
               <span className="text-xs sm:text-sm font-semibold text-[#0f1f12]">
-                Verified Venue Specifications · Gobarsahi–Sakri Road, Muzaffarpur
+                Best Wedding Resort &amp; Banquet · Gobarsahi–Sakri Road, Muzaffarpur
               </span>
             </div>
 

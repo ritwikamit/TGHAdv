@@ -65,9 +65,9 @@ export const PAGE_ROUTES: Record<PageId, PageRouteMeta> = {
     path: '/',
     label: 'Home',
     title:
-      'The Green Heritage Resort and Banquet | Wedding Destination in Muzaffarpur',
+      'The Green Heritage Resort and Banquet | Best Wedding Resort & Banquet in Muzaffarpur',
     description:
-      'Celebrate every wedding ritual at The Green Heritage Resort and Banquet on Gobarsahi–Sakri Road, Bakarpur, Muzaffarpur, Bihar. Explore open lawns, chandelier banquet halls, bridal suites, haldi, sangeet and wedding films. Call +91 92340 52600.',
+      'Rated 4.6★ best wedding resort and banquet in Muzaffarpur (Bakarpur, Gobarsahi–Sakri Road). Featuring 2,000+ guest open marriage lawns, crystal banquet halls, poolside haldi, 25+ rooms & complete wedding planner services. Call +91 92340 52600.',
     changeFrequency: 'weekly',
     priority: 1.0,
   },
@@ -76,9 +76,9 @@ export const PAGE_ROUTES: Record<PageId, PageRouteMeta> = {
     path: '/the-venue',
     label: 'The Venue',
     title:
-      'The Venue, Director & Verma Family | The Green Heritage Resort, Muzaffarpur',
+      'The Venue & Marriage Lawns | Best Wedding Resort on Gobarsahi–Sakri Road, Muzaffarpur',
     description:
-      'Discover The Green Heritage Resort and Banquet in Bakarpur, Gobarsahi–Sakri Road, Muzaffarpur 844127 — venue video walkthroughs, the Director’s note, the Verma Family’s welcome, and celebration grounds.',
+      'Discover why The Green Heritage Resort is recognized as the best resort in Muzaffarpur — grand open-air marriage lawns, illuminated Jaipur royal marriage architecture, poolside haldi venue, and Verma family hospitality in Bakarpur.',
     changeFrequency: 'monthly',
     priority: 0.9,
   },
@@ -87,9 +87,9 @@ export const PAGE_ROUTES: Record<PageId, PageRouteMeta> = {
     path: '/celebrations',
     label: 'Celebrations',
     title:
-      'Weddings, Haldi, Sangeet & Guest Stays | The Green Heritage Resort, Muzaffarpur',
+      'Wedding Packages & Planning | Best Wedding Planner in Muzaffarpur',
     description:
-      'Plan multi-day weddings, haldi mornings, mehendi courtyards, sangeet nights, receptions and family room blocks at The Green Heritage Resort and Banquet in Muzaffarpur.',
+      'Looking for the best wedding planner near me in Muzaffarpur? Explore comprehensive royal wedding packages for haldi, mehendi, sangeet, baraat, and varmala receptions with transparent pricing at The Green Heritage Resort.',
     changeFrequency: 'monthly',
     priority: 0.9,
   },
@@ -98,9 +98,9 @@ export const PAGE_ROUTES: Record<PageId, PageRouteMeta> = {
     path: '/spaces-and-halls',
     label: 'Spaces & Halls',
     title:
-      'Open Wedding Lawns, Banquet Hall & Suites | The Green Heritage Resort, Muzaffarpur',
+      'Banquet Halls & Marriage Lawns | Best Marriage Hall in Muzaffarpur',
     description:
-      'Explore open green wedding lawns, chandeliered indoor banquet hall, lakeside poolside lawns, and bridal and family guest suites in Bakarpur, Muzaffarpur.',
+      'Host 2,000+ guests at the best banquet hall and open wedding lawns in Muzaffarpur. Centrally air-conditioned crystal chandelier halls, bridal dressing suite, 25+ AC guest rooms, and 150+ car valet parking in Bakarpur.',
     changeFrequency: 'monthly',
     priority: 0.9,
   },
@@ -109,9 +109,9 @@ export const PAGE_ROUTES: Record<PageId, PageRouteMeta> = {
     path: '/wedding-films',
     label: 'Wedding Films',
     title:
-      'Wedding Films & Event Gallery | The Green Heritage Resort and Banquet, Muzaffarpur',
+      'Wedding Films & Photo Gallery | Real Weddings at Best Wedding Resort Muzaffarpur',
     description:
-      'Watch real haldi, baraat, varmala and campus walkthrough films alongside authentic wedding and property photography at The Green Heritage Resort, Muzaffarpur.',
+      'Watch real wedding films, baraat dances, and cinematic varmala ceremonies captured at The Green Heritage Resort and Banquet, Muzaffarpur. Experience authentic celebrations across our lawns and crystal hall.',
     changeFrequency: 'weekly',
     priority: 0.85,
   },
@@ -120,9 +120,9 @@ export const PAGE_ROUTES: Record<PageId, PageRouteMeta> = {
     path: '/faqs',
     label: 'FAQs & Guide',
     title:
-      'FAQs, Venue Location & Booking Policies | The Green Heritage Resort, Muzaffarpur',
+      'FAQs & Venue Guide | Best Wedding Resort & Planner in Muzaffarpur Q&A',
     description:
-      'Verified answers about The Green Heritage Resort and Banquet directions on Gobarsahi–Sakri Road, room availability, multi-day wedding hosting, enquiry terms and privacy policies.',
+      'Direct answers to top questions: Which is the best wedding resort in Muzaffarpur? Best wedding planner near me? Guest capacity, catering options, room booking, and directions to Gobarsahi–Sakri Road, Bakarpur.',
     changeFrequency: 'monthly',
     priority: 0.85,
   },
@@ -131,9 +131,9 @@ export const PAGE_ROUTES: Record<PageId, PageRouteMeta> = {
     path: '/contact',
     label: 'Contact & Visit',
     title:
-      'Contact, Directions & Date Enquiry | The Green Heritage Resort and Banquet',
+      'Contact, Bookings & Location | Best Resort in Muzaffarpur',
     description:
-      'Call or WhatsApp +91 92340 52600, email ajay888277@gmail.com, send an online wedding date enquiry or open Google Maps directions to Bakarpur, Muzaffarpur 844127.',
+      'Book wedding dates or schedule a walkthrough at the best wedding resort in Muzaffarpur. Call or WhatsApp +91 92340 52600, email ajay888277@gmail.com, or get Google Maps directions to Gobarsahi–Sakri Road, Bakarpur 844127.',
     changeFrequency: 'monthly',
     priority: 0.9,
   },

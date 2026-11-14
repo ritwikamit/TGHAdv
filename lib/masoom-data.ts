@@ -1628,6 +1628,27 @@ export const VENUE_SPECIFICATIONS: VenueSpecification[] = [
 // ============================================================================
 export const FAQ_ITEMS: FaqItem[] = [
   {
+    id: 'faq-best-resort',
+    category: 'Weddings & Events',
+    question: 'Which is the best wedding resort and banquet in Muzaffarpur?',
+    answer:
+      'The Green Heritage Resort and Banquet is widely recognized as the best wedding resort in Muzaffarpur (Bakarpur, Gobarsahi–Sakri Road) with an outstanding 4.6 / 5.0 Google rating across 550+ verified reviews and 350+ royal weddings hosted. The property features expansive open-air marriage lawns accommodating up to 2,000+ guests, centrally air-conditioned crystal banquet halls, a scenic poolside haldi arena, 25+ luxury rooms and cottages, and secure 150+ car valet parking.',
+  },
+  {
+    id: 'faq-wedding-planner',
+    category: 'Facilities & Booking',
+    question: 'Who is the best wedding planner near me in Muzaffarpur?',
+    answer:
+      'If you are searching for the best wedding planner near me or in Muzaffarpur, The Green Heritage Resort provides complete end-to-end wedding planning and coordination services. Our experienced in-house team manages royal mandap decoration, thematic floral styling, DJ and cinematic lighting, pure-veg and multi-cuisine catering, guest hospitality, and bridal suite dressing with transparent, customized packages.',
+  },
+  {
+    id: 'faq-family-resort',
+    category: 'Stay & Rooms',
+    question: 'Which is the best resort in Muzaffarpur for family stays and pre-wedding celebrations?',
+    answer:
+      'The Green Heritage Resort and Banquet is Muzaffarpur’s premier destination for family stays, poolside haldi ceremonies, mehendi, sangeet nights, and destination weddings. The resort features 25+ air-conditioned executive rooms and private heritage cottages equipped with 24/7 security, continuous power backup, in-house catering, and lush landscaped grounds along Gobarsahi–Sakri Road.',
+  },
+  {
     id: 'faq-capacity',
     category: 'Weddings & Events',
     question: 'How many guests can accommodate in the lawn and banquet hall?',

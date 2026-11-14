@@ -3,7 +3,7 @@ import { PAGE_ROUTES, SITE_URL } from '@/lib/site-routes';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = SITE_URL.replace(/\/+$/, '');
-  const lastModified = new Date('2026-11-12');
+  const lastModified = new Date('2026-11-14');
 
   const routeImages: Record<string, string[]> = {
     home: [
