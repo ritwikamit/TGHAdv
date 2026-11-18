@@ -88,15 +88,15 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico?v=2', sizes: 'any' },
-      { url: '/icon-48x48.png?v=2', sizes: '48x48', type: 'image/png' },
-      { url: '/icon-96x96.png?v=2', sizes: '96x96', type: 'image/png' },
-      { url: '/icon-192x192.png?v=2', sizes: '192x192', type: 'image/png' },
-      { url: '/icon-512x512.png?v=2', sizes: '512x512', type: 'image/png' },
+      { url: '/favicon.ico', sizes: '48x48', type: 'image/x-icon' },
+      { url: '/icon-48x48.png', sizes: '48x48', type: 'image/png' },
+      { url: '/icon-96x96.png', sizes: '96x96', type: 'image/png' },
+      { url: '/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512x512.png', sizes: '512x512', type: 'image/png' },
     ],
-    shortcut: '/favicon.ico?v=2',
+    shortcut: '/favicon.ico',
     apple: [
-      { url: '/apple-touch-icon.png?v=2', sizes: '180x180', type: 'image/png' },
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
     ],
   },
   manifest: '/site.webmanifest',
@@ -138,7 +138,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         keywords:
           'best resort in muzaffarpur, best wedding resort in muzaffarpur, best wedding planner near me, best marriage hall in muzaffarpur, best banquet hall in muzaffarpur, wedding resort near me, best resort in muzzafarpur',
         url: baseUrl,
-        logo: `${baseUrl}/icon-512x512.png?v=2`,
+        logo: {
+          '@type': 'ImageObject',
+          url: `${baseUrl}/icon-512x512.png`,
+          width: 512,
+          height: 512,
+        },
         image: [
           `${baseUrl}/og-preview-brand-v5.jpg`,
           `${baseUrl}/og-preview-brand-v4.jpg`,
@@ -380,13 +385,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${cormorant.variable} ${jakarta.variable} ${marcellus.variable}`}
     >
       <head>
-        <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
-        <link rel="icon" type="image/png" sizes="48x48" href="/icon-48x48.png?v=2" />
-        <link rel="icon" type="image/png" sizes="96x96" href="/icon-96x96.png?v=2" />
-        <link rel="icon" type="image/png" sizes="192x192" href="/icon-192x192.png?v=2" />
-        <link rel="icon" type="image/png" sizes="512x512" href="/icon-512x512.png?v=2" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
-        <link rel="shortcut icon" href="/favicon.ico?v=2" />
         {/* Preload brand logo for instant loading screen display */}
         <link rel="preload" as="image" href="/TGHLogo.webp" type="image/webp" fetchPriority="high" />
         {/* Preload hero images for instant switching between dedicated pages */}

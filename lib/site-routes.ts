@@ -16,7 +16,7 @@ export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ||
   (resolvedVercelHost
     ? `https://${resolvedVercelHost}`
-    : 'https://thegreenheritageresort.in');
+    : 'https://www.thegreenheritageresort.in');
 
 export const DEFAULT_OG_IMAGES = [
   {
