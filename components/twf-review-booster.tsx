@@ -203,118 +203,151 @@ function copyToClipboardRobust(text: string): boolean {
 }
 
 // =========================================================================
-// LOCAL HIGH-ENTROPY COMBINATORIAL DICTIONARY (250,000+ Unique Variations)
-// Enforces: All Small Letters (Lowercase) + Realistic Slang & Intentional Slips
+// LOCAL HIGH-ENTROPY COMBINATORIAL ENGINE (ZERO-TEMPLATE, ZERO "ATTENDED")
+// 100% Lowercase, Slang Texting, 7 Distinct Structural Molds
 // =========================================================================
-const HI_LAZY_ONELINERS = [
-  'khana bohot badiya tha aur lawn kafi bada h.. parking me koi dikkat ni hui.',
-  'attended friend wedding reception here, everything was to good.. 5star venue.',
-  'cousin ki marriage attend ki thi idhar, food aur stage decoration bht badiya tha.',
-  'poolside haldi was osm aur open lawn kafi spacious h.. loved the atmosphere.',
-  'best wedding lawn in muzaffarpur, khana aur staaf dono 10/10.',
-  'shandar resort h, decoration aur food taste bohot mast tha..',
-  'lawn space is huge, 1500+ log aram se attend kar sakte h without any rush.',
-  'superb catering and quick valet parking.. definetly 5 stars from our side.',
-  'sab arrangement time pe tha aur ac hall me cooling bht achi thi..',
-  'attended cousin wedding, food was delicious aur decoration v good.',
-  'muzaffarpur ka sabse sundar wedding venue.. rooms bhi saf suthre the.',
-  'pool side view aur lighting badiya lagti h night me.. happy with service.',
-  'food taste authentic tha paneer tikka aur sweets ek no.. definetly recommend.',
-  'bhai ki shadi k liye best choice tha, parking ground kafi bada h.',
-  'cooperative staff aur badiya dinner buffet.. zero complaints.'
-];
-
-const HI_OPENERS = [
-  'cousin ki shaadi me gaye the bakarpur me.',
-  'attended friends wedding reception last week on gobarsahi sakri road.',
-  'humlog family function ke liye gaye the the green heritage resort me.',
-  'bhai ki shadi k liye ye resort book kiya tha.',
-  'kal raat reception party me the yaha.',
-  'went for a family wedding reception in muzaffarpur.',
-  'last month relative ki marriage attend ki thi idhar.',
-  'haldi aur sangeet ceremony attend karne aaye the family ke sath.'
-];
-
-const HI_VENUE_DETAILS = [
-  'open lawn kafi bada h aur stage decor bohot sundar tha..',
-  'lawn is huge 1500+ log aram se adjust ho gye the bina rush k.',
-  'poolside haldi setup dekh ke maza aa gaya, photos bht mast aayi.',
-  'ac banquet hall chilled tha aur chandeliers lighting osm lag rahi thi.',
-  'stage decoration to good aur ambient lighting bht pyari thi.',
-  'resort ka entrance royal jaipur look jaisa h, kafi photogenic h.',
-  'cottages and rooms saf suthre the.. ladies ko ready hone me koi dikkat ni hui.',
-  'pool side view aur lawn decoration bohot badiya tha..'
-];
-
-const HI_FOOD_DETAILS = [
+const HI_FOOD_FIRST = [
   'khana to good tha specially paneer starters aur garam jalebi..',
-  'food taste 1 number tha, sabhi relatives catering ki tareef kar rahe the.',
-  'buffet me alot of variety thi aur sab piping hot serve hua.',
-  'catering bht badiya thi, starter se dessert tak sab mast tha.',
-  'food was delicious aur service bhi fast thi koi delay ni hua.',
-  'live chaat counter aur dinner items bohot tasty tha..'
+  'buffet me alot of variety thi aur sab piping hot serve hua..',
+  'food taste 1 number tha, live chaat counter aur sweets sabko pasand aayi..',
+  'dinner spread bohot mast tha, snacks se lekar desserts tak 10/10..',
+  'catering bht badiya thi, paneer tikka aur dal makhani ekdam lajawab..',
+  'food was delicious aur buffet arrangement me koi rush ni tha..',
+  'catering aur snacks counter 1 number tha, sabhi guests tareef kar rahe the..'
 ];
 
-const HI_PARKING_STAFF = [
-  'parking area bht bada h to gaadi lagane me koi issue ni hua.',
-  'valet parking staaf helpful tha.. car parking ground kafi spacious h.',
-  'staaf bohot cooperative tha sab time pe manage kiya unhone.',
-  'management staaf ka behavior polite tha throughout the event.',
-  'parking ki koi tension ni bcz ground bohot bada h.'
+const HI_VENUE_FIRST = [
+  'open lawn kafi bada h aur stage decor bohot sundar tha..',
+  'lawn space is huge 1500+ log aram se attend kar sakte h without any rush..',
+  'resort ka entrance royal jaipur look jaisa h, kafi photogenic h..',
+  'ac banquet hall chilled tha aur chandeliers lighting osm lag rahi thi..',
+  'stage decoration to good aur ambient lighting night me bht pyari thi..',
+  'open lawn ka vibe bohot shandar h, varmala stage setup royal tha..',
+  'varmala stage aur lawn lighting night me ekdam magical lag raha tha..'
 ];
 
-const HI_CLOSINGS = [
+const HI_POOLSIDE_FIRST = [
+  'poolside haldi setup dekh ke maza aa gaya, photos bht mast aayi..',
+  'pool side view aur lighting badiya lagti h night me..',
+  'daytime poolside haldi function ke liye ye jagah muzaffarpur me best h..',
+  'poolside area ka decoration bht aesthetic tha, family photos super cute aayi..',
+  'poolside haldi was osm aur open lawn kafi spacious h..'
+];
+
+const HI_PARKING_FIRST = [
+  'parking area bht bada h to gaadi lagane me koi issue ni hua..',
+  'valet parking staaf helpful tha.. car parking ground kafi spacious h..',
+  'gobarsahi sakri road pe itna bada parking space milna bohot convenient h..',
+  'parking ki koi tension ni bcz ground bohot bada h aur security alert thi..',
+  'parking space is massive to zero rush while arriving..'
+];
+
+const HI_ROOMS_FIRST = [
+  'cottages and rooms saf suthre the.. ladies ko ready hone me koi dikkat ni hui..',
+  'ac rooms kafi comfortable and spacious the, outstation relatives aram se ruke..',
+  'bridal suite aur family rooms bilkul clean aur well maintained the..',
+  'guest stay rooms chilled the aur hygiene 10/10 thi..'
+];
+
+const HI_DIRECT_VERDICTS = [
+  'muzaffarpur ka sabse sundar wedding venue..',
+  'best wedding lawn in muzaffarpur, khana aur staaf dono 10/10..',
+  'shandar resort h, decoration aur food taste bohot mast tha..',
+  'superb catering and quick valet parking.. definetly 5 stars from our side..',
+  'bhai ki shadi k liye best choice tha, zero complaints..',
+  'kal raat reception party me the yaha, maza aa gaya sabko..',
+  'family celebration ke liye ek no venue h..',
+  'sab arrangement time pe tha aur ac hall me cooling bht achi thi..',
+  'royal feeling aati h idhar enter karte hi.. 5star experience..'
+];
+
+const HI_FOLLOW_UPS = [
+  'lawn kafi spacious h aur lighting night me shandar lagti h.',
+  'khana fresh aur garam tha sabhi relatives khush the.',
+  'parking me koi jhanjhat ni hua aur staff bhi helpful tha.',
+  'photos lene ke liye bohot saare aesthetic spots h yaha.',
+  'banquet hall ac was cooling properly throughout dinner.',
+  'rooms saf the aur ladies ko ready hone me bohot aram raha.',
+  'service fast thi aur catering team ne sab time pe serve kiya.',
+  'ambience bohot peaceful aur photogenic h.'
+];
+
+const HI_CLOSERS = [
   'definetly recommend for muzaffarpur weddings.',
   '5star service overall.. badiya experience.',
   'muzaffarpur me best option h for grand wedding celebration.',
   'sab kuch smoothly ho gya.. fully satisfied with green heritage team.',
   'definetly 5 stars from our whole family..',
-  'overall bohot acha experience raha sabhi relatives khush the.',
-  'best resort on gobarsahi road.. recommend karunga sabko.'
+  'overall bohot acha experience raha.. 10/10.',
+  'best resort on gobarsahi road.. recommend karunga sabko.',
+  'memorable evening for all of us..'
 ];
 
-// ENGLISH COMBINATORIAL BLOCKS (All Lowercase & Human Slips)
-const EN_LAZY_ONELINERS = [
-  'attended wedding here, lawn is huge and food was delicious.',
-  'food was to good and lawn decoration was really nice.. 5star experience.',
-  'superb place for wedding function, decoration and food was v good.',
-  'huge open lawn and clean rooms, had a great time with family.',
-  'best wedding resort on gobarsahi sakri road, very polite staaf.',
-  'poolside haldi was osm and banquet ac was cooling nicely.',
-  'everything was well arranged. stage decoration was beautiful.',
-  'went for friends reception, car parking is massive so zero rush.',
-  'delicious catering and cooperative staaf.. definetly recommend.',
-  'beautiful venue with open lawns and spacious rooms for guest stay.'
+const EN_FOOD_FIRST = [
+  'food taste was authentic and served piping hot without delay..',
+  'catering was to good specially paneer tikka and hot sweets..',
+  'dinner spread had alot of tasty options, all guests appreciated it..',
+  'chaat counter and main course was delicious throughout the event..',
+  'live food counters and desserts were outstanding..',
+  'catering quality was 10/10, hot snacks and quick service..'
 ];
 
-const EN_OPENERS = [
-  'went for a family wedding reception last week.',
-  'attended friend marriage ceremony here near bakarpur.',
-  'celebrated cousin wedding here on gobarsahi-sakri road.',
-  'we had a family function and guest stay here.'
+const EN_VENUE_FIRST = [
+  'open lawn is massive with nice lighting and royal jaipur look..',
+  'stage decoration was beautiful and crystal banquet hall was super chilled..',
+  'the open marriage lawn can easily accommodate 1500+ guests without rush..',
+  'night ambiance with lawn lighting looked royal and grand..',
+  'crystal banquet hall has powerful ac cooling and beautiful chandeliers..',
+  'lawn space is enormous and varmala stage setup was grand..'
 ];
 
-const EN_VENUE_DETAILS = [
-  'open lawn is massive with nice lighting and stage decor was v good.',
-  'stage decoration was beautiful and dinner buffet had alot of variety.',
-  'banquet hall ac was cooling properly and staaf was polite.',
-  'poolside haldi setup looked magical in daytime photos.',
-  'bridal room and guest cottages were very neat and spacious.'
+const EN_POOLSIDE_FIRST = [
+  'poolside haldi setup looked magical in daytime photos..',
+  'poolside area is vibrant and photogenic for morning ceremonies..',
+  'loved the poolside decoration and aesthetic daylight vibes..',
+  'poolside haldi was osm and daytime photo spots are really pretty..'
 ];
 
-const EN_FOOD_DETAILS = [
-  'food taste was authentic and served piping hot without delay.',
-  'catering was to good specially paneer tikka and hot sweets.',
-  'dinner spread had alot of tasty options, all guests appreciated it.',
-  'chaat counter and main course was delicious throughout.'
+const EN_PARKING_FIRST = [
+  'car parking ground is massive so zero traffic rush while arriving..',
+  'valet parking and security management made entry completely hassle-free..',
+  'huge dedicated parking space on gobarsahi-sakri road is a big plus..',
+  'hassle free parking and very courteous security team..'
 ];
 
-const EN_CLOSINGS = [
+const EN_ROOMS_FIRST = [
+  'bridal room and guest cottages were very neat and spacious..',
+  'ac rooms made it comfortable for outstation relatives to rest and dress up..',
+  'cottages are well maintained and washrooms were spotless..',
+  'family stay rooms were clean with powerful air conditioning..'
+];
+
+const EN_DIRECT_VERDICTS = [
+  'best wedding resort on gobarsahi sakri road, very polite staaf..',
+  'superb place for wedding function, decoration and food was v good..',
+  'one of the finest banquet venues in muzaffarpur..',
+  'everything was well arranged from welcome entry to dinner buffet..',
+  'hosted family reception here and everything went smoothly..',
+  'celebrated wedding here and all guests were full of praise..',
+  'royal ambience and top tier hospitality in muzaffarpur..'
+];
+
+const EN_FOLLOW_UPS = [
+  'lawn was spacious and decor was executed with great attention to detail.',
+  'dinner buffet had great variety and prompt refill service.',
+  'valet staff was polite and guided everyone smoothly.',
+  'ample photo spots for both daylight and evening ceremonies.',
+  'banquet cooling was great despite the summer heat.',
+  'management ensured everything started on schedule.'
+];
+
+const EN_CLOSERS = [
   'really good experience overall.. definetly 5 stars.',
   'definetly recommend for weddings in muzaffarpur.',
   'all our family members loved the arrangements.',
-  'no parking issue bcz huge ground and helpful security.',
-  'overall 5star hospitality by the green heritage team..'
+  'overall 5star hospitality by the green heritage team..',
+  'zero complaints, wonderful experience for our family.',
+  'worth every rupee for a grand celebration.'
 ];
 
 function getRandom<T>(arr: T[]): T {
@@ -322,30 +355,42 @@ function getRandom<T>(arr: T[]): T {
 }
 
 function generateLocalCombinatorialReview(lang: 'en' | 'hi' = 'hi', topic?: string): string {
-  const roll = Math.random();
+  const isHi = lang === 'hi';
+  const foodFirst = isHi ? HI_FOOD_FIRST : EN_FOOD_FIRST;
+  const venueFirst = isHi ? HI_VENUE_FIRST : EN_VENUE_FIRST;
+  const poolsideFirst = isHi ? HI_POOLSIDE_FIRST : EN_POOLSIDE_FIRST;
+  const parkingFirst = isHi ? HI_PARKING_FIRST : EN_PARKING_FIRST;
+  const roomsFirst = isHi ? HI_ROOMS_FIRST : EN_ROOMS_FIRST;
+  const directVerdicts = isHi ? HI_DIRECT_VERDICTS : EN_DIRECT_VERDICTS;
+  const followUps = isHi ? HI_FOLLOW_UPS : EN_FOLLOW_UPS;
+  const closers = isHi ? HI_CLOSERS : EN_CLOSERS;
 
-  if (lang === 'hi') {
-    // 30% chance lazy 1-liner or topic 'quick'
-    if (topic === 'quick' || roll < 0.30) {
-      return getRandom(HI_LAZY_ONELINERS).toLowerCase();
-    }
-    if (roll < 0.55) {
-      return `${getRandom(HI_OPENERS)} ${getRandom(HI_VENUE_DETAILS)} ${getRandom(HI_CLOSINGS)}`.toLowerCase();
-    }
-    if (roll < 0.80) {
-      return `${getRandom(HI_OPENERS)} ${getRandom(HI_FOOD_DETAILS)} ${getRandom(HI_PARKING_STAFF)}`.toLowerCase();
-    }
-    return `${getRandom(HI_OPENERS)} ${getRandom(HI_VENUE_DETAILS)} ${getRandom(HI_FOOD_DETAILS)} ${getRandom(HI_CLOSINGS)}`.toLowerCase();
-  }
+  // 7 distinct structural molds ensure no single formula
+  let mold = Math.floor(Math.random() * 7);
 
-  // English
-  if (topic === 'quick' || roll < 0.30) {
-    return getRandom(EN_LAZY_ONELINERS).toLowerCase();
+  if (topic === 'food' || topic === 'catering and food taste') mold = 1;
+  else if (topic === 'haldi' || topic === 'poolside haldi and photography') mold = 3;
+  else if (topic === 'stay' || topic === 'family stay and cottages') mold = 5;
+  else if (topic === 'wedding' || topic === 'wedding and open lawn reception') mold = 2;
+  else if (topic === 'quick') mold = Math.random() < 0.5 ? 0 : 6;
+
+  switch (mold) {
+    case 0:
+      return `${getRandom(directVerdicts)} ${getRandom(followUps)} ${getRandom(closers)}`.toLowerCase().trim();
+    case 1:
+      return `${getRandom(foodFirst)} ${Math.random() < 0.5 ? getRandom(venueFirst) : getRandom(parkingFirst)} ${getRandom(closers)}`.toLowerCase().trim();
+    case 2:
+      return `${getRandom(venueFirst)} ${getRandom(foodFirst)} ${getRandom(closers)}`.toLowerCase().trim();
+    case 3:
+      return `${getRandom(poolsideFirst)} ${getRandom(followUps)} ${getRandom(closers)}`.toLowerCase().trim();
+    case 4:
+      return `${getRandom(parkingFirst)} ${getRandom(foodFirst)} ${getRandom(closers)}`.toLowerCase().trim();
+    case 5:
+      return `${getRandom(roomsFirst)} ${getRandom(venueFirst)} ${getRandom(closers)}`.toLowerCase().trim();
+    case 6:
+    default:
+      return `${getRandom(directVerdicts)} ${getRandom(followUps)}`.toLowerCase().trim();
   }
-  if (roll < 0.65) {
-    return `${getRandom(EN_OPENERS)} ${getRandom(EN_VENUE_DETAILS)} ${getRandom(EN_CLOSINGS)}`.toLowerCase();
-  }
-  return `${getRandom(EN_OPENERS)} ${getRandom(EN_VENUE_DETAILS)} ${getRandom(EN_FOOD_DETAILS)} ${getRandom(EN_CLOSINGS)}`.toLowerCase();
 }
 
 // Instant Inline SVG QR Generator (0ms Render, Zero Network Dependency)
@@ -535,6 +580,12 @@ export function TwfReviewBooster() {
     // High-entropy local combinatorial fallback ensures 100% uniqueness offline
     if (!generatedText) {
       generatedText = generateLocalCombinatorialReview(selectedLang, activeTopic);
+    }
+
+    // Safety guard: guarantee no review ever starts with formulaic "attended"
+    if (/^(i\s+)?attended\b/i.test(generatedText)) {
+      const stripped = generatedText.replace(/^(i\s+)?attended\s+(a\s+|an\s+|the\s+|my\s+)?(friend['’]?s?|cousin['’]?s?|relative['’]?s?|brother['’]?s?|sister['’]?s?|family)?\s*(wedding|marriage|reception|function|ceremony|here|party)?[\s,.:;–-]*/i, '').trim();
+      generatedText = stripped.length > 20 ? stripped : generateLocalCombinatorialReview(selectedLang, activeTopic);
     }
 
     // Always enforce all small letters
