@@ -61,22 +61,22 @@ function getRandom<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-function generateProceduralReview(topic?: string, lang: 'en' | 'hi' = 'en'): string {
+function generateProceduralReview(topic?: string, lang: 'en' | 'hi' = 'hi'): string {
   if (lang === 'hi') {
-    return getRandom(HI_HINGLISH_REVIEWS);
+    return getRandom(HI_HINGLISH_REVIEWS).toLowerCase();
   }
 
   // Pick random style
   const roll = Math.random();
   if (roll < 0.35) {
     // Lazy 1-liner
-    return getRandom(EN_LAZY_REVIEWS);
+    return getRandom(EN_LAZY_REVIEWS).toLowerCase();
   } else if (roll < 0.70) {
     // Casual 2-part note
-    return `${getRandom(EN_CASUAL_OPENERS)} ${getRandom(EN_CASUAL_DETAILS)} ${getRandom(EN_CASUAL_CLOSINGS)}`;
+    return `${getRandom(EN_CASUAL_OPENERS)} ${getRandom(EN_CASUAL_DETAILS)} ${getRandom(EN_CASUAL_CLOSINGS)}`.toLowerCase();
   } else {
     // Detailed experience
-    return getRandom(DETAILED_EXPERIENCES);
+    return getRandom(DETAILED_EXPERIENCES).toLowerCase();
   }
 }
 
@@ -85,7 +85,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json().catch(() => ({}));
     const {
       topic = 'general',
-      lang = 'en',
+      lang = 'hi',
       starRating = 5,
       existingText = '',
       action = 'generate',
@@ -199,8 +199,8 @@ CRITICAL RULES:
       });
     }
 
-    // Clean any accidental quotes
-    const cleaned = rawContent.replace(/^["']|["']$/g, '').trim();
+    // Clean any accidental quotes & enforce all small letters
+    const cleaned = rawContent.replace(/^["']|["']$/g, '').trim().toLowerCase();
 
     return NextResponse.json({
       review: cleaned,
