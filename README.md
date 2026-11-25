@@ -49,7 +49,7 @@ Built with **Next.js 15 (App Router)**, **React 19**, **TypeScript**, and **Tail
 | `/spaces-and-halls` | Spaces & Halls | Open lawns, chandelier banquet hall, poolside, and suites |
 | `/wedding-films` | Wedding Films | Vertical celebration reels and venue walkthroughs |
 | `/faqs` | FAQs | Visitor, booking, catering, decor, and capacity answers |
-| `/contact` | Contact & Visit | Direct enquiry, phone/WhatsApp, email trigger, and Gobarsahi–Sakri Road directions |
+| `/contact` | Review Us & Contact | 1-Tap Google Review assistant, direct enquiry, phone/WhatsApp, email trigger, and Gobarsahi–Sakri Road directions |
 | `/sitemap.xml` | XML Sitemap | Auto-generated sitemap for all pages and key visual assets |
 | `/robots.txt` | Robots | Crawler rules for traditional search and AI answer engines |
 | `/llms.txt` | LLMs Context | Structured Markdown summary for generative AI engines |

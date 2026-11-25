@@ -17,6 +17,7 @@ import {
   Instagram,
   Menu,
   ChevronLeft,
+  Star,
 } from 'lucide-react';
 import {
   STUDIO_INFO,
@@ -56,7 +57,7 @@ const NAV_ITEMS: {
     { id: 'commissions', label: 'Celebrations', icon: Calendar },
     { id: 'installations', label: 'Spaces & Halls', icon: Building2 },
     { id: 'faqs', label: 'FAQs & Guide', icon: HelpCircle },
-    { id: 'contact', label: 'Contact & Visit', icon: Mail },
+    { id: 'contact', label: 'Review Us & Contact', icon: Star },
   ];
 
 export function TwfSidebar({

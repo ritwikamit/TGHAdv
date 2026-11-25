@@ -33,6 +33,7 @@ import {
 } from '@/lib/masoom-data';
 import { PageId } from './twf-sidebar';
 import { WhatsAppMinimalIcon, FacebookMinimalIcon } from './twf-icons';
+import { TwfReviewBooster } from './twf-review-booster';
 
 interface TwfInnerPagesProps {
   activePage: PageId;
@@ -1498,52 +1499,59 @@ export function TwfInnerPages({
   }
 
   // =========================================================================
-  // PAGE 6: LOCATION & CONTACT
+  // PAGE 6: REVIEW US & CONTACT
   // =========================================================================
   return (
-    <div className="space-y-10 sm:space-y-12 py-2 sm:py-4 px-1 sm:px-2 max-w-5xl mx-auto">
-      <div className="text-center space-y-2">
-        <span
-          className="text-3xl sm:text-4xl text-[#9e6800] block reveal-on-scroll"
-          style={{ fontFamily: 'var(--font-script)' }}
-        >
-          Bakarpur, Gobarsahi–Sakri Road · Muzaffarpur
-        </span>
-        <h1
-          className="text-3xl sm:text-5xl lg:text-6xl text-[#0f1f12] lowercase reveal-on-scroll interactive-heading reveal-delay-1"
-          style={{ fontFamily: 'var(--font-display)' }}
-        >
-          tell us what you are planning
-        </h1>
+    <div className="space-y-12 sm:space-y-16 py-2 sm:py-4 px-1 sm:px-2 max-w-5xl mx-auto">
+      {/* 1. REVIEW SYSTEM (ON TOP AS REQUESTED) */}
+      <section aria-label="Review The Green Heritage on Google">
+        <TwfReviewBooster />
+      </section>
 
-        <div className="inline-flex gap-2 p-1.5 rounded-full bg-[#0f1f12]/5 border border-[#0f1f12]/10 mt-2">
-          <button
-            type="button"
-            onClick={() => setContactTab('enquiry')}
-            className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-              contactTab === 'enquiry'
-                ? 'bg-[#14531e] text-white font-medium'
-                : 'text-[#0f1f12]/65 hover:text-[#0f1f12]'
-            }`}
+      {/* 2. ENQUIRY & LOCATION SECTION */}
+      <section aria-label="Contact and Venue Location" className="space-y-8 sm:space-y-10 pt-2 border-t border-[#0f1f12]/10">
+        <div className="text-center space-y-2">
+          <span
+            className="text-3xl sm:text-4xl text-[#9e6800] block reveal-on-scroll"
+            style={{ fontFamily: 'var(--font-script)' }}
           >
-            Send an Enquiry
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setContactTab('directions');
-              setMapLoaded(true);
-            }}
-            className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
-              contactTab === 'directions'
-                ? 'bg-[#14531e] text-white font-medium'
-                : 'text-[#0f1f12]/65 hover:text-[#0f1f12]'
-            }`}
+            Bakarpur, Gobarsahi–Sakri Road · Muzaffarpur
+          </span>
+          <h1
+            className="text-3xl sm:text-5xl lg:text-6xl text-[#0f1f12] lowercase reveal-on-scroll interactive-heading reveal-delay-1"
+            style={{ fontFamily: 'var(--font-display)' }}
           >
-            Location &amp; Directions
-          </button>
+            tell us what you are planning
+          </h1>
+
+          <div className="inline-flex gap-2 p-1.5 rounded-full bg-[#0f1f12]/5 border border-[#0f1f12]/10 mt-2">
+            <button
+              type="button"
+              onClick={() => setContactTab('enquiry')}
+              className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                contactTab === 'enquiry'
+                  ? 'bg-[#14531e] text-white font-medium'
+                  : 'text-[#0f1f12]/65 hover:text-[#0f1f12]'
+              }`}
+            >
+              Send an Enquiry
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setContactTab('directions');
+                setMapLoaded(true);
+              }}
+              className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                contactTab === 'directions'
+                  ? 'bg-[#14531e] text-white font-medium'
+                  : 'text-[#0f1f12]/65 hover:text-[#0f1f12]'
+              }`}
+            >
+              Location &amp; Directions
+            </button>
+          </div>
         </div>
-      </div>
 
       {contactTab === 'enquiry' ? (
         <div className="rounded-[20px] sm:rounded-[24px] bg-white/95 border border-[#0f1f12]/10 p-5 sm:p-10 shadow-xl">
@@ -1895,6 +1903,7 @@ export function TwfInnerPages({
           </div>
         </div>
       )}
+      </section>
     </div>
   );
 }

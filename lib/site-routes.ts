@@ -129,11 +129,11 @@ export const PAGE_ROUTES: Record<PageId, PageRouteMeta> = {
   contact: {
     id: 'contact',
     path: '/contact',
-    label: 'Contact & Visit',
+    label: 'Review Us & Contact',
     title:
-      'Contact, Bookings & Location | Best Resort in Muzaffarpur',
+      'Review Us & Contact | Best Wedding Resort in Muzaffarpur',
     description:
-      'Book wedding dates or schedule a walkthrough at the best wedding resort in Muzaffarpur. Call or WhatsApp +91 92340 52600, email ajay888277@gmail.com, or get Google Maps directions to Gobarsahi–Sakri Road, Bakarpur 844127.',
+      'Share your Google review for The Green Heritage Resort and Banquet, or book wedding dates and walkthroughs at the best wedding resort in Muzaffarpur. Call or WhatsApp +91 92340 52600, email ajay888277@gmail.com, or get Google Maps directions to Gobarsahi–Sakri Road, Bakarpur 844127.',
     changeFrequency: 'monthly',
     priority: 0.9,
   },
