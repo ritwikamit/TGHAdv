@@ -80,6 +80,16 @@ function generateProceduralReview(topic?: string, lang: 'en' | 'hi' = 'hi'): str
   }
 }
 
+function localPolish(text: string): string {
+  if (!text) return '';
+  return text
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .replace(/\s+([.,!?])/g, '$1')
+    .replace(/([.,!?])(?=[a-zA-Z])/g, '$1 ');
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json().catch(() => ({}));
@@ -99,6 +109,13 @@ export async function POST(req: NextRequest) {
 
     if (!apiKey) {
       // Graceful procedural fallback if API key is not configured locally
+      if (action === 'improve' && existingText) {
+        return NextResponse.json({
+          review: localPolish(existingText),
+          source: 'local-polish',
+          success: true,
+        });
+      }
       const fallbackText = generateProceduralReview(topic, lang as 'en' | 'hi');
       return NextResponse.json({
         review: fallbackText,
@@ -176,13 +193,16 @@ CRITICAL RULES:
 
     if (!openRouterResponse.ok) {
       console.warn(
-        'OpenRouter API returned non-OK status, falling back to procedural generator:',
+        'OpenRouter API returned non-OK status, falling back:',
         openRouterResponse.status
       );
-      const fallbackText = generateProceduralReview(topic, lang as 'en' | 'hi');
+      const fallbackText =
+        action === 'improve' && existingText
+          ? localPolish(existingText)
+          : generateProceduralReview(topic, lang as 'en' | 'hi');
       return NextResponse.json({
         review: fallbackText,
-        source: 'procedural-fallback',
+        source: action === 'improve' ? 'local-polish' : 'procedural-fallback',
         success: true,
       });
     }
@@ -191,10 +211,13 @@ CRITICAL RULES:
     const rawContent = data.choices?.[0]?.message?.content?.trim();
 
     if (!rawContent) {
-      const fallbackText = generateProceduralReview(topic, lang as 'en' | 'hi');
+      const fallbackText =
+        action === 'improve' && existingText
+          ? localPolish(existingText)
+          : generateProceduralReview(topic, lang as 'en' | 'hi');
       return NextResponse.json({
         review: fallbackText,
-        source: 'procedural-fallback',
+        source: action === 'improve' ? 'local-polish' : 'procedural-fallback',
         success: true,
       });
     }

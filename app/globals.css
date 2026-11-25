@@ -268,7 +268,7 @@ body,
   }
 }
 
-/* Reception Desk Printable Standee Styles */
+/* Reception Desk Printable Standee Styles (Centered On-Page & Crisp Color Printing) */
 @media print {
   body * {
     visibility: hidden;
@@ -278,20 +278,25 @@ body,
     visibility: visible;
   }
   #printable-standee {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    padding: 2rem;
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 90% !important;
+    max-width: 460px !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 2.5rem !important;
     background: white !important;
     display: flex !important;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: none !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 4px solid #14531e !important;
+    border-radius: 24px !important;
     box-shadow: none !important;
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
   }
 }
 

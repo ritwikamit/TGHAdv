@@ -523,6 +523,52 @@ export function TwfReviewBooster() {
     startTypewriter(finalCleanText);
   };
 
+  // Polish Review (fixes spelling & grammar while strictly enforcing 100% all small letters)
+  const handlePolish = async () => {
+    if (!reviewText.trim()) return;
+    setIsGenerating(true);
+
+    let polished = '';
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2200);
+
+    try {
+      const res = await fetch('/api/review', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'improve',
+          existingText: reviewText.trim(),
+          lang: selectedLang,
+          starRating,
+        }),
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data?.review) {
+          polished = data.review.toLowerCase().trim();
+        }
+      }
+    } catch {
+      // Sluggish connection or offline: local polish
+    }
+
+    if (!polished) {
+      // Local fallback polish: clean spacing, punctuation and lowercase
+      polished = reviewText
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, ' ')
+        .replace(/\s+([.,!?])/g, '$1')
+        .replace(/([.,!?])(?=[a-zA-Z])/g, '$1 ');
+    }
+
+    startTypewriter(polished.toLowerCase().trim());
+  };
+
   // Post to Google: Synchronously copies text + launches Google Reviews dialog
   const handlePostToGoogle = () => {
     const textToCopy = reviewText.trim();
@@ -575,7 +621,7 @@ export function TwfReviewBooster() {
       {/* HEADER SECTION */}
       <div className="relative z-10 space-y-3 mb-6">
         <div className="flex flex-wrap items-center justify-between gap-2.5">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#f0b400]/15 border border-[#f0b400]/35 text-[#f0b400] text-xs font-semibold tracking-wide">
+          <div className="inline-flex items-center gap-1.5 text-[#f0b400] text-xs font-semibold tracking-wide">
             <Sparkles className="w-3.5 h-3.5" />
             <span>AI Review Assistant &amp; Google Booster</span>
           </div>
@@ -710,13 +756,11 @@ export function TwfReviewBooster() {
 
           <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-white/10 text-xs text-[#f7f6f1]/60">
             <div className="flex items-center gap-2">
-              {hasText ? (
+              {hasText && (
                 <span className="inline-flex items-center gap-1.5 text-[#f0b400] font-medium lowercase">
                   <MessageSquareHeart className="w-3.5 h-3.5" />
                   ready to post ({reviewText.length} chars)
                 </span>
-              ) : (
-                <span className="text-[#f7f6f1]/50 lowercase">natural human style · all small letters</span>
               )}
             </div>
 
@@ -750,10 +794,8 @@ export function TwfReviewBooster() {
 
       {/* =====================================================================
           ACTION BUTTONS (MINIMAL & ESSENTIAL ONLY)
-          - Copy button removed (Post button already copies synchronously)
-          - "(1-Tap)" label removed
           - When text is EMPTY: Only "Generate Review Idea"
-          - When text EXISTS: "Post on Google Reviews", "Try Another", "Clear"
+          - When text EXISTS: "Post on Google Reviews", "Polish", "Try Another", "Clear"
           ===================================================================== */}
       <div className="relative z-10 flex flex-wrap items-center gap-3">
         {!hasText ? (
@@ -790,7 +832,19 @@ export function TwfReviewBooster() {
               <ExternalLink className="w-3.5 h-3.5 text-[#f0b400]" />
             </button>
 
-            {/* 2. Try Another Variation */}
+            {/* 2. Polish Button (Fixes grammar and spelling in all small letters) */}
+            <button
+              type="button"
+              onClick={handlePolish}
+              disabled={isGenerating}
+              title="Polish grammar and spelling in all small letters"
+              className="px-4 sm:px-5 py-3 rounded-full bg-white/10 hover:bg-white/15 border border-[#f0b400]/40 text-xs sm:text-sm text-[#f0b400] hover:text-white flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 disabled:opacity-50"
+            >
+              <Sparkles className={`w-3.5 h-3.5 text-[#f0b400] ${isGenerating ? 'animate-spin' : ''}`} />
+              <span>Polish</span>
+            </button>
+
+            {/* 3. Try Another Variation */}
             <button
               type="button"
               onClick={() => handleGenerate()}
@@ -802,14 +856,15 @@ export function TwfReviewBooster() {
               <span>Try Another</span>
             </button>
 
-            {/* 3. Clear */}
+            {/* 4. Clear Button */}
             <button
               type="button"
               onClick={handleClear}
               title="Clear review"
-              className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 text-[#f7f6f1]/60 hover:text-white flex items-center justify-center transition-all cursor-pointer active:scale-95"
+              className="px-4 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 text-xs text-[#f7f6f1]/70 hover:text-white flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95"
             >
-              <X className="w-4 h-4" />
+              <X className="w-3.5 h-3.5" />
+              <span>Clear</span>
             </button>
           </>
         )}
@@ -817,66 +872,75 @@ export function TwfReviewBooster() {
 
       {/* =====================================================================
           RECEPTION DESK PRINTABLE QR STANDEE MODAL
+          - Redirects directly to Review Us & Contact page
+          - Beautiful centered color card for desktop and centered printing
+          - Instant 0ms SVG QR rendering
           ===================================================================== */}
       {showStandeeModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
           <div
             id="printable-standee"
-            className="relative w-full max-w-md bg-white text-[#0f1f12] rounded-3xl p-6 sm:p-8 shadow-2xl border-4 border-[#14531e] text-center space-y-4"
+            className="relative w-full max-w-sm sm:max-w-md bg-gradient-to-b from-[#fdfbf7] via-white to-[#f4f0e6] text-[#0f1f12] rounded-3xl p-6 sm:p-8 shadow-2xl border-4 border-[#14531e] ring-4 ring-[#f0b400]/40 text-center space-y-4"
           >
             <button
               type="button"
               onClick={() => setShowStandeeModal(false)}
-              className="absolute top-4 right-4 p-2 rounded-full hover:bg-black/5 text-[#0f1f12]/60 hover:text-[#0f1f12] cursor-pointer"
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-black/5 text-[#0f1f12]/60 hover:text-[#0f1f12] cursor-pointer print:hidden"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <div className="space-y-1">
-              <span
-                className="text-2xl text-[#9e6800] block"
-                style={{ fontFamily: 'var(--font-script)' }}
-              >
-                The Green Heritage Resort and Banquet
-              </span>
-              <h3
-                className="text-xl sm:text-2xl text-[#14531e] font-bold"
-                style={{ fontFamily: 'var(--font-display)' }}
-              >
-                Rate Us on Google Maps
-              </h3>
-              <p className="text-xs text-[#0f1f12]/70">
-                Scan the QR code below with any smartphone camera to share your review!
-              </p>
-            </div>
-
-            {/* QR Code Container */}
-            <div className="p-4 bg-[#f7f6f1] rounded-2xl border-2 border-dashed border-[#14531e]/30 flex flex-col items-center justify-center">
-              <img
-                src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(
-                  STUDIO_INFO.googleReviewUrl
-                )}`}
-                alt="Scan to Review The Green Heritage Resort on Google Maps"
-                width={180}
-                height={180}
-                className="rounded-xl shadow-md"
-              />
-              <span className="text-[11px] text-[#0f1f12]/60 mt-2 font-medium">
-                Bakarpur, Gobarsahi–Sakri Road · Muzaffarpur
-              </span>
-            </div>
-
+            {/* Gold Stars Header */}
             <div className="flex items-center justify-center gap-1 text-[#f0b400]">
               {[1, 2, 3, 4, 5].map((s) => (
                 <Star key={s} className="w-5 h-5 fill-[#f0b400] text-[#f0b400]" />
               ))}
             </div>
 
-            <p className="text-xs text-[#0f1f12]/65 italic">
-              "Your 5-star review helps upcoming wedding families find the right venue in Muzaffarpur."
-            </p>
+            <div className="space-y-1">
+              <span
+                className="text-2xl sm:text-3xl text-[#9e6800] block"
+                style={{ fontFamily: 'var(--font-script)' }}
+              >
+                The Green Heritage Resort and Banquet
+              </span>
+              <h3
+                className="text-xl sm:text-2xl text-[#14531e] font-bold tracking-tight"
+                style={{ fontFamily: 'var(--font-display)' }}
+              >
+                Review Us &amp; Share Experience
+              </h3>
+              <p className="text-xs text-[#0f1f12]/75">
+                Bakarpur, Gobarsahi–Sakri Road · Muzaffarpur
+              </p>
+            </div>
 
-            <div className="flex items-center justify-center gap-3 pt-2">
+            {/* QR Code Container - Loads Instantly with Zero Latency */}
+            <div className="p-3 bg-white rounded-2xl border-2 border-dashed border-[#14531e]/30 shadow-inner inline-block mx-auto">
+              <img
+                src="/contact-review-qr.svg"
+                alt="Scan to Review The Green Heritage Resort on Google"
+                width={180}
+                height={180}
+                className="w-44 h-44 rounded-xl mx-auto"
+                loading="eager"
+              />
+            </div>
+
+            <div className="space-y-1 text-xs text-[#0f1f12]/80 leading-relaxed">
+              <p className="font-semibold text-[#14531e]">
+                Scan with any phone camera to open Review Assistant
+              </p>
+              <p className="text-[11px] text-[#0f1f12]/60">
+                1-tap authentic review ideas &amp; direct Google posting
+              </p>
+              <p className="text-[11px] font-mono font-medium text-[#9e6800] pt-1">
+                thegreenheritageresort.in/contact
+              </p>
+            </div>
+
+            {/* Print & Action Buttons (Hidden when printed) */}
+            <div className="flex items-center justify-center gap-3 pt-2 print:hidden">
               <button
                 type="button"
                 onClick={() => window.print()}
