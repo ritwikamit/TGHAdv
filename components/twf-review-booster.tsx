@@ -348,6 +348,25 @@ function generateLocalCombinatorialReview(lang: 'en' | 'hi' = 'hi', topic?: stri
   return `${getRandom(EN_OPENERS)} ${getRandom(EN_VENUE_DETAILS)} ${getRandom(EN_FOOD_DETAILS)} ${getRandom(EN_CLOSINGS)}`.toLowerCase();
 }
 
+// Instant Inline SVG QR Generator (0ms Render, Zero Network Dependency)
+function InstantReviewQrSvg({ className = 'w-44 h-44 mx-auto' }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 29 29"
+      className={className}
+      shapeRendering="crispEdges"
+      aria-label="QR Code to Review Us & Contact"
+    >
+      <rect width="29" height="29" fill="#ffffff" />
+      <path
+        fill="#061208"
+        d="M 0,0 l 1,0 0,1 -1,0 z M 1,0 l 1,0 0,1 -1,0 z M 2,0 l 1,0 0,1 -1,0 z M 3,0 l 1,0 0,1 -1,0 z M 4,0 l 1,0 0,1 -1,0 z M 5,0 l 1,0 0,1 -1,0 z M 6,0 l 1,0 0,1 -1,0 z M 9,0 l 1,0 0,1 -1,0 z M 13,0 l 1,0 0,1 -1,0 z M 16,0 l 1,0 0,1 -1,0 z M 19,0 l 1,0 0,1 -1,0 z M 20,0 l 1,0 0,1 -1,0 z M 22,0 l 1,0 0,1 -1,0 z M 23,0 l 1,0 0,1 -1,0 z M 24,0 l 1,0 0,1 -1,0 z M 25,0 l 1,0 0,1 -1,0 z M 26,0 l 1,0 0,1 -1,0 z M 27,0 l 1,0 0,1 -1,0 z M 28,0 l 1,0 0,1 -1,0 z M 0,1 l 1,0 0,1 -1,0 z M 6,1 l 1,0 0,1 -1,0 z M 8,1 l 1,0 0,1 -1,0 z M 9,1 l 1,0 0,1 -1,0 z M 11,1 l 1,0 0,1 -1,0 z M 12,1 l 1,0 0,1 -1,0 z M 13,1 l 1,0 0,1 -1,0 z M 14,1 l 1,0 0,1 -1,0 z M 15,1 l 1,0 0,1 -1,0 z M 16,1 l 1,0 0,1 -1,0 z M 17,1 l 1,0 0,1 -1,0 z M 18,1 l 1,0 0,1 -1,0 z M 20,1 l 1,0 0,1 -1,0 z M 22,1 l 1,0 0,1 -1,0 z M 28,1 l 1,0 0,1 -1,0 z M 0,2 l 1,0 0,1 -1,0 z M 2,2 l 1,0 0,1 -1,0 z M 3,2 l 1,0 0,1 -1,0 z M 4,2 l 1,0 0,1 -1,0 z M 6,2 l 1,0 0,1 -1,0 z M 9,2 l 1,0 0,1 -1,0 z M 10,2 l 1,0 0,1 -1,0 z M 11,2 l 1,0 0,1 -1,0 z M 15,2 l 1,0 0,1 -1,0 z M 18,2 l 1,0 0,1 -1,0 z M 20,2 l 1,0 0,1 -1,0 z M 22,2 l 1,0 0,1 -1,0 z M 24,2 l 1,0 0,1 -1,0 z M 25,2 l 1,0 0,1 -1,0 z M 26,2 l 1,0 0,1 -1,0 z M 28,2 l 1,0 0,1 -1,0 z M 0,3 l 1,0 0,1 -1,0 z M 2,3 l 1,0 0,1 -1,0 z M 3,3 l 1,0 0,1 -1,0 z M 4,3 l 1,0 0,1 -1,0 z M 6,3 l 1,0 0,1 -1,0 z M 8,3 l 1,0 0,1 -1,0 z M 9,3 l 1,0 0,1 -1,0 z M 11,3 l 1,0 0,1 -1,0 z M 13,3 l 1,0 0,1 -1,0 z M 17,3 l 1,0 0,1 -1,0 z M 22,3 l 1,0 0,1 -1,0 z M 24,3 l 1,0 0,1 -1,0 z M 25,3 l 1,0 0,1 -1,0 z M 26,3 l 1,0 0,1 -1,0 z M 28,3 l 1,0 0,1 -1,0 z M 0,4 l 1,0 0,1 -1,0 z M 2,4 l 1,0 0,1 -1,0 z M 3,4 l 1,0 0,1 -1,0 z M 4,4 l 1,0 0,1 -1,0 z M 6,4 l 1,0 0,1 -1,0 z M 10,4 l 1,0 0,1 -1,0 z M 12,4 l 1,0 0,1 -1,0 z M 13,4 l 1,0 0,1 -1,0 z M 16,4 l 1,0 0,1 -1,0 z M 17,4 l 1,0 0,1 -1,0 z M 18,4 l 1,0 0,1 -1,0 z M 19,4 l 1,0 0,1 -1,0 z M 20,4 l 1,0 0,1 -1,0 z M 22,4 l 1,0 0,1 -1,0 z M 24,4 l 1,0 0,1 -1,0 z M 25,4 l 1,0 0,1 -1,0 z M 26,4 l 1,0 0,1 -1,0 z M 28,4 l 1,0 0,1 -1,0 z M 0,5 l 1,0 0,1 -1,0 z M 6,5 l 1,0 0,1 -1,0 z M 8,5 l 1,0 0,1 -1,0 z M 10,5 l 1,0 0,1 -1,0 z M 13,5 l 1,0 0,1 -1,0 z M 14,5 l 1,0 0,1 -1,0 z M 15,5 l 1,0 0,1 -1,0 z M 18,5 l 1,0 0,1 -1,0 z M 22,5 l 1,0 0,1 -1,0 z M 28,5 l 1,0 0,1 -1,0 z M 0,6 l 1,0 0,1 -1,0 z M 1,6 l 1,0 0,1 -1,0 z M 2,6 l 1,0 0,1 -1,0 z M 3,6 l 1,0 0,1 -1,0 z M 4,6 l 1,0 0,1 -1,0 z M 5,6 l 1,0 0,1 -1,0 z M 6,6 l 1,0 0,1 -1,0 z M 8,6 l 1,0 0,1 -1,0 z M 10,6 l 1,0 0,1 -1,0 z M 12,6 l 1,0 0,1 -1,0 z M 14,6 l 1,0 0,1 -1,0 z M 16,6 l 1,0 0,1 -1,0 z M 18,6 l 1,0 0,1 -1,0 z M 20,6 l 1,0 0,1 -1,0 z M 22,6 l 1,0 0,1 -1,0 z M 23,6 l 1,0 0,1 -1,0 z M 24,6 l 1,0 0,1 -1,0 z M 25,6 l 1,0 0,1 -1,0 z M 26,6 l 1,0 0,1 -1,0 z M 27,6 l 1,0 0,1 -1,0 z M 28,6 l 1,0 0,1 -1,0 z M 12,7 l 1,0 0,1 -1,0 z M 14,7 l 1,0 0,1 -1,0 z M 16,7 l 1,0 0,1 -1,0 z M 0,8 l 1,0 0,1 -1,0 z M 1,8 l 1,0 0,1 -1,0 z M 2,8 l 1,0 0,1 -1,0 z M 3,8 l 1,0 0,1 -1,0 z M 4,8 l 1,0 0,1 -1,0 z M 6,8 l 1,0 0,1 -1,0 z M 7,8 l 1,0 0,1 -1,0 z M 8,8 l 1,0 0,1 -1,0 z M 9,8 l 1,0 0,1 -1,0 z M 10,8 l 1,0 0,1 -1,0 z M 12,8 l 1,0 0,1 -1,0 z M 13,8 l 1,0 0,1 -1,0 z M 14,8 l 1,0 0,1 -1,0 z M 17,8 l 1,0 0,1 -1,0 z M 19,8 l 1,0 0,1 -1,0 z M 21,8 l 1,0 0,1 -1,0 z M 23,8 l 1,0 0,1 -1,0 z M 25,8 l 1,0 0,1 -1,0 z M 27,8 l 1,0 0,1 -1,0 z M 0,9 l 1,0 0,1 -1,0 z M 2,9 l 1,0 0,1 -1,0 z M 3,9 l 1,0 0,1 -1,0 z M 5,9 l 1,0 0,1 -1,0 z M 9,9 l 1,0 0,1 -1,0 z M 19,9 l 1,0 0,1 -1,0 z M 20,9 l 1,0 0,1 -1,0 z M 22,9 l 1,0 0,1 -1,0 z M 23,9 l 1,0 0,1 -1,0 z M 24,9 l 1,0 0,1 -1,0 z M 28,9 l 1,0 0,1 -1,0 z M 0,10 l 1,0 0,1 -1,0 z M 1,10 l 1,0 0,1 -1,0 z M 4,10 l 1,0 0,1 -1,0 z M 6,10 l 1,0 0,1 -1,0 z M 7,10 l 1,0 0,1 -1,0 z M 8,10 l 1,0 0,1 -1,0 z M 9,10 l 1,0 0,1 -1,0 z M 11,10 l 1,0 0,1 -1,0 z M 12,10 l 1,0 0,1 -1,0 z M 13,10 l 1,0 0,1 -1,0 z M 15,10 l 1,0 0,1 -1,0 z M 0,11 l 1,0 0,1 -1,0 z M 1,11 l 1,0 0,1 -1,0 z M 4,11 l 1,0 0,1 -1,0 z M 8,11 l 1,0 0,1 -1,0 z M 9,11 l 1,0 0,1 -1,0 z M 10,11 l 1,0 0,1 -1,0 z M 11,11 l 1,0 0,1 -1,0 z M 14,11 l 1,0 0,1 -1,0 z M 15,11 l 1,0 0,1 -1,0 z M 16,11 l 1,0 0,1 -1,0 z M 18,11 l 1,0 0,1 -1,0 z M 19,11 l 1,0 0,1 -1,0 z M 20,11 l 1,0 0,1 -1,0 z M 21,11 l 1,0 0,1 -1,0 z M 23,11 l 1,0 0,1 -1,0 z M 25,11 l 1,0 0,1 -1,0 z M 27,11 l 1,0 0,1 -1,0 z M 4,12 l 1,0 0,1 -1,0 z M 6,12 l 1,0 0,1 -1,0 z M 7,12 l 1,0 0,1 -1,0 z M 9,12 l 1,0 0,1 -1,0 z M 11,12 l 1,0 0,1 -1,0 z M 13,12 l 1,0 0,1 -1,0 z M 14,12 l 1,0 0,1 -1,0 z M 15,12 l 1,0 0,1 -1,0 z M 16,12 l 1,0 0,1 -1,0 z M 17,12 l 1,0 0,1 -1,0 z M 19,12 l 1,0 0,1 -1,0 z M 25,12 l 1,0 0,1 -1,0 z M 26,12 l 1,0 0,1 -1,0 z M 0,13 l 1,0 0,1 -1,0 z M 1,13 l 1,0 0,1 -1,0 z M 2,13 l 1,0 0,1 -1,0 z M 3,13 l 1,0 0,1 -1,0 z M 4,13 l 1,0 0,1 -1,0 z M 5,13 l 1,0 0,1 -1,0 z M 9,13 l 1,0 0,1 -1,0 z M 10,13 l 1,0 0,1 -1,0 z M 12,13 l 1,0 0,1 -1,0 z M 13,13 l 1,0 0,1 -1,0 z M 16,13 l 1,0 0,1 -1,0 z M 18,13 l 1,0 0,1 -1,0 z M 19,13 l 1,0 0,1 -1,0 z M 20,13 l 1,0 0,1 -1,0 z M 21,13 l 1,0 0,1 -1,0 z M 22,13 l 1,0 0,1 -1,0 z M 24,13 l 1,0 0,1 -1,0 z M 28,13 l 1,0 0,1 -1,0 z M 1,14 l 1,0 0,1 -1,0 z M 6,14 l 1,0 0,1 -1,0 z M 7,14 l 1,0 0,1 -1,0 z M 8,14 l 1,0 0,1 -1,0 z M 9,14 l 1,0 0,1 -1,0 z M 10,14 l 1,0 0,1 -1,0 z M 13,14 l 1,0 0,1 -1,0 z M 14,14 l 1,0 0,1 -1,0 z M 15,14 l 1,0 0,1 -1,0 z M 18,14 l 1,0 0,1 -1,0 z M 20,14 l 1,0 0,1 -1,0 z M 21,14 l 1,0 0,1 -1,0 z M 22,14 l 1,0 0,1 -1,0 z M 23,14 l 1,0 0,1 -1,0 z M 25,14 l 1,0 0,1 -1,0 z M 26,14 l 1,0 0,1 -1,0 z M 0,15 l 1,0 0,1 -1,0 z M 1,15 l 1,0 0,1 -1,0 z M 3,15 l 1,0 0,1 -1,0 z M 4,15 l 1,0 0,1 -1,0 z M 7,15 l 1,0 0,1 -1,0 z M 9,15 l 1,0 0,1 -1,0 z M 12,15 l 1,0 0,1 -1,0 z M 14,15 l 1,0 0,1 -1,0 z M 20,15 l 1,0 0,1 -1,0 z M 21,15 l 1,0 0,1 -1,0 z M 23,15 l 1,0 0,1 -1,0 z M 24,15 l 1,0 0,1 -1,0 z M 27,15 l 1,0 0,1 -1,0 z M 1,16 l 1,0 0,1 -1,0 z M 2,16 l 1,0 0,1 -1,0 z M 3,16 l 1,0 0,1 -1,0 z M 6,16 l 1,0 0,1 -1,0 z M 7,16 l 1,0 0,1 -1,0 z M 8,16 l 1,0 0,1 -1,0 z M 9,16 l 1,0 0,1 -1,0 z M 10,16 l 1,0 0,1 -1,0 z M 12,16 l 1,0 0,1 -1,0 z M 13,16 l 1,0 0,1 -1,0 z M 14,16 l 1,0 0,1 -1,0 z M 15,16 l 1,0 0,1 -1,0 z M 16,16 l 1,0 0,1 -1,0 z M 17,16 l 1,0 0,1 -1,0 z M 23,16 l 1,0 0,1 -1,0 z M 25,16 l 1,0 0,1 -1,0 z M 26,16 l 1,0 0,1 -1,0 z M 0,17 l 1,0 0,1 -1,0 z M 1,17 l 1,0 0,1 -1,0 z M 3,17 l 1,0 0,1 -1,0 z M 5,17 l 1,0 0,1 -1,0 z M 7,17 l 1,0 0,1 -1,0 z M 8,17 l 1,0 0,1 -1,0 z M 9,17 l 1,0 0,1 -1,0 z M 10,17 l 1,0 0,1 -1,0 z M 13,17 l 1,0 0,1 -1,0 z M 16,17 l 1,0 0,1 -1,0 z M 18,17 l 1,0 0,1 -1,0 z M 19,17 l 1,0 0,1 -1,0 z M 20,17 l 1,0 0,1 -1,0 z M 21,17 l 1,0 0,1 -1,0 z M 22,17 l 1,0 0,1 -1,0 z M 23,17 l 1,0 0,1 -1,0 z M 24,17 l 1,0 0,1 -1,0 z M 26,17 l 1,0 0,1 -1,0 z M 28,17 l 1,0 0,1 -1,0 z M 0,18 l 1,0 0,1 -1,0 z M 4,18 l 1,0 0,1 -1,0 z M 5,18 l 1,0 0,1 -1,0 z M 6,18 l 1,0 0,1 -1,0 z M 7,18 l 1,0 0,1 -1,0 z M 8,18 l 1,0 0,1 -1,0 z M 11,18 l 1,0 0,1 -1,0 z M 12,18 l 1,0 0,1 -1,0 z M 13,18 l 1,0 0,1 -1,0 z M 14,18 l 1,0 0,1 -1,0 z M 15,18 l 1,0 0,1 -1,0 z M 16,18 l 1,0 0,1 -1,0 z M 17,18 l 1,0 0,1 -1,0 z M 20,18 l 1,0 0,1 -1,0 z M 23,18 l 1,0 0,1 -1,0 z M 26,18 l 1,0 0,1 -1,0 z M 0,19 l 1,0 0,1 -1,0 z M 3,19 l 1,0 0,1 -1,0 z M 4,19 l 1,0 0,1 -1,0 z M 5,19 l 1,0 0,1 -1,0 z M 9,19 l 1,0 0,1 -1,0 z M 10,19 l 1,0 0,1 -1,0 z M 11,19 l 1,0 0,1 -1,0 z M 16,19 l 1,0 0,1 -1,0 z M 20,19 l 1,0 0,1 -1,0 z M 23,19 l 1,0 0,1 -1,0 z M 24,19 l 1,0 0,1 -1,0 z M 27,19 l 1,0 0,1 -1,0 z M 0,20 l 1,0 0,1 -1,0 z M 2,20 l 1,0 0,1 -1,0 z M 3,20 l 1,0 0,1 -1,0 z M 4,20 l 1,0 0,1 -1,0 z M 5,20 l 1,0 0,1 -1,0 z M 6,20 l 1,0 0,1 -1,0 z M 10,20 l 1,0 0,1 -1,0 z M 11,20 l 1,0 0,1 -1,0 z M 12,20 l 1,0 0,1 -1,0 z M 13,20 l 1,0 0,1 -1,0 z M 14,20 l 1,0 0,1 -1,0 z M 17,20 l 1,0 0,1 -1,0 z M 20,20 l 1,0 0,1 -1,0 z M 21,20 l 1,0 0,1 -1,0 z M 22,20 l 1,0 0,1 -1,0 z M 23,20 l 1,0 0,1 -1,0 z M 24,20 l 1,0 0,1 -1,0 z M 26,20 l 1,0 0,1 -1,0 z M 27,20 l 1,0 0,1 -1,0 z M 28,20 l 1,0 0,1 -1,0 z M 8,21 l 1,0 0,1 -1,0 z M 10,21 l 1,0 0,1 -1,0 z M 12,21 l 1,0 0,1 -1,0 z M 14,21 l 1,0 0,1 -1,0 z M 16,21 l 1,0 0,1 -1,0 z M 18,21 l 1,0 0,1 -1,0 z M 20,21 l 1,0 0,1 -1,0 z M 24,21 l 1,0 0,1 -1,0 z M 25,21 l 1,0 0,1 -1,0 z M 26,21 l 1,0 0,1 -1,0 z M 27,21 l 1,0 0,1 -1,0 z M 28,21 l 1,0 0,1 -1,0 z M 0,22 l 1,0 0,1 -1,0 z M 1,22 l 1,0 0,1 -1,0 z M 2,22 l 1,0 0,1 -1,0 z M 3,22 l 1,0 0,1 -1,0 z M 4,22 l 1,0 0,1 -1,0 z M 5,22 l 1,0 0,1 -1,0 z M 6,22 l 1,0 0,1 -1,0 z M 8,22 l 1,0 0,1 -1,0 z M 10,22 l 1,0 0,1 -1,0 z M 12,22 l 1,0 0,1 -1,0 z M 14,22 l 1,0 0,1 -1,0 z M 15,22 l 1,0 0,1 -1,0 z M 16,22 l 1,0 0,1 -1,0 z M 19,22 l 1,0 0,1 -1,0 z M 20,22 l 1,0 0,1 -1,0 z M 22,22 l 1,0 0,1 -1,0 z M 24,22 l 1,0 0,1 -1,0 z M 25,22 l 1,0 0,1 -1,0 z M 26,22 l 1,0 0,1 -1,0 z M 0,23 l 1,0 0,1 -1,0 z M 6,23 l 1,0 0,1 -1,0 z M 9,23 l 1,0 0,1 -1,0 z M 19,23 l 1,0 0,1 -1,0 z M 20,23 l 1,0 0,1 -1,0 z M 24,23 l 1,0 0,1 -1,0 z M 0,24 l 1,0 0,1 -1,0 z M 2,24 l 1,0 0,1 -1,0 z M 3,24 l 1,0 0,1 -1,0 z M 4,24 l 1,0 0,1 -1,0 z M 6,24 l 1,0 0,1 -1,0 z M 8,24 l 1,0 0,1 -1,0 z M 13,24 l 1,0 0,1 -1,0 z M 14,24 l 1,0 0,1 -1,0 z M 15,24 l 1,0 0,1 -1,0 z M 16,24 l 1,0 0,1 -1,0 z M 17,24 l 1,0 0,1 -1,0 z M 20,24 l 1,0 0,1 -1,0 z M 21,24 l 1,0 0,1 -1,0 z M 22,24 l 1,0 0,1 -1,0 z M 23,24 l 1,0 0,1 -1,0 z M 24,24 l 1,0 0,1 -1,0 z M 26,24 l 1,0 0,1 -1,0 z M 28,24 l 1,0 0,1 -1,0 z M 0,25 l 1,0 0,1 -1,0 z M 2,25 l 1,0 0,1 -1,0 z M 3,25 l 1,0 0,1 -1,0 z M 4,25 l 1,0 0,1 -1,0 z M 6,25 l 1,0 0,1 -1,0 z M 8,25 l 1,0 0,1 -1,0 z M 10,25 l 1,0 0,1 -1,0 z M 11,25 l 1,0 0,1 -1,0 z M 16,25 l 1,0 0,1 -1,0 z M 20,25 l 1,0 0,1 -1,0 z M 23,25 l 1,0 0,1 -1,0 z M 25,25 l 1,0 0,1 -1,0 z M 26,25 l 1,0 0,1 -1,0 z M 27,25 l 1,0 0,1 -1,0 z M 28,25 l 1,0 0,1 -1,0 z M 0,26 l 1,0 0,1 -1,0 z M 2,26 l 1,0 0,1 -1,0 z M 3,26 l 1,0 0,1 -1,0 z M 4,26 l 1,0 0,1 -1,0 z M 6,26 l 1,0 0,1 -1,0 z M 8,26 l 1,0 0,1 -1,0 z M 9,26 l 1,0 0,1 -1,0 z M 10,26 l 1,0 0,1 -1,0 z M 15,26 l 1,0 0,1 -1,0 z M 16,26 l 1,0 0,1 -1,0 z M 17,26 l 1,0 0,1 -1,0 z M 18,26 l 1,0 0,1 -1,0 z M 21,26 l 1,0 0,1 -1,0 z M 22,26 l 1,0 0,1 -1,0 z M 23,26 l 1,0 0,1 -1,0 z M 24,26 l 1,0 0,1 -1,0 z M 25,26 l 1,0 0,1 -1,0 z M 26,26 l 1,0 0,1 -1,0 z M 27,26 l 1,0 0,1 -1,0 z M 0,27 l 1,0 0,1 -1,0 z M 6,27 l 1,0 0,1 -1,0 z M 8,27 l 1,0 0,1 -1,0 z M 9,27 l 1,0 0,1 -1,0 z M 10,27 l 1,0 0,1 -1,0 z M 11,27 l 1,0 0,1 -1,0 z M 12,27 l 1,0 0,1 -1,0 z M 14,27 l 1,0 0,1 -1,0 z M 15,27 l 1,0 0,1 -1,0 z M 16,27 l 1,0 0,1 -1,0 z M 18,27 l 1,0 0,1 -1,0 z M 19,27 l 1,0 0,1 -1,0 z M 20,27 l 1,0 0,1 -1,0 z M 23,27 l 1,0 0,1 -1,0 z M 25,27 l 1,0 0,1 -1,0 z M 27,27 l 1,0 0,1 -1,0 z M 0,28 l 1,0 0,1 -1,0 z M 1,28 l 1,0 0,1 -1,0 z M 2,28 l 1,0 0,1 -1,0 z M 3,28 l 1,0 0,1 -1,0 z M 4,28 l 1,0 0,1 -1,0 z M 5,28 l 1,0 0,1 -1,0 z M 6,28 l 1,0 0,1 -1,0 z M 8,28 l 1,0 0,1 -1,0 z M 12,28 l 1,0 0,1 -1,0 z M 13,28 l 1,0 0,1 -1,0 z M 14,28 l 1,0 0,1 -1,0 z M 15,28 l 1,0 0,1 -1,0 z M 17,28 l 1,0 0,1 -1,0 z M 19,28 l 1,0 0,1 -1,0 z M 22,28 l 1,0 0,1 -1,0 z M 23,28 l 1,0 0,1 -1,0 z M 24,28 l 1,0 0,1 -1,0 z M 25,28 l 1,0 0,1 -1,0 z M 26,28 l 1,0 0,1 -1,0 z "
+      />
+    </svg>
+  );
+}
+
 // Quick Topic Chips
 const TOPIC_CHIPS = [
   { id: 'random', label: '🎲 Surprise Me', topic: 'random' },
@@ -458,15 +477,15 @@ export function TwfReviewBooster() {
     }
   };
 
-  // Fluid Typewriter Effect for Streaming Review Generation
+// Fluid Typewriter Effect for Seamlessly Quick Streaming Review Generation
   const startTypewriter = (fullText: string) => {
     if (typewriterRef.current) clearInterval(typewriterRef.current);
     setReviewText('');
     setIsGenerating(true);
 
     let idx = 0;
-    const speed = 14; // ms per tick
-    const step = 2; // 2 characters per tick
+    const speed = 8; // ultra-fast 8ms tick
+    const step = 4; // 4 characters per tick (~500 chars/second)
 
     typewriterRef.current = setInterval(() => {
       idx += step;
@@ -480,14 +499,14 @@ export function TwfReviewBooster() {
     }, speed);
   };
 
-  // Hybrid Review Generator (API with 2.2s timeout + Local Combinatorial Dictionary)
+  // Hybrid Review Generator (API with 1.2s timeout + Local Combinatorial Dictionary)
   const handleGenerate = async (topicOverride?: string) => {
     setIsGenerating(true);
     const activeTopic = topicOverride || selectedTopic;
 
     let generatedText = '';
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2200);
+    const timeoutId = setTimeout(() => controller.abort(), 1200);
 
     try {
       const res = await fetch('/api/review', {
@@ -510,7 +529,7 @@ export function TwfReviewBooster() {
         }
       }
     } catch {
-      // Sluggish internet, offline, or timeout: proceed to local generator
+      // Sluggish internet, offline, or timeout: proceed to local generator immediately
     }
 
     // High-entropy local combinatorial fallback ensures 100% uniqueness offline
@@ -530,7 +549,7 @@ export function TwfReviewBooster() {
 
     let polished = '';
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2200);
+    const timeoutId = setTimeout(() => controller.abort(), 1200);
 
     try {
       const res = await fetch('/api/review', {
@@ -915,17 +934,16 @@ export function TwfReviewBooster() {
               </p>
             </div>
 
-            {/* QR Code Container - Loads Instantly with Zero Latency */}
-            <div className="p-3 bg-white rounded-2xl border-2 border-dashed border-[#14531e]/30 shadow-inner inline-block mx-auto">
-              <img
-                src="/contact-review-qr.svg"
-                alt="Scan to Review The Green Heritage Resort on Google"
-                width={180}
-                height={180}
-                className="w-44 h-44 rounded-xl mx-auto"
-                loading="eager"
-              />
-            </div>
+            {/* QR Code Container - Loads Instantly with Zero Latency (0ms Inline SVG, 0 Redirects) */}
+            <a
+              href="https://www.thegreenheritageresort.in/contact"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Click or Scan to open Review Assistant"
+              className="p-3 bg-white rounded-2xl border-2 border-dashed border-[#14531e]/30 shadow-inner inline-block mx-auto hover:border-[#f0b400] transition-colors cursor-pointer group"
+            >
+              <InstantReviewQrSvg className="w-44 h-44 mx-auto group-hover:scale-[1.02] transition-transform" />
+            </a>
 
             <div className="space-y-1 text-xs text-[#0f1f12]/80 leading-relaxed">
               <p className="font-semibold text-[#14531e]">
